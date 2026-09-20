@@ -1,0 +1,10 @@
+name = "pomwik-waitlist"
+main = "src/index.js"
+compatibility_date = "2026-09-01"
+workers_dev = false
+routes = [{ pattern = "api.pomwik.com", custom_domain = true }]
+
+[[d1_databases]]
+binding = "DB"
+database_name = "pomwik-waitlist"
+database_id = "d689ca9f-0fbc-494e-965c-98c5554e1bc9"

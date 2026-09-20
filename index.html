@@ -14,6 +14,7 @@
   <meta property="og:description" content="Small, well-made apps for phones and the web.">
   <meta property="og:url" content="https://pomwik.com/">
   <meta name="twitter:card" content="summary">
+  <script>document.documentElement.classList.add("js")</script>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -53,52 +54,84 @@
     </section>
 
     <section class="section" id="apps">
-      <div class="section-head">
+      <div class="section-head reveal">
         <p class="eyebrow">Apps</p>
-        <h2>Now in the workshop</h2>
-        <p>The first releases are on the bench. Check back soon — or say hello and we'll tell you when they ship.</p>
+        <h2>Three apps on the way</h2>
+        <p>We're starting with people who need a hand. Join a waitlist and we'll email you about that app only, once it's ready to try.</p>
       </div>
 
       <ul class="cards">
-        <li class="card c-1">
-          <div class="icon"></div>
-          <h3>Coming soon</h3>
-          <p>An app that's nearly ready to leave the workshop.</p>
-          <span class="tag">In development</span>
+        <li class="card c-1 reveal" id="voice-companion">
+          <div class="icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M12 3a3 3 0 0 0-3 3v6a3 3 0 0 0 6 0V6a3 3 0 0 0-3-3z"/><path d="M19 11a7 7 0 0 1-14 0M12 18v3"/></svg>
+          </div>
+          <h3>Voice companion</h3>
+          <p>A voice-first companion for older adults living on their own: reminders, calls and simple conversation, set up together with family.</p>
+          <span class="tag">Coming soon</span>
+          <form class="waitlist" data-app="voice-companion" novalidate>
+            <label class="sr-only" for="email-voice">Email address</label>
+            <input id="email-voice" type="email" name="email" placeholder="you@example.com" autocomplete="email" required>
+            <input class="hp" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
+            <button class="btn" type="submit">Join the waitlist</button>
+            <p class="fine">By joining, you agree to get emails about this app only. <a href="privacy.html">Privacy</a></p>
+            <p class="msg" role="status" aria-live="polite"></p>
+          </form>
         </li>
-        <li class="card c-2">
-          <div class="icon"></div>
-          <h3>Coming soon</h3>
-          <p>Something small and useful, currently being sanded smooth.</p>
-          <span class="tag">In development</span>
+
+        <li class="card c-2 reveal" id="hands-free-companion">
+          <div class="icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M7 12V6.5M11 12V4.5M15 12V6M19 13V9"/><path d="M5 13c0 5 3 8 8 8s6-3 6-8"/><path d="M5 13V10.5"/></svg>
+          </div>
+          <h3>Hands-free companion</h3>
+          <p>Everyday help by voice for people with limited hand use, such as tremors, arthritis or missing fingers. No tapping or typing required.</p>
+          <span class="tag">Coming soon</span>
+          <form class="waitlist" data-app="hands-free-companion" novalidate>
+            <label class="sr-only" for="email-hands">Email address</label>
+            <input id="email-hands" type="email" name="email" placeholder="you@example.com" autocomplete="email" required>
+            <input class="hp" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
+            <button class="btn" type="submit">Join the waitlist</button>
+            <p class="fine">By joining, you agree to get emails about this app only. <a href="privacy.html">Privacy</a></p>
+            <p class="msg" role="status" aria-live="polite"></p>
+          </form>
         </li>
-        <li class="card c-3">
-          <div class="icon"></div>
-          <h3>Coming soon</h3>
-          <p>An early sketch that might just turn into the next one.</p>
-          <span class="tag">Prototype</span>
+
+        <li class="card c-3 reveal" id="pet-growth">
+          <div class="icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" class="fill"><circle cx="6.5" cy="10" r="2"/><circle cx="10.5" cy="6" r="2"/><circle cx="15.5" cy="6" r="2"/><circle cx="19" cy="10.5" r="2"/><path d="M12.5 11.5c-3 0-5.5 3-5.5 5.2 0 2 1.8 2.6 5.5 2.6s5.5-.6 5.5-2.6c0-2.2-2.5-5.2-5.5-5.2z"/></svg>
+          </div>
+          <h3>Pet growth</h3>
+          <p>Watch your pet grow. Snap photos, log weight and milestones, and see their growth timeline from the first day onwards.</p>
+          <span class="tag">Coming soon</span>
+          <form class="waitlist" data-app="pet-growth" novalidate>
+            <label class="sr-only" for="email-pet">Email address</label>
+            <input id="email-pet" type="email" name="email" placeholder="you@example.com" autocomplete="email" required>
+            <input class="hp" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
+            <button class="btn" type="submit">Join the waitlist</button>
+            <p class="fine">By joining, you agree to get emails about this app only. <a href="privacy.html">Privacy</a></p>
+            <p class="msg" role="status" aria-live="polite"></p>
+          </form>
         </li>
       </ul>
     </section>
 
     <section class="section" id="approach">
-      <div class="section-head">
+      <div class="section-head reveal">
         <p class="eyebrow">Approach</p>
         <h2>How we build</h2>
       </div>
 
       <div class="pillars">
-        <article>
+        <article class="reveal">
           <span class="num">01</span>
           <h3>Focused</h3>
           <p>Each app does one job and does it well. No feature pile-ups, no clutter between you and what you came to do.</p>
         </article>
-        <article>
+        <article class="reveal">
           <span class="num">02</span>
           <h3>Crafted</h3>
           <p>Design and engineering sit side by side. Motion, spacing and small details get the attention they deserve.</p>
         </article>
-        <article>
+        <article class="reveal">
           <span class="num">03</span>
           <h3>Respectful</h3>
           <p>Fast, light and honest about your data. We build the kind of apps we'd want on our own phones.</p>
@@ -107,9 +140,9 @@
     </section>
 
     <section class="section contact" id="contact">
-      <div class="contact-box">
+      <div class="contact-box reveal">
         <h2>Let's talk.</h2>
-        <p>Have an idea, a question, or want early access to what we're building?</p>
+        <p>Have a question, or want to help shape what we're building?</p>
         <a class="btn btn-light" href="mailto:hello@pomwik.com">hello@pomwik.com</a>
       </div>
     </section>
@@ -120,9 +153,9 @@
       <img src="favicon.svg" alt="" width="24" height="24">
       <span>Pomwik</span>
     </div>
-    <p>&copy; <span id="year">2026</span> Pomwik. All rights reserved.</p>
+    <p>&copy; <span id="year">2026</span> Pomwik &middot; <a href="privacy.html">Privacy</a></p>
   </footer>
 
-  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+  <script src="app.js"></script>
 </body>
 </html>
