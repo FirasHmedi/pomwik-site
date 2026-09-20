@@ -1,29 +1,33 @@
 :root {
-  --bg: #FFF4E6;
+  --bg: #EEF5FF;
   --surface: #FFFFFF;
-  --ink: #2A1A17;
-  --muted: #6E5A55;
-  --line: #EAD7C3;
-  --accent: #E2374B;
+  --ink: #0B2A5B;
+  --muted: #47639A;
+  --line: #CADBF5;
+  --accent: #1F5BFF;
   --accent-ink: #FFFFFF;
-  --amber: #FFB84D;
-  --teal: #2BA39B;
-  --dark-panel: #2A1A17;
-  --dark-panel-ink: #FFF4E6;
+  --sky: #5CC8FF;
+  --cyan: #0FA3D9;
+  --violet: #6B7CFF;
+  --dark-panel: #0B2A5B;
+  --dark-panel-ink: #EEF5FF;
+  --shadow: rgba(11, 42, 91, .18);
   --radius: 22px;
   --font: ui-rounded, "SF Pro Rounded", "Nunito", "Segoe UI", system-ui, -apple-system, sans-serif;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --bg: #17110F;
-    --surface: #221917;
-    --ink: #FFF1E2;
-    --muted: #BCA79F;
-    --line: #3A2B27;
-    --accent: #F0485B;
-    --dark-panel: #E2374B;
+    --bg: #071229;
+    --surface: #0E1F45;
+    --ink: #E4EEFF;
+    --muted: #93AAD6;
+    --line: #1C3364;
+    --accent: #4C86FF;
+    --accent-ink: #061229;
+    --dark-panel: #1F5BFF;
     --dark-panel-ink: #FFFFFF;
+    --shadow: rgba(0, 0, 0, .45);
   }
 }
 
@@ -52,7 +56,7 @@ a { color: inherit; }
 }
 .skip:focus { left: 8px; }
 
-:focus-visible { outline: 3px solid var(--amber); outline-offset: 3px; border-radius: 8px; }
+:focus-visible { outline: 3px solid var(--sky); outline-offset: 3px; border-radius: 8px; }
 
 /* ---------- Layout ---------- */
 .nav, .hero, .section, .footer {
@@ -112,19 +116,19 @@ h1 em { font-style: normal; color: var(--accent); }
 .tile {
   position: absolute; border-radius: 26%;
   display: grid; place-items: center;
-  box-shadow: 0 14px 0 rgba(0,0,0,.10), 0 22px 40px rgba(42,26,23,.18);
+  box-shadow: 0 14px 0 rgba(0,0,0,.10), 0 22px 40px var(--shadow);
   animation: bob 6s ease-in-out infinite;
 }
 .tile span { display: block; border-radius: 50%; background: rgba(255,255,255,.92); }
 .t1 { width: 46%; height: 46%; left: 4%;  top: 6%;  background: var(--accent); transform: rotate(-8deg); }
 .t1 span { width: 46%; height: 46%; }
-.t2 { width: 34%; height: 34%; right: 4%; top: 2%;  background: var(--amber);  transform: rotate(9deg);  animation-delay: -1.5s; }
-.t2 span { width: 30%; height: 30%; border-radius: 30%; background: rgba(42,26,23,.85); }
-.t3 { width: 38%; height: 38%; right: 8%; top: 40%; background: var(--teal);   transform: rotate(-5deg); animation-delay: -3s; }
+.t2 { width: 34%; height: 34%; right: 4%; top: 2%;  background: var(--sky);  transform: rotate(9deg);  animation-delay: -1.5s; }
+.t2 span { width: 30%; height: 30%; border-radius: 30%; background: rgba(11,42,91,.85); }
+.t3 { width: 38%; height: 38%; right: 8%; top: 40%; background: var(--cyan);   transform: rotate(-5deg); animation-delay: -3s; }
 .t3 span { width: 48%; height: 12%; border-radius: 999px; }
-.t4 { width: 30%; height: 30%; left: 8%;  bottom: 6%; background: #7A5CFA;      transform: rotate(7deg);  animation-delay: -4.2s; }
+.t4 { width: 30%; height: 30%; left: 8%;  bottom: 6%; background: var(--violet);      transform: rotate(7deg);  animation-delay: -4.2s; }
 .t4 span { width: 34%; height: 34%; border-radius: 12%; transform: rotate(45deg); }
-.t5 { width: 26%; height: 26%; left: 46%; bottom: 0;  background: #FF8A5B;      transform: rotate(-12deg); animation-delay: -2.4s; }
+.t5 { width: 26%; height: 26%; left: 46%; bottom: 0;  background: #8FD9FF;      transform: rotate(-12deg); animation-delay: -2.4s; }
 .t5 span { width: 40%; height: 40%; }
 
 @keyframes bob {
@@ -153,9 +157,9 @@ h1 em { font-style: normal; color: var(--accent); }
 }
 .card:hover { transform: translateY(-4px) rotate(-.4deg); border-color: var(--ink); }
 .card .icon { width: 64px; height: 64px; border-radius: 26%; margin-bottom: 20px; box-shadow: 0 5px 0 rgba(0,0,0,.12); }
-.c-red .icon   { background: var(--accent); }
-.c-amber .icon { background: var(--amber); }
-.c-teal .icon  { background: var(--teal); }
+.c-1 .icon   { background: var(--accent); }
+.c-2 .icon { background: var(--sky); }
+.c-3 .icon  { background: var(--cyan); }
 .card h3 { margin: 0 0 6px; font-size: 1.3rem; letter-spacing: -0.02em; }
 .card p { margin: 0 0 18px; color: var(--muted); }
 .tag {
@@ -179,7 +183,7 @@ h1 em { font-style: normal; color: var(--accent); }
   position: relative; overflow: hidden;
 }
 .contact-box::before, .contact-box::after {
-  content: ""; position: absolute; border-radius: 50%; opacity: .18; background: var(--amber);
+  content: ""; position: absolute; border-radius: 50%; opacity: .18; background: var(--sky);
 }
 .contact-box::before { width: 260px; height: 260px; left: -80px; top: -90px; }
 .contact-box::after  { width: 180px; height: 180px; right: -50px; bottom: -70px; background: var(--accent); opacity: .5; }
