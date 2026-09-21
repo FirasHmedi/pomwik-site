@@ -132,7 +132,8 @@ async function sendWelcome(env, s) {
 <p style="font-size:13px;color:#47639A">You're receiving this because you joined the ${app.name} waitlist at pomwik.com.<br><a href="${unsub}" style="color:#47639A">Unsubscribe</a></p>
 </div>`;
   const subject = `You're on the ${app.name} waitlist`;
-  if (env.WELCOME_WEBHOOK_URL) return sendViaWebhook(env, s.email, subject, text, html);
+  // Resend (authenticated pomwik.com sender) is preferred; the Gmail webhook is only a fallback.
+  if (!env.RESEND_API_KEY) return sendViaWebhook(env, s.email, subject, text, html);
 
   const r = await fetch('https://api.resend.com/emails', {
     method: 'POST',
