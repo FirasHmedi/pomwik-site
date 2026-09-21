@@ -1,8 +1,17 @@
 'use strict';
 
-const WAITLIST_URL = 'https://api.pomwik.com/waitlist';
+const DEFAULT_API = 'https://api.pomwik.com/waitlist';
+const isLocal = ['127.0.0.1', 'localhost'].includes(location.hostname);
+// On localhost only, ?api=http://127.0.0.1:8787/waitlist lets you test against a local Worker.
+const WAITLIST_URL = (isLocal && new URLSearchParams(location.search).get('api')) || DEFAULT_API;
 
-document.getElementById('year').textContent = new Date().getFullYear();
+const ERRORS = {
+  invalid_email: "That email address doesn't look right. Please check it.",
+  invalid_domain: "We couldn't find that email domain. Please check the spelling.",
+};
+
+const yearEl = document.getElementById('year');
+if (yearEl) yearEl.textContent = new Date().getFullYear();
 
 document.querySelectorAll('form.waitlist').forEach((form) => {
   const input = form.elements.email;
@@ -13,11 +22,12 @@ document.querySelectorAll('form.waitlist').forEach((form) => {
     msg.textContent = text;
     msg.dataset.kind = kind || '';
   };
+  const field = (name) => (form.elements[name] ? form.elements[name].value : '');
 
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
     const email = input.value.trim();
-    if (!input.checkValidity() || !email) {
+    if (!email || !input.checkValidity()) {
       say('Please enter a valid email address.', 'error');
       input.focus();
       return;
@@ -32,13 +42,20 @@ document.querySelectorAll('form.waitlist').forEach((form) => {
         body: JSON.stringify({
           email,
           app: form.dataset.app,
-          website: form.elements.website.value,
+          a1: field('a1'),
+          a2: field('a2'),
+          website: field('website'),
         }),
       });
-      if (!res.ok) throw new Error(String(res.status));
+      if (!res.ok) {
+        let code = '';
+        try { code = (await res.json()).error; } catch {}
+        button.disabled = false;
+        say(ERRORS[code] || "Couldn't sign you up just now. Please try again in a moment.", 'error');
+        return;
+      }
       form.classList.add('done');
-      input.value = '';
-      say("You're on the list. Thank you!", 'ok');
+      say("You're on the list! Check your inbox for a welcome email.", 'ok');
     } catch (err) {
       button.disabled = false;
       say("Couldn't sign you up just now. Please try again in a moment.", 'error');

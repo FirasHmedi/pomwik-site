@@ -1,0 +1,8 @@
+{
+  "name": "pomwik-waitlist",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "mimetext": "^3.0.27"
+  }
+}

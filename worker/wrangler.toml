@@ -1,8 +1,19 @@
 name = "pomwik-waitlist"
 main = "src/index.js"
 compatibility_date = "2026-09-01"
+compatibility_flags = ["nodejs_compat"]
 workers_dev = false
 routes = [{ pattern = "api.pomwik.com", custom_domain = true }]
+
+[vars]
+PUBLIC_API = "https://api.pomwik.com"
+FROM_EMAIL = "hello@pomwik.com"
+NOTIFY_FROM = "waitlist@pomwik.com"
+
+# Sends the owner notification through Email Routing (free, verified addresses only).
+# The recipient (OWNER_EMAIL) and the optional RESEND_API_KEY are Worker secrets, not stored here.
+[[send_email]]
+name = "OWNER_MAIL"
 
 [[d1_databases]]
 binding = "DB"
