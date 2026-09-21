@@ -55,7 +55,7 @@ document.querySelectorAll('form.waitlist').forEach((form) => {
         return;
       }
       form.classList.add('done');
-      say("You're on the list! Check your inbox for a welcome email.", 'ok');
+      say("You're on the list! Check your inbox (and spam folder) for a welcome email.", 'ok');
     } catch (err) {
       button.disabled = false;
       say("Couldn't sign you up just now. Please try again in a moment.", 'error');
