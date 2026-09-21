@@ -92,8 +92,21 @@ async function sendOwnerNotice(env, s, total) {
   return true;
 }
 
+// Sends through a Google Apps Script web app that mails from the studio's Gmail account (free, no DNS changes).
+async function sendViaWebhook(env, to, subject, text, html) {
+  const r = await fetch(env.WELCOME_WEBHOOK_URL, {
+    method: 'POST',
+    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+    body: JSON.stringify({ secret: env.WELCOME_WEBHOOK_SECRET, to, subject, text, html }),
+    redirect: 'follow',
+  });
+  const out = await r.json().catch(() => ({}));
+  if (!r.ok || out.ok !== true) console.error('webhook failed', r.status, JSON.stringify(out).slice(0, 200));
+  return r.ok && out.ok === true;
+}
+
 async function sendWelcome(env, s) {
-  if (!env.RESEND_API_KEY) return false;
+  if (!env.WELCOME_WEBHOOK_URL && !env.RESEND_API_KEY) return false;
   const app = APPS[s.app];
   const unsub = `${env.PUBLIC_API}/unsubscribe?t=${s.token}`;
   const text = [
@@ -118,6 +131,9 @@ async function sendWelcome(env, s) {
 <p>- Pomwik</p>
 <p style="font-size:13px;color:#47639A">You're receiving this because you joined the ${app.name} waitlist at pomwik.com.<br><a href="${unsub}" style="color:#47639A">Unsubscribe</a></p>
 </div>`;
+  const subject = `You're on the ${app.name} waitlist`;
+  if (env.WELCOME_WEBHOOK_URL) return sendViaWebhook(env, s.email, subject, text, html);
+
   const r = await fetch('https://api.resend.com/emails', {
     method: 'POST',
     headers: { Authorization: `Bearer ${env.RESEND_API_KEY}`, 'Content-Type': 'application/json' },
@@ -125,7 +141,7 @@ async function sendWelcome(env, s) {
       from: `Pomwik <${env.FROM_EMAIL}>`,
       to: [s.email],
       reply_to: env.FROM_EMAIL,
-      subject: `You're on the ${app.name} waitlist`,
+      subject,
       text,
       html,
       headers: { 'List-Unsubscribe': `<${unsub}>`, 'List-Unsubscribe-Post': 'List-Unsubscribe=One-Click' },
