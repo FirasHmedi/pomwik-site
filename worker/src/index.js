@@ -72,7 +72,7 @@ async function sendOwnerNotice(env, s, total) {
   const msg = createMimeMessage();
   msg.setSender({ name: 'Pomwik waitlist', addr: env.NOTIFY_FROM });
   msg.setRecipient(env.OWNER_EMAIL);
-  msg.setSubject(`[${app.name}] New waitlist signup`);
+  msg.setSubject(`[${app.name}] New signup: ${s.email}`);
   msg.addMessage({
     contentType: 'text/plain',
     data: [
