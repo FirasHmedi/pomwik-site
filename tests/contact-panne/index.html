@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Témoin panne — Pomwik</title>
+  <meta name="description" content="Écrivez à Pomwik : une question, un projet, une remarque.">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="theme-color" content="#EEF5FF" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#071229" media="(prefers-color-scheme: dark)">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <script>document.documentElement.classList.add("js")</script>
+  <link rel="stylesheet" href="/style.css">
+  <style>
+    .contact-page { max-width: 620px; margin: 0 auto; padding: 32px 16px 64px; }
+    .contact-page h1 { font-size: clamp(1.8rem, 4vw, 2.4rem); letter-spacing: -0.03em; margin: 0 0 8px; }
+    .contact-page .lede { color: var(--muted); margin: 0 0 20px; }
+    .contact-form label { display: block; font-weight: 700; margin: 14px 0 6px; font-size: .95rem; }
+    .contact-form input[type="text"]:not(.hp), .contact-form input[type="email"], .contact-form textarea {
+      width: 100%; font: inherit; font-size: 1rem; padding: 13px 16px; border-radius: 14px;
+      background: var(--bg); color: var(--ink); border: 2px solid var(--line); box-sizing: border-box;
+    }
+    .contact-form textarea { min-height: 140px; resize: vertical; }
+    .contact-form input:focus, .contact-form textarea:focus { border-color: var(--accent); outline: none; }
+    .contact-form .btn { margin-top: 18px; }
+    .contact-form .msg { margin-top: 14px; font-weight: 600; }
+    .contact-form .msg[data-kind="ok"] { color: var(--accent); }
+    .contact-form .msg[data-kind="error"] { color: #C62828; }
+    .contact-form.done label, .contact-form.done input, .contact-form.done textarea, .contact-form.done button { display: none; }
+    .contact-page .fine { font-size: .88rem; color: var(--muted); margin-top: 18px; }
+    .contact-page .fine a { color: var(--accent); }
+  </style>
+</head>
+<body>
+  <header class="nav">
+    <a class="brand" href="/" aria-label="Accueil Pomwik">
+      <img src="/favicon.svg" alt="" width="32" height="32">
+      <span>Pomwik</span>
+    </a>
+    <nav aria-label="Principal">
+      <a class="btn btn-small" href="/">Retour au site</a>
+    </nav>
+  </header>
+
+  <main class="contact-page" id="main">
+    <h1>Nous écrire (page témoin)</h1>
+    <p class="lede">Page de test : elle affiche « envoyé » mais n'envoie volontairement aucun e-mail. Ne l'utilisez pas pour nous écrire.</p>
+    <form class="contact-form" data-endpoint="https://api.pomwik.com/contact-panne" novalidate>
+      <label for="nom">Nom</label>
+      <input id="nom" type="text" name="nom" autocomplete="name" required maxlength="100">
+      <label for="email">E-mail</label>
+      <input id="email" type="email" name="email" autocomplete="email" required maxlength="254">
+      <label for="message">Message</label>
+      <textarea id="message" name="message" required maxlength="4000"></textarea>
+      <input class="hp" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
+      <button class="btn" type="submit">Envoyer</button>
+      <p class="msg" role="status" aria-live="polite"></p>
+    </form>
+    <p class="fine">Vos nom, e-mail et message servent uniquement à vous répondre. <a href="/privacy.html">Confidentialité</a></p>
+  </main>
+
+  <footer class="footer">
+    <div class="brand">
+      <img src="/favicon.svg" alt="" width="24" height="24">
+      <span>Pomwik</span>
+    </div>
+    <p>&copy; 2026 Pomwik &middot; <a href="/mentions-legales.html">Mentions légales</a> &middot; <a href="/privacy.html">Confidentialité</a></p>
+  </footer>
+
+  <script src="/contact.js"></script>
+</body>
+</html>
