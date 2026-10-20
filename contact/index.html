@@ -15,6 +15,7 @@
     .contact-page { max-width: 620px; margin: 0 auto; padding: 32px 16px 64px; }
     .contact-page h1 { font-size: clamp(1.8rem, 4vw, 2.4rem); letter-spacing: -0.03em; margin: 0 0 8px; }
     .contact-page .lede { color: var(--muted); margin: 0 0 20px; }
+    .contact-page .about { margin: -8px 0 24px; padding: 14px 16px; border-left: 3px solid var(--accent); background: var(--surface, transparent); }
     .contact-form label { display: block; font-weight: 700; margin: 14px 0 6px; font-size: .95rem; }
     .contact-form input[type="text"]:not(.hp), .contact-form input[type="email"], .contact-form textarea {
       width: 100%; font: inherit; font-size: 1rem; padding: 13px 16px; border-radius: 14px;
@@ -43,8 +44,9 @@
   </header>
 
   <main class="contact-page" id="main">
-    <h1>Nous écrire</h1>
-    <p class="lede">Une question ou un projet&nbsp;? Écrivez-nous, on répond sous 48 heures.</p>
+    <h1>Contact</h1>
+    <p class="lede">Une question ou un projet&nbsp;? Écrivez-moi, je réponds sous 48 heures.</p>
+    <p class="about">Pomwik, c'est Firas Hmedi, développeur web. Je lis chaque message et je fais les tests moi-même.</p>
     <form class="contact-form" data-endpoint="https://api.pomwik.com/contact" novalidate>
       <label for="nom">Nom</label>
       <input id="nom" type="text" name="nom" autocomplete="name" required maxlength="100">
