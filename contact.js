@@ -7,8 +7,8 @@ const isLocal = ['127.0.0.1', 'localhost'].includes(location.hostname);
 const EMAIL_RE = /^[^\s@]{1,64}@[^\s@.]+(\.[^\s@.]+)+$/;
 
 const SUCCESS = {
-  audit: 'Merci, votre demande d’essai gratuit a bien été envoyée. On vous répond sous 48 heures.',
-  contact: 'Merci, votre message a bien été envoyé. Je vous réponds sous 48 heures.',
+  audit: 'Merci, votre demande d’essai gratuit a bien été envoyée. On vous répond sous 12 heures.',
+  contact: 'Merci, votre message a bien été envoyé. Je vous réponds sous 12 heures.',
 };
 
 document.querySelectorAll('form.contact-form').forEach((form) => {
