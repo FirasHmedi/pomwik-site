@@ -460,3 +460,13 @@ h1 em {
   .row2 { grid-template-columns: 1fr; }
   .rc-list li { grid-template-columns: 96px 1fr; }
 }
+
+/* Texte simple (accueil) */
+.text-block { max-width: 680px; }
+.text-block h2 { margin: 0 0 16px; font-size: clamp(1.7rem, 3.6vw, 2.4rem); line-height: 1.15; letter-spacing: -0.025em; }
+.text-block > p { margin: 0 0 14px; color: var(--muted); font-size: 1.1rem; }
+.text-block > p a { color: var(--accent); }
+.plain-list { list-style: none; margin: 0; padding: 0; }
+.plain-list li { position: relative; padding: 12px 0 12px 26px; border-top: 1px solid var(--line); font-size: 1.05rem; }
+.plain-list li::before { content: ""; position: absolute; left: 4px; top: 21px; width: 8px; height: 8px; border-radius: 50%; background: var(--accent); }
+#controles, #solution, #faq { padding-block: 48px; }
