@@ -412,7 +412,7 @@ h1 em {
 .stat-n { display: block; font-size: clamp(2rem, 4.5vw, 2.8rem); font-weight: 800; letter-spacing: -0.03em; color: var(--accent); line-height: 1.1; margin-bottom: 8px; }
 .stat p { margin: 0; color: var(--muted); }
 .stats-note { margin: 28px 0 0; color: var(--muted); font-size: .95rem; }
-.stats-note a, .faq a, .audit-mail a, .fine a { color: var(--accent); }
+.stats-note a, .faq a, .audit-mail a, .fine a, .pillars a { color: var(--accent); }
 
 .why { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 22px; }
 .why li { background: var(--surface); border: 2px solid var(--line); border-radius: var(--radius); padding: 24px; }
