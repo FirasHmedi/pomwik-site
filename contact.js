@@ -4,9 +4,11 @@
 // Dans une fonction : app.js déclare aussi isLocal sur la même page.
 const isLocal = ['127.0.0.1', 'localhost'].includes(location.hostname);
 
+const EMAIL_RE = /^[^\s@]{1,64}@[^\s@.]+(\.[^\s@.]+)+$/;
+
 const SUCCESS = {
-  audit: 'Merci, votre demande d’essai gratuit a bien été envoyée. Nous vous répondons sous 48 heures.',
-  contact: 'Merci, votre message a bien été envoyé. Nous vous répondons sous 48 heures.',
+  audit: 'Merci, votre demande d’essai gratuit a bien été envoyée. On vous répond sous 48 heures.',
+  contact: 'Merci, votre message a bien été envoyé. On vous répond sous 48 heures.',
 };
 
 document.querySelectorAll('form.contact-form').forEach((form) => {
@@ -21,13 +23,27 @@ document.querySelectorAll('form.contact-form').forEach((form) => {
     msg.dataset.kind = kind || '';
   };
 
+  // Nom du champ tel qu'affiché, sans la mention « (facultatif) ».
+  const labelOf = (f) => {
+    const l = form.querySelector(`label[for="${f.id}"]`);
+    return l ? l.childNodes[0].textContent.trim() : f.name;
+  };
+
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
     const fields = [...form.querySelectorAll('input[name], select[name], textarea[name]')];
-    const invalid = fields.find((f) => f.name !== 'website' && ((f.required && !f.value.trim()) || !f.checkValidity()));
-    if (invalid) {
-      say('Merci de remplir les champs obligatoires avec une adresse e-mail valide.', 'error');
-      invalid.focus();
+    fields.forEach((f) => { if (f.name !== 'website') f.value = f.value.trim(); });
+    const empty = fields.find((f) => f.name !== 'website' && f.required && !f.value);
+    if (empty) {
+      say(`Il manque : ${labelOf(empty)}.`, 'error');
+      empty.focus();
+      return;
+    }
+    // Même règle que le Worker : quelque chose@domaine.extension, tout le reste est accepté.
+    const email = form.querySelector('[name="email"]');
+    if (email && !EMAIL_RE.test(email.value)) {
+      say('Cette adresse e-mail semble incomplète (exemple : nom@entreprise.fr).', 'error');
+      email.focus();
       return;
     }
     const data = { type };
@@ -43,7 +59,11 @@ document.querySelectorAll('form.contact-form').forEach((form) => {
       });
       if (!res.ok) {
         button.disabled = false;
-        say(res.status === 429 ? 'Trop d’envois depuis votre connexion. Réessayez dans une heure.' : 'Votre message n’a pas pu être envoyé. Réessayez dans un instant, ou écrivez à hello@pomwik.com.', 'error');
+        const code = await res.json().then((j) => j.error).catch(() => '');
+        if (res.status === 429) say('Trop d’envois depuis votre connexion. Réessayez dans une heure.', 'error');
+        else if (code === 'invalid_email') say('Cette adresse e-mail semble incomplète (exemple : nom@entreprise.fr).', 'error');
+        else if (code === 'missing_field') say('Il manque un champ obligatoire.', 'error');
+        else say('Votre message n’a pas pu être envoyé. Réessayez dans un instant, ou écrivez à hello@pomwik.com.', 'error');
         return;
       }
       form.classList.add('done');

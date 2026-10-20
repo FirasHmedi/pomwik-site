@@ -44,19 +44,19 @@
 
   <main class="contact-page" id="main">
     <h1>Nous écrire</h1>
-    <p class="lede">Une question, un projet, une remarque&nbsp;? Écrivez-nous, nous répondons sous 48 heures.</p>
+    <p class="lede">Une question ou un projet&nbsp;? Écrivez-nous, on répond sous 48 heures.</p>
     <form class="contact-form" data-endpoint="https://api.pomwik.com/contact" novalidate>
       <label for="nom">Nom</label>
       <input id="nom" type="text" name="nom" autocomplete="name" required maxlength="100">
       <label for="email">E-mail</label>
-      <input id="email" type="email" name="email" autocomplete="email" required maxlength="254">
+      <input id="email" type="text" inputmode="email" name="email" autocomplete="email" autocapitalize="off" spellcheck="false" required maxlength="254">
       <label for="message">Message</label>
       <textarea id="message" name="message" required maxlength="4000"></textarea>
       <input class="hp" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
       <button class="btn" type="submit">Envoyer</button>
       <p class="msg" role="status" aria-live="polite"></p>
     </form>
-    <p class="fine">Vos nom, e-mail et message servent uniquement à vous répondre. <a href="/privacy.html">Confidentialité</a></p>
+    <p class="fine">On utilise ces informations seulement pour vous répondre. <a href="/privacy.html">Confidentialité</a></p>
   </main>
 
   <footer class="footer">
