@@ -265,15 +265,15 @@ async function sendContactAck(env, c) {
     'Bonjour,',
     '',
     c.audit
-      ? "Nous avons bien reçu votre demande d'audit envoyée depuis pomwik.com. Nous vous répondons sous 48 heures avec le formulaire d'accord et les étapes."
-      : 'Nous avons bien reçu votre message envoyé depuis pomwik.com. Nous vous répondons sous 48 heures.',
+      ? "Nous avons bien reçu votre demande d'audit envoyée depuis pomwik.com. Nous vous répondons sous 12 heures avec le formulaire d'accord et les étapes."
+      : 'Nous avons bien reçu votre message envoyé depuis pomwik.com. Nous vous répondons sous 12 heures.',
     '',
     '- Pomwik',
     '',
     "Ceci est une réponse automatique. Si vous n'avez rien envoyé, ignorez cet e-mail.",
   ].join('\n');
   const html = `<div style="font-family:system-ui,-apple-system,Segoe UI,sans-serif;font-size:16px;line-height:1.6;color:#0B2A5B;max-width:520px">
-<p>Bonjour,</p><p>${c.audit ? "Nous avons bien reçu votre demande d'audit envoyée depuis pomwik.com. Nous vous répondons sous 48 heures avec le formulaire d'accord et les étapes." : 'Nous avons bien reçu votre message envoyé depuis pomwik.com. Nous vous répondons sous 48 heures.'}</p><p>- Pomwik</p>
+<p>Bonjour,</p><p>${c.audit ? "Nous avons bien reçu votre demande d'audit envoyée depuis pomwik.com. Nous vous répondons sous 12 heures avec le formulaire d'accord et les étapes." : 'Nous avons bien reçu votre message envoyé depuis pomwik.com. Nous vous répondons sous 12 heures.'}</p><p>- Pomwik</p>
 <p style="font-size:13px;color:#47639A">Ceci est une réponse automatique. Si vous n'avez rien envoyé, ignorez cet e-mail.</p></div>`;
   if (!env.RESEND_API_KEY) return sendViaWebhook(env, c.email, subject, text, html);
   const r = await fetch('https://api.resend.com/emails', {
