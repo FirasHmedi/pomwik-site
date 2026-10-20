@@ -1,127 +1,273 @@
 <!doctype html>
-<html lang="en">
+<html lang="fr">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Pomwik — an apps studio</title>
-  <meta name="description" content="Pomwik is an independent apps studio. We design and build small, well-made apps for phones and the web.">
+  <title>Pomwik — le contrôle des formulaires et des e-mails pour les agences web</title>
+  <meta name="description" content="Pomwik teste les sites que votre agence maintient comme un vrai visiteur : formulaire envoyé, e-mail arrivé dans la vraie boîte, panier jusqu'à la page de paiement. Tous CMS, sans plugin, rapport en français à votre logo.">
   <meta name="theme-color" content="#EEF5FF" media="(prefers-color-scheme: light)">
   <meta name="theme-color" content="#071229" media="(prefers-color-scheme: dark)">
   <link rel="canonical" href="https://pomwik.com/">
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <meta property="og:type" content="website">
-  <meta property="og:title" content="Pomwik — an apps studio">
-  <meta property="og:description" content="Small, well-made apps for phones and the web.">
+  <meta property="og:locale" content="fr_FR">
+  <meta property="og:title" content="Pomwik — le formulaire de vos clients marche-t-il vraiment ?">
+  <meta property="og:description" content="Formulaire envoyé, e-mail arrivé, panier jusqu'au paiement. Tous CMS, sans plugin, rapport à votre logo.">
   <meta property="og:url" content="https://pomwik.com/">
   <meta name="twitter:card" content="summary">
   <script>document.documentElement.classList.add("js")</script>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <a class="skip" href="#main">Skip to content</a>
+  <a class="skip" href="#main">Aller au contenu</a>
 
   <header class="nav">
-    <a class="brand" href="#top" aria-label="Pomwik home">
+    <a class="brand" href="#top" aria-label="Accueil Pomwik">
       <img src="favicon.svg" alt="" width="32" height="32">
       <span>Pomwik</span>
     </a>
-    <nav aria-label="Primary">
-      <a href="#apps">Apps</a>
-      <a href="#approach">Approach</a>
-      <a class="btn btn-small" href="#contact">Say hello</a>
+    <nav aria-label="Principal">
+      <a href="#controles">Ce qu'on vérifie</a>
+      <a href="#preuves">Preuves</a>
+      <a href="#faq">Questions</a>
+      <a class="btn btn-small" href="#audit">Audit gratuit</a>
     </nav>
   </header>
 
   <main id="main">
     <section class="hero" id="top">
       <div class="hero-copy">
-        <p class="eyebrow">Independent apps studio</p>
-        <h1>Small apps,<br><em>made with care.</em></h1>
-        <p class="lede">Pomwik designs and builds focused apps for phones and the web — quick to open, pleasant to use, and finished down to the last pixel.</p>
+        <p class="eyebrow">Pour les agences web qui maintiennent des sites</p>
+        <h1>Le formulaire de vos clients <em>marche-t-il vraiment&nbsp;?</em></h1>
+        <p class="lede">Pomwik teste les sites que vous maintenez comme un vrai visiteur&nbsp;: il remplit le formulaire, vérifie que l'e-mail arrive dans la vraie boîte, et va jusqu'à la page de paiement des boutiques. WordPress, Shopify, PrestaShop, Webflow, Wix ou sur-mesure, sans rien installer.</p>
         <div class="cta">
-          <a class="btn" href="#apps">See what we're making</a>
-          <a class="btn btn-ghost" href="#contact">Get in touch</a>
+          <a class="btn" href="#audit">Audit gratuit de 10 sites</a>
+          <a class="btn btn-ghost" href="exemple-rapport.pdf">Voir un exemple de rapport</a>
         </div>
+        <p class="hero-note">Rapport en français, à votre logo. Aucun plugin, aucun accès à vos serveurs.</p>
       </div>
 
-      <div class="hero-art" aria-hidden="true">
-        <div class="tile t1"><span></span></div>
-        <div class="tile t2"><span></span></div>
-        <div class="tile t3"><span></span></div>
-        <div class="tile t4"><span></span></div>
-        <div class="tile t5"><span></span></div>
+      <div class="report-card" aria-label="Exemple de rapport Pomwik (sites fictifs)">
+        <div class="rc-head">
+          <span>Rapport du matin</span>
+          <span class="rc-tag">Exemple</span>
+        </div>
+        <ul class="rc-list">
+          <li><span class="st st-ok">OK</span><span><b>Formulaire de contact</b><small>Plomberie Dupont · confirmation lue · 06:12</small></span></li>
+          <li><span class="st st-ok">OK</span><span><b>E-mail arrivé</b><small>Boîte de réception du client · 4 s</small></span></li>
+          <li><span class="st st-ok">OK</span><span><b>Panier jusqu'au paiement</b><small>Boutique Lavande · sans payer</small></span></li>
+          <li><span class="st st-ko">Échec</span><span><b>E-mail jamais arrivé</b><small>Cabinet Leroy · le site affiche «&nbsp;merci&nbsp;»</small></span></li>
+          <li><span class="st st-warn">À corriger</span><span><b>Réglages e-mail du domaine</b><small>Cabinet Leroy · DMARC manquant</small></span></li>
+        </ul>
+        <p class="rc-foot">Une capture datée à chaque étape.</p>
       </div>
     </section>
 
-    <section class="section" id="apps">
+    <section class="section problem">
+      <div class="problem-box reveal">
+        <p class="quote">«&nbsp;Merci, votre message a bien été envoyé.&nbsp;»</p>
+        <h2>… et aucun e-mail n'arrive.</h2>
+        <p>Une mise à jour, un réglage DNS, un CAPTCHA mal configuré&nbsp;: le formulaire affiche toujours «&nbsp;merci&nbsp;», mais la demande ne parvient plus à votre client. Personne ne le voit, jusqu'au jour où il vous demande pourquoi il ne reçoit plus rien. Une surveillance de disponibilité vérifie que le site répond, pas que le formulaire fonctionne.</p>
+      </div>
+    </section>
+
+    <section class="section" id="controles">
       <div class="section-head reveal">
-        <p class="eyebrow">Apps</p>
-        <h2>Four apps, one ready to play</h2>
-        <p>KIBI is live in your browser now. The others launch in about one month: join a waitlist to hear first, and tell us what you'd like them to do.</p>
+        <p class="eyebrow">Ce qu'on vérifie</p>
+        <h2>Ce que fait un visiteur, site par site</h2>
+        <p>Sur chaque site, Pomwik refait le parcours d'un vrai client et garde la preuve de ce qu'il a vu.</p>
       </div>
 
-      <ul class="cards">
-        <li class="card c-1 reveal" id="kibi">
-          <div class="icon" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3.5" y="5" width="10" height="14" rx="1.5" transform="rotate(-8 8.5 12)"/><rect x="10.5" y="4" width="10" height="14" rx="1.5" transform="rotate(8 15.5 11)"/></svg></div>
-          <h3>KIBI</h3>
-          <p>A quick 1v1 card battler. Play animals, unleash power cards, and take your rival's HP to zero. Challenge a friend with a link or play the bot.</p>
-          <span class="tag">Live now in your browser</span>
-          <a class="btn" href="https://kibi.pomwik.com">Play now</a>
+      <ul class="checks">
+        <li class="check reveal">
+          <span class="check-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="M8 9h8M8 13h8M8 17h5"/></svg></span>
+          <h3>Le formulaire de contact</h3>
+          <p>Trouvé tout seul, rempli avec des données marquées [TEST], envoyé. Le message de confirmation ou d'erreur est lu et capturé.</p>
         </li>
-        <li class="card c-3 reveal" id="petty">
-          <div class="icon" aria-hidden="true"><svg viewBox="0 0 24 24" class="fill"><circle cx="6.5" cy="10" r="2"/><circle cx="10.5" cy="6" r="2"/><circle cx="15.5" cy="6" r="2"/><circle cx="19" cy="10.5" r="2"/><path d="M12.5 11.5c-3 0-5.5 3-5.5 5.2 0 2 1.8 2.6 5.5 2.6s5.5-.6 5.5-2.6c0-2.2-2.5-5.2-5.5-5.2z"/></svg></div>
-          <h3>Petty</h3>
-          <p>Watch your puppy or kitten grow. Weekly weight and photos, with the typical range for their breed.</p>
-          <span class="tag">Launching in about one month</span>
-          <a class="btn" href="/petty/">Join the waitlist</a>
+        <li class="check reveal">
+          <span class="check-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="13" rx="2"/><path d="M3 8l9 6 9-6"/></svg></span>
+          <h3>L'e-mail bien arrivé</h3>
+          <p>Par une copie cachée, ou par un filtre dans la boîte du client&nbsp;: on sait si la notification arrive, en combien de temps, et si elle tombe en spam.</p>
         </li>
-        <li class="card c-1 reveal" id="fieldwrite">
-          <div class="icon" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="6" y="4" width="12" height="17" rx="2"/><path d="M9 4h6v3H9zM9 12h6M9 16h4"/></svg></div>
-          <h3>Fieldwrite</h3>
-          <p>Field reports in minutes. Photos and voice notes become a clean, branded PDF for your customer.</p>
-          <span class="tag">Launching in about one month</span>
-          <a class="btn" href="/fieldwrite/">Join the waitlist</a>
+        <li class="check reveal">
+          <span class="check-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3 4h2l2.4 11h11L21 7H6.2"/><circle cx="9" cy="19.5" r="1.5"/><circle cx="17" cy="19.5" r="1.5"/></svg></span>
+          <h3>Le panier jusqu'au paiement</h3>
+          <p>Ajout d'un produit au panier et accès à la page de paiement des boutiques. Le test s'arrête là&nbsp;: rien n'est jamais payé.</p>
         </li>
-        <li class="card c-2 reveal" id="settled">
-          <div class="icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 21s-6-5.2-6-10a6 6 0 1 1 12 0c0 4.8-6 10-6 10z"/><circle cx="12" cy="11" r="2"/></svg></div>
-          <h3>Settled</h3>
-          <p>Your first 30 days in a new country, step by step: bank, phone, housing, healthcare and reminders.</p>
-          <span class="tag">Launching in about one month</span>
-          <a class="btn" href="/settled/">Join the waitlist</a>
+        <li class="check reveal">
+          <span class="check-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><path d="M4 12h16M12 4c2.5 2.3 3.6 5 3.6 8s-1.1 5.7-3.6 8c-2.5-2.3-3.6-5-3.6-8S9.5 6.3 12 4z"/></svg></span>
+          <h3>Les réglages e-mail du domaine</h3>
+          <p>MX, SPF et DMARC&nbsp;: les réglages qui permettent au domaine de recevoir les e-mails et de ne pas finir en spam.</p>
+        </li>
+        <li class="check reveal">
+          <span class="check-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3l9 16H3z"/><path d="M12 10v4M12 17v.5"/></svg></span>
+          <h3>Les défauts qu'on voit sans rien envoyer</h3>
+          <p>Champs qui portent le même nom, clé reCAPTCHA invalide, formulaire bloqué par un CAPTCHA, site qui ne répond plus.</p>
+        </li>
+        <li class="check reveal">
+          <span class="check-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><circle cx="9" cy="10" r="1"/><circle cx="14.5" cy="9" r="1"/><circle cx="14" cy="14.5" r="1"/><circle cx="9.5" cy="15" r="1"/></svg></span>
+          <h3>Les cookies et les mesures</h3>
+          <p>Les mesures Google, Meta ou Microsoft envoyées avant que le visiteur accepte les cookies, quand la bannière s'affiche.</p>
         </li>
       </ul>
     </section>
 
-    <section class="section" id="approach">
+    <section class="section" id="fonctionnement">
       <div class="section-head reveal">
-        <p class="eyebrow">Approach</p>
-        <h2>How we build</h2>
+        <p class="eyebrow">Comment ça marche</p>
+        <h2>Trois étapes, rien à installer</h2>
       </div>
 
       <div class="pillars">
         <article class="reveal">
           <span class="num">01</span>
-          <h3>Focused</h3>
-          <p>Each app does one job and does it well. No feature pile-ups, no clutter between you and what you came to do.</p>
+          <h3>Vous choisissez les sites</h3>
+          <p>Vous nous donnez la liste et votre accord écrit. Si vous voulez la preuve dans la vraie boîte du client, il crée un filtre Gmail ou Outlook en deux minutes&nbsp;: on lui envoie les étapes.</p>
         </article>
         <article class="reveal">
           <span class="num">02</span>
-          <h3>Crafted</h3>
-          <p>Design and engineering sit side by side. Motion, spacing and small details get the attention they deserve.</p>
+          <h3>On teste comme un visiteur</h3>
+          <p>Messages marqués [TEST], jamais de paiement, CAPTCHA jamais contourné. Les mesures publicitaires sont bloquées pendant le test&nbsp;: aucune fausse conversion dans vos statistiques.</p>
         </article>
         <article class="reveal">
           <span class="num">03</span>
-          <h3>Respectful</h3>
-          <p>Fast, light and honest about your data. We build the kind of apps we'd want on our own phones.</p>
+          <h3>Vous recevez le rapport</h3>
+          <p>En français, à votre logo, avec une capture datée à chaque étape et la liste de ce qu'il faut corriger. Prêt à envoyer à vos clients avec votre forfait de maintenance.</p>
         </article>
       </div>
     </section>
 
-    <section class="section contact" id="contact">
+    <section class="section" id="preuves">
+      <div class="section-head reveal">
+        <p class="eyebrow">Ce qu'on a déjà testé</p>
+        <h2>Des chiffres mesurés, pas des promesses</h2>
+        <p>Essais d'octobre 2026&nbsp;: 30 vrais sites publics en lecture seule (rien envoyé), des sites d'entraînement, et notre propre site avec une vraie boîte Gmail.</p>
+      </div>
+
+      <ul class="stats">
+        <li class="stat reveal">
+          <span class="stat-n">23 / 23</span>
+          <p>formulaires trouvés sur 30 vrais sites WordPress, Shopify, PrestaShop, Webflow et Wix, sans plugin. Aucun faux blocage, même résultat sur deux passages.</p>
+        </li>
+        <li class="stat reveal">
+          <span class="stat-n">12 / 30</span>
+          <p>domaines avec au moins un réglage e-mail manquant (MX, SPF ou DMARC), vus de l'extérieur.</p>
+        </li>
+        <li class="stat reveal">
+          <span class="stat-n">&lt; 1 min</span>
+          <p>pour voir la notification de notre formulaire arriver dans la boîte de réception Gmail. Notre page témoin, qui affiche «&nbsp;envoyé&nbsp;» sans rien envoyer, laisse la boîte vide&nbsp;: la panne se voit.</p>
+        </li>
+        <li class="stat reveal">
+          <span class="stat-n">0</span>
+          <p>mesure publicitaire ou statistique envoyée pendant nos tests, sur 60 sites. Vos campagnes et vos chiffres restent propres.</p>
+        </li>
+      </ul>
+      <p class="stats-note reveal">Le détail de chaque essai est disponible sur demande. <a href="exemple-rapport.pdf">Exemple de rapport (sites fictifs, PDF)</a></p>
+    </section>
+
+    <section class="section" id="pourquoi">
+      <div class="section-head reveal">
+        <p class="eyebrow">Pourquoi Pomwik</p>
+        <h2>Fait pour le portefeuille réel d'une agence</h2>
+      </div>
+      <ul class="why">
+        <li class="reveal"><h3>Tous les CMS, sans plugin</h3><p>Les tests de formulaires existants passent souvent par un plugin WordPress. Pomwik ne s'installe nulle part&nbsp;: il teste aussi vos sites Shopify, PrestaShop, Webflow, Wix et sur-mesure.</p></li>
+        <li class="reveal"><h3>La preuve que l'e-mail arrive</h3><p>«&nbsp;Envoyé&nbsp;» ne suffit pas. On vérifie l'arrivée dans une boîte, le délai et le dossier spam.</p></li>
+        <li class="reveal"><h3>Votre rapport, en français</h3><p>À votre logo, pour montrer à vos clients ce que couvre leur forfait de maintenance.</p></li>
+        <li class="reveal"><h3>Sans risque pour vos clients</h3><p>Accord écrit avant tout test, messages identifiables, aucun paiement, aucune fausse conversion, aucun CAPTCHA contourné.</p></li>
+      </ul>
+    </section>
+
+    <section class="section contact" id="fondateurs">
       <div class="contact-box reveal">
-        <h2>Let's talk.</h2>
-        <p>Have a question, or want to help shape what we're building?</p>
-        <a class="btn btn-light" href="mailto:hello@pomwik.com">hello@pomwik.com</a>
+        <p class="eyebrow eyebrow-light">Offre agences fondatrices</p>
+        <h2>3 places pour démarrer ensemble.</h2>
+        <p>Audit gratuit de 10 sites. Puis, à son ouverture, la surveillance quotidienne à un prix fondateur garanti 12 mois, remboursé si le service n'est pas livré à la date annoncée.</p>
+        <a class="btn btn-light" href="#audit">Demander l'audit gratuit</a>
+      </div>
+    </section>
+
+    <section class="section" id="faq">
+      <div class="section-head reveal">
+        <p class="eyebrow">Questions</p>
+        <h2>Les questions qu'on nous pose</h2>
+      </div>
+      <div class="faq">
+        <details class="reveal">
+          <summary>Faut-il installer quelque chose sur les sites&nbsp;?</summary>
+          <p>Non. Pomwik visite les sites depuis l'extérieur, comme un visiteur. Il n'a besoin ni de plugin, ni d'accès FTP, ni de compte administrateur.</p>
+        </details>
+        <details class="reveal">
+          <summary>Mes clients vont-ils recevoir des messages de test&nbsp;?</summary>
+          <p>Oui, un par passage. Chaque message commence par [TEST] et contient la référence «&nbsp;Réf. pomwik&nbsp;», ce qui permet de le reconnaître ou de le filtrer. Vous choisissez le rythme des passages.</p>
+        </details>
+        <details class="reveal">
+          <summary>Comment savez-vous que l'e-mail est arrivé&nbsp;?</summary>
+          <p>Deux façons, au choix&nbsp;: ajouter notre adresse de test en copie cachée du formulaire, ou créer dans la boîte du client un filtre qui transfère uniquement les e-mails contenant «&nbsp;Réf. pomwik&nbsp;». La seconde prouve l'arrivée dans sa vraie boîte de réception. Sans l'une ou l'autre, le rapport l'indique comme «&nbsp;à vérifier&nbsp;».</p>
+        </details>
+        <details class="reveal">
+          <summary>Et les formulaires protégés par un CAPTCHA&nbsp;?</summary>
+          <p>Pomwik ne contourne jamais un CAPTCHA. Le formulaire est signalé comme bloqué. Une clé de test ou l'ajout de notre adresse IP en liste blanche permet de le tester&nbsp;; on vous guide.</p>
+        </details>
+        <details class="reveal">
+          <summary>Est-ce que ça fausse les statistiques ou la publicité&nbsp;?</summary>
+          <p>Non. Pendant le test, les mesures publicitaires et statistiques (Google, Meta, Microsoft, LinkedIn, TikTok, Pinterest) sont bloquées avant de partir. Aucune fausse conversion n'est envoyée.</p>
+        </details>
+        <details class="reveal">
+          <summary>Et le RGPD&nbsp;?</summary>
+          <p>Les tests utilisent des données fictives. Pomwik ne collecte aucune donnée sur les visiteurs des sites de vos clients. Les rapports et captures sont conservés 12 mois. <a href="privacy.html">Politique de confidentialité</a></p>
+        </details>
+        <details class="reveal">
+          <summary>Combien ça coûte&nbsp;?</summary>
+          <p>L'audit de 10 sites est gratuit. Le prix de la surveillance, par site et par mois, se fixe avec les trois agences fondatrices.</p>
+        </details>
+      </div>
+    </section>
+
+    <section class="section" id="audit">
+      <div class="audit-wrap">
+        <div class="audit-intro reveal">
+          <p class="eyebrow">Audit gratuit</p>
+          <h2>Testons 10 de vos sites.</h2>
+          <p>Dites-nous qui vous êtes et combien de sites vous maintenez. Nous vous répondons sous 48 heures avec le formulaire d'accord et les étapes.</p>
+          <p class="audit-mail">Ou écrivez à <a href="mailto:hello@pomwik.com">hello@pomwik.com</a></p>
+        </div>
+        <form class="contact-form audit-form reveal" data-endpoint="https://api.pomwik.com/contact" data-type="audit" novalidate>
+          <div class="row2">
+            <div>
+              <label for="nom">Nom</label>
+              <input id="nom" type="text" name="nom" autocomplete="name" required maxlength="100">
+            </div>
+            <div>
+              <label for="agence">Agence</label>
+              <input id="agence" type="text" name="agence" autocomplete="organization" required maxlength="100">
+            </div>
+          </div>
+          <label for="email">E-mail professionnel</label>
+          <input id="email" type="email" name="email" autocomplete="email" required maxlength="254">
+          <div class="row2">
+            <div>
+              <label for="site_agence">Site de l'agence</label>
+              <input id="site_agence" type="url" name="site_agence" autocomplete="url" placeholder="https://" maxlength="200">
+            </div>
+            <div>
+              <label for="nb_sites">Sites maintenus</label>
+              <select id="nb_sites" name="nb_sites" required>
+                <option value="">Choisir</option>
+                <option>1 à 10</option>
+                <option>11 à 30</option>
+                <option>31 à 100</option>
+                <option>Plus de 100</option>
+              </select>
+            </div>
+          </div>
+          <label for="message">Plateformes et remarques <span class="opt">(facultatif)</span></label>
+          <textarea id="message" name="message" maxlength="4000" placeholder="Par exemple : surtout WordPress et Shopify, quelques sites Webflow"></textarea>
+          <input class="hp" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
+          <button class="btn" type="submit">Demander l'audit gratuit</button>
+          <p class="msg" role="status" aria-live="polite"></p>
+          <p class="fine">Vos réponses servent uniquement à vous recontacter au sujet de l'audit. <a href="privacy.html">Confidentialité</a></p>
+        </form>
       </div>
     </section>
   </main>
@@ -131,9 +277,10 @@
       <img src="favicon.svg" alt="" width="24" height="24">
       <span>Pomwik</span>
     </div>
-    <p>&copy; <span id="year">2026</span> Pomwik &middot; <a href="privacy.html">Privacy</a></p>
+    <p>&copy; <span id="year">2026</span> Pomwik &middot; <a href="contact/">Contact</a> &middot; <a href="mentions-legales.html">Mentions légales</a> &middot; <a href="privacy.html">Confidentialité</a></p>
   </footer>
 
   <script src="app.js"></script>
+  <script src="contact.js"></script>
 </body>
 </html>
