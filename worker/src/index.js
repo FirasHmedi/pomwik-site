@@ -1,7 +1,8 @@
 import { EmailMessage } from 'cloudflare:email';
-import { createMimeMessage } from 'mimetext';
+import { createMimeMessage, Mailbox } from 'mimetext';
+import { PAGES } from './pages.js';
 
-const ALLOWED_ORIGINS = new Set(['https://pomwik.com', 'https://www.pomwik.com']);
+const ALLOWED_ORIGINS = new Set(['https://pomwik.com', 'https://www.pomwik.com', 'https://api.pomwik.com']);
 
 const APPS = {
   petty: { name: 'Petty', tagline: 'watch your puppy or kitten grow' },
@@ -212,22 +213,166 @@ async function unsubscribe(request, env, url) {
   );
 }
 
+// ---------- contact form ----------
+
+const CONTACT_MAX = 4000;
+const CONTACT_PER_IP_HOUR = 5;
+const CONTACT_PER_DAY = 100;
+
+async function sha256(text) {
+  const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(text));
+  return [...new Uint8Array(buf)].map((b) => b.toString(16).padStart(2, '0')).join('');
+}
+
+async function ensureContactTable(env) {
+  await env.DB.prepare(
+    `CREATE TABLE IF NOT EXISTS contact_log (
+       id INTEGER PRIMARY KEY AUTOINCREMENT,
+       created_at TEXT NOT NULL,
+       ip_hash TEXT NOT NULL,
+       mode TEXT NOT NULL,
+       notified INTEGER NOT NULL DEFAULT 0,
+       acked INTEGER NOT NULL DEFAULT 0
+     )`
+  ).run();
+}
+
+// Notification to the site owner, through Email Routing (the recipient must be a verified destination).
+async function sendContactNotice(env, c) {
+  const to = env.CONTACT_TO || env.OWNER_EMAIL;
+  if (!to || !env.OWNER_MAIL) return false;
+  const from = env.CONTACT_FROM || env.NOTIFY_FROM;
+  const msg = createMimeMessage();
+  msg.setSender({ name: 'Formulaire pomwik.com', addr: from });
+  msg.setRecipient(to);
+  msg.setHeader('Reply-To', new Mailbox(c.email)); // mimetext only accepts a Mailbox here
+  msg.setSubject(c.audit ? `Demande d'audit : ${c.agence} (${c.email})` : `Nouveau message de ${c.nom} (${c.email})`);
+  const lines = c.audit
+    ? ["Nouvelle demande d'audit depuis pomwik.com", '', `Nom : ${c.nom}`, `Agence : ${c.agence}`, `E-mail : ${c.email}`, `Site de l'agence : ${c.siteAgence || '-'}`, `Sites maintenus : ${c.nbSites}`, `Date : ${c.created_at}`, '', 'Plateformes et remarques :', c.message || '-']
+    : ['Nouveau message depuis le formulaire de contact de pomwik.com', '', `Nom : ${c.nom}`, `E-mail : ${c.email}`, `Date : ${c.created_at}`, '', 'Message :', c.message];
+  const body = lines.join('\r\n');
+  // Accents in the body: send it base64-encoded (mimetext does not encode it by itself), lines of 76 characters.
+  msg.addMessage({ contentType: 'text/plain', encoding: 'base64', data: Buffer.from(body, 'utf8').toString('base64').replace(/.{76}/g, '$&\r\n') });
+  await env.OWNER_MAIL.send(new EmailMessage(from, to, msg.asRaw()));
+  return true;
+}
+
+// Automatic acknowledgement to the visitor. Fixed text only (nothing the visitor typed), so it can't be used to relay content.
+async function sendContactAck(env, c) {
+  if (!env.RESEND_API_KEY && !env.WELCOME_WEBHOOK_URL) return false;
+  const subject = c.audit ? "Nous avons bien reçu votre demande d'audit" : 'Nous avons bien reçu votre message';
+  const text = [
+    'Bonjour,',
+    '',
+    c.audit
+      ? "Nous avons bien reçu votre demande d'audit envoyée depuis pomwik.com. Nous vous répondons sous 48 heures avec le formulaire d'accord et les étapes."
+      : 'Nous avons bien reçu votre message envoyé depuis pomwik.com. Nous vous répondons sous 48 heures.',
+    '',
+    '- Pomwik',
+    '',
+    "Ceci est une réponse automatique. Si vous n'avez rien envoyé, ignorez cet e-mail.",
+  ].join('\n');
+  const html = `<div style="font-family:system-ui,-apple-system,Segoe UI,sans-serif;font-size:16px;line-height:1.6;color:#0B2A5B;max-width:520px">
+<p>Bonjour,</p><p>${c.audit ? "Nous avons bien reçu votre demande d'audit envoyée depuis pomwik.com. Nous vous répondons sous 48 heures avec le formulaire d'accord et les étapes." : 'Nous avons bien reçu votre message envoyé depuis pomwik.com. Nous vous répondons sous 48 heures.'}</p><p>- Pomwik</p>
+<p style="font-size:13px;color:#47639A">Ceci est une réponse automatique. Si vous n'avez rien envoyé, ignorez cet e-mail.</p></div>`;
+  if (!env.RESEND_API_KEY) return sendViaWebhook(env, c.email, subject, text, html);
+  const r = await fetch('https://api.resend.com/emails', {
+    method: 'POST',
+    headers: { Authorization: `Bearer ${env.RESEND_API_KEY}`, 'Content-Type': 'application/json' },
+    body: JSON.stringify({ from: `Pomwik <${env.FROM_EMAIL}>`, to: [c.email], reply_to: env.FROM_EMAIL, subject, text, html }),
+  });
+  if (!r.ok) console.error('resend ack failed', r.status, await r.text());
+  return r.ok;
+}
+
+// POST /contact sends the emails. POST /contact-panne is a control page: same answer, but it never sends anything,
+// to reproduce a form that says "sent" while no email goes out.
+async function handleContact(request, env, ctx, allowed, mode) {
+  const raw = await request.text();
+  if (raw.length > CONTACT_MAX + 1024) return json({ error: 'too_large' }, 413, allowed);
+  let data;
+  try {
+    data = JSON.parse(raw);
+  } catch {
+    return json({ error: 'bad_json' }, 400, allowed);
+  }
+  if (typeof data.website === 'string' && data.website !== '') return json({ ok: true }, 200, allowed);
+
+  const email = typeof data.email === 'string' ? data.email.trim().toLowerCase() : '';
+  const nom = clean(data.nom, 100);
+  const message = typeof data.message === 'string' ? data.message.replace(/\r\n?/g, '\n').trim().slice(0, CONTACT_MAX) : '';
+  // Audit request from the home page: agency details, message optional.
+  const audit = data.type === 'audit';
+  const agence = clean(data.agence, 100);
+  const siteAgence = clean(data.site_agence, 200);
+  const nbSites = clean(data.nb_sites, 20);
+  if (email.length > 254 || !EMAIL_RE.test(email)) return json({ error: 'invalid_email' }, 400, allowed);
+  if (!nom || (audit ? !agence || !nbSites : !message)) return json({ error: 'missing_field' }, 400, allowed);
+
+  await ensureContactTable(env);
+  const now = Date.now();
+  const ipHash = await sha256(`${request.headers.get('CF-Connecting-IP') || ''}|${new Date(now).toISOString().slice(0, 10)}`);
+  const hourAgo = new Date(now - 3600_000).toISOString();
+  const dayAgo = new Date(now - 86_400_000).toISOString();
+  const perIp = await env.DB.prepare('SELECT COUNT(*) AS n FROM contact_log WHERE ip_hash = ?1 AND created_at > ?2').bind(ipHash, hourAgo).first();
+  const perDay = await env.DB.prepare('SELECT COUNT(*) AS n FROM contact_log WHERE created_at > ?1').bind(dayAgo).first();
+  if (perIp.n >= CONTACT_PER_IP_HOUR || perDay.n >= CONTACT_PER_DAY) return json({ error: 'rate_limited' }, 429, allowed);
+
+  const created_at = new Date(now).toISOString();
+  // The log only serves the rate limit: keep 30 days, as stated on the privacy page.
+  await env.DB.prepare('DELETE FROM contact_log WHERE created_at < ?1').bind(new Date(now - 30 * 86_400_000).toISOString()).run();
+  const row = await env.DB.prepare('INSERT INTO contact_log (created_at, ip_hash, mode) VALUES (?1, ?2, ?3) RETURNING id')
+    .bind(created_at, ipHash, mode)
+    .first();
+  if (mode === 'panne') return json({ ok: true }, 200, allowed);
+
+  const c = { nom, email, message, created_at, audit, agence, siteAgence, nbSites };
+  ctx.waitUntil(
+    (async () => {
+      let notified = false;
+      let acked = false;
+      try {
+        notified = await sendContactNotice(env, c);
+      } catch (e) {
+        console.error('contact notice failed', String(e));
+      }
+      try {
+        acked = await sendContactAck(env, c);
+      } catch (e) {
+        console.error('contact ack failed', String(e));
+      }
+      await env.DB.prepare('UPDATE contact_log SET notified = ?2, acked = ?3 WHERE id = ?1').bind(row.id, notified ? 1 : 0, acked ? 1 : 0).run();
+    })()
+  );
+  return json({ ok: true }, 200, allowed);
+}
+
 // ---------- entry points ----------
 
 export default {
   async fetch(request, env, ctx) {
     const url = new URL(request.url);
     if (url.pathname === '/unsubscribe') return unsubscribe(request, env, url);
+    if (request.method === 'GET') {
+      const path = url.pathname.endsWith('/') ? url.pathname : url.pathname + '/';
+      if (Object.hasOwn(PAGES, path)) {
+        if (path !== url.pathname) return Response.redirect(`${url.origin}${path}`, 301);
+        return new Response(PAGES[path], { headers: { 'Content-Type': 'text/html; charset=utf-8', 'X-Robots-Tag': 'noindex', 'Cache-Control': 'no-store' } });
+      }
+    }
 
     const origin = request.headers.get('Origin') || '';
     const allowed = ALLOWED_ORIGINS.has(origin) || (env.DEV_ORIGIN && origin === env.DEV_ORIGIN) ? origin : '';
 
-    if (url.pathname !== '/waitlist') return json({ error: 'not_found' }, 404, allowed);
+    const routes = ['/waitlist', '/contact', '/contact-panne'];
+    if (!routes.includes(url.pathname)) return json({ error: 'not_found' }, 404, allowed);
     if (request.method === 'OPTIONS') {
       return new Response(null, { status: allowed ? 204 : 403, headers: allowed ? corsHeaders(allowed) : {} });
     }
     if (request.method !== 'POST') return json({ error: 'method_not_allowed' }, 405, allowed);
     if (!allowed) return json({ error: 'forbidden' }, 403, '');
+    if (url.pathname === '/contact') return handleContact(request, env, ctx, allowed, 'normal');
+    if (url.pathname === '/contact-panne') return handleContact(request, env, ctx, allowed, 'panne');
 
     const raw = await request.text();
     if (raw.length > MAX_BODY) return json({ error: 'too_large' }, 413, allowed);

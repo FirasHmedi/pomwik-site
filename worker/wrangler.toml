@@ -9,6 +9,9 @@ routes = [{ pattern = "api.pomwik.com", custom_domain = true }]
 PUBLIC_API = "https://api.pomwik.com"
 FROM_EMAIL = "hello@pomwik.com"
 NOTIFY_FROM = "waitlist@pomwik.com"
+CONTACT_FROM = "contact@pomwik.com"
+# Contact form notifications (must be a verified Email Routing destination). Falls back to OWNER_EMAIL.
+CONTACT_TO = "pomwikapps@gmail.com"
 
 # Sends the owner notification through Email Routing (free, verified addresses only).
 # The recipient (OWNER_EMAIL) and the optional RESEND_API_KEY are Worker secrets, not stored here.
