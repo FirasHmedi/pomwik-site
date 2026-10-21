@@ -3,7 +3,12 @@ name: Worker
 on:
   push:
     branches: [main]
+    paths: ['worker/**', 'contact/**', 'contact.js', 'tests/contact-panne/**', '.github/workflows/worker.yml']
   pull_request:
+
+concurrency:
+  group: worker-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 jobs:
   test:
