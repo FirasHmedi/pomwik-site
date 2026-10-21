@@ -21,3 +21,9 @@ Site statique servi par GitHub Pages (racine du dépôt) et Worker Cloudflare `p
 ## Git
 - Les PR sont fusionnées par Firas ou par la session locale, seulement avec le contrôle `test` vert (obligatoire sur `main`).
 - Messages de commit en français, terminés par la ligne `Co-Authored-By` de la session.
+
+## Sessions cloud : économiser les crédits
+- Une tâche = une PR. Dès la PR ouverte, s'arrêter : ne pas surveiller la CI, ne pas attendre, ne pas envoyer de compte rendu à la session locale (elle lit la PR sur GitHub).
+- Lancer les tests une seule fois : typecheck et le seul labo touché. Ne pas relancer ce qui est déjà vert.
+- Ne cloner que le dépôt de la tâche. Lire seulement les fichiers utiles, pas tout le dépôt.
+- Description de PR courte : ce qui change, ce qui est vérifié, ce qui ne l'est pas.
