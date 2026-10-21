@@ -15,6 +15,8 @@ Run the tests (Vitest inside the Workers runtime, with a local D1 built from `sc
     npm install
     npm test
 
+The CI (`.github/workflows/worker.yml`) runs `npm run check:pages` and `npm test` on every PR and push, then deploys to Cloudflare after each push to `main` (secret `CLOUDFLARE_API_TOKEN`).
+
 A fresh database only needs `schema.sql`; `migrations/` upgrades a database created before those columns existed. `test/schema.test.js` checks that both give the same table.
 
 ## Contact pages
