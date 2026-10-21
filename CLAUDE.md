@@ -14,7 +14,8 @@ Site statique servi par GitHub Pages (racine du dépôt) et Worker Cloudflare `p
 - `npm test` : Vitest dans le runtime Workers, D1 local, aucun réseau. Ajouter les tests dans `worker/test/` avec les helpers de `test/helpers.js`.
 - `src/pages.js` est généré : ne jamais l'éditer à la main. Après un changement de `contact/index.html`, `tests/contact-panne/index.html` ou `contact.js` : `npm run build:pages`. `npm run check:pages` doit passer.
 - Le CI (`.github/workflows/worker.yml`) lance les deux sur chaque PR et chaque push.
-- Déploiement : `npx wrangler deploy` depuis `worker/` (session locale connectée à Cloudflare).
+- Déploiement : automatique après chaque push sur `main` une fois les tests verts (job `deploy` du workflow, secret GitHub `CLOUDFLARE_API_TOKEN`). Sans ce secret : `npx wrangler deploy` depuis `worker/` (session locale connectée à Cloudflare).
+- `main` est protégée : une PR ne peut être fusionnée que si le contrôle `test` est vert.
 
 ## Git
 - Les PR sont fusionnées par Firas, sauf demande explicite.

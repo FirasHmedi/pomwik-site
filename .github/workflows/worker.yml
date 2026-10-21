@@ -21,3 +21,33 @@ jobs:
       - run: npm ci
       - run: npm run check:pages
       - run: npm test
+
+  # Déploiement après chaque push sur main, une fois les tests verts.
+  # Ne fait rien tant que le secret CLOUDFLARE_API_TOKEN n'existe pas (jeton limité au Worker et à D1).
+  deploy:
+    needs: test
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    concurrency: deploy-worker
+    env:
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      CLOUDFLARE_ACCOUNT_ID: ecdbda7659a5905d1dbd4469bb8cb540
+    defaults:
+      run:
+        working-directory: worker
+    steps:
+      - if: env.CLOUDFLARE_API_TOKEN == ''
+        working-directory: .
+        run: echo "Secret CLOUDFLARE_API_TOKEN absent : déploiement automatique désactivé."
+      - if: env.CLOUDFLARE_API_TOKEN != ''
+        uses: actions/checkout@v4
+      - if: env.CLOUDFLARE_API_TOKEN != ''
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: worker/package-lock.json
+      - if: env.CLOUDFLARE_API_TOKEN != ''
+        run: npm ci
+      - if: env.CLOUDFLARE_API_TOKEN != ''
+        run: npx wrangler deploy
