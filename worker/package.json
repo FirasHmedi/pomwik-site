@@ -3,7 +3,9 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "test": "vitest run"
+    "test": "vitest run",
+    "build:pages": "node scripts/build-pages.mjs",
+    "check:pages": "node scripts/build-pages.mjs --check"
   },
   "dependencies": {
     "mimetext": "^3.0.27"
