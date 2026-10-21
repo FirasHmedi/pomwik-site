@@ -36,6 +36,24 @@ export async function call(testEnv, path, { method = 'POST', origin = ORIGIN, ip
   return res;
 }
 
+// Hands one raw email to the Worker's email handler, as the Email Routing catch-all does.
+// Returns the message, so tests can see whether the Worker rejected or forwarded it.
+export async function receive(testEnv, { to, from = 'bounce@site.example', raw, headers = {}, rawSize }) {
+  const message = {
+    from,
+    to,
+    raw: new Response(raw).body,
+    rawSize: rawSize ?? new TextEncoder().encode(raw).length,
+    headers: new Headers(headers),
+    setReject: vi.fn(),
+    forward: vi.fn(async () => {}),
+  };
+  const ctx = createExecutionContext();
+  await worker.email(message, testEnv, ctx);
+  await waitOnExecutionContext(ctx);
+  return message;
+}
+
 // ---------- outbound network ----------
 
 // Answers every fetch the Worker makes: DNS-over-HTTPS lookups, Resend and the Apps Script webhook.

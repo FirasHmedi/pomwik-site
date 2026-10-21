@@ -8,7 +8,8 @@
     "check:pages": "node scripts/build-pages.mjs --check"
   },
   "dependencies": {
-    "mimetext": "^3.0.27"
+    "mimetext": "^3.0.27",
+    "postal-mime": "2.7.6"
   },
   "devDependencies": {
     "@cloudflare/vitest-pool-workers": "^0.23.0",

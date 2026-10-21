@@ -26,3 +26,15 @@ A fresh database only needs `schema.sql`; `migrations/` upgrades a database crea
 To check that `src/pages.js` is up to date (exits with an error if it isn't):
 
     npm run check:pages
+
+## Test inboxes (audit tool)
+
+Mail to `t.<tag>@pomwik.com` reaches this Worker through the Email Routing catch-all (`email` handler in `src/testmail.js`). It is kept 30 days in the `test_mail` table (sender, subject, text, links, SPF/DKIM/DMARC results); mail to any other unknown address is rejected. The audit tool reads it with:
+
+    GET https://api.pomwik.com/mail?to=t.<tag>@pomwik.com&since=<ms>
+    Authorization: Bearer <MAIL_READ_TOKEN>
+
+`MAIL_READ_TOKEN` is a Worker secret (`wrangler secret put MAIL_READ_TOKEN`); without it `/mail` answers 404. Catch-all setup, and how to undo it:
+
+    npx wrangler email routing rules update pomwik.com catch-all --enabled --action-type worker --action-value pomwik-waitlist
+    npx wrangler email routing rules update pomwik.com catch-all --no-enabled --action-type drop
