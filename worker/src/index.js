@@ -28,10 +28,10 @@ function corsHeaders(origin) {
   };
 }
 
-function json(body, status, origin) {
+function json(body, status, origin, extraHeaders) {
   return new Response(JSON.stringify(body), {
     status,
-    headers: { 'Content-Type': 'application/json', ...(origin ? corsHeaders(origin) : {}) },
+    headers: { 'Content-Type': 'application/json', ...(origin ? corsHeaders(origin) : {}), ...extraHeaders },
   });
 }
 
@@ -297,6 +297,8 @@ async function handleContact(request, env, ctx, allowed, mode) {
   } catch {
     return json({ error: 'bad_json' }, 400, allowed);
   }
+  // `null`, a number or a string is valid JSON but not a form.
+  if (data === null || typeof data !== 'object') return json({ error: 'bad_json' }, 400, allowed);
   if (typeof data.website === 'string' && data.website !== '') return json({ ok: true }, 200, allowed);
 
   const email = typeof data.email === 'string' ? data.email.trim().toLowerCase() : '';
@@ -371,7 +373,7 @@ export default {
     if (request.method === 'OPTIONS') {
       return new Response(null, { status: allowed ? 204 : 403, headers: allowed ? corsHeaders(allowed) : {} });
     }
-    if (request.method !== 'POST') return json({ error: 'method_not_allowed' }, 405, allowed);
+    if (request.method !== 'POST') return json({ error: 'method_not_allowed' }, 405, allowed, { Allow: 'POST, OPTIONS' });
     if (!allowed) return json({ error: 'forbidden' }, 403, '');
     if (url.pathname === '/contact') return handleContact(request, env, ctx, allowed, 'normal');
     if (url.pathname === '/contact-panne') return handleContact(request, env, ctx, allowed, 'panne');
@@ -385,6 +387,8 @@ export default {
     } catch {
       return json({ error: 'bad_json' }, 400, allowed);
     }
+    // `null`, a number or a string is valid JSON but not a form.
+    if (data === null || typeof data !== 'object') return json({ error: 'bad_json' }, 400, allowed);
 
     // Honeypot: bots fill the hidden field. Pretend success, store nothing.
     if (typeof data.website === 'string' && data.website !== '') return json({ ok: true }, 200, allowed);
@@ -400,7 +404,7 @@ export default {
     const created_at = new Date().toISOString();
     const token = crypto.randomUUID();
 
-    // A repeat of the same email + app is a no-op with an identical reply, so the list can't be probed.
+    // A repeat of the same email + app keeps the first row and gets an identical reply, so the list can't be probed.
     const inserted = await env.DB.prepare(
       `INSERT INTO signups (email, app, answer, answer2, created_at, token)
        VALUES (?1, ?2, ?3, ?4, ?5, ?6)
@@ -413,6 +417,9 @@ export default {
       const signup = { id: inserted.id, email, app, answer, answer2, created_at, token, welcome_sent: 0, owner_notified: 0 };
       // Send this signup's emails now, then retry anyone still waiting (for example if no email key existed yet).
       ctx.waitUntil(processSignup(env, signup).then(() => retryPending(env)).catch((e) => console.error('retry failed', String(e))));
+    } else {
+      // The unsubscribe page says you can rejoin any time: a repeat after unsubscribing subscribes the address again.
+      await env.DB.prepare('UPDATE signups SET unsubscribed = 0 WHERE email = ?1 AND app = ?2 AND unsubscribed = 1').bind(email, app).run();
     }
     return json({ ok: true }, 200, allowed);
   },

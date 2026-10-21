@@ -168,10 +168,11 @@ describe('POST /waitlist: invalid input', () => {
     expect(await signups()).toEqual([]);
   });
 
-  // Known bug, see the PR description: the body `null` is valid JSON, and reading `data.website` on it throws.
-  it.skip('BUG: answers 400 to a JSON null body instead of throwing', async () => {
-    const res = await join(makeEnv(), 'null');
+  it.each(['null', '42', '"alice@example.com"'])('rejects the JSON body %s with 400 bad_json', async (body) => {
+    const res = await join(makeEnv(), body);
     expect(res.status).toBe(400);
+    expect(await res.json()).toEqual({ error: 'bad_json' });
+    expect(await signups()).toEqual([]);
   });
 });
 
@@ -220,8 +221,9 @@ describe('POST /waitlist: email domain check', () => {
     await accepts('unreachable');
   });
 
-  // Known bug, see the PR description: SERVFAIL comes back as HTTP 200 with Status 2 and no answers,
-  // so it reads as "no records" and the signup is refused, although the code means to fail open on lookup failures.
+  // Known bug, left unfixed on purpose: SERVFAIL comes back as HTTP 200 with Status 2 and no answers, so it reads as
+  // "no records" and the signup is refused, although the code means to fail open on lookup failures. Fixing it turns
+  // the 400 invalid_domain shown on the site into a 200, a visible change that needs its own decision.
   it.skip('BUG: accepts the signup when the resolver answers SERVFAIL (fails open)', async () => {
     await accepts({ status: 2 });
   });
