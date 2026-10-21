@@ -92,7 +92,7 @@ describe('after unsubscribing', () => {
   });
 
   // The unsubscribe page says "you can rejoin any time at pomwik.com".
-  it('joining the waitlist again subscribes the address again, with the usual reply and no new email', async () => {
+  it('joining the waitlist again subscribes the address again and resends the welcome email, so its owner knows', async () => {
     const env = makeEnv();
     await call(env, `/unsubscribe?t=${ALICE}`, { method: 'GET', origin: null });
     const res = await call(env, '/waitlist', { body: { email: ' Alice@example.com', app: 'petty' } });
@@ -101,7 +101,17 @@ describe('after unsubscribing', () => {
     expect(await res.json()).toEqual({ ok: true });
     expect(await state()).toEqual({ 'alice@example.com': 0, 'bob@example.com': 0 });
     expect(mails(env)).toEqual([]);
+    const [welcome, ...others] = outbound('resend');
+    expect(others).toEqual([]);
+    expect(welcome.body).toMatchObject({ to: ['alice@example.com'], subject: "You're on the Petty waitlist" });
+    expect(welcome.body.text).toContain(`Unsubscribe: https://api.pomwik.com/unsubscribe?t=${ALICE}`);
+  });
+
+  it('joining again while still subscribed sends nothing', async () => {
+    const env = makeEnv();
+    await call(env, '/waitlist', { body: { email: 'alice@example.com', app: 'petty' } });
     expect(outbound('resend')).toEqual([]);
+    expect(mails(env)).toEqual([]);
   });
 
   it('keeps the first token, so the unsubscribe link already sent still works', async () => {

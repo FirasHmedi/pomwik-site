@@ -418,8 +418,15 @@ export default {
       // Send this signup's emails now, then retry anyone still waiting (for example if no email key existed yet).
       ctx.waitUntil(processSignup(env, signup).then(() => retryPending(env)).catch((e) => console.error('retry failed', String(e))));
     } else {
-      // The unsubscribe page says you can rejoin any time: a repeat after unsubscribing subscribes the address again.
-      await env.DB.prepare('UPDATE signups SET unsubscribed = 0 WHERE email = ?1 AND app = ?2 AND unsubscribed = 1').bind(email, app).run();
+      // The unsubscribe page says you can rejoin any time. Rejoining sends the welcome email again, with its unsubscribe
+      // link, so nobody can put an unsubscribed address back on the list without its owner knowing.
+      const back = await env.DB.prepare(
+        `UPDATE signups SET unsubscribed = 0, welcome_sent = 0 WHERE email = ?1 AND app = ?2 AND unsubscribed = 1
+         RETURNING id, email, app, answer, answer2, created_at, token, welcome_sent, owner_notified`
+      )
+        .bind(email, app)
+        .first();
+      if (back) ctx.waitUntil(processSignup(env, back).catch((e) => console.error('rejoin failed', String(e))));
     }
     return json({ ok: true }, 200, allowed);
   },
