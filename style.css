@@ -444,7 +444,8 @@ h1 em {
 .contact-form input:focus, .contact-form select:focus, .contact-form textarea:focus { border-color: var(--accent); outline: none; }
 .contact-form .btn { margin-top: 18px; border: 0; cursor: pointer; font: inherit; font-weight: 700; }
 .contact-form .msg { margin: 14px 0 0; font-weight: 600; }
-.contact-form .msg:empty { display: none; }
+/* collapsed, not display:none, so screen readers already know the live region when a message arrives */
+.contact-form .msg:empty { margin: 0; }
 .contact-form .msg[data-kind="ok"] { color: var(--accent); }
 .contact-form .msg[data-kind="error"] { color: #C62828; }
 @media (prefers-color-scheme: dark) { .contact-form .msg[data-kind="error"] { color: #FF8A80; } }
