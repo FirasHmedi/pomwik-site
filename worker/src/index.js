@@ -1,6 +1,7 @@
 import { EmailMessage } from 'cloudflare:email';
 import { createMimeMessage, Mailbox } from 'mimetext';
 import { PAGES } from './pages.js';
+import { receiveTestMail, readTestMail } from './testmail.js';
 
 const ALLOWED_ORIGINS = new Set(['https://pomwik.com', 'https://www.pomwik.com', 'https://api.pomwik.com']);
 
@@ -353,6 +354,7 @@ export default {
   async fetch(request, env, ctx) {
     const url = new URL(request.url);
     if (url.pathname === '/unsubscribe') return unsubscribe(request, env, url);
+    if (url.pathname === '/mail') return readTestMail(request, env, url);
     if (request.method === 'GET') {
       const path = url.pathname.endsWith('/') ? url.pathname : url.pathname + '/';
       if (Object.hasOwn(PAGES, path)) {
@@ -417,5 +419,10 @@ export default {
 
   async scheduled(_event, env, ctx) {
     ctx.waitUntil(retryPending(env));
+  },
+
+  // Email Routing catch-all: stores mail sent to the audit tool's test addresses.
+  async email(message, env) {
+    await receiveTestMail(message, env);
   },
 };
