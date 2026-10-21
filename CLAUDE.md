@@ -9,14 +9,15 @@ Site statique servi par GitHub Pages (racine du dépôt) et Worker Cloudflare `p
 - Ne présenter comme disponible que ce qui est prouvé ; le reste est « inclus dès l'ouverture ».
 - Aucun montant affiché. Délai de réponse annoncé : 12 heures, partout (site, `contact.js`, e-mails du Worker).
 - Nom de Firas sur la page Contact seulement, pas sur l'accueil.
+- Mesure d'audience : extrait Cloudflare Web Analytics (sans cookie) en bas de chaque page, mentionné dans `privacy.html`. Le copier sur toute nouvelle page.
 
 ## Worker (`worker/`)
 - `npm test` : Vitest dans le runtime Workers, D1 local, aucun réseau. Ajouter les tests dans `worker/test/` avec les helpers de `test/helpers.js`.
 - `src/pages.js` est généré : ne jamais l'éditer à la main. Après un changement de `contact/index.html`, `tests/contact-panne/index.html` ou `contact.js` : `npm run build:pages`. `npm run check:pages` doit passer.
 - Le CI (`.github/workflows/worker.yml`) lance les deux sur chaque PR et chaque push.
-- Déploiement : automatique après chaque push sur `main` une fois les tests verts (job `deploy` du workflow, secret GitHub `CLOUDFLARE_API_TOKEN`). Sans ce secret : `npx wrangler deploy` depuis `worker/` (session locale connectée à Cloudflare).
+- Déploiement : automatique après chaque push sur `main` une fois les tests verts (job `deploy` du workflow, secret GitHub `CLOUDFLARE_API_TOKEN`, actif depuis le 21/10/2026). Ne pas déployer à la main sauf urgence.
 - `main` est protégée : une PR ne peut être fusionnée que si le contrôle `test` est vert.
 
 ## Git
-- Les PR sont fusionnées par Firas, sauf demande explicite.
+- Les PR sont fusionnées par Firas ou par la session locale, seulement avec le contrôle `test` vert (obligatoire sur `main`).
 - Messages de commit en français, terminés par la ligne `Co-Authored-By` de la session.
