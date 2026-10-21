@@ -16,3 +16,13 @@ Run the tests (Vitest inside the Workers runtime, with a local D1 built from `sc
     npm test
 
 A fresh database only needs `schema.sql`; `migrations/` upgrades a database created before those columns existed. `test/schema.test.js` checks that both give the same table.
+
+## Contact pages
+
+`src/pages.js` serves copies of `contact/index.html` and `tests/contact-panne/index.html` on api.pomwik.com, with `contact.js` inlined and links pointing to https://pomwik.com. It is generated, so don't edit it by hand. After changing any of those three files, run from `worker/`:
+
+    npm run build:pages
+
+To check that `src/pages.js` is up to date (exits with an error if it isn't):
+
+    npm run check:pages
