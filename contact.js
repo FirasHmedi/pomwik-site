@@ -1,4 +1,4 @@
-// Formulaires de contact et de demande d'audit : envoi au Worker api.pomwik.com, résultat affiché dans la page.
+// Formulaires de contact et de demande d'essai gratuit : envoi au Worker api.pomwik.com, résultat affiché dans la page.
 (() => {
 'use strict';
 // Dans une fonction : app.js déclare aussi isLocal sur la même page.

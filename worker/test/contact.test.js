@@ -63,7 +63,7 @@ describe('POST /contact', () => {
     expect(mail.subject).toBe("Demande d'audit : Agence Web (jean@agence.example)");
     expect(mail.text).toContain("Site de l'agence : agence.example");
     expect(mail.text).toContain('Sites maintenus : 6-20');
-    expect(outbound('resend')).toMatchObject([{ body: { to: ['jean@agence.example'], subject: "Nous avons bien reçu votre demande d'audit" } }]);
+    expect(outbound('resend')).toMatchObject([{ body: { to: ['jean@agence.example'], subject: "Nous avons bien reçu votre demande d'essai gratuit" } }]);
   });
 
   it('still answers {ok: true} and records the failure when the emails cannot be sent', async () => {
