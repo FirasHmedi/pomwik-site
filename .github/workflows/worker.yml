@@ -38,7 +38,7 @@ jobs:
     steps:
       - if: env.CLOUDFLARE_API_TOKEN == ''
         working-directory: .
-        run: echo "Secret CLOUDFLARE_API_TOKEN absent : déploiement automatique désactivé."
+        run: echo 'Secret CLOUDFLARE_API_TOKEN absent, déploiement automatique désactivé.'
       - if: env.CLOUDFLARE_API_TOKEN != ''
         uses: actions/checkout@v4
       - if: env.CLOUDFLARE_API_TOKEN != ''
