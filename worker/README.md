@@ -34,7 +34,8 @@ Mail to `t.<tag>@pomwik.com` reaches this Worker through the Email Routing catch
     GET https://api.pomwik.com/mail?to=t.<tag>@pomwik.com&since=<ms>
     Authorization: Bearer <MAIL_READ_TOKEN>
 
-`MAIL_READ_TOKEN` is a Worker secret (`wrangler secret put MAIL_READ_TOKEN`); without it `/mail` answers 404. Catch-all setup, and how to undo it:
+`MAIL_READ_TOKEN` is a Worker secret (`wrangler secret put MAIL_READ_TOKEN`); without it `/mail` answers 404.
 
-    npx wrangler email routing rules update pomwik.com catch-all --enabled --action-type worker --action-value pomwik-waitlist
+The catch-all points to this Worker (Cloudflare dashboard: Email Routing → Routing rules → Catch-all → Send to a Worker → pomwik-waitlist). Wrangler can only set a catch-all to forward or drop, so either use the dashboard or the API (`PUT /zones/<zone>/email/routing/rules/catch_all` with `{"enabled": true, "matchers": [{"type": "all"}], "actions": [{"type": "worker", "value": ["pomwik-waitlist"]}]}`). To undo:
+
     npx wrangler email routing rules update pomwik.com catch-all --no-enabled --action-type drop
