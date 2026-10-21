@@ -12,7 +12,10 @@
     "postal-mime": "2.7.6"
   },
   "devDependencies": {
-    "@cloudflare/vitest-pool-workers": "^0.23.0",
+    "@cloudflare/vitest-plugin": "1.3.7",
     "vitest": "^4.1.11"
+  },
+  "overrides": {
+    "sharp": "0.35.5"
   }
 }

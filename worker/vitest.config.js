@@ -1,5 +1,5 @@
 import { fileURLToPath } from 'node:url';
-import { cloudflareTest, readD1Migrations } from '@cloudflare/vitest-pool-workers';
+import { cloudflareTest, readD1Migrations } from '@cloudflare/vitest-plugin';
 import { defineConfig } from 'vitest/config';
 
 const dir = (path) => fileURLToPath(new URL(path, import.meta.url));
@@ -13,11 +13,7 @@ export default defineConfig(async () => {
     plugins: [
       cloudflareTest({
         wrangler: { configPath: './wrangler.toml' },
-        miniflare: {
-          // The workerd bundled with @cloudflare/vitest-pool-workers stops at this date; wrangler.toml asks for 2026-09-01.
-          compatibilityDate: '2026-08-22',
-          bindings: { TEST_SCHEMA: schema, TEST_UPGRADE: upgrade },
-        },
+        miniflare: { bindings: { TEST_SCHEMA: schema, TEST_UPGRADE: upgrade } },
       }),
     ],
     test: { setupFiles: ['./test/setup.js'] },

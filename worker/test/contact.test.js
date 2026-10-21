@@ -108,10 +108,15 @@ describe('POST /contact', () => {
     expect(await res.json()).toEqual({ error: 'too_large' });
   });
 
-  // Known bug, see the PR description: same crash as POST /waitlist.
-  it.skip('BUG: answers 400 to a JSON null body instead of throwing', async () => {
-    const res = await call(makeEnv(), '/contact', { body: 'null' });
+  it.each([
+    ['/contact', 'null'],
+    ['/contact', '42'],
+    ['/contact-panne', 'null'],
+  ])('%s rejects the JSON body %s with 400 bad_json', async (path, body) => {
+    const res = await call(makeEnv(), path, { body });
     expect(res.status).toBe(400);
+    expect(await res.json()).toEqual({ error: 'bad_json' });
+    expect(await tableExists('contact_log')).toBe(false);
   });
 });
 
