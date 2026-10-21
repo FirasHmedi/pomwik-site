@@ -108,10 +108,11 @@ describe('405 Method Not Allowed', () => {
     ['PATCH', '/contact'],
     ['GET', '/contact-panne'],
     ['DELETE', '/contact-panne'],
-  ])('answers %s %s with 405 method_not_allowed', async (method, path) => {
+  ])('answers %s %s with 405 method_not_allowed and the allowed methods', async (method, path) => {
     const res = await call(makeEnv(), path, { method });
     expect(res.status).toBe(405);
     expect(await res.json()).toEqual({ error: 'method_not_allowed' });
+    expect(res.headers.get('Allow')).toBe('POST, OPTIONS'); // required on every 405 (RFC 9110, section 15.5.6)
     expect(res.headers.get('Access-Control-Allow-Origin')).toBe(ORIGIN);
   });
 
@@ -126,12 +127,5 @@ describe('405 Method Not Allowed', () => {
     const res = await call(makeEnv(), '/contact', { method: 'GET' });
     expect(res.status).toBe(301);
     expect(res.headers.get('Location')).toBe('https://api.pomwik.com/contact/');
-  });
-
-  // Known bug, see the PR description: RFC 9110 §15.5.6 requires an Allow header on every 405.
-  it.skip('BUG: lists the allowed methods in an Allow header', async () => {
-    const res = await call(makeEnv(), '/waitlist', { method: 'GET' });
-    expect(res.status).toBe(405);
-    expect(res.headers.get('Allow')).toEqual(expect.stringContaining('POST'));
   });
 });

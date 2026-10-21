@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, it } from 'vitest';
-import { call, makeEnv, outbound, rows } from './helpers.js';
+import { call, makeEnv, mails, outbound, rows } from './helpers.js';
 
 const ALICE = '3b241101-e2bb-4255-8caf-4136c566a962';
 const BOB = 'f47ac10b-58cc-4372-a567-0e02b2c3d479';
@@ -91,14 +91,36 @@ describe('after unsubscribing', () => {
     expect(env.OWNER_MAIL.send.mock.calls[0][0].raw).toContain('Total for Petty: 2');
   });
 
-  // Known bug, see the PR description: the unsubscribe page says "you can rejoin any time at pomwik.com",
-  // but the signup hits ON CONFLICT DO NOTHING, so the row stays unsubscribed while the form says "You're on the list!".
-  it.skip('BUG: joining the waitlist again subscribes the address again', async () => {
+  // The unsubscribe page says "you can rejoin any time at pomwik.com".
+  it('joining the waitlist again subscribes the address again, with the usual reply and no new email', async () => {
     const env = makeEnv();
     await call(env, `/unsubscribe?t=${ALICE}`, { method: 'GET', origin: null });
-    const res = await call(env, '/waitlist', { body: { email: 'alice@example.com', app: 'petty' } });
+    const res = await call(env, '/waitlist', { body: { email: ' Alice@example.com', app: 'petty' } });
 
     expect(res.status).toBe(200);
-    expect(await state()).toMatchObject({ 'alice@example.com': 0 });
+    expect(await res.json()).toEqual({ ok: true });
+    expect(await state()).toEqual({ 'alice@example.com': 0, 'bob@example.com': 0 });
+    expect(mails(env)).toEqual([]);
+    expect(outbound('resend')).toEqual([]);
+  });
+
+  it('keeps the first token, so the unsubscribe link already sent still works', async () => {
+    const env = makeEnv();
+    await call(env, `/unsubscribe?t=${ALICE}`, { method: 'GET', origin: null });
+    await call(env, '/waitlist', { body: { email: 'alice@example.com', app: 'petty' } });
+    await call(env, `/unsubscribe?t=${ALICE}`, { method: 'GET', origin: null });
+
+    expect(await rows('SELECT token, unsubscribed FROM signups WHERE email = ?1', 'alice@example.com')).toEqual([{ token: ALICE, unsubscribed: 1 }]);
+  });
+
+  it('joining another app leaves the unsubscribed one as it is', async () => {
+    const env = makeEnv();
+    await call(env, `/unsubscribe?t=${ALICE}`, { method: 'GET', origin: null });
+    await call(env, '/waitlist', { body: { email: 'alice@example.com', app: 'settled' } });
+
+    expect(await rows("SELECT app, unsubscribed FROM signups WHERE email = 'alice@example.com' ORDER BY id")).toEqual([
+      { app: 'petty', unsubscribed: 1 },
+      { app: 'settled', unsubscribed: 0 },
+    ]);
   });
 });
