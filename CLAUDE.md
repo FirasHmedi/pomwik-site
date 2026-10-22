@@ -1,6 +1,6 @@
 # pomwik.com
 
-Site statique servi par GitHub Pages (racine du dépôt) et Worker Cloudflare `pomwik-waitlist` (`worker/`, api.pomwik.com : formulaires, liste d'attente, boîte de réception des e-mails de test).
+Site statique servi par GitHub Pages (racine du dépôt) et Worker Cloudflare `pomwik-waitlist` (`worker/`, api.pomwik.com : formulaires, liste d'attente, boîte de réception des e-mails de test, route `/notify` des e-mails de la surveillance vers les agences, destinataires limités par le secret `NOTIFY_ALLOW`).
 
 **Ce dépôt est public.** Aucune note interne, aucun prix, aucun secret. Les notes de travail sont dans le dépôt privé FirasHmedi/pomwik-memory (`COORDINATION.md` à lire en premier).
 
