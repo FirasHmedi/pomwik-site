@@ -77,7 +77,7 @@ export async function receiveTestMail(message, env) {
   await env.DB.prepare('DELETE FROM test_mail WHERE received_at < ?1').bind(now - TEST_MAIL_KEEP_MS).run();
 }
 
-async function sameSecret(a, b) {
+export async function sameSecret(a, b) {
   const enc = new TextEncoder();
   const [ha, hb] = await Promise.all([a, b].map((s) => crypto.subtle.digest('SHA-256', enc.encode(s))));
   return crypto.subtle.timingSafeEqual(ha, hb);
