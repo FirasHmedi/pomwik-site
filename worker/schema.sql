@@ -13,3 +13,9 @@ CREATE TABLE IF NOT EXISTS signups (
 );
 CREATE INDEX IF NOT EXISTS idx_signups_token ON signups(token);
 CREATE INDEX IF NOT EXISTS idx_signups_pending ON signups(unsubscribed, welcome_sent, owner_notified);
+CREATE TABLE IF NOT EXISTS notify_log (
+  id       INTEGER PRIMARY KEY AUTOINCREMENT,
+  at       INTEGER NOT NULL,
+  kind     TEXT NOT NULL,
+  to_count INTEGER NOT NULL
+);
