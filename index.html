@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Pomwik · on vérifie que vos formulaires envoient vraiment</title>
-  <meta name="description" content="Pomwik teste votre site comme un visiteur : formulaire envoyé, e-mail reçu, panier jusqu'au paiement. Si ça ne marche pas, on vous dit pourquoi et comment le réparer.">
+  <meta name="description" content="Pomwik teste votre site comme un visiteur : formulaire envoyé, accusé de réception reçu, panier jusqu'au paiement. Si ça ne marche pas, on vous dit pourquoi et comment le réparer.">
   <meta name="theme-color" content="#EEF5FF" media="(prefers-color-scheme: light)">
   <meta name="theme-color" content="#071229" media="(prefers-color-scheme: dark)">
   <link rel="canonical" href="https://pomwik.com/">
@@ -13,7 +13,7 @@
   <meta property="og:site_name" content="Pomwik">
   <meta property="og:locale" content="fr_FR">
   <meta property="og:title" content="Pomwik · on vérifie que vos formulaires envoient vraiment">
-  <meta property="og:description" content="Formulaire, e-mail reçu, panier jusqu'au paiement. Si ça ne marche pas, on vous dit pourquoi et comment le réparer.">
+  <meta property="og:description" content="Formulaire, accusé de réception, panier jusqu'au paiement. Si ça ne marche pas, on vous dit pourquoi et comment le réparer.">
   <meta property="og:url" content="https://pomwik.com/">
   <meta property="og:image" content="https://pomwik.com/og-image.png">
   <meta property="og:image:width" content="1200">
@@ -44,7 +44,7 @@
       <div class="hero-copy">
         <p class="eyebrow">Pour les entreprises et les agences web</p>
         <h1>On vérifie que votre formulaire <em>envoie vraiment les messages.</em></h1>
-        <p class="lede">Pomwik remplit le formulaire de votre site comme un visiteur, regarde si l'e-mail arrive dans votre boîte et teste le panier jusqu'à la page de paiement. Si ça ne marche pas, on vous dit pourquoi et comment le réparer.</p>
+        <p class="lede">Pomwik remplit le formulaire de votre site comme un visiteur, vérifie que l'envoi est accepté et que l'accusé de réception arrive, et teste le panier jusqu'à la page de paiement. Si ça ne marche pas, on vous dit pourquoi et comment le réparer.</p>
         <div class="cta">
           <a class="btn" href="#audit">Essai gratuit</a>
           <a class="btn btn-ghost" href="exemple-rapport.pdf">Voir un exemple de rapport</a>
@@ -59,9 +59,9 @@
         </div>
         <ul class="rc-list">
           <li><span class="st st-ok">OK</span><span><b>Formulaire de contact</b><small>plomberie-dupont.exemple · confirmation lue · 06:12</small></span></li>
-          <li><span class="st st-ok">OK</span><span><b>E-mail arrivé</b><small>Boîte de réception du client · 4 s</small></span></li>
+          <li><span class="st st-ok">OK</span><span><b>Accusé de réception reçu</b><small>envoyé par le site au visiteur · 2 s</small></span></li>
           <li><span class="st st-ok">OK</span><span><b>Panier jusqu'au paiement</b><small>lavande-et-co.exemple · sans payer</small></span></li>
-          <li><span class="st st-ko">Échec</span><span><b>E-mail jamais arrivé</b><small>cabinet-avocats.exemple · le site affiche «&nbsp;merci&nbsp;»</small></span></li>
+          <li><span class="st st-ko">Échec</span><span><b>Envoi refusé par le serveur</b><small>cabinet-avocats.exemple · le site affiche «&nbsp;merci&nbsp;»</small></span></li>
           <li><span class="st st-warn">À corriger</span><span><b>Réglages e-mail du domaine</b><small>cabinet-avocats.exemple · DMARC manquant</small></span></li>
         </ul>
         <p class="rc-foot">Une capture datée à chaque étape.</p>
@@ -80,12 +80,14 @@
         <h2>Ce qu'on teste</h2>
         <ul class="plain-list">
           <li>Le formulaire est rempli avec des données marquées [TEST], puis envoyé.</li>
-          <li>On vérifie que l'e-mail arrive, en combien de temps, et s'il finit en spam.</li>
+          <li>On vérifie que le serveur accepte l'envoi et, quand le site envoie un accusé de réception, qu'il arrive, en combien de temps, et s'il finit en spam.</li>
           <li>Sur une boutique, le test va jusqu'à la page de paiement, sans rien payer.</li>
           <li>On regarde les réglages e-mail du domaine (MX, SPF, DMARC).</li>
-          <li>Si Google ou Meta reçoivent des mesures avant l'accord cookies, on le signale.</li>
+          <li>Les cookies : on clique sur «&nbsp;Refuser&nbsp;» et on vérifie que plus rien ne part vers Google ou Meta. On regarde aussi la durée des cookies et le bouton de refus.</li>
+          <li>L'accessibilité : des anomalies détectées automatiquement, rattachées aux critères RGAA, sur l'accueil et une dizaine de pages.</li>
+          <li>La sécurité, vue de l'extérieur : redirection vers un autre site, spam injecté, page défigurée, nouveau script sur la page de paiement. On détecte et on vous alerte.</li>
           <li>Les liens cassés, chaque semaine.</li>
-          <li>En option : inscription à la newsletter, mot de passe oublié, création de compte et réservation en ligne.</li>
+          <li>Aussi inclus : l'inscription à la newsletter, le mot de passe oublié, la création de compte et la réservation en ligne, sans jamais réserver.</li>
         </ul>
       </div>
     </section>
