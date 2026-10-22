@@ -41,3 +41,15 @@ Mail to `t.<tag>@pomwik.com` reaches this Worker through the Email Routing catch
 The catch-all points to this Worker (Cloudflare dashboard: Email Routing → Routing rules → Catch-all → Send to a Worker → pomwik-waitlist). Wrangler can only set a catch-all to forward or drop, so either use the dashboard or the API (`PUT /zones/<zone>/email/routing/rules/catch_all` with `{"enabled": true, "matchers": [{"type": "all"}], "actions": [{"type": "worker", "value": ["pomwik-waitlist"]}]}`). To undo:
 
     npx wrangler email routing rules update pomwik.com catch-all --no-enabled --action-type drop
+
+## Alert e-mails from the monitoring (`POST /notify`)
+
+The audit tool's monitoring (GitHub Actions in the private audit repository) sends agencies their alert e-mails and the weekly summary through this route, with Resend (`Pomwik <FROM_EMAIL>`, header `X-Pomwik-Kind`):
+
+    POST https://api.pomwik.com/notify
+    Authorization: Bearer <MAIL_READ_TOKEN>
+    { "to": ["…"], "subject": "…", "text": "…", "html": "…", "kind": "alerte" | "recap" }
+
+- Same token as `/mail` (`MAIL_READ_TOKEN`, compared in constant time). Missing or wrong token: 401; other method: 405.
+- Recipients must match the Worker secret `NOTIFY_ALLOW`: addresses or whole domains, comma-separated (`someone@example.com,@agency.example`). Set it with `npx wrangler secret put NOTIFY_ALLOW`. Without it the route answers 503 (sending disabled); one recipient outside the list: 403, nothing is sent.
+- 1 to 5 recipients, subject ≤ 200 characters, text ≤ 50 000, html ≤ 200 000 (else 400). At most 50 e-mails per hour (table `notify_log`, kept 30 days; else 429). Resend error: 502.
