@@ -1,6 +1,7 @@
 import { EmailMessage } from 'cloudflare:email';
 import { createMimeMessage, Mailbox } from 'mimetext';
 import { PAGES } from './pages.js';
+import { notify } from './notify.js';
 import { receiveTestMail, readTestMail } from './testmail.js';
 
 const ALLOWED_ORIGINS = new Set(['https://pomwik.com', 'https://www.pomwik.com', 'https://api.pomwik.com']);
@@ -357,6 +358,7 @@ export default {
     const url = new URL(request.url);
     if (url.pathname === '/unsubscribe') return unsubscribe(request, env, url);
     if (url.pathname === '/mail') return readTestMail(request, env, url);
+    if (url.pathname === '/notify') return notify(request, env);
     if (request.method === 'GET') {
       const path = url.pathname.endsWith('/') ? url.pathname : url.pathname + '/';
       if (Object.hasOwn(PAGES, path)) {
