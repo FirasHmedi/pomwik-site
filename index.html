@@ -3,188 +3,179 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Pomwik · on vérifie que vos formulaires envoient vraiment</title>
-  <meta name="description" content="Pomwik teste votre site comme un visiteur : formulaire envoyé, accusé de réception reçu, panier jusqu'au paiement. Si ça ne marche pas, on vous dit pourquoi et comment le réparer.">
-  <meta name="theme-color" content="#EEF5FF" media="(prefers-color-scheme: light)">
-  <meta name="theme-color" content="#071229" media="(prefers-color-scheme: dark)">
+  <title>Pomwik · l'IA au travail dans votre entreprise</title>
+  <meta name="description" content="Pomwik aide les entreprises à utiliser l'IA : assistants, automatisation, analyse de documents, intégration à vos outils. On regarde votre besoin avec vous, puis on construit la solution.">
+  <meta name="theme-color" content="#F7F9FC" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0A1426" media="(prefers-color-scheme: dark)">
   <link rel="canonical" href="https://pomwik.com/">
-  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Pomwik">
   <meta property="og:locale" content="fr_FR">
-  <meta property="og:title" content="Pomwik · on vérifie que vos formulaires envoient vraiment">
-  <meta property="og:description" content="Formulaire, accusé de réception, panier jusqu'au paiement. Si ça ne marche pas, on vous dit pourquoi et comment le réparer.">
+  <meta property="og:title" content="Pomwik · l'IA au travail dans votre entreprise">
+  <meta property="og:description" content="On regarde votre besoin avec vous, on construit la solution d'IA et on la met en service.">
   <meta property="og:url" content="https://pomwik.com/">
-  <meta property="og:image" content="https://pomwik.com/og-image.png">
+  <meta property="og:image" content="https://pomwik.com/og-accueil.png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
-  <meta property="og:image:alt" content="Pomwik : on vérifie que vos formulaires envoient vraiment">
+  <meta property="og:image:alt" content="Pomwik : l'IA au travail dans votre entreprise">
   <meta name="twitter:card" content="summary_large_image">
-  <script>document.documentElement.classList.add("js")</script>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="/accueil.css">
 </head>
 <body>
   <a class="skip" href="#main">Aller au contenu</a>
 
-  <header class="nav">
-    <a class="brand" href="#top" aria-label="Accueil Pomwik">
-      <img src="favicon.svg" alt="" width="32" height="32">
+  <header class="nav wrap">
+    <a class="brand" href="/" aria-label="Accueil Pomwik">
+      <img src="/favicon.svg" alt="" width="32" height="32">
       <span>Pomwik</span>
     </a>
     <nav aria-label="Principal">
-      <a href="#controles">Ce qu'on teste</a>
-      <a href="exemple-rapport.pdf">Exemple de rapport</a>
-      <a href="#faq">Questions</a>
-      <a class="btn btn-small" href="#audit">Essai gratuit</a>
+      <a class="nav-link" href="#solutions">Solutions</a>
+      <a class="nav-link" href="#methode">Méthode</a>
+      <a class="nav-link" href="#questions">Questions</a>
+      <a class="btn btn-small" href="#contact">Nous écrire</a>
     </nav>
   </header>
 
   <main id="main">
-    <section class="hero" id="top">
-      <div class="hero-copy">
-        <p class="eyebrow">Pour les entreprises et les agences web</p>
-        <h1>On vérifie que votre formulaire <em>envoie vraiment les messages.</em></h1>
-        <p class="lede">Pomwik remplit le formulaire de votre site comme un visiteur, vérifie que l'envoi est accepté et que l'accusé de réception arrive, et teste le panier jusqu'à la page de paiement. Si ça ne marche pas, on vous dit pourquoi et comment le réparer.</p>
+    <section class="hero wrap">
+      <div>
+        <p class="eyebrow">Solutions d'IA pour les entreprises</p>
+        <h1>On aide votre entreprise à mettre l'IA au travail.</h1>
+        <p class="lede">Des tâches qui prennent trop de temps, ou une idée sans savoir par où commencer&nbsp;? On regarde votre besoin avec vous, on construit la solution et on la met en service.</p>
         <div class="cta">
-          <a class="btn" href="#audit">Essai gratuit</a>
-          <a class="btn btn-ghost" href="exemple-rapport.pdf">Voir un exemple de rapport</a>
+          <a class="btn" href="#contact">Parler de votre projet</a>
+          <a class="btn btn-ghost" href="#solutions">Voir les solutions</a>
         </div>
-        <p class="hero-note">WordPress, Shopify, Wix, Webflow, PrestaShop ou sur-mesure. Rien à installer.</p>
+        <p class="note">Réponse sous 12 heures.</p>
       </div>
-
-      <div class="report-card" role="figure" aria-label="Exemple de rapport Pomwik (sites fictifs)">
-        <div class="rc-head">
-          <span>Rapport d'audit</span>
-          <span class="rc-tag">Exemple</span>
-        </div>
-        <ul class="rc-list">
-          <li><span class="st st-ok">OK</span><span><b>Formulaire de contact</b><small>plomberie-dupont.exemple · confirmation lue · 06:12</small></span></li>
-          <li><span class="st st-ok">OK</span><span><b>Accusé de réception reçu</b><small>envoyé par le site au visiteur · 2 s</small></span></li>
-          <li><span class="st st-ok">OK</span><span><b>Données du formulaire</b><small>plomberie-dupont.exemple · rien envoyé à des tiers</small></span></li>
-          <li><span class="st st-ko">Échec</span><span><b>Envoi refusé par le serveur</b><small>cabinet-avocats.exemple · le site affiche «&nbsp;merci&nbsp;»</small></span></li>
-          <li><span class="st st-warn">À corriger</span><span><b>Réglages e-mail du domaine</b><small>cabinet-avocats.exemple · DMARC manquant</small></span></li>
+      <aside class="panel" aria-labelledby="exemples">
+        <h2 id="exemples">Par exemple, vous voulez&nbsp;:</h2>
+        <ul class="checks">
+          <li>répondre plus vite aux questions de vos clients&nbsp;;</li>
+          <li>retrouver une information dans vos documents&nbsp;;</li>
+          <li>arrêter de ressaisir les mêmes données&nbsp;;</li>
+          <li>préparer vos rapports en quelques minutes&nbsp;;</li>
+          <li>savoir ce que l'IA peut changer chez vous.</li>
         </ul>
-        <p class="rc-foot">Une capture datée à chaque étape.</p>
+      </aside>
+    </section>
+
+    <section class="section wrap" id="solutions" aria-labelledby="t-solutions">
+      <h2 id="t-solutions">Ce qu'on peut faire pour vous</h2>
+      <div class="grid">
+        <article class="card">
+          <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12a8 8 0 0 1-8 8H4l2.2-3A8 8 0 1 1 21 12Z"/><path d="M9 11h6M9 14h4"/></svg>
+          <h3>Assistants sur mesure</h3>
+          <p>Un assistant qui connaît vos documents et vos procédures, pour votre équipe ou pour vos clients.</p>
+        </article>
+        <article class="card">
+          <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12a8 8 0 0 1 13.7-5.6L20 9"/><path d="M20 4v5h-5"/><path d="M20 12a8 8 0 0 1-13.7 5.6L4 15"/><path d="M4 20v-5h5"/></svg>
+          <h3>Automatisation</h3>
+          <p>Les tâches répétitives, comme le tri des e-mails, la saisie ou les relances, se font sans vous.</p>
+        </article>
+        <article class="card">
+          <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3h7l5 5v13H7z"/><path d="M14 3v5h5"/><path d="M10 13h6M10 17h6"/></svg>
+          <h3>Documents et données</h3>
+          <p>Extraire, classer et résumer ce qui se trouve dans vos fichiers, vos contrats ou vos tableaux.</p>
+        </article>
+        <article class="card">
+          <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 7V3M15 7V3"/><path d="M6 7h12v4a6 6 0 0 1-12 0z"/><path d="M12 17v4"/></svg>
+          <h3>Intégration à vos outils</h3>
+          <p>L'IA se branche sur les logiciels que vous utilisez déjà, sans changer vos habitudes de travail.</p>
+        </article>
+        <article class="card">
+          <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a6 6 0 0 0-3.5 10.9c.6.5 1 1.2 1 2.1h5c0-.9.4-1.6 1-2.1A6 6 0 0 0 12 3Z"/><path d="M10 20h4"/></svg>
+          <h3>Conseil</h3>
+          <p>On vous aide à choisir ce qui vaut le coup, ce qui peut attendre et ce qu'il vaut mieux éviter.</p>
+        </article>
+        <article class="card">
+          <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8" r="3.5"/><path d="M3 20a6 6 0 0 1 12 0"/><path d="M16 5a3.5 3.5 0 0 1 0 6.5M18 15a6 6 0 0 1 3 5"/></svg>
+          <h3>Formation</h3>
+          <p>Vos équipes apprennent à se servir de ces outils au quotidien, sur leurs propres tâches.</p>
+        </article>
       </div>
     </section>
 
-    <section class="section">
-      <div class="text-block reveal">
-        <h2>Un formulaire peut se casser sans prévenir</h2>
-        <p>Après une mise à jour ou un changement de DNS, il peut continuer d'afficher «&nbsp;Merci&nbsp;» sans plus rien envoyer. En général, on s'en aperçoit des semaines plus tard, quand les demandes de devis ont disparu.</p>
-      </div>
+    <section class="section wrap" id="methode" aria-labelledby="t-methode">
+      <h2 id="t-methode">Comment ça se passe</h2>
+      <ol class="steps">
+        <li>
+          <h3>On vous écoute</h3>
+          <p>Vous nous expliquez votre besoin, avec vos mots. Pas besoin de connaître l'IA.</p>
+        </li>
+        <li>
+          <h3>On construit une première version</h3>
+          <p>Vous l'essayez sur de vrais cas et vous nous dites ce qui manque.</p>
+        </li>
+        <li>
+          <h3>On la met en service</h3>
+          <p>La solution rejoint votre travail de tous les jours, et on reste là pour la suite.</p>
+        </li>
+      </ol>
     </section>
 
-    <section class="section" id="controles">
-      <div class="text-block reveal">
-        <h2>Ce qu'on teste</h2>
-        <ul class="plain-list">
-          <li>Le formulaire est rempli avec des données marquées [TEST], puis envoyé.</li>
-          <li>On vérifie que le serveur accepte l'envoi et, quand le site envoie un accusé de réception, qu'il arrive, en combien de temps, et s'il finit en spam.</li>
-          <li>Sur une boutique, le test va jusqu'à la page de paiement, sans rien payer.</li>
-          <li>On regarde les réglages e-mail du domaine (MX, SPF, DMARC).</li>
-          <li>Les cookies : on clique sur «&nbsp;Refuser&nbsp;» et on vérifie que plus rien ne part vers Google ou Meta. On regarde aussi la durée des cookies et le bouton de refus.</li>
-          <li>L'accessibilité : des anomalies détectées automatiquement, rattachées aux critères RGAA, sur l'accueil et une dizaine de pages.</li>
-          <li>La sécurité, vue de l'extérieur : redirection vers un autre site, spam injecté, page défigurée, nouveau script sur la page de paiement. On détecte et on vous alerte.</li>
-          <li>Les liens cassés, chaque semaine.</li>
-          <li>Aussi inclus : l'inscription à la newsletter, le mot de passe oublié, la création de compte et la réservation en ligne, sans jamais réserver.</li>
-        </ul>
-      </div>
-    </section>
-
-    <section class="section" id="solution">
-      <div class="text-block reveal">
-        <h2>Quand quelque chose ne marche pas</h2>
-        <p>Le rapport montre chaque étape en capture d'écran et dit ce qu'il faut corriger. Si vous voulez, on vous aide à le faire, puis on refait le test pour vérifier. Ensuite, on vérifie vos sites chaque jour et on vous prévient seulement si quelque chose casse. Pour les agences, le rapport à votre logo est inclus.</p>
-        <p>En octobre 2026, l'outil a retrouvé les 23 formulaires présents sur 30 vrais sites, sans rien y installer. 12 de ces domaines avaient un réglage e-mail manquant. <a href="exemple-rapport.pdf">Voir un exemple de rapport (PDF)</a></p>
-      </div>
-    </section>
-
-    <section class="section" id="faq">
-      <div class="text-block">
-        <h2 class="reveal">Questions</h2>
-        <div class="faq">
-          <details class="reveal">
-            <summary>Faut-il installer quelque chose&nbsp;?</summary>
-            <p>Non. Pomwik visite le site de l'extérieur, comme n'importe quel visiteur. Pas de plugin, pas d'accès à vos serveurs.</p>
-          </details>
-          <details class="reveal">
-            <summary>Vais-je recevoir des messages de test&nbsp;?</summary>
-            <p>Oui, un par passage. Ils commencent par [TEST] et contiennent «&nbsp;Réf. pomwik&nbsp;», ils sont donc faciles à filtrer.</p>
-          </details>
-          <details class="reveal">
-            <summary>Est-ce sans risque pour le site&nbsp;?</summary>
-            <p>On teste seulement avec votre accord écrit. On ne paie jamais et on ne contourne jamais un CAPTCHA. Les mesures publicitaires sont bloquées pendant le test, donc aucune fausse conversion.</p>
-          </details>
-          <details class="reveal">
-            <summary>Et mes données&nbsp;?</summary>
-            <p>Les tests utilisent des données fictives et Pomwik ne collecte rien sur vos visiteurs. Le détail est dans la <a href="privacy.html">politique de confidentialité</a>.</p>
-          </details>
-          <details class="reveal">
-            <summary>Combien ça coûte&nbsp;?</summary>
-            <p>L'audit est gratuit, jusqu'à 5 sites. Le prix par site et par mois sera fixé avec les agences fondatrices.</p>
-          </details>
+    <section class="section wrap" aria-labelledby="t-exemple">
+      <div class="proof">
+        <div>
+          <h2 id="t-exemple">Un exemple de ce qu'on construit</h2>
+          <p>Notre outil d'audit visite des sites web comme un vrai visiteur, chaque jour, et prévient seulement quand quelque chose casse.</p>
         </div>
+        <a class="btn btn-ghost" href="/audit/">Voir l'audit de sites</a>
       </div>
     </section>
 
-    <section class="section" id="audit">
-      <div class="audit-wrap">
-        <div class="audit-intro reveal">
-          <h2>Essai gratuit</h2>
-          <p>Jusqu'à 5 sites, le vôtre ou ceux de vos clients. On vous répond sous 12 heures avec le formulaire d'accord.</p>
-          <p class="audit-mail">Vous pouvez aussi écrire à <a href="mailto:hello@pomwik.com">hello@pomwik.com</a>.</p>
+    <section class="section wrap" id="questions" aria-labelledby="t-questions">
+      <h2 id="t-questions">Questions</h2>
+      <div class="faq">
+        <details>
+          <summary>Faut-il déjà savoir ce qu'on veut&nbsp;?</summary>
+          <p>Non. Décrivez ce qui vous prend du temps, on regarde ensemble ce que l'IA peut faire, et si elle est utile.</p>
+        </details>
+        <details>
+          <summary>Combien ça coûte&nbsp;?</summary>
+          <p>Ça dépend du projet. Vous avez un prix clair avant que le travail commence.</p>
+        </details>
+        <details>
+          <summary>Et nos données&nbsp;?</summary>
+          <p>On regarde avec vous, dès le début, quelles données la solution utilise et où elles passent.</p>
+        </details>
+      </div>
+    </section>
+
+    <section class="section wrap" id="contact" aria-labelledby="t-contact">
+      <div class="contact">
+        <div>
+          <h2 id="t-contact">Parlons de votre projet</h2>
+          <p>Quelques lignes suffisent. On vous répond sous 12 heures.</p>
+          <p class="note">Vous pouvez aussi écrire à <a href="mailto:hello@pomwik.com">hello@pomwik.com</a>.</p>
         </div>
-        <form class="contact-form audit-form reveal" data-endpoint="https://api.pomwik.com/contact" data-type="audit" novalidate>
-          <div class="row2">
-            <div>
-              <label for="nom">Nom</label>
-              <input id="nom" type="text" name="nom" autocomplete="name" required maxlength="100">
-            </div>
-            <div>
-              <label for="agence">Entreprise ou agence</label>
-              <input id="agence" type="text" name="agence" autocomplete="organization" required maxlength="100">
-            </div>
-          </div>
-          <label for="email">E-mail professionnel</label>
+        <form class="contact-form" data-endpoint="https://api.pomwik.com/contact" novalidate>
+          <label for="nom">Nom</label>
+          <input id="nom" type="text" name="nom" autocomplete="name" required maxlength="100">
+          <label for="email">E-mail</label>
           <input id="email" type="text" inputmode="email" name="email" autocomplete="email" autocapitalize="off" spellcheck="false" required maxlength="254">
-          <div class="row2">
-            <div>
-              <label for="site_agence">Votre site</label>
-              <input id="site_agence" type="text" inputmode="url" name="site_agence" autocomplete="url" autocapitalize="off" spellcheck="false" placeholder="monsite.fr" maxlength="200">
-            </div>
-            <div>
-              <label for="nb_sites">Nombre de sites</label>
-              <select id="nb_sites" name="nb_sites" required>
-                <option value="">Choisir</option>
-                <option>1 à 10</option>
-                <option>11 à 30</option>
-                <option>31 à 100</option>
-                <option>Plus de 100</option>
-              </select>
-            </div>
-          </div>
-          <label for="message">Un mot sur vos sites <span class="opt">(facultatif)</span></label>
-          <textarea id="message" name="message" maxlength="4000" placeholder="Par exemple : un site WordPress et une boutique Shopify"></textarea>
+          <label for="message">Votre besoin</label>
+          <textarea id="message" name="message" required maxlength="4000"></textarea>
           <input class="hp" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
-          <button class="btn" type="submit">Demander l'essai gratuit</button>
+          <button class="btn" type="submit">Envoyer</button>
           <p class="msg" role="status" aria-live="polite"></p>
-          <p class="fine">On utilise ces informations seulement pour vous répondre. <a href="privacy.html">Confidentialité</a></p>
+          <p class="fine">On utilise ces informations seulement pour vous répondre. <a href="/privacy.html">Confidentialité</a></p>
         </form>
       </div>
     </section>
   </main>
 
-  <footer class="footer">
+  <footer class="footer wrap">
     <div class="brand">
-      <img src="favicon.svg" alt="" width="24" height="24">
+      <img src="/favicon.svg" alt="" width="24" height="24">
       <span>Pomwik</span>
     </div>
-    <p>&copy; <span id="year">2026</span> Pomwik &middot; <a href="contact/">Contact</a> &middot; <a href="mentions-legales.html">Mentions légales</a> &middot; <a href="privacy.html">Confidentialité</a></p>
+    <p>&copy; 2026 Pomwik &middot; <a href="/audit/">Audit de sites</a> &middot; <a href="/contact/">Contact</a> &middot; <a href="/mentions-legales.html">Mentions légales</a> &middot; <a href="/privacy.html">Confidentialité</a></p>
   </footer>
 
-  <script src="app.js"></script>
-  <script src="contact.js"></script>
+  <script src="/contact.js"></script>
   <!-- Cloudflare Web Analytics : mesure d'audience sans cookie -->
   <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "57482883c161487785a4a5d64ed3a96f"}'></script>
 </body>
