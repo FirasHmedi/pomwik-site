@@ -5,6 +5,8 @@ Site statique servi par GitHub Pages (racine du dépôt) et Worker Cloudflare `p
 **Ce dépôt est public.** Aucune note interne, aucun prix, aucun secret. Les notes de travail sont dans le dépôt privé FirasHmedi/pomwik-memory (`COORDINATION.md` à lire en premier).
 
 ## Règles du site
+- Accueil (`index.html`, `accueil.css`) : généraliste, solutions d'IA pour les entreprises (pivot du 02/11/2026). L'offre d'audit de sites est dans `audit/` et garde `style.css`. `exemple-rapport.pdf` reste à la racine (liens déjà envoyés).
+- Pas de logo client, de chiffre ni de témoignage inventés.
 - Textes en français, courts et simples, sans tournures « IA ».
 - Ne présenter comme disponible que ce qui est prouvé ; le reste est « inclus dès l'ouverture ».
 - Aucun montant affiché. Délai de réponse annoncé : 12 heures, partout (site, `contact.js`, e-mails du Worker).

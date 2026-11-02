@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Pomwik · on vérifie que vos formulaires envoient vraiment</title>
+  <meta name="description" content="Pomwik teste votre site comme un visiteur : formulaire envoyé, accusé de réception reçu, panier jusqu'au paiement. Si ça ne marche pas, on vous dit pourquoi et comment le réparer.">
+  <meta name="theme-color" content="#EEF5FF" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#071229" media="(prefers-color-scheme: dark)">
+  <link rel="canonical" href="https://pomwik.com/audit/">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Pomwik">
+  <meta property="og:locale" content="fr_FR">
+  <meta property="og:title" content="Pomwik · on vérifie que vos formulaires envoient vraiment">
+  <meta property="og:description" content="Formulaire, accusé de réception, panier jusqu'au paiement. Si ça ne marche pas, on vous dit pourquoi et comment le réparer.">
+  <meta property="og:url" content="https://pomwik.com/audit/">
+  <meta property="og:image" content="https://pomwik.com/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Pomwik : on vérifie que vos formulaires envoient vraiment">
+  <meta name="twitter:card" content="summary_large_image">
+  <script>document.documentElement.classList.add("js")</script>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <a class="skip" href="#main">Aller au contenu</a>
+
+  <header class="nav">
+    <a class="brand" href="/" aria-label="Accueil Pomwik">
+      <img src="/favicon.svg" alt="" width="32" height="32">
+      <span>Pomwik</span>
+    </a>
+    <nav aria-label="Principal">
+      <a href="#controles">Ce qu'on teste</a>
+      <a href="/exemple-rapport.pdf">Exemple de rapport</a>
+      <a href="#faq">Questions</a>
+      <a class="btn btn-small" href="#audit">Essai gratuit</a>
+    </nav>
+  </header>
+
+  <main id="main">
+    <section class="hero" id="top">
+      <div class="hero-copy">
+        <p class="eyebrow">Pour les entreprises et les agences web</p>
+        <h1>On vérifie que votre formulaire <em>envoie vraiment les messages.</em></h1>
+        <p class="lede">Pomwik remplit le formulaire de votre site comme un visiteur, vérifie que l'envoi est accepté et que l'accusé de réception arrive, et teste le panier jusqu'à la page de paiement. Si ça ne marche pas, on vous dit pourquoi et comment le réparer.</p>
+        <div class="cta">
+          <a class="btn" href="#audit">Essai gratuit</a>
+          <a class="btn btn-ghost" href="/exemple-rapport.pdf">Voir un exemple de rapport</a>
+        </div>
+        <p class="hero-note">WordPress, Shopify, Wix, Webflow, PrestaShop ou sur-mesure. Rien à installer.</p>
+      </div>
+
+      <div class="report-card" role="figure" aria-label="Exemple de rapport Pomwik (sites fictifs)">
+        <div class="rc-head">
+          <span>Rapport d'audit</span>
+          <span class="rc-tag">Exemple</span>
+        </div>
+        <ul class="rc-list">
+          <li><span class="st st-ok">OK</span><span><b>Formulaire de contact</b><small>plomberie-dupont.exemple · confirmation lue · 06:12</small></span></li>
+          <li><span class="st st-ok">OK</span><span><b>Accusé de réception reçu</b><small>envoyé par le site au visiteur · 2 s</small></span></li>
+          <li><span class="st st-ok">OK</span><span><b>Données du formulaire</b><small>plomberie-dupont.exemple · rien envoyé à des tiers</small></span></li>
+          <li><span class="st st-ko">Échec</span><span><b>Envoi refusé par le serveur</b><small>cabinet-avocats.exemple · le site affiche «&nbsp;merci&nbsp;»</small></span></li>
+          <li><span class="st st-warn">À corriger</span><span><b>Réglages e-mail du domaine</b><small>cabinet-avocats.exemple · DMARC manquant</small></span></li>
+        </ul>
+        <p class="rc-foot">Une capture datée à chaque étape.</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="text-block reveal">
+        <h2>Un formulaire peut se casser sans prévenir</h2>
+        <p>Après une mise à jour ou un changement de DNS, il peut continuer d'afficher «&nbsp;Merci&nbsp;» sans plus rien envoyer. En général, on s'en aperçoit des semaines plus tard, quand les demandes de devis ont disparu.</p>
+      </div>
+    </section>
+
+    <section class="section" id="controles">
+      <div class="text-block reveal">
+        <h2>Ce qu'on teste</h2>
+        <ul class="plain-list">
+          <li>Le formulaire est rempli avec des données marquées [TEST], puis envoyé.</li>
+          <li>On vérifie que le serveur accepte l'envoi et, quand le site envoie un accusé de réception, qu'il arrive, en combien de temps, et s'il finit en spam.</li>
+          <li>Sur une boutique, le test va jusqu'à la page de paiement, sans rien payer.</li>
+          <li>On regarde les réglages e-mail du domaine (MX, SPF, DMARC).</li>
+          <li>Les cookies : on clique sur «&nbsp;Refuser&nbsp;» et on vérifie que plus rien ne part vers Google ou Meta. On regarde aussi la durée des cookies et le bouton de refus.</li>
+          <li>L'accessibilité : des anomalies détectées automatiquement, rattachées aux critères RGAA, sur l'accueil et une dizaine de pages.</li>
+          <li>La sécurité, vue de l'extérieur : redirection vers un autre site, spam injecté, page défigurée, nouveau script sur la page de paiement. On détecte et on vous alerte.</li>
+          <li>Les liens cassés, chaque semaine.</li>
+          <li>Aussi inclus : l'inscription à la newsletter, le mot de passe oublié, la création de compte et la réservation en ligne, sans jamais réserver.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="section" id="solution">
+      <div class="text-block reveal">
+        <h2>Quand quelque chose ne marche pas</h2>
+        <p>Le rapport montre chaque étape en capture d'écran et dit ce qu'il faut corriger. Si vous voulez, on vous aide à le faire, puis on refait le test pour vérifier. Ensuite, on vérifie vos sites chaque jour et on vous prévient seulement si quelque chose casse. Pour les agences, le rapport à votre logo est inclus.</p>
+        <p>En octobre 2026, l'outil a retrouvé les 23 formulaires présents sur 30 vrais sites, sans rien y installer. 12 de ces domaines avaient un réglage e-mail manquant. <a href="/exemple-rapport.pdf">Voir un exemple de rapport (PDF)</a></p>
+      </div>
+    </section>
+
+    <section class="section" id="faq">
+      <div class="text-block">
+        <h2 class="reveal">Questions</h2>
+        <div class="faq">
+          <details class="reveal">
+            <summary>Faut-il installer quelque chose&nbsp;?</summary>
+            <p>Non. Pomwik visite le site de l'extérieur, comme n'importe quel visiteur. Pas de plugin, pas d'accès à vos serveurs.</p>
+          </details>
+          <details class="reveal">
+            <summary>Vais-je recevoir des messages de test&nbsp;?</summary>
+            <p>Oui, un par passage. Ils commencent par [TEST] et contiennent «&nbsp;Réf. pomwik&nbsp;», ils sont donc faciles à filtrer.</p>
+          </details>
+          <details class="reveal">
+            <summary>Est-ce sans risque pour le site&nbsp;?</summary>
+            <p>On teste seulement avec votre accord écrit. On ne paie jamais et on ne contourne jamais un CAPTCHA. Les mesures publicitaires sont bloquées pendant le test, donc aucune fausse conversion.</p>
+          </details>
+          <details class="reveal">
+            <summary>Et mes données&nbsp;?</summary>
+            <p>Les tests utilisent des données fictives et Pomwik ne collecte rien sur vos visiteurs. Le détail est dans la <a href="/privacy.html">politique de confidentialité</a>.</p>
+          </details>
+          <details class="reveal">
+            <summary>Combien ça coûte&nbsp;?</summary>
+            <p>L'audit est gratuit, jusqu'à 5 sites. Le prix par site et par mois sera fixé avec les agences fondatrices.</p>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="audit">
+      <div class="audit-wrap">
+        <div class="audit-intro reveal">
+          <h2>Essai gratuit</h2>
+          <p>Jusqu'à 5 sites, le vôtre ou ceux de vos clients. On vous répond sous 12 heures avec le formulaire d'accord.</p>
+          <p class="audit-mail">Vous pouvez aussi écrire à <a href="mailto:hello@pomwik.com">hello@pomwik.com</a>.</p>
+        </div>
+        <form class="contact-form audit-form reveal" data-endpoint="https://api.pomwik.com/contact" data-type="audit" novalidate>
+          <div class="row2">
+            <div>
+              <label for="nom">Nom</label>
+              <input id="nom" type="text" name="nom" autocomplete="name" required maxlength="100">
+            </div>
+            <div>
+              <label for="agence">Entreprise ou agence</label>
+              <input id="agence" type="text" name="agence" autocomplete="organization" required maxlength="100">
+            </div>
+          </div>
+          <label for="email">E-mail professionnel</label>
+          <input id="email" type="text" inputmode="email" name="email" autocomplete="email" autocapitalize="off" spellcheck="false" required maxlength="254">
+          <div class="row2">
+            <div>
+              <label for="site_agence">Votre site</label>
+              <input id="site_agence" type="text" inputmode="url" name="site_agence" autocomplete="url" autocapitalize="off" spellcheck="false" placeholder="monsite.fr" maxlength="200">
+            </div>
+            <div>
+              <label for="nb_sites">Nombre de sites</label>
+              <select id="nb_sites" name="nb_sites" required>
+                <option value="">Choisir</option>
+                <option>1 à 10</option>
+                <option>11 à 30</option>
+                <option>31 à 100</option>
+                <option>Plus de 100</option>
+              </select>
+            </div>
+          </div>
+          <label for="message">Un mot sur vos sites <span class="opt">(facultatif)</span></label>
+          <textarea id="message" name="message" maxlength="4000" placeholder="Par exemple : un site WordPress et une boutique Shopify"></textarea>
+          <input class="hp" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
+          <button class="btn" type="submit">Demander l'essai gratuit</button>
+          <p class="msg" role="status" aria-live="polite"></p>
+          <p class="fine">On utilise ces informations seulement pour vous répondre. <a href="/privacy.html">Confidentialité</a></p>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="brand">
+      <img src="/favicon.svg" alt="" width="24" height="24">
+      <span>Pomwik</span>
+    </div>
+    <p>&copy; <span id="year">2026</span> Pomwik &middot; <a href="/contact/">Contact</a> &middot; <a href="/mentions-legales.html">Mentions légales</a> &middot; <a href="/privacy.html">Confidentialité</a></p>
+  </footer>
+
+  <script src="/app.js"></script>
+  <script src="/contact.js"></script>
+  <!-- Cloudflare Web Analytics : mesure d'audience sans cookie -->
+  <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "57482883c161487785a4a5d64ed3a96f"}'></script>
+</body>
+</html>
