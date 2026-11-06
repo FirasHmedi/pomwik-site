@@ -53,7 +53,7 @@
           <li>iOS linking on React Native 0.86 and later;</li>
           <li>builds with Xcode 26.4 (<code>is_pod</code> error);</li>
           <li><code>npm ci</code> hanging on install-time downloads;</li>
-          <li>Google Play's 16 KB rule for Realm 10, 11 and early 12, from 1 February 2027;</li>
+          <li>Google Play's 16 KB rule for older Realm versions, from 1 February 2027;</li>
           <li>SwiftPM, the default in React Native 0.89.</li>
         </ul>
       </aside>
@@ -75,7 +75,7 @@
         <article class="card">
           <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v14c0 1.7 3.6 3 8 3s8-1.3 8-3V5"/><path d="M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/></svg>
           <h3>Leave Realm safely</h3>
-          <p>Your <code>.realm</code> files converted to SQLite on the device, encrypted files included, with checksums and a way back. Every query is compared before and after.</p>
+          <p>We convert your <code>.realm</code> files to SQLite, encrypted files included, and check every object with a checksum. Our test runs Realm queries on both sides and lists every difference.</p>
         </article>
       </div>
     </section>
