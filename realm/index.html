@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Pomwik · React Native apps on Realm®: keep building, then move to SQLite</title>
-  <meta name="description" content="MongoDB deprecated Realm® in 2025. We are preparing an open-source fork of realm-js, tested on Android with React Native 0.88.1 (iOS being tested), and we move local data to SQLite with every object checked.">
+  <meta name="description" content="MongoDB deprecated Realm® in 2025. We are preparing an open-source fork of realm-js, tested on Android emulators (React Native 0.86 to 0.88, Expo SDK 56 to 58) and the iPhone simulator (React Native 0.88.1), and we move local data to SQLite with every object checked.">
   <meta name="theme-color" content="#F7F9FC" media="(prefers-color-scheme: light)">
   <meta name="theme-color" content="#0A1426" media="(prefers-color-scheme: dark)">
   <link rel="canonical" href="https://pomwik.com/realm/">
@@ -13,7 +13,7 @@
   <meta property="og:site_name" content="Pomwik">
   <meta property="og:locale" content="en_US">
   <meta property="og:title" content="Your React Native app still runs on Realm®. Let's keep it shipping.">
-  <meta property="og:description" content="An open-source fork of realm-js in preparation, tested on Android with React Native 0.88.1 (iOS being tested), and a checked move of your local data to SQLite.">
+  <meta property="og:description" content="An open-source fork of realm-js in preparation, tested on Android emulators (React Native 0.86 to 0.88, Expo SDK 56 to 58) and the iPhone simulator (React Native 0.88.1), and a checked move of your local data to SQLite.">
   <meta property="og:url" content="https://pomwik.com/realm/">
   <meta property="og:image" content="https://pomwik.com/realm/og-realm.png">
   <meta property="og:image:width" content="1200">
@@ -75,7 +75,7 @@
         <article class="card">
           <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M14.7 6.3a4 4 0 0 0-5.4 5.4L3 18l3 3 6.3-6.3a4 4 0 0 0 5.4-5.4l-2.5 2.5-2.5-.5-.5-2.5z"/></svg>
           <h3>Keep your app building</h3>
-          <p>We are preparing an open-source fork of the realm-js SDK (v20). On Android with React Native 0.88.1, it builds and runs, with nothing downloaded at install. iOS is being tested. Your code keeps <code>import Realm from "realm"</code>.</p>
+          <p>We are preparing an open-source fork of the realm-js SDK (v20). It builds and runs on Android emulators (React Native 0.86 to 0.88, Expo SDK 56 to 58) and on the iPhone simulator (React Native 0.88.1, Xcode 26.4.1 and 26.6), with nothing downloaded at install. Your code keeps <code>import Realm from "realm"</code>.</p>
         </article>
         <article class="card">
           <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v14c0 1.7 3.6 3 8 3s8-1.3 8-3V5"/><path d="M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/></svg>
@@ -92,18 +92,29 @@
           <h3>The fork, on Android</h3>
           <ul class="checks">
             <li>React Native 0.88.1, new architecture: release build for all 4 Android ABIs</li>
-            <li>Runs on Android 16 emulators with 4 KB and 16 KB pages: read, write, live queries, encrypted realm, data kept after a restart</li>
+            <li>Runs on Android 7, 11 and 16 emulators, and Android 16 with 16 KB pages: read, write, live queries, encrypted realm, data kept after a restart</li>
+            <li>Also runs with React Native 0.86.3 and 0.87.1, and Expo SDK 56, 57 and 58 (emulator with 16 KB pages)</li>
+            <li>Release builds with R8 turned on work (the Expo SDK 58 default)</li>
             <li>All 64-bit native libraries of our test app are 16 KB aligned (24 of 24)</li>
             <li>OpenSSL 3.5.9 LTS included: nothing is downloaded at install or build time</li>
-            <li>Node: installs offline</li>
+          </ul>
+          <h3>The fork, on iOS</h3>
+          <ul class="checks">
+            <li>React Native 0.88.1 with Xcode 26.4.1 and 26.6, with and without frameworks: Debug and Release builds</li>
+            <li>Runs on the iPhone simulator and keeps its data after a restart</li>
+            <li>The build for iPhone devices succeeds (without code signing)</li>
+          </ul>
+          <h3>The fork, in Node</h3>
+          <ul class="checks">
+            <li>Installs offline</li>
+            <li>realm-js's own test suites give the same results as the original realm 20.2.0</li>
           </ul>
         </div>
         <div class="panel">
           <h3>Not tested yet</h3>
           <ul class="checks dots">
-            <li>iOS: being tested</li>
-            <li>React Native 0.86 and 0.87</li>
-            <li>Expo</li>
+            <li>Real phones: so far only emulators and the iPhone simulator</li>
+            <li>iOS with React Native 0.86 or 0.87, or with Expo</li>
           </ul>
           <p class="note">The fork is not public and not on npm yet.</p>
         </div>
