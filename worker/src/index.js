@@ -248,10 +248,12 @@ async function sendContactNotice(env, c) {
   msg.setSender({ name: 'Formulaire pomwik.com', addr: from });
   msg.setRecipient(to);
   msg.setHeader('Reply-To', new Mailbox(c.email)); // mimetext only accepts a Mailbox here
-  msg.setSubject(c.audit ? `Demande d'audit : ${c.agence} (${c.email})` : `Nouveau message de ${c.nom} (${c.email})`);
+  // The audit subject stays as is (mail filter); a plain message names the page it was sent from.
+  msg.setSubject(c.audit ? `Demande d'audit : ${c.agence} (${c.email})` : `Nouveau message de ${c.nom} (${c.email})${c.page ? ` depuis ${c.page}` : ''}`);
+  const origin = [`Page : ${c.page || '-'}`, `Langue : ${c.lang === 'en' ? 'anglais' : 'français'}`];
   const lines = c.audit
-    ? ["Nouvelle demande d'audit depuis pomwik.com", '', `Nom : ${c.nom}`, `Agence : ${c.agence}`, `E-mail : ${c.email}`, `Site de l'agence : ${c.siteAgence || '-'}`, `Sites maintenus : ${c.nbSites}`, `Date : ${c.created_at}`, '', 'Plateformes et remarques :', c.message || '-']
-    : ['Nouveau message depuis le formulaire de contact de pomwik.com', '', `Nom : ${c.nom}`, `E-mail : ${c.email}`, `Date : ${c.created_at}`, '', 'Message :', c.message];
+    ? ["Nouvelle demande d'audit depuis pomwik.com", '', `Nom : ${c.nom}`, `Agence : ${c.agence}`, `E-mail : ${c.email}`, `Site de l'agence : ${c.siteAgence || '-'}`, `Sites maintenus : ${c.nbSites}`, ...origin, `Date : ${c.created_at}`, '', 'Plateformes et remarques :', c.message || '-']
+    : ['Nouveau message depuis le formulaire de contact de pomwik.com', '', `Nom : ${c.nom}`, `E-mail : ${c.email}`, ...origin, `Date : ${c.created_at}`, '', 'Message :', c.message];
   const body = lines.join('\r\n');
   // Accents in the body: send it base64-encoded (mimetext does not encode it by itself), lines of 76 characters.
   msg.addMessage({ contentType: 'text/plain', encoding: 'base64', data: Buffer.from(body, 'utf8').toString('base64').replace(/.{76}/g, '$&\r\n') });
@@ -259,24 +261,35 @@ async function sendContactNotice(env, c) {
   return true;
 }
 
+// Text of the acknowledgement: English when the form was on an English page, French otherwise.
+function contactAckText(c) {
+  if (c.lang === 'en') {
+    return {
+      subject: 'We received your message',
+      hello: 'Hello,',
+      body: 'We received your message sent from pomwik.com. We will reply within 12 hours.',
+      auto: 'This is an automatic reply. If you did not send anything, please ignore this email.',
+    };
+  }
+  return {
+    subject: c.audit ? "Nous avons bien reçu votre demande d'essai gratuit" : 'Nous avons bien reçu votre message',
+    hello: 'Bonjour,',
+    body: c.audit
+      ? "Nous avons bien reçu votre demande d'essai gratuit envoyée depuis pomwik.com. Nous vous répondons sous 12 heures avec le formulaire d'accord et les étapes."
+      : 'Nous avons bien reçu votre message envoyé depuis pomwik.com. Nous vous répondons sous 12 heures.',
+    auto: "Ceci est une réponse automatique. Si vous n'avez rien envoyé, ignorez cet e-mail.",
+  };
+}
+
 // Automatic acknowledgement to the visitor. Fixed text only (nothing the visitor typed), so it can't be used to relay content.
 async function sendContactAck(env, c) {
   if (!env.RESEND_API_KEY && !env.WELCOME_WEBHOOK_URL) return false;
-  const subject = c.audit ? "Nous avons bien reçu votre demande d'essai gratuit" : 'Nous avons bien reçu votre message';
-  const text = [
-    'Bonjour,',
-    '',
-    c.audit
-      ? "Nous avons bien reçu votre demande d'essai gratuit envoyée depuis pomwik.com. Nous vous répondons sous 12 heures avec le formulaire d'accord et les étapes."
-      : 'Nous avons bien reçu votre message envoyé depuis pomwik.com. Nous vous répondons sous 12 heures.',
-    '',
-    '- Pomwik',
-    '',
-    "Ceci est une réponse automatique. Si vous n'avez rien envoyé, ignorez cet e-mail.",
-  ].join('\n');
-  const html = `<div style="font-family:system-ui,-apple-system,Segoe UI,sans-serif;font-size:16px;line-height:1.6;color:#0B2A5B;max-width:520px">
-<p>Bonjour,</p><p>${c.audit ? "Nous avons bien reçu votre demande d'essai gratuit envoyée depuis pomwik.com. Nous vous répondons sous 12 heures avec le formulaire d'accord et les étapes." : 'Nous avons bien reçu votre message envoyé depuis pomwik.com. Nous vous répondons sous 12 heures.'}</p><p>- Pomwik</p>
-<p style="font-size:13px;color:#47639A">Ceci est une réponse automatique. Si vous n'avez rien envoyé, ignorez cet e-mail.</p></div>`;
+  const t = contactAckText(c);
+  const subject = t.subject;
+  const text = [t.hello, '', t.body, '', '- Pomwik', '', t.auto].join('\n');
+  const html = `<div lang="${c.lang}" style="font-family:system-ui,-apple-system,Segoe UI,sans-serif;font-size:16px;line-height:1.6;color:#0B2A5B;max-width:520px">
+<p>${t.hello}</p><p>${t.body}</p><p>- Pomwik</p>
+<p style="font-size:13px;color:#47639A">${t.auto}</p></div>`;
   if (!env.RESEND_API_KEY) return sendViaWebhook(env, c.email, subject, text, html);
   const r = await fetch('https://api.resend.com/emails', {
     method: 'POST',
@@ -310,6 +323,9 @@ async function handleContact(request, env, ctx, allowed, mode) {
   const agence = clean(data.agence, 100);
   const siteAgence = clean(data.site_agence, 200);
   const nbSites = clean(data.nb_sites, 20);
+  // Sent by contact.js: language of the page (fixed list, French by default) and the page itself, for the notice only.
+  const lang = data.lang === 'en' ? 'en' : 'fr';
+  const page = clean(data.page, 200);
   if (email.length > 254 || !EMAIL_RE.test(email)) return json({ error: 'invalid_email' }, 400, allowed);
   if (!nom || (audit ? !agence || !nbSites : !message)) return json({ error: 'missing_field' }, 400, allowed);
 
@@ -330,7 +346,7 @@ async function handleContact(request, env, ctx, allowed, mode) {
     .first();
   if (mode === 'panne') return json({ ok: true }, 200, allowed);
 
-  const c = { nom, email, message, created_at, audit, agence, siteAgence, nbSites };
+  const c = { nom, email, message, created_at, audit, agence, siteAgence, nbSites, lang, page };
   ctx.waitUntil(
     (async () => {
       let notified = false;

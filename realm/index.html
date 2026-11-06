@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Pomwik · Keep your React Native app shipping on Realm, then move to SQLite</title>
-  <meta name="description" content="MongoDB stopped maintaining Realm in 2025. Pomwik keeps Realm apps building on current React Native and Xcode, and migrates their local data to SQLite with every object verified.">
+  <title>Pomwik · React Native apps on Realm®: keep building, then move to SQLite</title>
+  <meta name="description" content="MongoDB deprecated Realm® in 2025. We are preparing an open-source fork of realm-js, tested on Android with React Native 0.88.1 (iOS being tested), and we move local data to SQLite with every object checked.">
   <meta name="theme-color" content="#F7F9FC" media="(prefers-color-scheme: light)">
   <meta name="theme-color" content="#0A1426" media="(prefers-color-scheme: dark)">
   <link rel="canonical" href="https://pomwik.com/realm/">
@@ -12,24 +12,28 @@
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Pomwik">
   <meta property="og:locale" content="en_US">
-  <meta property="og:title" content="Your React Native app still runs on Realm. Let's keep it shipping.">
-  <meta property="og:description" content="A maintained build for current React Native and Xcode, then a verified migration of your local data to SQLite.">
+  <meta property="og:title" content="Your React Native app still runs on Realm®. Let's keep it shipping.">
+  <meta property="og:description" content="An open-source fork of realm-js in preparation, tested on Android with React Native 0.88.1 (iOS being tested), and a checked move of your local data to SQLite.">
   <meta property="og:url" content="https://pomwik.com/realm/">
-  <meta property="og:image" content="https://pomwik.com/og-accueil.png">
+  <meta property="og:image" content="https://pomwik.com/realm/og-realm.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Pomwik: help for React Native apps still on Realm, and a checked move to SQLite">
   <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://pomwik.com/realm/og-realm.png">
   <link rel="stylesheet" href="/accueil.css">
 </head>
 <body>
   <a class="skip" href="#main">Skip to content</a>
 
   <header class="nav wrap">
-    <a class="brand" href="/" aria-label="Pomwik home">
+    <a class="brand" href="/" aria-label="Pomwik home (French)">
       <img src="/favicon.svg" alt="" width="32" height="32">
       <span>Pomwik</span>
     </a>
     <nav aria-label="Main">
       <a class="nav-link" href="#how">How it works</a>
-      <a class="nav-link" href="#proof">Proof</a>
+      <a class="nav-link" href="#proof">What is tested</a>
       <a class="nav-link" href="#faq">FAQ</a>
       <a class="btn btn-small" href="#check">Free 15-min check</a>
     </nav>
@@ -40,7 +44,7 @@
       <div>
         <p class="eyebrow">For teams with a React Native app on Realm®</p>
         <h1>Your app still runs on Realm. Let's keep it shipping.</h1>
-        <p class="lede">MongoDB stopped maintaining Realm in September 2025. Each React Native, Expo or Xcode upgrade can now break your build. We help you keep it building, then move your local data to SQLite, with every object checked.</p>
+        <p class="lede">MongoDB deprecated Realm in September 2025. Since then, users have reported build failures on newer React Native and Xcode versions. We help you keep your app building, then move your local data to SQLite, with every object checked.</p>
         <div class="cta">
           <a class="btn" href="#check">Get a free 15-minute check</a>
           <a class="btn btn-ghost" href="#how">See the options</a>
@@ -48,14 +52,15 @@
         <p class="note">Reply within 12 hours. Fixed price after the check.</p>
       </div>
       <aside class="panel" aria-labelledby="breaks">
-        <h2 id="breaks">What breaks today</h2>
-        <ul class="checks">
-          <li>iOS linking on React Native 0.86 and later;</li>
-          <li>builds with Xcode 26.4 (<code>is_pod</code> error);</li>
-          <li><code>npm ci</code> hanging on install-time downloads;</li>
-          <li>Google Play's 16 KB rule for older Realm versions, from 1 February 2027;</li>
-          <li>SwiftPM, the default in React Native 0.89.</li>
+        <h2 id="breaks">What Realm users report</h2>
+        <ul class="checks dots">
+          <li>iOS link errors on React Native 0.86 and later (<a href="https://github.com/realm/realm-js/pull/7157">#7157</a>)</li>
+          <li>Xcode 26.4 build error on <code>is_pod</code> (<a href="https://github.com/realm/realm-js/issues/7115">#7115</a>)</li>
+          <li><code>npm ci</code> timing out on install-time downloads (<a href="https://github.com/realm/realm-js/issues/7119">#7119</a>)</li>
+          <li>Android builds blocked when static.realm.io is down (<a href="https://github.com/realm/realm-js/issues/7044">#7044</a>)</li>
+          <li>Google Play warnings about 16 KB page sizes (<a href="https://github.com/realm/realm-js/issues/7129">#7129</a>)</li>
         </ul>
+        <p class="note">Issues and pull requests on realm/realm-js, written by Realm users.</p>
       </aside>
     </section>
 
@@ -65,12 +70,12 @@
         <article class="card">
           <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg>
           <h3>Know your risk</h3>
-          <p>A short fixed-price diagnostic: what breaks next, when, and the cheapest way out (keep, patch or migrate).</p>
+          <p>A short fixed-price diagnostic: what is likely to break next, and the cheapest way out (keep, patch or migrate).</p>
         </article>
         <article class="card">
           <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M14.7 6.3a4 4 0 0 0-5.4 5.4L3 18l3 3 6.3-6.3a4 4 0 0 0 5.4-5.4l-2.5 2.5-2.5-.5-.5-2.5z"/></svg>
           <h3>Keep your app building</h3>
-          <p>We are finishing an independent, open-source fork of the realm-js SDK (v20) that fixes these breakages, with nothing downloaded at install. Your code keeps <code>import Realm from "realm"</code>.</p>
+          <p>We are preparing an open-source fork of the realm-js SDK (v20). On Android with React Native 0.88.1, it builds and runs, with nothing downloaded at install. iOS is being tested. Your code keeps <code>import Realm from "realm"</code>.</p>
         </article>
         <article class="card">
           <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v14c0 1.7 3.6 3 8 3s8-1.3 8-3V5"/><path d="M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/></svg>
@@ -81,19 +86,42 @@
     </section>
 
     <section class="section wrap" id="proof" aria-labelledby="t-proof">
-      <h2 id="t-proof">What our conversion tool already does</h2>
+      <h2 id="t-proof">What is tested so far</h2>
+      <div class="status">
+        <div class="panel">
+          <h3>The fork, on Android</h3>
+          <ul class="checks">
+            <li>React Native 0.88.1, new architecture: release build for all 4 Android ABIs</li>
+            <li>Runs on Android 16 emulators with 4 KB and 16 KB pages: read, write, live queries, encrypted realm, data kept after a restart</li>
+            <li>All 64-bit native libraries of our test app are 16 KB aligned (24 of 24)</li>
+            <li>OpenSSL 3.5.9 LTS included: nothing is downloaded at install or build time</li>
+            <li>Node: installs offline</li>
+          </ul>
+        </div>
+        <div class="panel">
+          <h3>Not tested yet</h3>
+          <ul class="checks dots">
+            <li>iOS: being tested</li>
+            <li>React Native 0.86 and 0.87</li>
+            <li>Expo</li>
+          </ul>
+          <p class="note">The fork is not public and not on npm yet.</p>
+        </div>
+      </div>
+
+      <h3 class="sub">The conversion tool</h3>
       <ol class="steps">
         <li>
-          <h3>Every object checked</h3>
+          <h4>Every object checked</h4>
           <p>A SHA-256 hash per object and per table, foreign keys and a field-by-field sample. On our test file covering every supported type: zero differences.</p>
         </li>
         <li>
-          <h3>Values SQLite would lose</h3>
-          <p>NaN, -0, dates before 1970 and non-ASCII text are kept and checked. A plain copy changes some of them without any warning.</p>
+          <h4>Values SQLite would lose</h4>
+          <p>NaN, -0, dates before 1970 and non-ASCII text are kept and checked. SQLite alone turns NaN into NULL and -0 into 0, without any warning.</p>
         </li>
         <li>
-          <h3>Queries compared one by one</h3>
-          <p>196 Realm queries run on both sides: 2 differences, both known and explained. Realm has quirks a naive port silently changes, like <code>[c]</code> folding only Latin-1.</p>
+          <h4>Queries compared one by one</h4>
+          <p>196 Realm queries run on both sides: 2 differences, both known and explained. Realm has quirks a naive port silently changes, like <code>[c]</code> folding only ASCII and Latin-1 letters.</p>
         </li>
       </ol>
     </section>
@@ -103,19 +131,19 @@
       <div class="faq">
         <details>
           <summary>It still works. Why act now?</summary>
-          <p>It works until the next upgrade. The check tells you which React Native, Xcode or Google Play change will break your app, and when.</p>
+          <p>It works until the next upgrade. The check looks at your versions and tells you which React Native, Xcode or Google Play change is likely to break your app.</p>
         </details>
         <details>
           <summary>We plan to move to a sync service.</summary>
-          <p>If you need sync, that can be the right choice. Your local data and query behaviour still have to move with you: we can handle that part.</p>
+          <p>If you need sync, that can be the right choice. Your local data and query behavior still have to move with you: we can handle that part.</p>
         </details>
         <details>
           <summary>What is not covered?</summary>
-          <p>Device Sync, the old React Native architecture, and bugs inside the Realm engine itself. We say so before any work starts.</p>
+          <p>Device Sync, the old React Native architecture, bugs inside the Realm engine itself (we use the upstream engine unchanged), and Realm Swift, Kotlin and Flutter. SwiftPM is not supported yet. We say so before any work starts.</p>
         </details>
         <details>
           <summary>What about our users' data?</summary>
-          <p>We work on test data or inside your infrastructure. Your users' data never leaves your systems.</p>
+          <p>The conversion tool runs where your data already is, on your machine or in your CI. It opens the <code>.realm</code> file read-only and checks afterwards that the file has not changed. For the free check, we only need your versions and the error.</p>
         </details>
       </div>
     </section>
@@ -137,7 +165,7 @@
           <input class="hp" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
           <button class="btn" type="submit">Request the check</button>
           <p class="msg" role="status" aria-live="polite"></p>
-          <p class="fine">We only use this to reply to you. <a href="/privacy.html">Privacy (French)</a></p>
+          <p class="fine">We only use this to reply to you. <a href="/privacy.html" hreflang="fr">Privacy (French)</a></p>
         </form>
       </div>
     </section>
@@ -148,7 +176,8 @@
       <img src="/favicon.svg" alt="" width="24" height="24">
       <span>Pomwik</span>
     </div>
-    <p>Realm® is a trademark of MongoDB, Inc. Pomwik is independent and not affiliated with or endorsed by MongoDB. &middot; <a href="/">Home</a> &middot; <a href="/mentions-legales.html">Legal</a></p>
+    <p>&copy; 2026 Pomwik &middot; <a href="/" hreflang="fr">Home (French)</a> &middot; <a href="/mentions-legales.html" hreflang="fr">Legal (French)</a> &middot; <a href="/privacy.html" hreflang="fr">Privacy (French)</a></p>
+    <p class="tm">Realm® is a trademark of MongoDB, Inc. Pomwik is independent and not affiliated with or endorsed by MongoDB.</p>
   </footer>
 
   <script src="/contact.js"></script>

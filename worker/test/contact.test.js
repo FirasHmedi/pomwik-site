@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from 'vitest';
-import { call, IP, makeEnv, mails, net, ORIGIN, outbound, rows } from './helpers.js';
+import { call, IP, makeEnv, mails, net, ORIGIN, outbound, rows, WEBHOOK_URL } from './helpers.js';
 
 const contactLog = () => rows('SELECT * FROM contact_log ORDER BY id');
 const tableExists = async (name) => (await rows("SELECT name FROM sqlite_master WHERE type = 'table' AND name = ?1", name)).length > 0;
@@ -117,6 +117,85 @@ describe('POST /contact', () => {
     expect(res.status).toBe(400);
     expect(await res.json()).toEqual({ error: 'bad_json' });
     expect(await tableExists('contact_log')).toBe(false);
+  });
+});
+
+describe('POST /contact: page language and source page', () => {
+  const REALM = { nom: 'Sam Lee', email: 'sam@example.com', message: 'realm 12.13, React Native 0.74', lang: 'en', page: 'pomwik.com/realm/' };
+
+  it('sends an English acknowledgement for a form on an English page', async () => {
+    await call(makeEnv(), '/contact', { body: { ...REALM, message: 'Visit https://spam.example now' } });
+
+    const [ack, ...others] = outbound('resend');
+    expect(others).toEqual([]);
+    expect(ack.body).toMatchObject({ from: 'Pomwik <hello@pomwik.com>', to: ['sam@example.com'], subject: 'We received your message' });
+    expect(ack.body.text).toBe(
+      'Hello,\n\nWe received your message sent from pomwik.com. We will reply within 12 hours.\n\n- Pomwik\n\n' +
+        'This is an automatic reply. If you did not send anything, please ignore this email.'
+    );
+    expect(ack.body.html).toContain('We will reply within 12 hours.');
+    expect(ack.body.html).not.toMatch(/<img|<a |Bonjour/);
+    expect(JSON.stringify(ack.body)).not.toContain('spam.example');
+    expect(JSON.stringify(ack.body)).not.toContain('Sam Lee');
+  });
+
+  it('sends the English acknowledgement through the webhook too, when Resend is not set', async () => {
+    const env = makeEnv({ RESEND_API_KEY: undefined, WELCOME_WEBHOOK_URL: WEBHOOK_URL, WELCOME_WEBHOOK_SECRET: 'test-secret' });
+    await call(env, '/contact', { body: REALM });
+
+    expect(outbound('resend')).toEqual([]);
+    expect(outbound('webhook')).toMatchObject([{ body: { to: 'sam@example.com', subject: 'We received your message' } }]);
+    expect(await contactLog()).toMatchObject([{ acked: 1 }]);
+  });
+
+  it.each([
+    ['no language', undefined],
+    ['an unknown language', 'de'],
+    ['a language that is not a string', ['en']],
+  ])('keeps the French acknowledgement with %s', async (_, lang) => {
+    await call(makeEnv(), '/contact', { body: { ...MESSAGE, lang } });
+    const [ack] = outbound('resend');
+    expect(ack.body.subject).toBe('Nous avons bien reçu votre message');
+    expect(ack.body.text).toContain('Nous vous répondons sous 12 heures.');
+  });
+
+  it('names the source page and the language in the owner notice', async () => {
+    const env = makeEnv();
+    await call(env, '/contact', { body: REALM });
+
+    const [mail] = mails(env);
+    expect(mail.subject).toBe('Nouveau message de Sam Lee (sam@example.com) depuis pomwik.com/realm/');
+    expect(mail.text).toContain('Page : pomwik.com/realm/\r\nLangue : anglais\r\n');
+    expect(mail.text).toContain('Message :\r\nrealm 12.13, React Native 0.74');
+  });
+
+  it('keeps the owner notice subject as before when no page is sent', async () => {
+    const env = makeEnv();
+    await call(env, '/contact', { body: MESSAGE });
+
+    const [mail] = mails(env);
+    expect(mail.subject).toBe('Nouveau message de Élodie Dupont (elodie@example.fr)');
+    expect(mail.text).toContain('Page : -\r\nLangue : français\r\n');
+  });
+
+  it('keeps the audit subject (used by a mail filter) and adds the page to its body', async () => {
+    const env = makeEnv();
+    await call(env, '/contact', { body: { ...AUDIT, lang: 'fr', page: 'pomwik.com/audit/' } });
+
+    const [mail] = mails(env);
+    expect(mail.subject).toBe("Demande d'audit : Agence Web (jean@agence.example)");
+    expect(mail.text).toContain('Page : pomwik.com/audit/');
+  });
+
+  it('cannot add a header through the page, and caps it at 200 characters', async () => {
+    const env = makeEnv();
+    await call(env, '/contact', { body: { ...REALM, page: `pomwik.com/realm/\r\nBcc: victim@example.net ${'x'.repeat(300)}` } });
+
+    const [mail] = mails(env);
+    expect(mail.headers.bcc).toBeUndefined();
+    expect(mail.subject).toContain('depuis pomwik.com/realm/ Bcc: victim@example.net x');
+    const page = mail.text.match(/^Page : (.*)$/m)[1].replace(/\r$/, '');
+    expect(page).toHaveLength(200);
   });
 });
 
