@@ -11,8 +11,8 @@ const SUCCESS = {
   contact: 'Merci, votre message a bien été envoyé. Je vous réponds sous 12 heures.',
 };
 
-// Pages en anglais (<html lang="en">) : mêmes messages, traduits.
-const EN = document.documentElement.lang === 'en';
+// Pages en anglais (<html lang="en">, "en-US"…) : mêmes messages, traduits.
+const EN = document.documentElement.lang.startsWith('en');
 const T = EN
   ? {
       success: 'Thanks, your message has been sent. We reply within 12 hours.',
@@ -69,6 +69,9 @@ document.querySelectorAll('form.contact-form').forEach((form) => {
     }
     const data = { type };
     fields.forEach((f) => { data[f.name] = f.value.trim(); });
+    // Langue de l'accusé de réception et page d'origine (adresse sans paramètres), pour la notification.
+    data.lang = EN ? 'en' : 'fr';
+    data.page = location.host + location.pathname;
 
     button.disabled = true;
     say(T.sending);
