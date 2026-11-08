@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Pomwik · React Native apps on Realm®: keep building, then move to SQLite</title>
-  <meta name="description" content="MongoDB deprecated Realm® in 2025. We are preparing an open-source fork of realm-js, tested on Android emulators (React Native 0.86 to 0.88, Expo SDK 56 to 58) and the iPhone simulator (React Native 0.88.1), and we move local data to SQLite with every object checked.">
+  <meta name="description" content="MongoDB deprecated Realm® in 2025. afterdb, an independent open-source fork of the realm-js SDK, is on npm, tested on Android emulators and the iPhone simulator. We also move local data to SQLite, every object checked.">
   <meta name="theme-color" content="#F7F9FC" media="(prefers-color-scheme: light)">
   <meta name="theme-color" content="#0A1426" media="(prefers-color-scheme: dark)">
   <link rel="canonical" href="https://pomwik.com/realm/">
@@ -13,7 +13,7 @@
   <meta property="og:site_name" content="Pomwik">
   <meta property="og:locale" content="en_US">
   <meta property="og:title" content="Your React Native app still runs on Realm®. Let's keep it shipping.">
-  <meta property="og:description" content="An open-source fork of realm-js in preparation, tested on Android emulators (React Native 0.86 to 0.88, Expo SDK 56 to 58) and the iPhone simulator (React Native 0.88.1), and a checked move of your local data to SQLite.">
+  <meta property="og:description" content="afterdb, an independent open-source fork of the realm-js SDK, now on npm. And a checked move of your local data to SQLite.">
   <meta property="og:url" content="https://pomwik.com/realm/">
   <meta property="og:image" content="https://pomwik.com/realm/og-realm.png">
   <meta property="og:image:width" content="1200">
@@ -75,13 +75,20 @@
         <article class="card">
           <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M14.7 6.3a4 4 0 0 0-5.4 5.4L3 18l3 3 6.3-6.3a4 4 0 0 0 5.4-5.4l-2.5 2.5-2.5-.5-.5-2.5z"/></svg>
           <h3>Keep your app building</h3>
-          <p>We are preparing an open-source fork of the realm-js SDK (v20). It builds and runs on Android emulators (React Native 0.86 to 0.88, Expo SDK 56 to 58) and on the iPhone simulator (React Native 0.88.1, Xcode 26.4.1 and 26.6), with nothing downloaded at install. Your code keeps <code>import Realm from "realm"</code>.</p>
+          <p><a href="https://github.com/FirasHmedi/afterdb">afterdb</a> is an independent open-source fork of the realm-js SDK (v20) that we maintain. It builds and runs on Android emulators (React Native 0.86 to 0.88, Expo SDK 56 to 58) and on the iPhone simulator (React Native 0.88.1, Xcode 26.4.1 and 26.6), with nothing downloaded at install. Your code keeps <code>import Realm from "realm"</code>.</p>
         </article>
         <article class="card">
           <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v14c0 1.7 3.6 3 8 3s8-1.3 8-3V5"/><path d="M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/></svg>
           <h3>Leave Realm safely</h3>
           <p>We convert your <code>.realm</code> files to SQLite, encrypted files included, and check every object with a checksum. Our test runs Realm queries on both sides and lists every difference.</p>
         </article>
+      </div>
+      <div class="panel install">
+        <h3>Use afterdb in your app</h3>
+        <p>Change two lines in <code>package.json</code>, then reinstall and rebuild (<code>pod install</code> on iOS):</p>
+        <pre><code>"realm": "npm:@pomwik/afterdb@20.3.0",
+"@realm/react": "npm:@pomwik/afterdb-react@0.20.1"</code></pre>
+        <p class="note">Code on <a href="https://github.com/FirasHmedi/afterdb">GitHub</a> (Apache-2.0). Packages on npm: <a href="https://www.npmjs.com/package/@pomwik/afterdb">@pomwik/afterdb</a> and <a href="https://www.npmjs.com/package/@pomwik/afterdb-react">@pomwik/afterdb-react</a>.</p>
       </div>
     </section>
 
@@ -116,7 +123,7 @@
             <li>Real phones: so far only emulators and the iPhone simulator</li>
             <li>iOS with React Native 0.86 or 0.87, or with Expo</li>
           </ul>
-          <p class="note">The fork is not public and not on npm yet.</p>
+          <p class="note">Details and logs: the <a href="https://github.com/FirasHmedi/afterdb#compatibility-matrix">compatibility matrix</a> on GitHub.</p>
         </div>
       </div>
 
