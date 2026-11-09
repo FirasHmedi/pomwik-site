@@ -22,7 +22,7 @@
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image" content="https://pomwik.com/realm/og-realm.png">
   <link rel="stylesheet" href="/accueil.css">
-  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "Realm® build errors in 2026 and how to fix them", "description": "React Native build and install errors with Realm® in 2026: Xcode 26.4, React Native 0.86+, Node 22, Expo SDK 58, Google Play 16 KB. The cause and the fix for each, with or without afterdb.", "url": "https://pomwik.com/realm/errors/", "image": "https://pomwik.com/realm/og-realm.png", "inLanguage": "en-US", "datePublished": "2026-11-09", "dateModified": "2026-11-09", "author": {"@type": "Organization", "name": "Pomwik", "url": "https://pomwik.com/"}, "publisher": {"@type": "Organization", "name": "Pomwik", "url": "https://pomwik.com/"}}</script>
+  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "Realm® build errors in 2026 and how to fix them", "description": "React Native build and install errors with Realm® in 2026: Xcode 26.4, React Native 0.86+, Node 22, Expo SDK 58, Google Play 16 KB. The cause and the fix for each, with or without afterdb.", "url": "https://pomwik.com/realm/errors/", "image": "https://pomwik.com/realm/og-realm.png", "inLanguage": "en-US", "datePublished": "2026-11-09", "dateModified": "2026-11-10", "author": {"@type": "Organization", "name": "Pomwik", "url": "https://pomwik.com/"}, "publisher": {"@type": "Organization", "name": "Pomwik", "url": "https://pomwik.com/"}}</script>
 </head>
 <body>
   <a class="skip" href="#main">Skip to content</a>
@@ -43,8 +43,8 @@
     <div class="prose">
       <p class="crumbs"><a href="/realm/">Help for Realm® apps</a></p>
       <h1>Realm® build errors in 2026 and how to fix them</h1>
-      <p class="lede">The last realm-js release is 20.2.0, from August 2025. Since then, new React Native, Xcode, Expo and Google Play versions have broken builds that used to work. Each page below gives the exact error, the cause, a manual workaround when there is one, and the fix with afterdb.</p>
-      <p class="updated">Updated 9 November 2026.</p>
+      <p class="lede">The last realm-js release is 20.2.0, from August 2025. Since then, new React Native, Xcode, Expo and Google Play versions have broken builds that used to work. Each page below gives the exact error, the cause, a manual workaround when there is one, and what afterdb changes.</p>
+      <p class="updated">Updated 10 November 2026.</p>
     </div>
 
     <ul class="errors">
@@ -92,11 +92,11 @@
 
     <div class="prose">
       <h2>The fix with afterdb</h2>
-      <p>afterdb is an independent open-source fork of the realm-js SDK v20 (Apache-2.0) that we maintain. It fixes the build and install errors above for apps on realm 20.x without Device Sync. For 16 KB pages, every 64-bit native library in our test app passes the 16 KB checks. It is not an official Realm release.</p>
+      <p>afterdb is an independent open-source fork of the realm-js SDK v20 (Apache-2.0) that we maintain (see its <a href="https://github.com/FirasHmedi/afterdb#maintenance-policy">maintenance policy</a>). It fixes the build and install errors above for apps on realm 20.x without Device Sync, except the 16 KB warning, whose cause is not known. For 16 KB pages, every 64-bit native library in our test app passes the 16 KB checks. It is not an official Realm release.</p>
       <pre><code>"realm": "npm:@pomwik/afterdb@20.3.0",
 "@realm/react": "npm:@pomwik/afterdb-react@0.20.1"</code></pre>
       <p>Then reinstall, run <code>pod install</code> on iOS, and rebuild. For Expo dev builds, run <code>npx expo prebuild --clean</code>. Your code keeps <code>import Realm from "realm"</code>.</p>
-      <p>Tested with React Native 0.88.1 on Android 7, 11 and 16 emulators and on Android 16 with 16 KB pages; with React Native 0.86.3 and 0.87.1 and Expo SDK 56, 57 and 58 on the 16 KB emulator; and on the iPhone simulator with React Native 0.88.1 on Xcode 26.4.1 and 26.6. Not tested yet: real devices, iOS with React Native 0.86 or 0.87 or with Expo, and realm 10, 11 or 12. Details: the <a href="https://github.com/FirasHmedi/afterdb#compatibility-matrix">compatibility matrix</a> on GitHub.</p>
+      <p>Tested with React Native 0.88.1 on Android 7, 11 and 16 emulators and on Android 16 with 16 KB pages; with React Native 0.86.3 and 0.87.1 and Expo SDK 56, 57 and 58 on the 16 KB emulator; and on the iPhone simulator with React Native 0.88.1 on Xcode 26.4.1 and 26.6, and with new apps from the React Native 0.86.3 and 0.87.1 templates on Xcode 26.6 with dynamic and static frameworks (<a href="https://github.com/FirasHmedi/afterdb/actions/runs/42716333335">CI run</a>). Not tested yet: real devices, Expo on iOS, and realm 10, 11 or 12. Details: the <a href="https://github.com/FirasHmedi/afterdb#compatibility-matrix">compatibility matrix</a> on GitHub.</p>
 
       <h2>Not fixed by afterdb</h2>
       <ul>
@@ -119,7 +119,7 @@
       <img src="/favicon.svg" alt="" width="24" height="24">
       <span>Pomwik</span>
     </div>
-    <p>&copy; 2026 Pomwik &middot; <a href="/realm/">Help for Realm apps</a> &middot; <a href="/" hreflang="fr">Home (French)</a> &middot; <a href="/mentions-legales.html" hreflang="fr">Legal (French)</a> &middot; <a href="/privacy.html" hreflang="fr">Privacy (French)</a></p>
+    <p>&copy; 2026 Pomwik &middot; <a href="/realm/">Help for Realm apps</a> &middot; <a href="/" hreflang="fr">Home (French)</a> &middot; <a href="/mentions-legales.html" hreflang="fr">Legal (French)</a> &middot; <a href="/privacy-en.html">Privacy</a></p>
     <p class="tm">Realm® is a trademark of MongoDB, Inc. Pomwik is independent and not affiliated with or endorsed by MongoDB.</p>
   </footer>
 
