@@ -57,12 +57,12 @@ PROPAGATE_POD_FROM_TEMPLATE_ARGUMENT(Vector3);</code></pre>
         <h2>When it happens</h2>
         <ul>
           <li>iOS builds with realm 20.2.0, the last realm-js release (11 August 2025).</li>
-          <li>Xcode 26.4 or later. Reported in <a href="https://github.com/realm/realm-js/issues/7115">#7115</a> (31 March 2026) with React Native 0.77.3. Realm Swift users saw the same error in <a href="https://github.com/realm/realm-swift/issues/8812">realm-swift #8812</a>.</li>
+          <li>Xcode 26.4. Reported in <a href="https://github.com/realm/realm-js/issues/7115">#7115</a> (31 March 2026) with React Native 0.77.3. Realm Swift users saw the same error in <a href="https://github.com/realm/realm-swift/issues/8812">realm-swift #8812</a>.</li>
           <li>The header ships only in the Apple part of the realm package. Android builds do not include it.</li>
         </ul>
 
         <h2>Why</h2>
-        <p>realm 20.2.0 ships a prebuilt engine, <code>realm-core.xcframework</code>. One of its headers comes from the s2 geometry library and specializes <code>std::is_pod</code>. Starting with Xcode 26.4, Apple's C++ standard library forbids that, so the compiler stops.</p>
+        <p>realm 20.2.0 ships a prebuilt engine, <code>realm-core.xcframework</code>. One of its headers comes from the s2 geometry library and specializes <code>std::is_pod</code>. The C++ standard library in Xcode 26.4 forbids that, so the compiler stops.</p>
         <p>The engine fix is <a href="https://github.com/realm/realm-core/commit/d8f21f9b98cae76e8dc235558c2f71ea27997f10">realm-core commit d8f21f9</a> (22 February 2026), and Realm Swift 20.0.4 includes it. realm-js was never updated: its last release is still 20.2.0.</p>
 
         <h2>Fix with afterdb</h2>

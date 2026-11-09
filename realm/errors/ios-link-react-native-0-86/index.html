@@ -44,7 +44,7 @@
       <article class="prose">
         <p class="crumbs"><a href="/realm/">Help for Realm® apps</a> / <a href="/realm/errors/">Build errors</a></p>
         <h1>Realm on React Native 0.86+: iOS <code>Undefined symbols</code> for <code>jsi::Value</code></h1>
-        <p class="lede">After an upgrade to React Native 0.86 or later, the iOS build of an app on realm 20.2.0 stops at the link step. It happens when your pods are built as frameworks.</p>
+        <p class="lede">After an upgrade to React Native 0.86 or later, the iOS build of an app on realm 20.2.0 stops at the link step. It was reported with pods built as dynamic frameworks.</p>
         <p class="updated">Updated 9 November 2026.</p>
 
         <h2>The error</h2>
@@ -57,11 +57,11 @@
         <h2>When it happens</h2>
         <ul>
           <li>realm 20.2.0 on iOS with React Native 0.86 or later, new architecture.</li>
-          <li>Pods built as frameworks: <code>use_frameworks!</code> in the Podfile, often needed for Firebase. The pull request author used <code>use_frameworks! :linkage =&gt; :dynamic</code> with React Native 0.87.1.</li>
+          <li>Pods built as frameworks: <code>use_frameworks!</code> in the Podfile, often needed for Firebase. The pull request author used <code>use_frameworks! :linkage =&gt; :dynamic</code> with React Native 0.87.1, and verified the fix with that setup only.</li>
         </ul>
 
         <h2>Why</h2>
-        <p>realm's <code>RealmJS.podspec</code> only declares <code>s.dependency 'React'</code>. When pods are built as frameworks, React Native 0.86 and later no longer link <code>hermes-engine</code>, <code>React-jsi</code> and <code>ReactCommon/turbomodule/core</code> into the RealmJS target through that line, so the linker cannot find the JSI symbols.</p>
+        <p>realm's <code>RealmJS.podspec</code> only declares <code>s.dependency 'React'</code>. According to the pull request, when pods are built as frameworks, React Native 0.86 and later no longer link <code>hermes-engine</code>, <code>React-jsi</code> and <code>ReactCommon/turbomodule/core</code> into the RealmJS target through that line, so the linker cannot find the JSI symbols.</p>
         <p>A fix was proposed upstream in <a href="https://github.com/realm/realm-js/pull/7157">#7157</a> on 25 September 2026 by TPXP. It has no review and is not merged.</p>
 
         <h2>Fix with afterdb</h2>
