@@ -59,6 +59,7 @@ PROPAGATE_POD_FROM_TEMPLATE_ARGUMENT(Vector3);</code></pre>
           <li>iOS builds with realm 20.2.0, the last realm-js release (11 August 2025).</li>
           <li>Xcode 26.4. Reported in <a href="https://github.com/realm/realm-js/issues/7115">#7115</a> (31 March 2026) with React Native 0.77.3. Realm Swift users saw the same error in <a href="https://github.com/realm/realm-swift/issues/8812">realm-swift #8812</a>.</li>
           <li>The header ships only in the Apple part of the realm package. Android builds do not include it.</li>
+          <li>Later Xcode versions may not hit it: a public iOS release build with unpatched realm 20.2.0 succeeds on Xcode 26.6 (<a href="https://github.com/BlueWallet/BlueWallet/actions/runs/42677266845">BlueWallet CI, 9 November 2026</a>). We have not tested unpatched realm on Xcode 26.6 ourselves.</li>
         </ul>
 
         <h2>Why</h2>
