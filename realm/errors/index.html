@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Realm® build errors in 2026 and how to fix them · Pomwik</title>
-  <meta name="description" content="React Native build and install errors with Realm in 2026: Xcode 26.4, React Native 0.86+, Node 22, Expo SDK 58, Google Play 16 KB. The cause and the fix for each, with or without afterdb.">
+  <meta name="description" content="React Native build and install errors with Realm® in 2026: Xcode 26.4, React Native 0.86+, Node 22, Expo SDK 58, Google Play 16 KB. The cause and the fix for each, with or without afterdb.">
   <meta name="theme-color" content="#F7F9FC" media="(prefers-color-scheme: light)">
   <meta name="theme-color" content="#0A1426" media="(prefers-color-scheme: dark)">
   <link rel="canonical" href="https://pomwik.com/realm/errors/">
@@ -13,7 +13,7 @@
   <meta property="og:site_name" content="Pomwik">
   <meta property="og:locale" content="en_US">
   <meta property="og:title" content="Realm® build errors in 2026 and how to fix them">
-  <meta property="og:description" content="React Native build and install errors with Realm in 2026: Xcode 26.4, React Native 0.86+, Node 22, Expo SDK 58, Google Play 16 KB. The cause and the fix for each, with or without afterdb.">
+  <meta property="og:description" content="React Native build and install errors with Realm® in 2026: Xcode 26.4, React Native 0.86+, Node 22, Expo SDK 58, Google Play 16 KB. The cause and the fix for each, with or without afterdb.">
   <meta property="og:url" content="https://pomwik.com/realm/errors/">
   <meta property="og:image" content="https://pomwik.com/realm/og-realm.png">
   <meta property="og:image:width" content="1200">
@@ -22,7 +22,7 @@
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image" content="https://pomwik.com/realm/og-realm.png">
   <link rel="stylesheet" href="/accueil.css">
-  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "Realm® build errors in 2026 and how to fix them", "description": "React Native build and install errors with Realm in 2026: Xcode 26.4, React Native 0.86+, Node 22, Expo SDK 58, Google Play 16 KB. The cause and the fix for each, with or without afterdb.", "url": "https://pomwik.com/realm/errors/", "image": "https://pomwik.com/realm/og-realm.png", "inLanguage": "en-US", "datePublished": "2026-11-09", "dateModified": "2026-11-09", "author": {"@type": "Organization", "name": "Pomwik", "url": "https://pomwik.com/"}, "publisher": {"@type": "Organization", "name": "Pomwik", "url": "https://pomwik.com/"}}</script>
+  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "Realm® build errors in 2026 and how to fix them", "description": "React Native build and install errors with Realm® in 2026: Xcode 26.4, React Native 0.86+, Node 22, Expo SDK 58, Google Play 16 KB. The cause and the fix for each, with or without afterdb.", "url": "https://pomwik.com/realm/errors/", "image": "https://pomwik.com/realm/og-realm.png", "inLanguage": "en-US", "datePublished": "2026-11-09", "dateModified": "2026-11-09", "author": {"@type": "Organization", "name": "Pomwik", "url": "https://pomwik.com/"}, "publisher": {"@type": "Organization", "name": "Pomwik", "url": "https://pomwik.com/"}}</script>
 </head>
 <body>
   <a class="skip" href="#main">Skip to content</a>
@@ -61,12 +61,12 @@
       <li>
         <span class="where">Install · CI, Node 22</span>
         <h2><a href="/realm/errors/npm-ci-prebuild-install-timeout/"><code>npm ci</code> hangs on <code>prebuild-install</code>, or <code>Failed to download prebuild for Realm</code></a></h2>
-        <p>An install-time download from static.realm.io with no timeout, and a 404 on Node 22. <a href="https://github.com/realm/realm-js/issues/7119">#7119</a>, <a href="https://github.com/realm/realm-js/issues/7068">#7068</a></p>
+        <p>An install-time download from static.realm.io that can hang in CI, and a 404 on Node 22. <a href="https://github.com/realm/realm-js/issues/7119">#7119</a>, <a href="https://github.com/realm/realm-js/issues/7068">#7068</a></p>
       </li>
       <li>
         <span class="where">Android build</span>
         <h2><a href="/realm/errors/android-openssl-static-realm-io/"><code>CMake Error: Downloading ... Failed</code> (OpenSSL from static.realm.io)</a></h2>
-        <p>The Android build downloads OpenSSL each time CMake configures it. <a href="https://github.com/realm/realm-js/issues/7044">#7044</a></p>
+        <p>The Android build downloads OpenSSL each time CMake configures a clean build. <a href="https://github.com/realm/realm-js/issues/7044">#7044</a></p>
       </li>
       <li>
         <span class="where">Google Play · 16 KB pages</span>
@@ -92,7 +92,7 @@
 
     <div class="prose">
       <h2>The fix with afterdb</h2>
-      <p>afterdb is an independent open-source fork of the realm-js SDK v20 (Apache-2.0) that we maintain. It fixes the errors above for apps on realm 20.x without Device Sync. It is not an official Realm release.</p>
+      <p>afterdb is an independent open-source fork of the realm-js SDK v20 (Apache-2.0) that we maintain. It fixes the build and install errors above for apps on realm 20.x without Device Sync. For 16 KB pages, every 64-bit native library in our test app passes the 16 KB checks. It is not an official Realm release.</p>
       <pre><code>"realm": "npm:@pomwik/afterdb@20.3.0",
 "@realm/react": "npm:@pomwik/afterdb-react@0.20.1"</code></pre>
       <p>Then reinstall, run <code>pod install</code> on iOS, and rebuild. For Expo dev builds, run <code>npx expo prebuild --clean</code>. Your code keeps <code>import Realm from "realm"</code>.</p>
@@ -100,7 +100,7 @@
 
       <h2>Not fixed by afterdb</h2>
       <ul>
-        <li>Debug builds on React Native 0.83 and later can throw <code>Accessing object which has been invalidated or deleted</code>. It comes from React (<a href="https://github.com/facebook/react/issues/35126">facebook/react #35126</a>), and release builds are not affected. Workarounds are listed in the <a href="https://github.com/FirasHmedi/afterdb#what-is-not-covered">afterdb README</a>. See also <a href="https://github.com/realm/realm-js/issues/7086">#7086</a>.</li>
+        <li>Debug builds on React Native 0.83 and later can throw <code>Accessing object which has been invalidated or deleted</code>. It comes from React (<a href="https://github.com/react/react/issues/35126">react/react #35126</a>), and release builds are not affected. Workarounds are listed in the <a href="https://github.com/FirasHmedi/afterdb#what-is-not-covered">afterdb README</a>. See also <a href="https://github.com/realm/realm-js/issues/7086">#7086</a>.</li>
         <li>Bugs inside the Realm engine itself: afterdb uses the upstream engine unchanged.</li>
         <li>Device Sync and the old React Native architecture.</li>
       </ul>

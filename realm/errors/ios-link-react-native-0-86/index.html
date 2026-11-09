@@ -71,12 +71,12 @@
 "@realm/react": "npm:@pomwik/afterdb-react@0.20.1"</code></pre>
         <p>Then reinstall, run <code>pod install</code> on iOS, and rebuild. For Expo dev builds, run <code>npx expo prebuild --clean</code>. Your code keeps <code>import Realm from "realm"</code>. If you do not use <code>@realm/react</code>, the first line is enough.</p>
         <p class="note">afterdb is an independent open-source fork of the realm-js SDK v20 (Apache-2.0) that we maintain, for apps on realm 20.x without Device Sync. It is not an official Realm release. Code on <a href="https://github.com/FirasHmedi/afterdb">GitHub</a>, package on <a href="https://www.npmjs.com/package/@pomwik/afterdb">npm</a>.</p>
-        <p>We build and run it in CI with React Native 0.88.1 on Xcode 26.4.1 and 26.6, with no frameworks, static frameworks and dynamic frameworks: the app starts on the iPhone simulator and the build for iPhone devices succeeds. Not tested yet: iOS with React Native 0.86 or 0.87 (the setup of the pull request author), Expo on iOS, and real iPhones.</p>
+        <p>We build and run it in CI with React Native 0.88.1 on Xcode 26.6 with no frameworks, static frameworks and dynamic frameworks, and on Xcode 26.4.1 without frameworks: the app starts on the iPhone simulator and the build for iPhone devices succeeds. Not tested yet: iOS with React Native 0.86 or 0.87 (the setup of the pull request author), Expo on iOS, and real iPhones.</p>
 
         <h2>Without afterdb</h2>
         <ul>
           <li>Apply the change from <a href="https://github.com/realm/realm-js/pull/7157">#7157</a> with patch-package: in <code>RealmJS.podspec</code>, replace <code>s.dependency 'React'</code> with <code>install_modules_dependencies(s)</code>. The author reports it works in their app. In afterdb we also had to turn <code>HEADER_SEARCH_PATHS</code> from an array into a string, because <code>install_modules_dependencies</code> appends to it. Check that your build still finds every header.</li>
-          <li>The pull request describes the error only with frameworks. If your app can build its pods without <code>use_frameworks!</code>, that avoids it.</li>
+          <li>The pull request describes the error only with frameworks. If your app can build its pods without <code>use_frameworks!</code>, that should avoid it. We have not tested this.</li>
         </ul>
         <div class="help">
           <p><strong>Need help?</strong> Send your versions and the full error for a <a href="/realm/#check">free 15-minute check</a>. We reply within 12 hours.</p>

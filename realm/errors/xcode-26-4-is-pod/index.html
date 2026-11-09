@@ -72,7 +72,7 @@ PROPAGATE_POD_FROM_TEMPLATE_ARGUMENT(Vector3);</code></pre>
 "@realm/react": "npm:@pomwik/afterdb-react@0.20.1"</code></pre>
         <p>Then reinstall, run <code>pod install</code> on iOS, and rebuild. For Expo dev builds, run <code>npx expo prebuild --clean</code>. Your code keeps <code>import Realm from "realm"</code>. If you do not use <code>@realm/react</code>, the first line is enough.</p>
         <p class="note">afterdb is an independent open-source fork of the realm-js SDK v20 (Apache-2.0) that we maintain, for apps on realm 20.x without Device Sync. It is not an official Realm release. Code on <a href="https://github.com/FirasHmedi/afterdb">GitHub</a>, package on <a href="https://www.npmjs.com/package/@pomwik/afterdb">npm</a>.</p>
-        <p>We build and run it in CI with React Native 0.88.1 on Xcode 26.4.1 and 26.6, with and without frameworks: the app starts on the iPhone simulator, keeps its data after a restart, and the build for iPhone devices succeeds. Not tested yet: real iPhones, iOS with React Native 0.86 or 0.87, Expo on iOS, and React Native 0.77.</p>
+        <p>We build and run it in CI with React Native 0.88.1. On Xcode 26.4.1 without frameworks, the app starts on the iPhone simulator and keeps its data after a restart. On Xcode 26.6, with no frameworks, static frameworks and dynamic frameworks, the app starts on the simulator. On both, the build for iPhone devices succeeds. Not tested yet: real iPhones, iOS with React Native 0.86 or 0.87, Expo on iOS, and React Native 0.77.</p>
 
         <h2>Without afterdb</h2>
         <ul>

@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Realm® npm ci hangs on prebuild-install, or Failed to download prebuild for Realm · Pomwik</title>
-  <meta name="description" content="Installing realm 20.x in CI hangs on prebuild-install --runtime napi, or fails with a 404 on Node 22. Why it happens, the manual workarounds, and an install with no download using afterdb.">
+  <meta name="description" content="Installing realm 20.x in CI hangs on prebuild-install --runtime napi, or fails with a 404 on Node 22. What is known, the manual workarounds, and an install with no download using afterdb.">
   <meta name="theme-color" content="#F7F9FC" media="(prefers-color-scheme: light)">
   <meta name="theme-color" content="#0A1426" media="(prefers-color-scheme: dark)">
   <link rel="canonical" href="https://pomwik.com/realm/errors/npm-ci-prebuild-install-timeout/">
@@ -13,7 +13,7 @@
   <meta property="og:site_name" content="Pomwik">
   <meta property="og:locale" content="en_US">
   <meta property="og:title" content="Realm®: npm ci hangs on prebuild-install, or Failed to download prebuild for Realm">
-  <meta property="og:description" content="Installing realm 20.x in CI hangs on prebuild-install --runtime napi, or fails with a 404 on Node 22. Why it happens, the manual workarounds, and an install with no download using afterdb.">
+  <meta property="og:description" content="Installing realm 20.x in CI hangs on prebuild-install --runtime napi, or fails with a 404 on Node 22. What is known, the manual workarounds, and an install with no download using afterdb.">
   <meta property="og:url" content="https://pomwik.com/realm/errors/npm-ci-prebuild-install-timeout/">
   <meta property="og:image" content="https://pomwik.com/realm/og-realm.png">
   <meta property="og:image:width" content="1200">
@@ -22,7 +22,7 @@
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image" content="https://pomwik.com/realm/og-realm.png">
   <link rel="stylesheet" href="/accueil.css">
-  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "Realm®: npm ci hangs on prebuild-install, or Failed to download prebuild for Realm", "description": "Installing realm 20.x in CI hangs on prebuild-install --runtime napi, or fails with a 404 on Node 22. Why it happens, the manual workarounds, and an install with no download using afterdb.", "url": "https://pomwik.com/realm/errors/npm-ci-prebuild-install-timeout/", "image": "https://pomwik.com/realm/og-realm.png", "inLanguage": "en-US", "datePublished": "2026-11-09", "dateModified": "2026-11-09", "author": {"@type": "Organization", "name": "Pomwik", "url": "https://pomwik.com/"}, "publisher": {"@type": "Organization", "name": "Pomwik", "url": "https://pomwik.com/"}}</script>
+  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "Realm®: npm ci hangs on prebuild-install, or Failed to download prebuild for Realm", "description": "Installing realm 20.x in CI hangs on prebuild-install --runtime napi, or fails with a 404 on Node 22. What is known, the manual workarounds, and an install with no download using afterdb.", "url": "https://pomwik.com/realm/errors/npm-ci-prebuild-install-timeout/", "image": "https://pomwik.com/realm/og-realm.png", "inLanguage": "en-US", "datePublished": "2026-11-09", "dateModified": "2026-11-09", "author": {"@type": "Organization", "name": "Pomwik", "url": "https://pomwik.com/"}, "publisher": {"@type": "Organization", "name": "Pomwik", "url": "https://pomwik.com/"}}</script>
 </head>
 <body>
   <a class="skip" href="#main">Skip to content</a>
@@ -44,7 +44,7 @@
       <article class="prose">
         <p class="crumbs"><a href="/realm/">Help for Realm® apps</a> / <a href="/realm/errors/">Build errors</a></p>
         <h1><code>npm ci</code> hangs on <code>prebuild-install</code>, or “Failed to download prebuild for Realm”</h1>
-        <p class="lede">When you install realm, a script downloads a Node binary from static.realm.io. In CI this download can hang for hours, or fail with a 404 on Node 22.</p>
+        <p class="lede">When you install realm, a script downloads a Node binary from static.realm.io. In CI this step can hang for hours, or fail with a 404 on Node 22.</p>
         <p class="updated">Updated 9 November 2026.</p>
 
         <h2>The error</h2>
@@ -61,12 +61,12 @@ prebuild-install warn install No prebuilt binaries found (target=undefined runti
         <h2>When it happens</h2>
         <ul>
           <li>The hang: realm 20.2.0 in CI. In <a href="https://github.com/realm/realm-js/issues/7119">#7119</a>, runners hit their 2 to 4 hour timeout, with 26 failed jobs between 20 March and 8 April 2026.</li>
-          <li>The 404: realm 20.1.0 and 20.2.0 on Node 22 with prebuild-install 7.1.2 (<a href="https://github.com/realm/realm-js/issues/7068">#7068</a>, October 2025). Also reported with realm 12.14.1 on Node 22.14 and 23 (<a href="https://github.com/realm/realm-js/issues/6980">#6980</a>).</li>
+          <li>The 404: realm 20.1.0 and 20.2.0 on Node 22 with prebuild-install 7.1.2 (<a href="https://github.com/realm/realm-js/issues/7068">#7068</a>, October 2025). Also reported with realm 12 on Node 22.14 and 23 (<a href="https://github.com/realm/realm-js/issues/6980">#6980</a>).</li>
         </ul>
 
         <h2>Why</h2>
         <p>realm's <code>install</code> script runs <code>prebuild-install --runtime napi</code>. It downloads the Realm binary for Node from static.realm.io. That binary is used when Realm runs in Node, for example in Jest tests. The app on the phone does not use it.</p>
-        <p>The hang: prebuild-install sets no timeout on that request (we read its source code), so a slow server can block the job until CI stops it.</p>
+        <p>The hang: the cause is not known, and <a href="https://github.com/realm/realm-js/issues/7119">#7119</a> has no reply. prebuild-install drops a download after 30 seconds without data (we read its source code), so the job may be stuck elsewhere in that step.</p>
         <p>The 404: prebuild-install 7.1.2 cannot read the N-API version on recent Node, so it asks for a file named after Node's own ABI (<code>napi-v127</code>) that does not exist. prebuild-install 7.1.3 fixes this (<a href="https://github.com/prebuild/prebuild-install/pull/204">prebuild-install #204</a>, January 2025).</p>
         <p>prebuild-install itself is no longer maintained: npm marks it as deprecated and its repository is archived.</p>
 
@@ -81,7 +81,7 @@ prebuild-install warn install No prebuilt binaries found (target=undefined runti
 
         <h2>Without afterdb</h2>
         <ul>
-          <li>For the 404 on Node 22: run <code>npm update prebuild-install</code> to get 7.1.3, without changing your Realm version. Users report it works in <a href="https://github.com/realm/realm-js/issues/6980">#6980</a>.</li>
+          <li>For the 404 on Node 22: run <code>npm update prebuild-install</code> to get 7.1.3, without changing your Realm version. A user reports it works in <a href="https://github.com/realm/realm-js/issues/6980">#6980</a>.</li>
           <li>For the hang: cache <code>~/.npm/_prebuilds</code> between CI runs. prebuild-install looks there before it downloads (you can see it in the log of <a href="https://github.com/realm/realm-js/issues/7068">#7068</a>). We have not tested this.</li>
           <li>If nothing in your project runs Realm in Node, <code>npm ci --ignore-scripts</code> skips the download. It also skips the install scripts of every other package. We have not tested this.</li>
         </ul>

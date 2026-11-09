@@ -75,7 +75,7 @@
         <h2>Without afterdb</h2>
         <p>Add this line to <code>android/app/proguard-rules.pro</code>:</p>
         <pre><code>-keep class io.realm.react.** { *; }</code></pre>
-        <p>A Realm maintainer suggested it in <a href="https://github.com/realm/realm-js/issues/6074">#6074</a> (2023) and three users confirmed it. With Expo, the <code>android</code> folder is generated, so add the rule through the <code>android.extraProguardRules</code> option of <a href="https://docs.expo.dev/versions/latest/sdk/build-properties/">expo-build-properties</a>, or a config plugin. We have not tested the Expo route.</p>
+        <p>A Realm maintainer suggested a keep rule for <code>io.realm.react.**</code> in <a href="https://github.com/realm/realm-js/issues/6074">#6074</a> (2023), and three users confirmed it worked. With Expo, the <code>android</code> folder is generated, so add the rule through the <code>android.extraProguardRules</code> option of <a href="https://docs.expo.dev/versions/latest/sdk/build-properties/">expo-build-properties</a>, or a config plugin. We have not tested the Expo route.</p>
         <div class="help">
           <p><strong>Need help?</strong> Send your versions and the full error for a <a href="/realm/#check">free 15-minute check</a>. We reply within 12 hours.</p>
         </div>

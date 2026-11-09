@@ -59,13 +59,13 @@ realm@npm:20.2.0 [9cf62] STDERR     at submitAnalytics (/…/node_modules/realm/
 
         <h2>When it happens</h2>
         <ul>
-          <li>On install of realm 12.x and 20.x, when install scripts run. pnpm and Yarn show the error. npm hides the output of scripts that succeed, so with npm you may only see it in CI logs.</li>
+          <li>On install of realm 12.x and 20.x, when install scripts run. pnpm and Yarn show the error. npm hides the output of install scripts that succeed, so with npm you may not see it.</li>
           <li>In <a href="https://github.com/realm/realm-js/issues/7126">#7126</a> (May 2026), the author reports that their deployment fails at this step.</li>
         </ul>
 
         <h2>Why</h2>
         <p>realm's <code>postinstall</code> runs <code>submit-analytics.js</code>, which collects data about your build before sending it. It first reads <code>bindgen/vendor/realm-core/dependencies.yml</code>, which is not in the npm package. Only after that does it check whether analytics are turned off.</p>
-        <p>In the realm 20.2.0 source, the script catches the error and prints it. Whether your install then fails depends on your package manager and CI settings.</p>
+        <p>In the realm 20.2.0 source, the script catches the error and prints it, so the install goes on. The author of <a href="https://github.com/realm/realm-js/issues/7126">#7126</a> still reports a failed deployment.</p>
 
         <h2>Fix with afterdb</h2>
         <p>afterdb removes the postinstall script and the analytics.</p>
