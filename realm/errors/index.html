@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Realm® build errors in 2026 and how to fix them · Pomwik</title>
+  <meta name="description" content="React Native build and install errors with Realm in 2026: Xcode 26.4, React Native 0.86+, Node 22, Expo SDK 58, Google Play 16 KB. The cause and the fix for each, with or without afterdb.">
+  <meta name="theme-color" content="#F7F9FC" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0A1426" media="(prefers-color-scheme: dark)">
+  <link rel="canonical" href="https://pomwik.com/realm/errors/">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Pomwik">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:title" content="Realm® build errors in 2026 and how to fix them">
+  <meta property="og:description" content="React Native build and install errors with Realm in 2026: Xcode 26.4, React Native 0.86+, Node 22, Expo SDK 58, Google Play 16 KB. The cause and the fix for each, with or without afterdb.">
+  <meta property="og:url" content="https://pomwik.com/realm/errors/">
+  <meta property="og:image" content="https://pomwik.com/realm/og-realm.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Pomwik: help for React Native apps still on Realm, and a checked move to SQLite">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://pomwik.com/realm/og-realm.png">
+  <link rel="stylesheet" href="/accueil.css">
+  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "Realm® build errors in 2026 and how to fix them", "description": "React Native build and install errors with Realm in 2026: Xcode 26.4, React Native 0.86+, Node 22, Expo SDK 58, Google Play 16 KB. The cause and the fix for each, with or without afterdb.", "url": "https://pomwik.com/realm/errors/", "image": "https://pomwik.com/realm/og-realm.png", "inLanguage": "en-US", "datePublished": "2026-11-09", "dateModified": "2026-11-09", "author": {"@type": "Organization", "name": "Pomwik", "url": "https://pomwik.com/"}, "publisher": {"@type": "Organization", "name": "Pomwik", "url": "https://pomwik.com/"}}</script>
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+
+  <header class="nav wrap">
+    <a class="brand" href="/" aria-label="Pomwik home (French)">
+      <img src="/favicon.svg" alt="" width="32" height="32">
+      <span>Pomwik</span>
+    </a>
+    <nav aria-label="Main">
+      <a class="nav-link" href="/realm/errors/">Build errors</a>
+      <a class="nav-link" href="/realm/leaving-realm/">Your options</a>
+      <a class="btn btn-small" href="/realm/#check">Free 15-min check</a>
+    </nav>
+  </header>
+
+  <main id="main" class="wrap guide">
+    <div class="prose">
+      <p class="crumbs"><a href="/realm/">Help for Realm® apps</a></p>
+      <h1>Realm® build errors in 2026 and how to fix them</h1>
+      <p class="lede">The last realm-js release is 20.2.0, from August 2025. Since then, new React Native, Xcode, Expo and Google Play versions have broken builds that used to work. Each page below gives the exact error, the cause, a manual workaround when there is one, and the fix with afterdb.</p>
+      <p class="updated">Updated 9 November 2026.</p>
+    </div>
+
+    <ul class="errors">
+      <li>
+        <span class="where">iOS build · Xcode 26.4</span>
+        <h2><a href="/realm/errors/xcode-26-4-is-pod/"><code>'is_pod' cannot be specialized</code></a></h2>
+        <p>A header shipped in realm 20.2.0 breaks with Xcode 26.4's C++ library. <a href="https://github.com/realm/realm-js/issues/7115">#7115</a></p>
+      </li>
+      <li>
+        <span class="where">iOS link · React Native 0.86+</span>
+        <h2><a href="/realm/errors/ios-link-react-native-0-86/"><code>Undefined symbols for architecture …</code> (<code>jsi::Value</code>)</a></h2>
+        <p>The RealmJS pod misses React Native dependencies when pods are built as frameworks. <a href="https://github.com/realm/realm-js/pull/7157">#7157</a></p>
+      </li>
+      <li>
+        <span class="where">Install · CI, Node 22</span>
+        <h2><a href="/realm/errors/npm-ci-prebuild-install-timeout/"><code>npm ci</code> hangs on <code>prebuild-install</code>, or <code>Failed to download prebuild for Realm</code></a></h2>
+        <p>An install-time download from static.realm.io with no timeout, and a 404 on Node 22. <a href="https://github.com/realm/realm-js/issues/7119">#7119</a>, <a href="https://github.com/realm/realm-js/issues/7068">#7068</a></p>
+      </li>
+      <li>
+        <span class="where">Android build</span>
+        <h2><a href="/realm/errors/android-openssl-static-realm-io/"><code>CMake Error: Downloading ... Failed</code> (OpenSSL from static.realm.io)</a></h2>
+        <p>The Android build downloads OpenSSL each time CMake configures it. <a href="https://github.com/realm/realm-js/issues/7044">#7044</a></p>
+      </li>
+      <li>
+        <span class="where">Google Play · 16 KB pages</span>
+        <h2><a href="/realm/errors/google-play-16kb/"><code>librealm.so</code> flagged as not 16 KB compatible</a></h2>
+        <p>From 1 February 2027, Google Play blocks updates without 16 KB support. <a href="https://github.com/realm/realm-js/issues/7129">#7129</a></p>
+      </li>
+      <li>
+        <span class="where">Android release · R8, Expo SDK 58</span>
+        <h2><a href="/realm/errors/release-r8-sslhelper-crash/">Crash at start: <code>ClassNotFoundException: io.realm.react.util.SSLHelper</code></a></h2>
+        <p>R8 removes a class that only native code uses. Found while testing afterdb.</p>
+      </li>
+      <li>
+        <span class="where">Install · pnpm, Yarn</span>
+        <h2><a href="/realm/errors/analytics-postinstall-enoent/"><code>ENOENT</code> on <code>realm-core/dependencies.yml</code> in <code>submit-analytics</code></a></h2>
+        <p>The postinstall analytics script reads a file missing from the package. <a href="https://github.com/realm/realm-js/issues/7126">#7126</a>, <a href="https://github.com/realm/realm-js/issues/7048">#7048</a></p>
+      </li>
+      <li>
+        <span class="where">Android build · @realm/react</span>
+        <h2><a href="/realm/errors/realm-react-nested-react-native/"><code>Failed to apply plugin 'com.facebook.react.rootproject'</code></a></h2>
+        <p>@realm/react 0.20.0 can install a second react-native. <a href="https://github.com/realm/realm-js/issues/7066">#7066</a></p>
+      </li>
+    </ul>
+
+    <div class="prose">
+      <h2>The fix with afterdb</h2>
+      <p>afterdb is an independent open-source fork of the realm-js SDK v20 (Apache-2.0) that we maintain. It fixes the errors above for apps on realm 20.x without Device Sync. It is not an official Realm release.</p>
+      <pre><code>"realm": "npm:@pomwik/afterdb@20.3.0",
+"@realm/react": "npm:@pomwik/afterdb-react@0.20.1"</code></pre>
+      <p>Then reinstall, run <code>pod install</code> on iOS, and rebuild. For Expo dev builds, run <code>npx expo prebuild --clean</code>. Your code keeps <code>import Realm from "realm"</code>.</p>
+      <p>Tested with React Native 0.88.1 on Android 7, 11 and 16 emulators and on Android 16 with 16 KB pages; with React Native 0.86.3 and 0.87.1 and Expo SDK 56, 57 and 58 on the 16 KB emulator; and on the iPhone simulator with React Native 0.88.1 on Xcode 26.4.1 and 26.6. Not tested yet: real devices, iOS with React Native 0.86 or 0.87 or with Expo, and realm 10, 11 or 12. Details: the <a href="https://github.com/FirasHmedi/afterdb#compatibility-matrix">compatibility matrix</a> on GitHub.</p>
+
+      <h2>Not fixed by afterdb</h2>
+      <ul>
+        <li>Debug builds on React Native 0.83 and later can throw <code>Accessing object which has been invalidated or deleted</code>. It comes from React (<a href="https://github.com/facebook/react/issues/35126">facebook/react #35126</a>), and release builds are not affected. Workarounds are listed in the <a href="https://github.com/FirasHmedi/afterdb#what-is-not-covered">afterdb README</a>. See also <a href="https://github.com/realm/realm-js/issues/7086">#7086</a>.</li>
+        <li>Bugs inside the Realm engine itself: afterdb uses the upstream engine unchanged.</li>
+        <li>Device Sync and the old React Native architecture.</li>
+      </ul>
+
+      <h2>Planning to leave Realm?</h2>
+      <p>We compare afterdb, op-sqlite, expo-sqlite, WatermelonDB, PowerSync and Ditto in <a href="/realm/leaving-realm/">Leaving Realm in 2026: your options</a>.</p>
+
+      <div class="help">
+        <p><strong>Need help?</strong> Send your versions and the full error for a <a href="/realm/#check">free 15-minute check</a>. We reply within 12 hours.</p>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer wrap">
+    <div class="brand">
+      <img src="/favicon.svg" alt="" width="24" height="24">
+      <span>Pomwik</span>
+    </div>
+    <p>&copy; 2026 Pomwik &middot; <a href="/realm/">Help for Realm apps</a> &middot; <a href="/" hreflang="fr">Home (French)</a> &middot; <a href="/mentions-legales.html" hreflang="fr">Legal (French)</a> &middot; <a href="/privacy.html" hreflang="fr">Privacy (French)</a></p>
+    <p class="tm">Realm® is a trademark of MongoDB, Inc. Pomwik is independent and not affiliated with or endorsed by MongoDB.</p>
+  </footer>
+
+  <!-- Cloudflare Web Analytics : mesure d'audience sans cookie -->
+  <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "57482883c161487785a4a5d64ed3a96f"}'></script>
+</body>
+</html>

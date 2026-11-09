@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>&#x27;is_pod&#x27; cannot be specialized: Realm® on Xcode 26.4 · Pomwik</title>
+  <meta name="description" content="The iOS build of a React Native app on realm 20.2.0 fails on Xcode 26.4 with &#x27;is_pod&#x27; cannot be specialized. Why, a manual patch, and a two-line fix with afterdb.">
+  <meta name="theme-color" content="#F7F9FC" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0A1426" media="(prefers-color-scheme: dark)">
+  <link rel="canonical" href="https://pomwik.com/realm/errors/xcode-26-4-is-pod/">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Pomwik">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:title" content="Realm® on Xcode 26.4: &#x27;is_pod&#x27; cannot be specialized">
+  <meta property="og:description" content="The iOS build of a React Native app on realm 20.2.0 fails on Xcode 26.4 with &#x27;is_pod&#x27; cannot be specialized. Why, a manual patch, and a two-line fix with afterdb.">
+  <meta property="og:url" content="https://pomwik.com/realm/errors/xcode-26-4-is-pod/">
+  <meta property="og:image" content="https://pomwik.com/realm/og-realm.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Pomwik: help for React Native apps still on Realm, and a checked move to SQLite">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://pomwik.com/realm/og-realm.png">
+  <link rel="stylesheet" href="/accueil.css">
+  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "Realm® on Xcode 26.4: 'is_pod' cannot be specialized", "description": "The iOS build of a React Native app on realm 20.2.0 fails on Xcode 26.4 with 'is_pod' cannot be specialized. Why, a manual patch, and a two-line fix with afterdb.", "url": "https://pomwik.com/realm/errors/xcode-26-4-is-pod/", "image": "https://pomwik.com/realm/og-realm.png", "inLanguage": "en-US", "datePublished": "2026-11-09", "dateModified": "2026-11-09", "author": {"@type": "Organization", "name": "Pomwik", "url": "https://pomwik.com/"}, "publisher": {"@type": "Organization", "name": "Pomwik", "url": "https://pomwik.com/"}}</script>
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+
+  <header class="nav wrap">
+    <a class="brand" href="/" aria-label="Pomwik home (French)">
+      <img src="/favicon.svg" alt="" width="32" height="32">
+      <span>Pomwik</span>
+    </a>
+    <nav aria-label="Main">
+      <a class="nav-link" href="/realm/errors/">Build errors</a>
+      <a class="nav-link" href="/realm/leaving-realm/">Your options</a>
+      <a class="btn btn-small" href="/realm/#check">Free 15-min check</a>
+    </nav>
+  </header>
+
+  <main id="main" class="wrap guide">
+    <div class="guide-layout">
+      <article class="prose">
+        <p class="crumbs"><a href="/realm/">Help for Realm® apps</a> / <a href="/realm/errors/">Build errors</a></p>
+        <h1>Realm on Xcode 26.4: <code>'is_pod' cannot be specialized</code></h1>
+        <p class="lede">Your React Native app uses realm 20.2.0 and the iOS build fails after an update to Xcode 26.4. The cause is one header shipped inside the realm package. It was fixed for the Realm engine and for Realm Swift in February 2026, but no realm-js release has the fix.</p>
+        <p class="updated">Updated 9 November 2026.</p>
+
+        <h2>The error</h2>
+        <pre><code>'is_pod' cannot be specialized: Users are not allowed to specialize this standard library entity</code></pre>
+        <p>Xcode shows it on lines like these, expanded from macros in <code>external/s2/base/macros.h</code>:</p>
+        <pre><code>DECLARE_POD(S1Angle);
+PROPAGATE_POD_FROM_TEMPLATE_ARGUMENT(Vector2);
+PROPAGATE_POD_FROM_TEMPLATE_ARGUMENT(Vector3);</code></pre>
+
+        <h2>When it happens</h2>
+        <ul>
+          <li>iOS builds with realm 20.2.0, the last realm-js release (11 August 2025).</li>
+          <li>Xcode 26.4 or later. Reported in <a href="https://github.com/realm/realm-js/issues/7115">#7115</a> (31 March 2026) with React Native 0.77.3. Realm Swift users saw the same error in <a href="https://github.com/realm/realm-swift/issues/8812">realm-swift #8812</a>.</li>
+          <li>The header ships only in the Apple part of the realm package. Android builds do not include it.</li>
+        </ul>
+
+        <h2>Why</h2>
+        <p>realm 20.2.0 ships a prebuilt engine, <code>realm-core.xcframework</code>. One of its headers comes from the s2 geometry library and specializes <code>std::is_pod</code>. Starting with Xcode 26.4, Apple's C++ standard library forbids that, so the compiler stops.</p>
+        <p>The engine fix is <a href="https://github.com/realm/realm-core/commit/d8f21f9b98cae76e8dc235558c2f71ea27997f10">realm-core commit d8f21f9</a> (22 February 2026), and Realm Swift 20.0.4 includes it. realm-js was never updated: its last release is still 20.2.0.</p>
+
+        <h2>Fix with afterdb</h2>
+        <p>afterdb ships the same header with the realm-core fix applied.</p>
+        <p>In <code>package.json</code>, point the two Realm packages to afterdb:</p>
+        <pre><code>"realm": "npm:@pomwik/afterdb@20.3.0",
+"@realm/react": "npm:@pomwik/afterdb-react@0.20.1"</code></pre>
+        <p>Then reinstall, run <code>pod install</code> on iOS, and rebuild. For Expo dev builds, run <code>npx expo prebuild --clean</code>. Your code keeps <code>import Realm from "realm"</code>. If you do not use <code>@realm/react</code>, the first line is enough.</p>
+        <p class="note">afterdb is an independent open-source fork of the realm-js SDK v20 (Apache-2.0) that we maintain, for apps on realm 20.x without Device Sync. It is not an official Realm release. Code on <a href="https://github.com/FirasHmedi/afterdb">GitHub</a>, package on <a href="https://www.npmjs.com/package/@pomwik/afterdb">npm</a>.</p>
+        <p>We build and run it in CI with React Native 0.88.1 on Xcode 26.4.1 and 26.6, with and without frameworks: the app starts on the iPhone simulator, keeps its data after a restart, and the build for iPhone devices succeeds. Not tested yet: real iPhones, iOS with React Native 0.86 or 0.87, Expo on iOS, and React Native 0.77.</p>
+
+        <h2>Without afterdb</h2>
+        <ul>
+          <li>Patch the header yourself. In each slice of <code>node_modules/realm/prebuilds/apple/realm-core.xcframework</code>, edit <code>Headers/external/s2/base/macros.h</code> so that the <code>DECLARE_POD</code> and <code>PROPAGATE_POD_FROM_TEMPLATE_ARGUMENT</code> macros expand to nothing, as realm-core commit d8f21f9 does. Keep the change with patch-package. This is what afterdb does. We did not find a public patch for realm-js.</li>
+          <li>Build with Xcode 26.3 or earlier. <a href="https://developer.apple.com/news/upcoming-requirements/">App Store Connect has required Xcode 26</a> since 28 April 2026, so 26.3 is still accepted, but you stay on an old Xcode until the header is fixed.</li>
+        </ul>
+        <div class="help">
+          <p><strong>Need help?</strong> Send your versions and the full error for a <a href="/realm/#check">free 15-minute check</a>. We reply within 12 hours.</p>
+        </div>
+      </article>
+      <aside class="panel side" aria-labelledby="t-side">
+        <h2 id="t-side">All Realm errors</h2>
+        <ul>
+            <li><a href="/realm/errors/xcode-26-4-is-pod/" aria-current="page">Xcode 26.4: &#x27;is_pod&#x27; cannot be specialized</a></li>
+            <li><a href="/realm/errors/ios-link-react-native-0-86/">iOS link errors on React Native 0.86+</a></li>
+            <li><a href="/realm/errors/npm-ci-prebuild-install-timeout/">npm ci hangs on prebuild-install</a></li>
+            <li><a href="/realm/errors/android-openssl-static-realm-io/">Android: OpenSSL download fails</a></li>
+            <li><a href="/realm/errors/google-play-16kb/">Google Play 16 KB page sizes</a></li>
+            <li><a href="/realm/errors/release-r8-sslhelper-crash/">Release crash with R8 (SSLHelper)</a></li>
+            <li><a href="/realm/errors/analytics-postinstall-enoent/">postinstall ENOENT dependencies.yml</a></li>
+            <li><a href="/realm/errors/realm-react-nested-react-native/">@realm/react pulls a second react-native</a></li>
+        </ul>
+        <p><a href="/realm/leaving-realm/">Leaving Realm in 2026: your options</a></p>
+      </aside>
+    </div>
+  </main>
+
+  <footer class="footer wrap">
+    <div class="brand">
+      <img src="/favicon.svg" alt="" width="24" height="24">
+      <span>Pomwik</span>
+    </div>
+    <p>&copy; 2026 Pomwik &middot; <a href="/realm/">Help for Realm apps</a> &middot; <a href="/" hreflang="fr">Home (French)</a> &middot; <a href="/mentions-legales.html" hreflang="fr">Legal (French)</a> &middot; <a href="/privacy.html" hreflang="fr">Privacy (French)</a></p>
+    <p class="tm">Realm® is a trademark of MongoDB, Inc. Pomwik is independent and not affiliated with or endorsed by MongoDB.</p>
+  </footer>
+
+  <!-- Cloudflare Web Analytics : mesure d'audience sans cookie -->
+  <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "57482883c161487785a4a5d64ed3a96f"}'></script>
+</body>
+</html>

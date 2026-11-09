@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Realm® postinstall error: ENOENT dependencies.yml in submit-analytics.js · Pomwik</title>
+  <meta name="description" content="realm&#x27;s postinstall script fails with ENOENT on bindgen/vendor/realm-core/dependencies.yml, even with REALM_DISABLE_ANALYTICS=1. Why, what works, and afterdb, which has no postinstall.">
+  <meta name="theme-color" content="#F7F9FC" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0A1426" media="(prefers-color-scheme: dark)">
+  <link rel="canonical" href="https://pomwik.com/realm/errors/analytics-postinstall-enoent/">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Pomwik">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:title" content="Realm® postinstall error: ENOENT dependencies.yml in submit-analytics">
+  <meta property="og:description" content="realm&#x27;s postinstall script fails with ENOENT on bindgen/vendor/realm-core/dependencies.yml, even with REALM_DISABLE_ANALYTICS=1. Why, what works, and afterdb, which has no postinstall.">
+  <meta property="og:url" content="https://pomwik.com/realm/errors/analytics-postinstall-enoent/">
+  <meta property="og:image" content="https://pomwik.com/realm/og-realm.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Pomwik: help for React Native apps still on Realm, and a checked move to SQLite">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://pomwik.com/realm/og-realm.png">
+  <link rel="stylesheet" href="/accueil.css">
+  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "Realm® postinstall error: ENOENT dependencies.yml in submit-analytics", "description": "realm's postinstall script fails with ENOENT on bindgen/vendor/realm-core/dependencies.yml, even with REALM_DISABLE_ANALYTICS=1. Why, what works, and afterdb, which has no postinstall.", "url": "https://pomwik.com/realm/errors/analytics-postinstall-enoent/", "image": "https://pomwik.com/realm/og-realm.png", "inLanguage": "en-US", "datePublished": "2026-11-09", "dateModified": "2026-11-09", "author": {"@type": "Organization", "name": "Pomwik", "url": "https://pomwik.com/"}, "publisher": {"@type": "Organization", "name": "Pomwik", "url": "https://pomwik.com/"}}</script>
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+
+  <header class="nav wrap">
+    <a class="brand" href="/" aria-label="Pomwik home (French)">
+      <img src="/favicon.svg" alt="" width="32" height="32">
+      <span>Pomwik</span>
+    </a>
+    <nav aria-label="Main">
+      <a class="nav-link" href="/realm/errors/">Build errors</a>
+      <a class="nav-link" href="/realm/leaving-realm/">Your options</a>
+      <a class="btn btn-small" href="/realm/#check">Free 15-min check</a>
+    </nav>
+  </header>
+
+  <main id="main" class="wrap guide">
+    <div class="guide-layout">
+      <article class="prose">
+        <p class="crumbs"><a href="/realm/">Help for Realm® apps</a> / <a href="/realm/errors/">Build errors</a></p>
+        <h1>Realm postinstall: <code>ENOENT</code> on <code>realm-core/dependencies.yml</code> in <code>submit-analytics</code></h1>
+        <p class="lede">During install, realm's analytics script reads a file that is not in the npm package. Setting <code>REALM_DISABLE_ANALYTICS=1</code> does not stop it.</p>
+        <p class="updated">Updated 9 November 2026.</p>
+
+        <h2>The error</h2>
+        <p>With Yarn and realm 20.2.0 (<a href="https://github.com/realm/realm-js/issues/7048">#7048</a>, paths shortened):</p>
+        <pre><code>realm@npm:20.2.0 [9cf62] STDERR Error: ENOENT: no such file or directory, open '/…/node_modules/realm/bindgen/vendor/realm-core/dependencies.yml'
+realm@npm:20.2.0 [9cf62] STDERR     at getRealmCoreVersion (/…/node_modules/realm/dist/scripts/submit-analytics.js:136:10)
+realm@npm:20.2.0 [9cf62] STDERR     at collectPlatformData (/…/node_modules/realm/dist/scripts/submit-analytics.js:184:30)
+realm@npm:20.2.0 [9cf62] STDERR     at submitAnalytics (/…/node_modules/realm/dist/scripts/submit-analytics.js:295:24)</code></pre>
+        <p>With pnpm and realm 12.15.0 (<a href="https://github.com/realm/realm-js/issues/7126">#7126</a>):</p>
+        <pre><code>.../node_modules/realm postinstall$ node ./scripts/submit-analytics.js
+.../node_modules/realm postinstall: Error: ENOENT: no such file or directory, open '/…/node_modules/.pnpm/realm@12.15.0_…/node_modules/realm/bindgen/vendor/realm-core/dependencies.yml'</code></pre>
+
+        <h2>When it happens</h2>
+        <ul>
+          <li>On install of realm 12.x and 20.x, when install scripts run. pnpm and Yarn show the error. npm hides the output of scripts that succeed, so with npm you may only see it in CI logs.</li>
+          <li>In <a href="https://github.com/realm/realm-js/issues/7126">#7126</a> (May 2026), the author reports that their deployment fails at this step.</li>
+        </ul>
+
+        <h2>Why</h2>
+        <p>realm's <code>postinstall</code> runs <code>submit-analytics.js</code>, which collects data about your build before sending it. It first reads <code>bindgen/vendor/realm-core/dependencies.yml</code>, which is not in the npm package. Only after that does it check whether analytics are turned off.</p>
+        <p>In the realm 20.2.0 source, the script catches the error and prints it. Whether your install then fails depends on your package manager and CI settings.</p>
+
+        <h2>Fix with afterdb</h2>
+        <p>afterdb removes the postinstall script and the analytics.</p>
+        <p>In <code>package.json</code>, point the two Realm packages to afterdb:</p>
+        <pre><code>"realm": "npm:@pomwik/afterdb@20.3.0",
+"@realm/react": "npm:@pomwik/afterdb-react@0.20.1"</code></pre>
+        <p>Then reinstall, run <code>pod install</code> on iOS, and rebuild. For Expo dev builds, run <code>npx expo prebuild --clean</code>. Your code keeps <code>import Realm from "realm"</code>. If you do not use <code>@realm/react</code>, the first line is enough.</p>
+        <p class="note">afterdb is an independent open-source fork of the realm-js SDK v20 (Apache-2.0) that we maintain, for apps on realm 20.x without Device Sync. It is not an official Realm release. Code on <a href="https://github.com/FirasHmedi/afterdb">GitHub</a>, package on <a href="https://www.npmjs.com/package/@pomwik/afterdb">npm</a>.</p>
+        <p>afterdb is realm v20. If you are on realm 12, like the author of <a href="https://github.com/realm/realm-js/issues/7126">#7126</a>, you first need to move to v20, which removed Device Sync. We have not tested a move from v12 to v20.</p>
+
+        <h2>Without afterdb</h2>
+        <ul>
+          <li><code>REALM_DISABLE_ANALYTICS=1</code>: in <a href="https://github.com/realm/realm-js/issues/7048">#7048</a>, one user reported the error went away and another said it did not. In the 20.2.0 code the file is read before the variable is checked, so we would not count on it.</li>
+          <li><a href="https://github.com/realm/realm-js/pull/7127">Pull request #7127</a> moves the check to the start of the script. As of 9 November 2026, it has no review and is not merged. You can apply the same change with patch-package. We have not tested it.</li>
+          <li>Installing with <code>--ignore-scripts</code> avoids it, but skips the install scripts of every package. We have not tested it.</li>
+        </ul>
+        <div class="help">
+          <p><strong>Need help?</strong> Send your versions and the full error for a <a href="/realm/#check">free 15-minute check</a>. We reply within 12 hours.</p>
+        </div>
+      </article>
+      <aside class="panel side" aria-labelledby="t-side">
+        <h2 id="t-side">All Realm errors</h2>
+        <ul>
+            <li><a href="/realm/errors/xcode-26-4-is-pod/">Xcode 26.4: &#x27;is_pod&#x27; cannot be specialized</a></li>
+            <li><a href="/realm/errors/ios-link-react-native-0-86/">iOS link errors on React Native 0.86+</a></li>
+            <li><a href="/realm/errors/npm-ci-prebuild-install-timeout/">npm ci hangs on prebuild-install</a></li>
+            <li><a href="/realm/errors/android-openssl-static-realm-io/">Android: OpenSSL download fails</a></li>
+            <li><a href="/realm/errors/google-play-16kb/">Google Play 16 KB page sizes</a></li>
+            <li><a href="/realm/errors/release-r8-sslhelper-crash/">Release crash with R8 (SSLHelper)</a></li>
+            <li><a href="/realm/errors/analytics-postinstall-enoent/" aria-current="page">postinstall ENOENT dependencies.yml</a></li>
+            <li><a href="/realm/errors/realm-react-nested-react-native/">@realm/react pulls a second react-native</a></li>
+        </ul>
+        <p><a href="/realm/leaving-realm/">Leaving Realm in 2026: your options</a></p>
+      </aside>
+    </div>
+  </main>
+
+  <footer class="footer wrap">
+    <div class="brand">
+      <img src="/favicon.svg" alt="" width="24" height="24">
+      <span>Pomwik</span>
+    </div>
+    <p>&copy; 2026 Pomwik &middot; <a href="/realm/">Help for Realm apps</a> &middot; <a href="/" hreflang="fr">Home (French)</a> &middot; <a href="/mentions-legales.html" hreflang="fr">Legal (French)</a> &middot; <a href="/privacy.html" hreflang="fr">Privacy (French)</a></p>
+    <p class="tm">Realm® is a trademark of MongoDB, Inc. Pomwik is independent and not affiliated with or endorsed by MongoDB.</p>
+  </footer>
+
+  <!-- Cloudflare Web Analytics : mesure d'audience sans cookie -->
+  <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "57482883c161487785a4a5d64ed3a96f"}'></script>
+</body>
+</html>

@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Leaving Realm® in 2026: your options for React Native · Pomwik</title>
+  <meta name="description" content="Realm SDKs reached end of life in September 2025. A sourced comparison for React Native apps: keep Realm with afterdb, op-sqlite, expo-sqlite, WatermelonDB, PowerSync or Ditto, and how to move the data already on phones.">
+  <meta name="theme-color" content="#F7F9FC" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0A1426" media="(prefers-color-scheme: dark)">
+  <link rel="canonical" href="https://pomwik.com/realm/leaving-realm/">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Pomwik">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:title" content="Leaving Realm® in 2026: your options">
+  <meta property="og:description" content="Realm SDKs reached end of life in September 2025. A sourced comparison for React Native apps: keep Realm with afterdb, op-sqlite, expo-sqlite, WatermelonDB, PowerSync or Ditto, and how to move the data already on phones.">
+  <meta property="og:url" content="https://pomwik.com/realm/leaving-realm/">
+  <meta property="og:image" content="https://pomwik.com/realm/og-realm.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Pomwik: help for React Native apps still on Realm, and a checked move to SQLite">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://pomwik.com/realm/og-realm.png">
+  <link rel="stylesheet" href="/accueil.css">
+  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "Leaving Realm® in 2026: your options", "description": "Realm SDKs reached end of life in September 2025. A sourced comparison for React Native apps: keep Realm with afterdb, op-sqlite, expo-sqlite, WatermelonDB, PowerSync or Ditto, and how to move the data already on phones.", "url": "https://pomwik.com/realm/leaving-realm/", "image": "https://pomwik.com/realm/og-realm.png", "inLanguage": "en-US", "datePublished": "2026-11-09", "dateModified": "2026-11-09", "author": {"@type": "Organization", "name": "Pomwik", "url": "https://pomwik.com/"}, "publisher": {"@type": "Organization", "name": "Pomwik", "url": "https://pomwik.com/"}}</script>
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+
+  <header class="nav wrap">
+    <a class="brand" href="/" aria-label="Pomwik home (French)">
+      <img src="/favicon.svg" alt="" width="32" height="32">
+      <span>Pomwik</span>
+    </a>
+    <nav aria-label="Main">
+      <a class="nav-link" href="/realm/errors/">Build errors</a>
+      <a class="nav-link" href="/realm/leaving-realm/">Your options</a>
+      <a class="btn btn-small" href="/realm/#check">Free 15-min check</a>
+    </nav>
+  </header>
+
+  <main id="main" class="wrap guide">
+    <div class="prose">
+      <p class="crumbs"><a href="/realm/">Help for Realm® apps</a></p>
+      <h1>Leaving Realm® in 2026: your options</h1>
+      <p class="lede">If your React Native app stores its data in Realm, you have to choose: keep it running, or move to something else. This page compares the options as of 9 November 2026, with sources. We maintain one of them, afterdb, and we say where it does not fit.</p>
+      <p class="updated">Updated 9 November 2026.</p>
+
+      <h2>Where Realm stands</h2>
+      <ul>
+        <li>MongoDB deprecated the Atlas Device SDKs, Realm included, in September 2024. They reached end of life on 30 September 2025. <a href="https://www.mongodb.com/docs/atlas/device-sdks/deprecation/">MongoDB's page</a> says the on-device database continues as an open-source project.</li>
+        <li>In April 2026, a member of the Realm team wrote in <a href="https://github.com/realm/realm-js/issues/7094">#7094</a>: “There is no longer anyone being paid to work on Realm.”</li>
+        <li>The last releases are realm 20.2.0 (August 2025) and @realm/react 0.20.0 (October 2025).</li>
+        <li>The platforms keep moving. React Native 0.82 and later run only on the new architecture (<a href="https://reactnative.dev/blog">React Native blog</a>). App Store Connect has required Xcode 26 since 28 April 2026 (<a href="https://developer.apple.com/news/upcoming-requirements/">Apple</a>). From 1 February 2027, Google Play blocks app updates without 16 KB page support (<a href="https://developer.android.com/guide/practices/page-sizes">Android Developers</a>).</li>
+      </ul>
+      <p>If a build already fails, start with <a href="/realm/errors/">Realm build errors in 2026</a>.</p>
+
+      <h2 id="t-table">The options at a glance</h2>
+      <p>Versions and dates read from npm on 9 November 2026.</p>
+    </div>
+
+    <table class="compare" aria-labelledby="t-table">
+      <thead>
+        <tr>
+          <th scope="col">Option</th>
+          <th scope="col">License</th>
+          <th scope="col">Latest release on npm</th>
+          <th scope="col">Encryption at rest</th>
+          <th scope="col">Sync</th>
+          <th scope="col">Migration effort</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row">Keep Realm with afterdb (ours)</th>
+          <td data-label="License">Apache-2.0</td>
+          <td data-label="Latest release on npm"><code>@pomwik/afterdb</code> 20.3.0, 8 Nov 2026</td>
+          <td data-label="Encryption at rest">Realm encryption, unchanged</td>
+          <td data-label="Sync">No (no Device Sync)</td>
+          <td data-label="Migration effort">Two lines in <code>package.json</code>, no code change, if the app is on realm v20 without sync</td>
+        </tr>
+        <tr>
+          <th scope="row">op-sqlite</th>
+          <td data-label="License">MIT</td>
+          <td data-label="Latest release on npm">19.0.5, 5 Nov 2026</td>
+          <td data-label="Encryption at rest">SQLCipher, as a build option</td>
+          <td data-label="Sync">No</td>
+          <td data-label="Migration effort">High: rewrite the data layer</td>
+        </tr>
+        <tr>
+          <th scope="row">expo-sqlite</th>
+          <td data-label="License">MIT</td>
+          <td data-label="Latest release on npm">58.0.15, 31 Oct 2026 (Expo SDK 58)</td>
+          <td data-label="Encryption at rest">SQLCipher, as a plugin option (not in Expo Go)</td>
+          <td data-label="Sync">No</td>
+          <td data-label="Migration effort">High: rewrite the data layer; bare React Native apps also need <code>expo</code></td>
+        </tr>
+        <tr>
+          <th scope="row">WatermelonDB</th>
+          <td data-label="License">MIT</td>
+          <td data-label="Latest release on npm">0.28.0, 7 Apr 2025</td>
+          <td data-label="Encryption at rest">Not built in</td>
+          <td data-label="Sync">Sync protocol; you write the backend</td>
+          <td data-label="Migration effort">High, plus a maintenance risk</td>
+        </tr>
+        <tr>
+          <th scope="row">PowerSync</th>
+          <td data-label="License">Client SDK Apache-2.0; sync service Apache-2.0 since 3 Nov 2026</td>
+          <td data-label="Latest release on npm"><code>@powersync/react-native</code> 1.35.11 (<code>latest</code> tag), 9 Nov 2026; a 2.x line is also published</td>
+          <td data-label="Encryption at rest">SQLCipher through op-sqlite</td>
+          <td data-label="Sync">Yes: Postgres, MongoDB, MySQL, SQL Server; cloud or self-hosted</td>
+          <td data-label="Migration effort">High for a local-only app; a guide exists for apps leaving Atlas Device Sync</td>
+        </tr>
+        <tr>
+          <th scope="row">Ditto</th>
+          <td data-label="License">Proprietary (Ditto Binary License)</td>
+          <td data-label="Latest release on npm"><code>@dittolive/ditto</code> 5.2.0, 27 Oct 2026</td>
+          <td data-label="Encryption at rest">No, per Ditto's FAQ</td>
+          <td data-label="Sync">Yes: device to device (Bluetooth LE, local network, Wi-Fi) and an optional server</td>
+          <td data-label="Migration effort">High: different data model and query language</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="prose">
+      <h2>When each one fits</h2>
+
+      <h3>Keep Realm with afterdb</h3>
+      <p>Fits if your app is on realm v20, does not use Device Sync, and you need to keep shipping through React Native, Expo, Xcode and Google Play updates now. You change two lines in <code>package.json</code> and no code:</p>
+      <pre><code>"realm": "npm:@pomwik/afterdb@20.3.0",
+"@realm/react": "npm:@pomwik/afterdb-react@0.20.1"</code></pre>
+      <p>The limits: the engine is the upstream binary, unchanged, so engine bugs stay. No Device Sync and no old architecture. Tested on Android emulators and the iPhone simulator, not yet on real devices. One company maintains it: us. Treat it as a bridge, and plan your exit.</p>
+      <p>Apps on realm 10, 11 or 12 must first remove sync and move to v20. We have not tested that move. The npm deprecation message on those versions points to <code>realm@community</code>, which installs 20.1.0, without the 16 KB support added in 20.2.0.</p>
+      <p class="note">Sources: <a href="https://github.com/FirasHmedi/afterdb">afterdb on GitHub</a> and its compatibility matrix.</p>
+
+      <h3>op-sqlite</h3>
+      <p>Fits bare React Native apps and Expo dev builds that want SQLite directly. It does not run in Expo Go. Encryption with SQLCipher is a build option set in <code>package.json</code>, and it is not available on the web. Its README lists reactive queries and full-text search. Asked about stability, the maintainer answered that it is production ready (<a href="https://github.com/OP-Engineering/op-sqlite/issues/342">op-sqlite #342</a>). PowerSync's 2.x line builds on it.</p>
+      <p class="note">Sources: <a href="https://github.com/OP-Engineering/op-sqlite">op-sqlite on GitHub</a>, <a href="https://op-engineering.github.io/op-sqlite/docs/installation">installation docs</a>.</p>
+
+      <h3>expo-sqlite</h3>
+      <p>Fits Expo apps. It runs in Expo Go, except with SQLCipher. To encrypt, turn on the <code>useSQLCipher</code> plugin option and rebuild. Watch out: without SQLCipher, <code>PRAGMA key</code> does nothing and raises no error. Drizzle ORM adds live queries and migrations bundled with the app. Bare React Native apps need to install <code>expo</code> first.</p>
+      <p class="note">Sources: <a href="https://docs.expo.dev/versions/latest/sdk/sqlite/">expo-sqlite docs</a>, <a href="https://orm.drizzle.team/docs/connect-expo-sqlite">Drizzle with expo-sqlite</a>.</p>
+
+      <h3>WatermelonDB</h3>
+      <p>The latest stable release is 0.28.0, from April 2025, and the last commit on master is from August 2025. An issue that asks whether the project is abandoned (<a href="https://github.com/Nozbe/WatermelonDB/issues/1963">#1963</a>) has no answer from the maintainer. A user reports that 0.28.0 does not build on React Native 0.88.0 (<a href="https://github.com/Nozbe/WatermelonDB/issues/1969">#1969</a>, October 2026). Encryption is not built in, and its sync protocol needs a backend you write. A fork, <a href="https://github.com/StasDoskalenko/NitromelonDB">NitromelonDB</a>, started in August 2026. Fits only if you accept that maintenance risk.</p>
+
+      <h3>PowerSync</h3>
+      <p>Fits if you need sync with your own backend database: Postgres, MongoDB, MySQL or SQL Server, in PowerSync's cloud or self-hosted. The client SDK is Apache-2.0, and the sync service moved from FSL to Apache-2.0 on 3 November 2026. PowerSync has a guide for apps leaving Atlas Device Sync with MongoDB, and Realm and PowerSync can run side by side during the move. The guide does not cover the <code>.realm</code> files already on phones. You can also use it without sync, by not calling <code>connect()</code>. Expo Go works only with its JavaScript adapter.</p>
+      <p class="note">Sources: <a href="https://docs.powersync.com/client-sdk-references/react-native-and-expo">React Native SDK docs</a>, <a href="https://docs.powersync.com/migration-guides/mongodb-atlas">migration guide from Atlas Device Sync</a>, <a href="https://github.com/powersync-ja/powersync-service">powersync-service</a>.</p>
+
+      <h3>Ditto</h3>
+      <p>Fits if you need sync between nearby devices (Bluetooth LE, local network, Wi-Fi), with an optional server. It is proprietary. Its FAQ says that Ditto does not encrypt its local database at rest: it points to the operating system's encryption and suggests encrypting sensitive fields yourself. It does not run in Expo Go.</p>
+      <p class="note">Sources: <a href="https://docs.ditto.live/home/faq">Ditto FAQ</a>, <a href="https://docs.ditto.live/sdk/latest/install-guides/react-native">React Native install guide</a>.</p>
+
+      <h2>A simple way to decide</h2>
+      <ul>
+        <li>You need sync: PowerSync (your own backend) or Ditto (device to device).</li>
+        <li>No sync, the app is on realm v20, and a release is blocked now: afterdb now, then plan a move to SQLite.</li>
+        <li>No sync, and you have time for a rewrite: op-sqlite (bare React Native) or expo-sqlite (Expo).</li>
+      </ul>
+
+      <h2>The hard part: the data already on phones</h2>
+      <p>Moving to SQLite takes more than a new library:</p>
+      <ul>
+        <li>Translate the schema. Links, lists, embedded objects and backlinks become tables and keys.</li>
+        <li>Rewrite Realm queries in SQL, and check that they return the same rows. Realm has quirks a naive port changes: <code>[c]</code> folds only ASCII and Latin-1 letters.</li>
+        <li>Replace live objects, <code>useQuery</code> and <code>useObject</code> with reactive queries.</li>
+        <li>Copy the data already on your users' phones during an update. That means one release that ships both Realm and SQLite, and a later one without Realm. If the realm is encrypted, you need the Realm key to read it and a SQLCipher key to write the new database.</li>
+      </ul>
+      <p>SQLite also changes some values without warning: NaN becomes NULL and -0 becomes 0.</p>
+      <p>We do this as a service. We convert <code>.realm</code> files to SQLite and check every object, with a SHA-256 hash per object and per table. The conversion tool is open source in the <a href="https://github.com/FirasHmedi/afterdb">afterdb repository</a> and tested on desktop (Node).</p>
+
+      <div class="help">
+        <p><strong>Need help choosing?</strong> Send your versions and your plans for a <a href="/realm/#check">free 15-minute check</a>. We reply within 12 hours. After that, a fixed-price diagnostic, fixes under a support agreement, or a migration to SQLite with every object checked.</p>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer wrap">
+    <div class="brand">
+      <img src="/favicon.svg" alt="" width="24" height="24">
+      <span>Pomwik</span>
+    </div>
+    <p>&copy; 2026 Pomwik &middot; <a href="/realm/">Help for Realm apps</a> &middot; <a href="/" hreflang="fr">Home (French)</a> &middot; <a href="/mentions-legales.html" hreflang="fr">Legal (French)</a> &middot; <a href="/privacy.html" hreflang="fr">Privacy (French)</a></p>
+    <p class="tm">Realm® is a trademark of MongoDB, Inc. Pomwik is independent and not affiliated with or endorsed by MongoDB.</p>
+  </footer>
+
+  <!-- Cloudflare Web Analytics : mesure d'audience sans cookie -->
+  <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "57482883c161487785a4a5d64ed3a96f"}'></script>
+</body>
+</html>
