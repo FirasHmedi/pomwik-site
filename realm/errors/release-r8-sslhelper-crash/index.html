@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Realm® app crashes at start in release with R8: ClassNotFoundException SSLHelper · Pomwik</title>
+  <meta name="description" content="Android release builds with R8, the Expo SDK 58 default, remove io.realm.react.util.SSLHelper and the app crashes at start. The one-line keep rule, and afterdb, which ships it.">
+  <meta name="theme-color" content="#F7F9FC" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0A1426" media="(prefers-color-scheme: dark)">
+  <link rel="canonical" href="https://pomwik.com/realm/errors/release-r8-sslhelper-crash/">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Pomwik">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:title" content="Realm® app crashes at start in release builds with R8 (SSLHelper)">
+  <meta property="og:description" content="Android release builds with R8, the Expo SDK 58 default, remove io.realm.react.util.SSLHelper and the app crashes at start. The one-line keep rule, and afterdb, which ships it.">
+  <meta property="og:url" content="https://pomwik.com/realm/errors/release-r8-sslhelper-crash/">
+  <meta property="og:image" content="https://pomwik.com/realm/og-realm.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Pomwik: help for React Native apps still on Realm, and a checked move to SQLite">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://pomwik.com/realm/og-realm.png">
+  <link rel="stylesheet" href="/accueil.css">
+  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "Realm® app crashes at start in release builds with R8 (SSLHelper)", "description": "Android release builds with R8, the Expo SDK 58 default, remove io.realm.react.util.SSLHelper and the app crashes at start. The one-line keep rule, and afterdb, which ships it.", "url": "https://pomwik.com/realm/errors/release-r8-sslhelper-crash/", "image": "https://pomwik.com/realm/og-realm.png", "inLanguage": "en-US", "datePublished": "2026-11-09", "dateModified": "2026-11-09", "author": {"@type": "Organization", "name": "Pomwik", "url": "https://pomwik.com/"}, "publisher": {"@type": "Organization", "name": "Pomwik", "url": "https://pomwik.com/"}}</script>
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+
+  <header class="nav wrap">
+    <a class="brand" href="/" aria-label="Pomwik home (French)">
+      <img src="/favicon.svg" alt="" width="32" height="32">
+      <span>Pomwik</span>
+    </a>
+    <nav aria-label="Main">
+      <a class="nav-link" href="/realm/errors/">Build errors</a>
+      <a class="nav-link" href="/realm/leaving-realm/">Your options</a>
+      <a class="btn btn-small" href="/realm/#check">Free 15-min check</a>
+    </nav>
+  </header>
+
+  <main id="main" class="wrap guide">
+    <div class="guide-layout">
+      <article class="prose">
+        <p class="crumbs"><a href="/realm/">Help for Realm® apps</a> / <a href="/realm/errors/">Build errors</a></p>
+        <h1>Realm release builds with R8 crash at start: <code>SSLHelper</code></h1>
+        <p class="lede">Debug works. The release build of your Android app crashes as soon as it opens. If you use Realm and R8 is on, the cause can be one class that R8 removed.</p>
+        <p class="updated">Updated 9 November 2026.</p>
+
+        <h2>The error</h2>
+        <p>In logcat, look for:</p>
+        <pre><code>ClassNotFoundException: io.realm.react.util.SSLHelper</code></pre>
+        <p>Older reports show the same class in other errors, for example <a href="https://github.com/realm/realm-js/issues/2658">#2658</a> (2019):</p>
+        <pre><code>java.lang.UnsatisfiedLinkError: couldn't find DSO to load: librealmreact.so caused by: Didn't find class "io.realm.react.util.SSLHelper" on path: DexPathList</code></pre>
+
+        <h2>When it happens</h2>
+        <ul>
+          <li>Android release builds with R8 on (<code>minifyEnabled</code>, or <code>enableProguardInReleaseBuilds</code> in React Native apps) and no keep rule for Realm.</li>
+          <li>Expo SDK 58 turns R8 on by default in release builds (<a href="https://expo.dev/blog/how-to-upgrade-to-sdk-58">Expo's SDK 58 upgrade guide</a>, 21 October 2026). An app that moves to Expo SDK 58 can crash in production while debug builds work.</li>
+          <li>We hit it on 6 November 2026 while testing afterdb with Expo SDK 58. Realm users reported it before, in <a href="https://github.com/realm/realm-js/issues/2658">#2658</a> and <a href="https://github.com/realm/realm-js/issues/6074">#6074</a>.</li>
+        </ul>
+
+        <h2>Why</h2>
+        <p>Realm's native code looks up <code>io.realm.react.util.SSLHelper</code> by name when it loads (<code>FindClass</code> in <code>JNI_OnLoad</code>). No Java code uses that class, and the realm Android library ships no keep rule. R8 sees an unused class and removes it, and the app crashes at start.</p>
+
+        <h2>Fix with afterdb</h2>
+        <p>afterdb ships the keep rule in the package (<code>consumer-rules.pro</code>), so you add nothing to your app.</p>
+        <p>In <code>package.json</code>, point the two Realm packages to afterdb:</p>
+        <pre><code>"realm": "npm:@pomwik/afterdb@20.3.0",
+"@realm/react": "npm:@pomwik/afterdb-react@0.20.1"</code></pre>
+        <p>Then reinstall, run <code>pod install</code> on iOS, and rebuild. For Expo dev builds, run <code>npx expo prebuild --clean</code>. Your code keeps <code>import Realm from "realm"</code>. If you do not use <code>@realm/react</code>, the first line is enough.</p>
+        <p class="note">afterdb is an independent open-source fork of the realm-js SDK v20 (Apache-2.0) that we maintain, for apps on realm 20.x without Device Sync. It is not an official Realm release. Code on <a href="https://github.com/FirasHmedi/afterdb">GitHub</a>, package on <a href="https://www.npmjs.com/package/@pomwik/afterdb">npm</a>.</p>
+        <p>Tested locally: release builds with R8 on, for our bare React Native example and for Expo SDK 58 with no rule in the app. The app runs on Android emulators. Not tested yet: real devices.</p>
+
+        <h2>Without afterdb</h2>
+        <p>Add this line to <code>android/app/proguard-rules.pro</code>:</p>
+        <pre><code>-keep class io.realm.react.** { *; }</code></pre>
+        <p>A Realm maintainer suggested a keep rule for <code>io.realm.react.**</code> in <a href="https://github.com/realm/realm-js/issues/6074">#6074</a> (2023), and three users confirmed it worked. With Expo, the <code>android</code> folder is generated, so add the rule through the <code>android.extraProguardRules</code> option of <a href="https://docs.expo.dev/versions/latest/sdk/build-properties/">expo-build-properties</a>, or a config plugin. We have not tested the Expo route.</p>
+        <div class="help">
+          <p><strong>Need help?</strong> Send your versions and the full error for a <a href="/realm/#check">free 15-minute check</a>. We reply within 12 hours.</p>
+        </div>
+      </article>
+      <aside class="panel side" aria-labelledby="t-side">
+        <h2 id="t-side">All Realm errors</h2>
+        <ul>
+            <li><a href="/realm/errors/xcode-26-4-is-pod/">Xcode 26.4: &#x27;is_pod&#x27; cannot be specialized</a></li>
+            <li><a href="/realm/errors/ios-link-react-native-0-86/">iOS link errors on React Native 0.86+</a></li>
+            <li><a href="/realm/errors/npm-ci-prebuild-install-timeout/">npm ci hangs on prebuild-install</a></li>
+            <li><a href="/realm/errors/android-openssl-static-realm-io/">Android: OpenSSL download fails</a></li>
+            <li><a href="/realm/errors/google-play-16kb/">Google Play 16 KB page sizes</a></li>
+            <li><a href="/realm/errors/release-r8-sslhelper-crash/" aria-current="page">Release crash with R8 (SSLHelper)</a></li>
+            <li><a href="/realm/errors/analytics-postinstall-enoent/">postinstall ENOENT dependencies.yml</a></li>
+            <li><a href="/realm/errors/realm-react-nested-react-native/">@realm/react pulls a second react-native</a></li>
+        </ul>
+        <p><a href="/realm/leaving-realm/">Leaving Realm in 2026: your options</a></p>
+      </aside>
+    </div>
+  </main>
+
+  <footer class="footer wrap">
+    <div class="brand">
+      <img src="/favicon.svg" alt="" width="24" height="24">
+      <span>Pomwik</span>
+    </div>
+    <p>&copy; 2026 Pomwik &middot; <a href="/realm/">Help for Realm apps</a> &middot; <a href="/" hreflang="fr">Home (French)</a> &middot; <a href="/mentions-legales.html" hreflang="fr">Legal (French)</a> &middot; <a href="/privacy.html" hreflang="fr">Privacy (French)</a></p>
+    <p class="tm">Realm® is a trademark of MongoDB, Inc. Pomwik is independent and not affiliated with or endorsed by MongoDB.</p>
+  </footer>
+
+  <!-- Cloudflare Web Analytics : mesure d'audience sans cookie -->
+  <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "57482883c161487785a4a5d64ed3a96f"}'></script>
+</body>
+</html>

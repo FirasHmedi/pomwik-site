@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Realm® npm ci hangs on prebuild-install, or Failed to download prebuild for Realm · Pomwik</title>
+  <meta name="description" content="Installing realm 20.x in CI hangs on prebuild-install --runtime napi, or fails with a 404 on Node 22. What is known, the manual workarounds, and an install with no download using afterdb.">
+  <meta name="theme-color" content="#F7F9FC" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0A1426" media="(prefers-color-scheme: dark)">
+  <link rel="canonical" href="https://pomwik.com/realm/errors/npm-ci-prebuild-install-timeout/">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Pomwik">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:title" content="Realm®: npm ci hangs on prebuild-install, or Failed to download prebuild for Realm">
+  <meta property="og:description" content="Installing realm 20.x in CI hangs on prebuild-install --runtime napi, or fails with a 404 on Node 22. What is known, the manual workarounds, and an install with no download using afterdb.">
+  <meta property="og:url" content="https://pomwik.com/realm/errors/npm-ci-prebuild-install-timeout/">
+  <meta property="og:image" content="https://pomwik.com/realm/og-realm.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Pomwik: help for React Native apps still on Realm, and a checked move to SQLite">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://pomwik.com/realm/og-realm.png">
+  <link rel="stylesheet" href="/accueil.css">
+  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "Realm®: npm ci hangs on prebuild-install, or Failed to download prebuild for Realm", "description": "Installing realm 20.x in CI hangs on prebuild-install --runtime napi, or fails with a 404 on Node 22. What is known, the manual workarounds, and an install with no download using afterdb.", "url": "https://pomwik.com/realm/errors/npm-ci-prebuild-install-timeout/", "image": "https://pomwik.com/realm/og-realm.png", "inLanguage": "en-US", "datePublished": "2026-11-09", "dateModified": "2026-11-09", "author": {"@type": "Organization", "name": "Pomwik", "url": "https://pomwik.com/"}, "publisher": {"@type": "Organization", "name": "Pomwik", "url": "https://pomwik.com/"}}</script>
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+
+  <header class="nav wrap">
+    <a class="brand" href="/" aria-label="Pomwik home (French)">
+      <img src="/favicon.svg" alt="" width="32" height="32">
+      <span>Pomwik</span>
+    </a>
+    <nav aria-label="Main">
+      <a class="nav-link" href="/realm/errors/">Build errors</a>
+      <a class="nav-link" href="/realm/leaving-realm/">Your options</a>
+      <a class="btn btn-small" href="/realm/#check">Free 15-min check</a>
+    </nav>
+  </header>
+
+  <main id="main" class="wrap guide">
+    <div class="guide-layout">
+      <article class="prose">
+        <p class="crumbs"><a href="/realm/">Help for Realm® apps</a> / <a href="/realm/errors/">Build errors</a></p>
+        <h1><code>npm ci</code> hangs on <code>prebuild-install</code>, or “Failed to download prebuild for Realm”</h1>
+        <p class="lede">When you install realm, a script downloads a Node binary from static.realm.io. In CI this step can hang for hours, or fail with a 404 on Node 22.</p>
+        <p class="updated">Updated 9 November 2026.</p>
+
+        <h2>The error</h2>
+        <p>The install step that hangs (<a href="https://github.com/realm/realm-js/issues/7119">#7119</a>):</p>
+        <pre><code>npm info run realm@20.2.0 install node_modules/realm prebuild-install --runtime napi || echo 'Failed to download prebuild for Realm'</code></pre>
+        <p>The 404 on Node 22 (<a href="https://github.com/realm/realm-js/issues/7068">#7068</a>):</p>
+        <pre><code>prebuild-install warn This package does not support N-API version undefined
+prebuild-install http request GET https://static.realm.io/realm-js-prebuilds/20.1.0/realm-v20.1.0-napi-v127-linux-x64.tar.gz
+prebuild-install http 404 https://static.realm.io/realm-js-prebuilds/20.1.0/realm-v20.1.0-napi-v127-linux-x64.tar.gz
+prebuild-install warn install No prebuilt binaries found (target=undefined runtime=napi arch=x64 libc= platform=linux)</code></pre>
+        <p>Later, when Node loads Realm (<a href="https://github.com/realm/realm-js/issues/6980">#6980</a>):</p>
+        <pre><code>Error: Cannot find module '/home/app/node_modules/realm/prebuilds/node/realm.node'.</code></pre>
+
+        <h2>When it happens</h2>
+        <ul>
+          <li>The hang: realm 20.2.0 in CI. In <a href="https://github.com/realm/realm-js/issues/7119">#7119</a>, runners hit their 2 to 4 hour timeout, with 26 failed jobs between 20 March and 8 April 2026.</li>
+          <li>The 404: realm 20.1.0 and 20.2.0 on Node 22 with prebuild-install 7.1.2 (<a href="https://github.com/realm/realm-js/issues/7068">#7068</a>, October 2025). Also reported with realm 12 on Node 22.14 and 23 (<a href="https://github.com/realm/realm-js/issues/6980">#6980</a>).</li>
+        </ul>
+
+        <h2>Why</h2>
+        <p>realm's <code>install</code> script runs <code>prebuild-install --runtime napi</code>. It downloads the Realm binary for Node from static.realm.io. That binary is used when Realm runs in Node, for example in Jest tests. The app on the phone does not use it.</p>
+        <p>The hang: the cause is not known, and <a href="https://github.com/realm/realm-js/issues/7119">#7119</a> has no reply. prebuild-install drops a download after 30 seconds without data (we read its source code), so the job may be stuck elsewhere in that step.</p>
+        <p>The 404: prebuild-install 7.1.2 cannot read the N-API version on recent Node, so it asks for a file named after Node's own ABI (<code>napi-v127</code>) that does not exist. prebuild-install 7.1.3 fixes this (<a href="https://github.com/prebuild/prebuild-install/pull/204">prebuild-install #204</a>, January 2025).</p>
+        <p>prebuild-install itself is no longer maintained: npm marks it as deprecated and its repository is archived.</p>
+
+        <h2>Fix with afterdb</h2>
+        <p>afterdb has no install script and does not use prebuild-install. The Node binaries for macOS (arm64 and x64), Linux (x64 and arm64) and Windows x64 are inside the package, so nothing is downloaded.</p>
+        <p>In <code>package.json</code>, point the two Realm packages to afterdb:</p>
+        <pre><code>"realm": "npm:@pomwik/afterdb@20.3.0",
+"@realm/react": "npm:@pomwik/afterdb-react@0.20.1"</code></pre>
+        <p>Then reinstall, run <code>pod install</code> on iOS, and rebuild. For Expo dev builds, run <code>npx expo prebuild --clean</code>. Your code keeps <code>import Realm from "realm"</code>. If you do not use <code>@realm/react</code>, the first line is enough.</p>
+        <p class="note">afterdb is an independent open-source fork of the realm-js SDK v20 (Apache-2.0) that we maintain, for apps on realm 20.x without Device Sync. It is not an official Realm release. Code on <a href="https://github.com/FirasHmedi/afterdb">GitHub</a>, package on <a href="https://www.npmjs.com/package/@pomwik/afterdb">npm</a>.</p>
+        <p>Tested: an offline install on Node 22, then open, write, query and an encrypted realm (macOS arm64 locally, Linux x64 in CI). realm-js's own Node integration tests give the same results as realm 20.2.0. There is no Node binary for Alpine Linux (musl) or Windows on arm64.</p>
+
+        <h2>Without afterdb</h2>
+        <ul>
+          <li>For the 404 on Node 22: run <code>npm update prebuild-install</code> to get 7.1.3, without changing your Realm version. A user reports it works in <a href="https://github.com/realm/realm-js/issues/6980">#6980</a>.</li>
+          <li>For the hang: cache <code>~/.npm/_prebuilds</code> between CI runs. prebuild-install looks there before it downloads (you can see it in the log of <a href="https://github.com/realm/realm-js/issues/7068">#7068</a>). We have not tested this.</li>
+          <li>If nothing in your project runs Realm in Node, <code>npm ci --ignore-scripts</code> skips the download. It also skips the install scripts of every other package. We have not tested this.</li>
+        </ul>
+        <div class="help">
+          <p><strong>Need help?</strong> Send your versions and the full error for a <a href="/realm/#check">free 15-minute check</a>. We reply within 12 hours.</p>
+        </div>
+      </article>
+      <aside class="panel side" aria-labelledby="t-side">
+        <h2 id="t-side">All Realm errors</h2>
+        <ul>
+            <li><a href="/realm/errors/xcode-26-4-is-pod/">Xcode 26.4: &#x27;is_pod&#x27; cannot be specialized</a></li>
+            <li><a href="/realm/errors/ios-link-react-native-0-86/">iOS link errors on React Native 0.86+</a></li>
+            <li><a href="/realm/errors/npm-ci-prebuild-install-timeout/" aria-current="page">npm ci hangs on prebuild-install</a></li>
+            <li><a href="/realm/errors/android-openssl-static-realm-io/">Android: OpenSSL download fails</a></li>
+            <li><a href="/realm/errors/google-play-16kb/">Google Play 16 KB page sizes</a></li>
+            <li><a href="/realm/errors/release-r8-sslhelper-crash/">Release crash with R8 (SSLHelper)</a></li>
+            <li><a href="/realm/errors/analytics-postinstall-enoent/">postinstall ENOENT dependencies.yml</a></li>
+            <li><a href="/realm/errors/realm-react-nested-react-native/">@realm/react pulls a second react-native</a></li>
+        </ul>
+        <p><a href="/realm/leaving-realm/">Leaving Realm in 2026: your options</a></p>
+      </aside>
+    </div>
+  </main>
+
+  <footer class="footer wrap">
+    <div class="brand">
+      <img src="/favicon.svg" alt="" width="24" height="24">
+      <span>Pomwik</span>
+    </div>
+    <p>&copy; 2026 Pomwik &middot; <a href="/realm/">Help for Realm apps</a> &middot; <a href="/" hreflang="fr">Home (French)</a> &middot; <a href="/mentions-legales.html" hreflang="fr">Legal (French)</a> &middot; <a href="/privacy.html" hreflang="fr">Privacy (French)</a></p>
+    <p class="tm">Realm® is a trademark of MongoDB, Inc. Pomwik is independent and not affiliated with or endorsed by MongoDB.</p>
+  </footer>
+
+  <!-- Cloudflare Web Analytics : mesure d'audience sans cookie -->
+  <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "57482883c161487785a4a5d64ed3a96f"}'></script>
+</body>
+</html>
