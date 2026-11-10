@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Pomwik · React Native apps on Realm®: keep building, then move to SQLite</title>
-  <meta name="description" content="MongoDB deprecated Realm® in 2024 and ended support in September 2025. afterdb, an independent open-source fork of the realm-js SDK, is on npm, tested on Android emulators and the iPhone simulator. We also move local data to SQLite, every object checked.">
+  <meta name="description" content="MongoDB deprecated Realm® in 2024 and ended support in September 2025. afterdb, an independent open-source fork of the realm-js SDK, is on npm, tested on Android emulators and the iPhone simulator. We also help you move local data to SQLite, and our converter checks every object on copies of your files.">
   <meta name="theme-color" content="#F7F9FC" media="(prefers-color-scheme: light)">
   <meta name="theme-color" content="#0A1426" media="(prefers-color-scheme: dark)">
   <link rel="canonical" href="https://pomwik.com/realm/">
@@ -13,12 +13,12 @@
   <meta property="og:site_name" content="Pomwik">
   <meta property="og:locale" content="en_US">
   <meta property="og:title" content="Your React Native app still runs on Realm®. Let's keep it shipping.">
-  <meta property="og:description" content="afterdb, an independent open-source fork of the realm-js SDK, now on npm. And a checked move of your local data to SQLite.">
+  <meta property="og:description" content="afterdb, an independent open-source fork of the realm-js SDK, now on npm. And help to move your local data to SQLite, with every object checked on copies of your files.">
   <meta property="og:url" content="https://pomwik.com/realm/">
   <meta property="og:image" content="https://pomwik.com/realm/og-realm.png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
-  <meta property="og:image:alt" content="Pomwik: help for React Native apps still on Realm, and a checked move to SQLite. Not affiliated with or endorsed by MongoDB.">
+  <meta property="og:image:alt" content="Pomwik. Your React Native app still runs on Realm®. We help you keep it building, then move your data to SQLite. Not affiliated with or endorsed by MongoDB.">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image" content="https://pomwik.com/realm/og-realm.png">
   <link rel="stylesheet" href="/accueil.css">
@@ -44,7 +44,7 @@
       <div>
         <p class="eyebrow">For teams with a React Native app on Realm®</p>
         <h1>Your app still runs on Realm. Let's keep it shipping.</h1>
-        <p class="lede">MongoDB deprecated Realm in September 2024 and ended support on 30 September 2025. Since then, users have reported build failures on newer React Native and Xcode versions. We help you keep your app building, then move your local data to SQLite, with every object checked.</p>
+        <p class="lede">MongoDB deprecated Realm in September 2024 and ended support on 30 September 2025. Since then, users have reported build failures on newer React Native and Xcode versions. We help you keep your app building, then move your local data to SQLite. Our converter checks every object on copies of your files.</p>
         <div class="cta">
           <a class="btn" href="#check">Get a free 15-minute check</a>
           <a class="btn btn-ghost" href="#how">See the options</a>
@@ -107,7 +107,7 @@
           </ul>
           <h3>The fork, on iOS</h3>
           <ul class="checks">
-            <li>React Native 0.88.1 with Xcode 26.4.1 and 26.6, with and without frameworks: Debug and Release builds</li>
+            <li>React Native 0.88.1: Debug and Release builds with Xcode 26.6 (with and without frameworks) and Xcode 26.4.1 (without frameworks)</li>
             <li>New apps from the React Native 0.86.3 and 0.87.1 templates, Xcode 26.6, dynamic and static frameworks: Release build (<a href="https://github.com/FirasHmedi/afterdb/actions/runs/42716333335">CI run</a>)</li>
             <li>Runs on the iPhone simulator and keeps its data after a restart</li>
             <li>The build for iPhone devices succeeds (without code signing)</li>
@@ -123,6 +123,7 @@
           <ul class="checks dots">
             <li>Real phones: so far only emulators and the iPhone simulator</li>
             <li>iOS with Expo</li>
+            <li>Opening, after an app update on a phone, a file that realm 20.2.0 wrote (tested in Node only)</li>
           </ul>
           <p class="note">Details and logs: the <a href="https://github.com/FirasHmedi/afterdb#compatibility-matrix">compatibility matrix</a> on GitHub.</p>
         </div>
@@ -155,7 +156,7 @@
         </details>
         <details>
           <summary>We plan to move to a sync service.</summary>
-          <p>If you need sync, that can be the right choice. Your local data and query behavior still have to move with you: we can handle that part. We compare the options in <a href="/realm/leaving-realm/">Leaving Realm in 2026</a>.</p>
+          <p>If you need sync, that can be the right choice. Your local data and query behavior still have to move: we can plan and build that part with you. We compare the options in <a href="/realm/leaving-realm/">Leaving Realm in 2026</a>.</p>
         </details>
         <details>
           <summary>What is not covered?</summary>
