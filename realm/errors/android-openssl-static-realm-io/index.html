@@ -22,7 +22,7 @@
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image" content="https://pomwik.com/realm/og-realm.png">
   <link rel="stylesheet" href="/accueil.css">
-  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "Realm® Android build: OpenSSL download from static.realm.io fails", "description": "The Android build of realm downloads OpenSSL from static.realm.io and stops with CMake Error: Downloading ... Failed when the server is slow or down. Why, workarounds, and a build with no download using afterdb.", "url": "https://pomwik.com/realm/errors/android-openssl-static-realm-io/", "image": "https://pomwik.com/realm/og-realm.png", "inLanguage": "en-US", "datePublished": "2026-11-09", "dateModified": "2026-11-09", "author": {"@type": "Organization", "name": "Pomwik", "url": "https://pomwik.com/"}, "publisher": {"@type": "Organization", "name": "Pomwik", "url": "https://pomwik.com/"}}</script>
+  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "Realm® Android build: OpenSSL download from static.realm.io fails", "description": "The Android build of realm downloads OpenSSL from static.realm.io and stops with CMake Error: Downloading ... Failed when the server is slow or down. Why, workarounds, and a build with no download using afterdb.", "url": "https://pomwik.com/realm/errors/android-openssl-static-realm-io/", "image": "https://pomwik.com/realm/og-realm.png", "inLanguage": "en-US", "datePublished": "2026-11-09", "dateModified": "2026-11-11", "author": {"@type": "Organization", "name": "Pomwik", "url": "https://pomwik.com/"}, "publisher": {"@type": "Organization", "name": "Pomwik", "url": "https://pomwik.com/"}}</script>
 </head>
 <body>
   <a class="skip" href="#main">Skip to content</a>
@@ -45,7 +45,7 @@
         <p class="crumbs"><a href="/realm/">Help for Realm® apps</a> / <a href="/realm/errors/">Build errors</a></p>
         <h1>Realm Android build: <code>Downloading ... Failed</code> for OpenSSL from static.realm.io</h1>
         <p class="lede">Your Android build stops in CMake with “Downloading ... Failed”. Realm downloads a prebuilt OpenSSL from static.realm.io during the build, and that server was slow or down.</p>
-        <p class="updated">Updated 9 November 2026.</p>
+        <p class="updated">Updated 11 November 2026.</p>
 
         <h2>The error</h2>
         <p>From <a href="https://github.com/realm/realm-js/issues/7044">#7044</a> (September 2025):</p>
@@ -75,7 +75,7 @@ CMake Error at .../node_modules/realm/prebuilds/android/arm64-v8a/share/cmake/Re
 "@realm/react": "npm:@pomwik/afterdb-react@0.20.1"</code></pre>
         <p>Then reinstall, run <code>pod install</code> on iOS, and rebuild. For Expo dev builds, run <code>npx expo prebuild --clean</code>. Your code keeps <code>import Realm from "realm"</code>. If you do not use <code>@realm/react</code>, the first line is enough.</p>
         <p class="note">afterdb is an independent open-source fork of the realm-js SDK v20 (Apache-2.0) that we maintain (see its <a href="https://github.com/FirasHmedi/afterdb#maintenance-policy">maintenance policy</a>), for apps on realm 20.x without Device Sync. It is not an official Realm release. Code on <a href="https://github.com/FirasHmedi/afterdb">GitHub</a>, package on <a href="https://www.npmjs.com/package/@pomwik/afterdb">npm</a>.</p>
-        <p>Tested: no request to static.realm.io during <code>npm install</code> or the Android build (locally), and the origin of the OpenSSL files is checked in CI. Release builds for all 4 Android ABIs with React Native 0.88.1, and the app runs on Android 7, 11 and 16 emulators. Not tested yet: real devices.</p>
+        <p>Tested: no request to static.realm.io during <code>npm install</code> or the Android build (locally), and the origin of the OpenSSL files is checked in CI, in the package that CI builds. Release builds for all 4 Android ABIs with React Native 0.88.1, and the app runs on Android 7, 11 and 16 emulators. Not tested yet: real devices, and the package as published on npm. Its OpenSSL files were built outside CI and have not run there (<a href="https://github.com/FirasHmedi/afterdb/blob/main/docs/TEST-RESULTS.md#packages-tested-by-ci">details</a>).</p>
 
         <h2>Without afterdb</h2>
         <p>These come from reading Realm's CMake file. We have not tested them.</p>
