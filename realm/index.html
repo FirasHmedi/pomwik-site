@@ -117,14 +117,26 @@
             <li>Installs offline</li>
             <li>Passes realm-js's own Node integration tests, with the same results as realm 20.2.0. Its Node engine binary is upstream's, unchanged.</li>
           </ul>
+          <h3>Switching an app from realm 20.2.0</h3>
+          <ul class="checks">
+            <li>An app built with realm 20.2.0 writes a plain and an encrypted file. The same app built with afterdb is installed over it, opens both files, checks every object and adds more. Then the realm 20.2.0 build is installed again and reads it all (<a href="https://github.com/FirasHmedi/afterdb/actions/runs/43000910682">CI run</a>)</li>
+            <li>Passes on Android 16 (x86_64) and Android 11 (x86) emulators, and on the iPhone simulator (React Native 0.88.1, Xcode 26.6, no frameworks)</li>
+            <li>Also passes with the armeabi-v7a build of afterdb, through the ARM translation of an Android 11 emulator. There, the files come from the x86_64 build of realm 20.2.0, because its armeabi-v7a build does not start under that translation</li>
+            <li>Tested with afterdb built from the source and as published on npm</li>
+          </ul>
+          <h3>The package as published on npm</h3>
+          <ul class="checks">
+            <li>A new React Native 0.88.1 app with the two lines above, installed from npmjs.com: release build for all 4 Android ABIs with OpenSSL 3.5.9, and 24 of 24 64-bit native libraries 16 KB aligned (<a href="https://github.com/FirasHmedi/afterdb/actions/runs/42933195324">CI run</a>)</li>
+            <li>The app runs on an Android 16 emulator and on the iPhone simulator, and keeps its data after a restart</li>
+          </ul>
         </div>
         <div class="panel">
           <h3>Not tested yet</h3>
           <ul class="checks dots">
             <li>Real phones: so far only emulators and the iPhone simulator</li>
+            <li>The arm64-v8a build in CI, and the armeabi-v7a build on an ARM processor (it ran only through ARM translation)</li>
             <li>iOS with Expo</li>
-            <li>Opening, after an app update on a phone, a file that realm 20.2.0 wrote (tested in Node only)</li>
-            <li>The package as published on npm. CI tests the packages it builds from the same commit. The Android OpenSSL files in the npm package were built outside CI and have not run there (<a href="https://github.com/FirasHmedi/afterdb/blob/main/docs/TEST-RESULTS.md#packages-tested-by-ci">details</a>)</li>
+            <li>Switching from a realm version other than 20.2.0, and the switch with Debug builds</li>
           </ul>
           <p class="note">Details and logs: the <a href="https://github.com/FirasHmedi/afterdb#compatibility-matrix">compatibility matrix</a> on GitHub.</p>
         </div>

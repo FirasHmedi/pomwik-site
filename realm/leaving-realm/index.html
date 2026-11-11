@@ -22,7 +22,7 @@
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image" content="https://pomwik.com/realm/og-realm.png">
   <link rel="stylesheet" href="/accueil.css">
-  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "Leaving Realm® in 2026: your options", "description": "Realm® SDKs reached end of life in September 2025. A sourced comparison for React Native apps: keep Realm with afterdb, op-sqlite, expo-sqlite, WatermelonDB, PowerSync or Ditto, and how to move the data already on phones.", "url": "https://pomwik.com/realm/leaving-realm/", "image": "https://pomwik.com/realm/og-realm.png", "inLanguage": "en-US", "datePublished": "2026-11-09", "dateModified": "2026-11-10", "author": {"@type": "Organization", "name": "Pomwik", "url": "https://pomwik.com/"}, "publisher": {"@type": "Organization", "name": "Pomwik", "url": "https://pomwik.com/"}}</script>
+  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "Leaving Realm® in 2026: your options", "description": "Realm® SDKs reached end of life in September 2025. A sourced comparison for React Native apps: keep Realm with afterdb, op-sqlite, expo-sqlite, WatermelonDB, PowerSync or Ditto, and how to move the data already on phones.", "url": "https://pomwik.com/realm/leaving-realm/", "image": "https://pomwik.com/realm/og-realm.png", "inLanguage": "en-US", "datePublished": "2026-11-09", "dateModified": "2026-11-11", "author": {"@type": "Organization", "name": "Pomwik", "url": "https://pomwik.com/"}, "publisher": {"@type": "Organization", "name": "Pomwik", "url": "https://pomwik.com/"}}</script>
 </head>
 <body>
   <a class="skip" href="#main">Skip to content</a>
@@ -44,7 +44,7 @@
       <p class="crumbs"><a href="/realm/">Help for Realm® apps</a></p>
       <h1>Leaving Realm® in 2026: your options</h1>
       <p class="lede">If your React Native app stores its data in Realm, you have to choose: keep it running, or move to something else. This page compares the options as of 9 November 2026, with sources. We maintain one of them, afterdb (see its <a href="https://github.com/FirasHmedi/afterdb#maintenance-policy">maintenance policy</a>), and we say where it does not fit.</p>
-      <p class="updated">Updated 10 November 2026.</p>
+      <p class="updated">Updated 11 November 2026.</p>
 
       <h2>Where Realm stands</h2>
       <ul>
@@ -129,6 +129,7 @@
       <p>Fits if your app is on realm v20, does not use Device Sync, and you need to keep shipping through React Native, Expo, Xcode and Google Play updates now. You change two lines in <code>package.json</code> and no code:</p>
       <pre><code>"realm": "npm:@pomwik/afterdb@20.3.0",
 "@realm/react": "npm:@pomwik/afterdb-react@0.20.1"</code></pre>
+      <p>Your existing files stay where they are. In CI, an app built with realm 20.2.0 writes a plain and an encrypted file. The afterdb build, installed over it, opens both, checks every object and adds more. Then realm 20.2.0 is installed again and reads it all. This passes on Android 16 and Android 11 emulators and on the iPhone simulator, with afterdb as published on npm (<a href="https://github.com/FirasHmedi/afterdb/actions/runs/43000910682">CI run</a>). Not tested yet: switching from a realm version other than 20.2.0.</p>
       <p>The limits: the engine is the upstream binary, unchanged, so engine bugs stay. No Device Sync and no old architecture. Tested on Android emulators and the iPhone simulator, not yet on real devices. One person maintains it (see its <a href="https://github.com/FirasHmedi/afterdb#maintenance-policy">maintenance policy</a>). Treat it as a bridge, and plan your exit.</p>
       <p>Apps on realm 10, 11 or 12 must first remove sync and move to v20. We have not tested that move. The npm deprecation message on those versions points to <code>realm@community</code>, which installs 20.1.0, without the 16 KB support added in 20.2.0.</p>
       <p class="note">Sources: <a href="https://github.com/FirasHmedi/afterdb">afterdb on GitHub</a> and its compatibility matrix.</p>
