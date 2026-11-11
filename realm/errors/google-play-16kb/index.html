@@ -63,8 +63,8 @@ librealm.so</code></pre>
         <h2>Check with afterdb</h2>
         <p>Since the cause of <a href="https://github.com/realm/realm-js/issues/7129">#7129</a> is not known, we cannot say that afterdb removes that warning. In afterdb, <code>librealm.so</code> is built with your app's NDK, and in our test app the 64-bit native libraries pass the 16 KB check (details below).</p>
         <p>In <code>package.json</code>, point the two Realm packages to afterdb:</p>
-        <pre><code>"realm": "npm:@pomwik/afterdb@20.3.0",
-"@realm/react": "npm:@pomwik/afterdb-react@0.20.1"</code></pre>
+        <pre><code>"realm": "npm:@pomwik/afterdb@20.3.1",
+"@realm/react": "npm:@pomwik/afterdb-react@0.20.2"</code></pre>
         <p>Then reinstall, run <code>pod install</code> on iOS, and rebuild. For Expo dev builds, run <code>npx expo prebuild --clean</code>. Your code keeps <code>import Realm from "realm"</code>. If you do not use <code>@realm/react</code>, the first line is enough.</p>
         <p class="note">afterdb is an independent open-source fork of the realm-js SDK v20 (Apache-2.0) that we maintain (see its <a href="https://github.com/FirasHmedi/afterdb#maintenance-policy">maintenance policy</a>), for apps on realm 20.x without Device Sync. It is not an official Realm release. Code on <a href="https://github.com/FirasHmedi/afterdb">GitHub</a>, package on <a href="https://www.npmjs.com/package/@pomwik/afterdb">npm</a>.</p>
         <p>In our test app, all 24 of the 64-bit native libraries are 16 KB aligned and <code>zipalign -P 16</code> passes. The app runs on an Android 16 emulator with 16 KB pages (in CI and locally), and so do React Native 0.86.3 and 0.87.1 and Expo SDK 56, 57 and 58 (locally). A new React Native 0.88.1 app built with the package as published on npm also has 24 of 24 64-bit native libraries aligned, and <code>zipalign -P 16</code> passes (<a href="https://github.com/FirasHmedi/afterdb/actions/runs/42933195324">CI run</a>). Not tested yet: real devices, and that app on the emulator with 16 KB pages.</p>

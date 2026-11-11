@@ -67,8 +67,8 @@
         <h2>Fix with afterdb</h2>
         <p>afterdb includes the fix from <a href="https://github.com/realm/realm-js/pull/7157">#7157</a>, credited to its author, plus one more change to the header search paths that the fix needed in our builds.</p>
         <p>In <code>package.json</code>, point the two Realm packages to afterdb:</p>
-        <pre><code>"realm": "npm:@pomwik/afterdb@20.3.0",
-"@realm/react": "npm:@pomwik/afterdb-react@0.20.1"</code></pre>
+        <pre><code>"realm": "npm:@pomwik/afterdb@20.3.1",
+"@realm/react": "npm:@pomwik/afterdb-react@0.20.2"</code></pre>
         <p>Then reinstall, run <code>pod install</code> on iOS, and rebuild. For Expo dev builds, run <code>npx expo prebuild --clean</code>. Your code keeps <code>import Realm from "realm"</code>. If you do not use <code>@realm/react</code>, the first line is enough.</p>
         <p class="note">afterdb is an independent open-source fork of the realm-js SDK v20 (Apache-2.0) that we maintain (see its <a href="https://github.com/FirasHmedi/afterdb#maintenance-policy">maintenance policy</a>), for apps on realm 20.x without Device Sync. It is not an official Realm release. Code on <a href="https://github.com/FirasHmedi/afterdb">GitHub</a>, package on <a href="https://www.npmjs.com/package/@pomwik/afterdb">npm</a>.</p>
         <p>We build and run it in CI with new apps from the React Native 0.86.3 and 0.87.1 templates, on Xcode 26.6 with dynamic and static frameworks. React Native 0.87.1 with dynamic frameworks is the setup of the pull request author. The Release build succeeds, the app runs on the iPhone simulator and keeps its data after a restart, and the build for iPhone devices succeeds. With dynamic frameworks, <code>RealmJS.framework</code> is embedded in the app (<a href="https://github.com/FirasHmedi/afterdb/actions/runs/42716333335">CI run</a>).</p>

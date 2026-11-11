@@ -93,8 +93,8 @@
     <div class="prose">
       <h2>The fix with afterdb</h2>
       <p>afterdb is an independent open-source fork of the realm-js SDK v20 (Apache-2.0) that we maintain (see its <a href="https://github.com/FirasHmedi/afterdb#maintenance-policy">maintenance policy</a>). It fixes the build and install errors above for apps on realm 20.x without Device Sync, except the 16 KB warning, whose cause is not known. For 16 KB pages, every 64-bit native library in our test app passes the 16 KB checks. It is not an official Realm release.</p>
-      <pre><code>"realm": "npm:@pomwik/afterdb@20.3.0",
-"@realm/react": "npm:@pomwik/afterdb-react@0.20.1"</code></pre>
+      <pre><code>"realm": "npm:@pomwik/afterdb@20.3.1",
+"@realm/react": "npm:@pomwik/afterdb-react@0.20.2"</code></pre>
       <p>Then reinstall, run <code>pod install</code> on iOS, and rebuild. For Expo dev builds, run <code>npx expo prebuild --clean</code>. Your code keeps <code>import Realm from "realm"</code>.</p>
       <p>Tested with React Native 0.88.1 on Android 7, 11 and 16 emulators and on Android 16 with 16 KB pages; with React Native 0.86.3 and 0.87.1 and Expo SDK 56, 57 and 58 on the 16 KB emulator; and on the iPhone simulator with React Native 0.88.1 on Xcode 26.4.1 and 26.6, and with new apps from the React Native 0.86.3 and 0.87.1 templates on Xcode 26.6 with dynamic and static frameworks (<a href="https://github.com/FirasHmedi/afterdb/actions/runs/42716333335">CI run</a>).</p>
       <p>In CI, a test app on realm 20.2.0 switches to afterdb and back, with a plain and an encrypted file: afterdb checks every object realm 20.2.0 wrote, and realm 20.2.0 reads what afterdb wrote. This passes with Release builds on Android 16 and Android 11 emulators and on the iPhone simulator (<a href="https://github.com/FirasHmedi/afterdb/actions/runs/43000910682">CI run</a>). The package as published on npm installs and runs in a new React Native 0.88.1 app, on an Android 16 emulator and on the iPhone simulator (<a href="https://github.com/FirasHmedi/afterdb/actions/runs/42933195324">CI run</a>).</p>
