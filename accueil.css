@@ -481,6 +481,7 @@ html[data-show="fr"] [data-lang="en"], html[data-show="en"] [data-lang="fr"] { d
 .sous-tableau { margin-top: 16px; color: var(--muted); }
 .sous-tableau p { margin: 0 0 6px; }
 .sous-tableau a { color: var(--ink); }
+.sous-tableau .tarifs-date { margin-top: 10px; font-size: .85rem; }
 
 /* Heure de la notification (illustration) : jamais coupée */
 .n-app span:last-child { white-space: nowrap; }
