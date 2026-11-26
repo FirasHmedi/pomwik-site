@@ -66,7 +66,7 @@
       }
       // Message de formulaire déjà affiché : dans l'ancienne langue, on l'efface (sauf confirmation d'envoi).
       if (document.readyState !== 'loading') {
-        var msgs = document.querySelectorAll('form.contact-form:not(.done) .msg');
+        var msgs = document.querySelectorAll('form.contact-form:not(.done) .msg, form.waitlist:not(.done) .msg');
         for (var k = 0; k < msgs.length; k++) msgs[k].textContent = '';
       }
       if (document.readyState !== 'loading') swapAttrs(l);
