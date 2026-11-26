@@ -38,15 +38,14 @@
 
   function banner(href, l) {
     var t = l === 'en'
-      ? { text: 'This page is also available in English.', link: 'Read in English', close: 'Stay on the French page' }
-      : { text: 'Cette page existe aussi en français.', link: 'Lire en français', close: 'Rester sur la page en anglais' };
+      ? { link: 'Read this page in English', close: 'Stay on the French page' }
+      : { link: 'Lire cette page en français', close: 'Rester sur la page en anglais' };
     var bar = document.createElement('div');
     bar.className = 'lang-banner';
     bar.lang = l;
     bar.setAttribute('role', 'region');
     bar.setAttribute('aria-label', l === 'en' ? 'Language' : 'Langue');
     var p = document.createElement('p');
-    p.textContent = t.text + ' ';
     var a = document.createElement('a');
     a.href = href + '?lang=' + l + location.hash;
     a.hreflang = l;
