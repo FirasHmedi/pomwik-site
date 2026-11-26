@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-show="en" data-default="en" data-title-fr="Fieldwrite : des rapports d'intervention en quelques minutes, depuis votre téléphone">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -8,6 +8,8 @@
   <meta name="theme-color" content="#EEF5FF" media="(prefers-color-scheme: light)">
   <meta name="theme-color" content="#071229" media="(prefers-color-scheme: dark)">
   <link rel="canonical" href="https://pomwik.com/fieldwrite/">
+  <link rel="alternate" hreflang="en" href="https://pomwik.com/fieldwrite/">
+  <link rel="alternate" hreflang="fr" href="https://pomwik.com/fieldwrite/?lang=fr">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
   <meta property="og:type" content="website">
   <meta property="og:title" content="Fieldwrite: field reports in minutes, from your phone">
@@ -16,17 +18,19 @@
   <meta name="twitter:card" content="summary">
   <script>document.documentElement.classList.add("js")</script>
   <link rel="stylesheet" href="/style.css">
+  <script src="/lang.js"></script>
 </head>
 <body>
-  <a class="skip" href="#join">Skip to the waitlist</a>
+  <a class="skip" href="#join"><span data-lang="en">Skip to the waitlist</span><span data-lang="fr">Aller à la liste d'attente</span></a>
 
   <header class="nav">
-    <a class="brand" href="/" aria-label="Pomwik home">
+    <a class="brand" href="/" aria-label="Pomwik">
       <img src="/favicon.svg" alt="" width="32" height="32">
       <span>Pomwik</span>
     </a>
-    <nav aria-label="Primary">
-      <a class="btn btn-small" href="#join">Join the waitlist</a>
+    <nav aria-label="Menu">
+      <button class="lang-switch" type="button" data-lang-switch aria-label="Lire cette page en français" lang="fr">FR</button>
+      <a class="btn btn-small" href="#join"><span data-lang="en">Join the waitlist</span><span data-lang="fr">S'inscrire</span></a>
     </nav>
   </header>
 
@@ -34,40 +38,66 @@
     <section class="lp-hero" id="top">
       <div class="lp-copy">
         <div class="lp-icon c-1" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="6" y="4" width="12" height="17" rx="2"/><path d="M9 4h6v3H9zM9 12h6M9 16h4"/></svg></div>
-        <p class="lp-badge"><span class="dot"></span> Launching in about one month</p>
-        <h1>Field reports in <em>minutes</em>, from your phone.</h1>
-        <p class="lede">Take photos, dictate what you found, and get a clean, branded PDF report ready to send to your customer. Built for small service teams, starting with HVAC.</p>
-        <ul class="lp-points"><li>Photos and voice notes, even with a weak signal</li><li>Ready-made findings and templates for your trade</li><li>A branded PDF you review and send in one tap</li></ul>
+        <p class="lp-badge" data-lang="en"><span class="dot"></span> Launching in about one month</p>
+        <p class="lp-badge" data-lang="fr"><span class="dot"></span> Lancement dans environ un mois</p>
+        <h1 data-lang="en">Field reports in <em>minutes</em>, from your phone.</h1>
+        <h1 data-lang="fr">Des rapports d'intervention en <em>quelques minutes</em>, depuis votre téléphone.</h1>
+        <p class="lede" data-lang="en">Take photos, dictate what you found, and get a clean, branded PDF report ready to send to your customer. Built for small service teams, starting with HVAC.</p>
+        <p class="lede" data-lang="fr">Prenez des photos, dictez ce que vous avez constaté, et obtenez un rapport PDF propre, à vos couleurs, prêt à envoyer au client. Pensé pour les petites équipes de techniciens, en commençant par le chauffage et la climatisation (CVC).</p>
+        <ul class="lp-points"><li data-lang="en">Photos and voice notes, even with a weak signal</li>
+        <li data-lang="fr">Photos et notes vocales, même avec un réseau faible</li><li data-lang="en">Ready-made findings and templates for your trade</li>
+        <li data-lang="fr">Constats tout prêts et modèles pour votre métier</li><li data-lang="en">A branded PDF you review and send in one tap</li>
+        <li data-lang="fr">Un PDF à vos couleurs, que vous relisez et envoyez en un geste</li></ul>
       </div>
 
       <div class="lp-card" id="join">
-        <h2>Join the Fieldwrite waitlist</h2>
-        <p class="lp-note">We'll email you once, when it's ready to try.</p>
+        <h2 data-lang="en">Join the Fieldwrite waitlist</h2>
+        <h2 data-lang="fr">Rejoindre la liste d'attente de Fieldwrite</h2>
+        <p class="lp-note" data-lang="en">We'll email you once, when it's ready to try.</p>
+        <p class="lp-note" data-lang="fr">On vous écrit une seule fois, quand ce sera prêt à essayer.</p>
         <form class="waitlist lp-form" data-app="fieldwrite" novalidate>
-          <label for="email">Email address</label>
-          <input id="email" type="email" name="email" required autocomplete="email" placeholder="you@example.com">
-      <label for="a1">Your trade <span class="opt">(optional)</span></label>
-      <select id="a1" name="a1"><option value="">Choose one</option><option>HVAC</option><option>Fire protection</option><option>Pest control</option><option>Pool service</option><option>Cleaning</option><option>Solar</option><option>Other</option></select>
-      <label for="a2">Team size <span class="opt">(optional)</span></label>
-      <select id="a2" name="a2"><option value="">Choose one</option><option>Just me</option><option>2 to 5</option><option>6 to 15</option><option>16 or more</option></select>
+          <label for="email"><span data-lang="en">Email address</span><span data-lang="fr">Adresse e-mail</span></label>
+          <input id="email" type="email" name="email" required autocomplete="email" placeholder="you@example.com" data-ph-fr="vous@exemple.fr">
+      <label for="a1"><span data-lang="en">Your trade</span><span data-lang="fr">Votre métier</span> <span class="opt"><span data-lang="en">(optional)</span><span data-lang="fr">(facultatif)</span></span></label>
+      <select id="a1" name="a1"><option value="" data-fr="Choisir">Choose one</option><option value="HVAC" data-fr="CVC (chauffage, climatisation)">HVAC</option><option value="Fire protection" data-fr="Sécurité incendie">Fire protection</option><option value="Pest control" data-fr="Lutte contre les nuisibles">Pest control</option><option value="Pool service" data-fr="Entretien de piscines">Pool service</option><option value="Cleaning" data-fr="Nettoyage">Cleaning</option><option value="Solar" data-fr="Solaire">Solar</option><option value="Other" data-fr="Autre">Other</option></select>
+      <label for="a2"><span data-lang="en">Team size</span><span data-lang="fr">Taille de l'équipe</span> <span class="opt"><span data-lang="en">(optional)</span><span data-lang="fr">(facultatif)</span></span></label>
+      <select id="a2" name="a2"><option value="" data-fr="Choisir">Choose one</option><option value="Just me" data-fr="Moi seul">Just me</option><option value="2 to 5" data-fr="2 à 5">2 to 5</option><option value="6 to 15" data-fr="6 à 15">6 to 15</option><option value="16 or more" data-fr="16 ou plus">16 or more</option></select>
           <input class="hp" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
-          <button class="btn" type="submit">Join the waitlist</button>
-          <p class="fine">By joining, you agree to get emails about Fieldwrite only. You can unsubscribe at any time. <a href="/privacy-en.html">Privacy</a></p>
+          <button class="btn" type="submit"><span data-lang="en">Join the waitlist</span><span data-lang="fr">Rejoindre la liste d'attente</span></button>
+          <p class="fine" data-lang="en">By joining, you agree to get emails about Fieldwrite only. You can unsubscribe at any time. <a href="/privacy-en.html">Privacy</a></p>
+          <p class="fine" data-lang="fr">En vous inscrivant, vous acceptez de recevoir des e-mails sur Fieldwrite uniquement. Vous pouvez vous désinscrire à tout moment. <a href="/privacy.html">Confidentialité</a></p>
           <p class="msg" role="status" aria-live="polite"></p>
         </form>
-        <p class="lp-price">Planned pricing: about $39 a month per user, with free reports for early members. Prices may change before launch.</p>
+        <p class="lp-price" data-lang="en">Planned pricing: about $39 a month per user, with free reports for early members. Prices may change before launch.</p>
+        <p class="lp-price" data-lang="fr">Prix prévu&nbsp;: environ 39&nbsp;$ par mois et par utilisateur, avec des rapports gratuits pour les premiers inscrits. Les prix peuvent changer avant le lancement.</p>
       </div>
     </section>
 
     <section class="section">
-      <div class="cards lp-features"><article class="card reveal"><h3>Capture on the job</h3><p>Photos, voice notes and checklists on your phone, saved even when the signal drops.</p></article><article class="card reveal"><h3>Your trade, your wording</h3><p>Templates and common findings for HVAC first, then other trades.</p></article><article class="card reveal"><h3>Professional every time</h3><p>Your logo, your details, and a clean PDF your customers can read.</p></article></div>
-      <p class="lp-note lp-disclaimer">Reports are drafted from your photos and notes. You review and approve every report before it goes to a customer.</p>
+      <div class="cards lp-features"><article class="card reveal"><h3 data-lang="en">Capture on the job</h3>
+      <h3 data-lang="fr">Tout noter sur place</h3><p data-lang="en">Photos, voice notes and checklists on your phone, saved even when the signal drops.</p>
+      <p data-lang="fr">Photos, notes vocales et listes de contrôle sur votre téléphone, enregistrées même quand le réseau coupe.</p></article><article class="card reveal"><h3 data-lang="en">Your trade, your wording</h3>
+      <h3 data-lang="fr">Votre métier, vos mots</h3><p data-lang="en">Templates and common findings for HVAC first, then other trades.</p>
+      <p data-lang="fr">Modèles et constats courants pour le CVC d'abord, puis pour d'autres métiers.</p></article><article class="card reveal"><h3 data-lang="en">Professional every time</h3>
+      <h3 data-lang="fr">Professionnel à chaque fois</h3><p data-lang="en">Your logo, your details, and a clean PDF your customers can read.</p>
+      <p data-lang="fr">Votre logo, vos coordonnées, et un PDF propre que vos clients peuvent lire.</p></article></div>
+      <p class="lp-note lp-disclaimer" data-lang="en">Reports are drafted from your photos and notes. You review and approve every report before it goes to a customer.</p>
+      <p class="lp-note lp-disclaimer" data-lang="fr">Les rapports sont rédigés à partir de vos photos et de vos notes. Vous relisez et validez chaque rapport avant qu'il parte chez un client.</p>
     </section>
 
     <section class="section lp-faq reveal">
-      <h2>Good to know</h2>
-      <div class="faq-item"><h3>Which trades will it cover?</h3><p>HVAC first. Tell us your trade in the form and we will build for the ones people ask for most.</p></div><div class="faq-item"><h3>Will it replace my job software?</h3><p>No. Fieldwrite focuses on the report: capture on site, a clean PDF out.</p></div><div class="faq-item"><h3>Is it free?</h3><p>Early members get free reports. Pricing is planned at about $39 per user per month.</p></div>
-      <div class="faq-item"><h3>What happens with my email?</h3><p>We'll email you once when Fieldwrite is ready, and you can unsubscribe any time. We never sell or share your address. See the <a href="/privacy-en.html">privacy page</a>.</p></div>
+      <h2 data-lang="en">Good to know</h2>
+      <h2 data-lang="fr">Bon à savoir</h2>
+      <div class="faq-item"><h3 data-lang="en">Which trades will it cover?</h3>
+      <h3 data-lang="fr">Quels métiers seront couverts&nbsp;?</h3><p data-lang="en">HVAC first. Tell us your trade in the form and we will build for the ones people ask for most.</p>
+      <p data-lang="fr">Le CVC d'abord. Indiquez votre métier dans le formulaire&nbsp;: on développera pour les métiers les plus demandés.</p></div><div class="faq-item"><h3 data-lang="en">Will it replace my job software?</h3>
+      <h3 data-lang="fr">Est-ce que ça remplace mon logiciel métier&nbsp;?</h3><p data-lang="en">No. Fieldwrite focuses on the report: capture on site, a clean PDF out.</p>
+      <p data-lang="fr">Non. Fieldwrite se concentre sur le rapport&nbsp;: on note sur place, un PDF propre en sort.</p></div><div class="faq-item"><h3 data-lang="en">Is it free?</h3>
+      <h3 data-lang="fr">C'est gratuit&nbsp;?</h3><p data-lang="en">Early members get free reports. Pricing is planned at about $39 per user per month.</p>
+      <p data-lang="fr">Les premiers inscrits ont des rapports gratuits. Le prix prévu est d'environ 39&nbsp;$ par utilisateur et par mois.</p></div>
+      <div class="faq-item"><h3 data-lang="en">What happens with my email?</h3>
+      <h3 data-lang="fr">Que devient mon e-mail&nbsp;?</h3><p data-lang="en">We'll email you once when Fieldwrite is ready, and you can unsubscribe any time. We never sell or share your address. See the <a href="/privacy-en.html">privacy page</a>.</p>
+      <p data-lang="fr">On vous écrit une fois quand Fieldwrite est prêt, et vous pouvez vous désinscrire à tout moment. On ne vend ni ne partage jamais votre adresse. Voir la <a href="/privacy.html">page de confidentialité</a>.</p></div>
     </section>
   </main>
 
@@ -76,7 +106,7 @@
       <img src="/favicon.svg" alt="" width="24" height="24">
       <span>Pomwik</span>
     </div>
-    <p>&copy; <span id="year">2026</span> Pomwik &middot; <a href="/privacy-en.html">Privacy</a></p>
+    <p>&copy; <span id="year">2026</span> Pomwik &middot; <a href="/"><span data-lang="en">Home</span><span data-lang="fr">Accueil</span></a> &middot; <a href="/privacy.html"><span data-lang="en">Privacy</span><span data-lang="fr">Confidentialité</span></a></p>
   </footer>
 
   <script src="/app.js"></script>

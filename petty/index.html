@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-show="en" data-default="en" data-title-fr="Petty : suivez la croissance de votre chiot ou chaton">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -8,6 +8,8 @@
   <meta name="theme-color" content="#EEF5FF" media="(prefers-color-scheme: light)">
   <meta name="theme-color" content="#071229" media="(prefers-color-scheme: dark)">
   <link rel="canonical" href="https://pomwik.com/petty/">
+  <link rel="alternate" hreflang="en" href="https://pomwik.com/petty/">
+  <link rel="alternate" hreflang="fr" href="https://pomwik.com/petty/?lang=fr">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
   <meta property="og:type" content="website">
   <meta property="og:title" content="Petty: watch your puppy or kitten grow">
@@ -16,17 +18,19 @@
   <meta name="twitter:card" content="summary">
   <script>document.documentElement.classList.add("js")</script>
   <link rel="stylesheet" href="/style.css">
+  <script src="/lang.js"></script>
 </head>
 <body>
-  <a class="skip" href="#join">Skip to the waitlist</a>
+  <a class="skip" href="#join"><span data-lang="en">Skip to the waitlist</span><span data-lang="fr">Aller à la liste d'attente</span></a>
 
   <header class="nav">
-    <a class="brand" href="/" aria-label="Pomwik home">
+    <a class="brand" href="/" aria-label="Pomwik">
       <img src="/favicon.svg" alt="" width="32" height="32">
       <span>Pomwik</span>
     </a>
-    <nav aria-label="Primary">
-      <a class="btn btn-small" href="#join">Join the waitlist</a>
+    <nav aria-label="Menu">
+      <button class="lang-switch" type="button" data-lang-switch aria-label="Lire cette page en français" lang="fr">FR</button>
+      <a class="btn btn-small" href="#join"><span data-lang="en">Join the waitlist</span><span data-lang="fr">S'inscrire</span></a>
     </nav>
   </header>
 
@@ -34,38 +38,64 @@
     <section class="lp-hero" id="top">
       <div class="lp-copy">
         <div class="lp-icon c-3" aria-hidden="true"><svg viewBox="0 0 24 24" class="fill"><circle cx="6.5" cy="10" r="2"/><circle cx="10.5" cy="6" r="2"/><circle cx="15.5" cy="6" r="2"/><circle cx="19" cy="10.5" r="2"/><path d="M12.5 11.5c-3 0-5.5 3-5.5 5.2 0 2 1.8 2.6 5.5 2.6s5.5-.6 5.5-2.6c0-2.2-2.5-5.2-5.5-5.2z"/></svg></div>
-        <p class="lp-badge"><span class="dot"></span> Launching in about one month</p>
-        <h1>Watch your puppy or kitten <em>grow up</em>.</h1>
-        <p class="lede">Log a weight and a photo each week, see how they compare with the typical range for their breed, and build a growth timeline you&#x27;ll love looking back on.</p>
-        <ul class="lp-points"><li>A weekly weight and photo log that takes under a minute</li><li>A typical breed range chart, so you can see the trend</li><li>A growth timeline and a summary you can show your vet</li></ul>
+        <p class="lp-badge" data-lang="en"><span class="dot"></span> Launching in about one month</p>
+        <p class="lp-badge" data-lang="fr"><span class="dot"></span> Lancement dans environ un mois</p>
+        <h1 data-lang="en">Watch your puppy or kitten <em>grow up</em>.</h1>
+        <h1 data-lang="fr">Suivez votre chiot ou chaton <em>grandir</em>.</h1>
+        <p class="lede" data-lang="en">Log a weight and a photo each week, see how they compare with the typical range for their breed, and build a growth timeline you&#x27;ll love looking back on.</p>
+        <p class="lede" data-lang="fr">Notez un poids et une photo chaque semaine, comparez avec la fourchette habituelle de sa race, et construisez une frise de croissance que vous aimerez revoir.</p>
+        <ul class="lp-points"><li data-lang="en">A weekly weight and photo log that takes under a minute</li>
+        <li data-lang="fr">Un suivi hebdomadaire du poids et des photos, en moins d'une minute</li><li data-lang="en">A typical breed range chart, so you can see the trend</li>
+        <li data-lang="fr">Un graphique de la fourchette habituelle de la race, pour voir la tendance</li><li data-lang="en">A growth timeline and a summary you can show your vet</li>
+        <li data-lang="fr">Une frise de croissance et un résumé à montrer à votre vétérinaire</li></ul>
       </div>
 
       <div class="lp-card" id="join">
-        <h2>Join the Petty waitlist</h2>
-        <p class="lp-note">We'll email you once, when it's ready to try.</p>
+        <h2 data-lang="en">Join the Petty waitlist</h2>
+        <h2 data-lang="fr">Rejoindre la liste d'attente de Petty</h2>
+        <p class="lp-note" data-lang="en">We'll email you once, when it's ready to try.</p>
+        <p class="lp-note" data-lang="fr">On vous écrit une seule fois, quand ce sera prêt à essayer.</p>
         <form class="waitlist lp-form" data-app="petty" novalidate>
-          <label for="email">Email address</label>
-          <input id="email" type="email" name="email" required autocomplete="email" placeholder="you@example.com">
-      <label for="a1">About your pet <span class="opt">(optional)</span></label>
-      <select id="a1" name="a1"><option value="">Choose one</option><option>I have a puppy</option><option>I have a kitten</option><option>I&#x27;m getting one soon</option><option>Other</option></select>
+          <label for="email"><span data-lang="en">Email address</span><span data-lang="fr">Adresse e-mail</span></label>
+          <input id="email" type="email" name="email" required autocomplete="email" placeholder="you@example.com" data-ph-fr="vous@exemple.fr">
+      <label for="a1"><span data-lang="en">About your pet</span><span data-lang="fr">Votre animal</span> <span class="opt"><span data-lang="en">(optional)</span><span data-lang="fr">(facultatif)</span></span></label>
+      <select id="a1" name="a1"><option value="" data-fr="Choisir">Choose one</option><option value="I have a puppy" data-fr="J'ai un chiot">I have a puppy</option><option value="I have a kitten" data-fr="J'ai un chaton">I have a kitten</option><option value="I&#x27;m getting one soon" data-fr="J'en adopte un bientôt">I&#x27;m getting one soon</option><option value="Other" data-fr="Autre">Other</option></select>
           <input class="hp" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
-          <button class="btn" type="submit">Join the waitlist</button>
-          <p class="fine">By joining, you agree to get emails about Petty only. You can unsubscribe at any time. <a href="/privacy-en.html">Privacy</a></p>
+          <button class="btn" type="submit"><span data-lang="en">Join the waitlist</span><span data-lang="fr">Rejoindre la liste d'attente</span></button>
+          <p class="fine" data-lang="en">By joining, you agree to get emails about Petty only. You can unsubscribe at any time. <a href="/privacy-en.html">Privacy</a></p>
+          <p class="fine" data-lang="fr">En vous inscrivant, vous acceptez de recevoir des e-mails sur Petty uniquement. Vous pouvez vous désinscrire à tout moment. <a href="/privacy.html">Confidentialité</a></p>
           <p class="msg" role="status" aria-live="polite"></p>
         </form>
-        <p class="lp-price">Planned pricing: free to start, plus an optional plan of about $34.99 a year. Prices may change before launch.</p>
+        <p class="lp-price" data-lang="en">Planned pricing: free to start, plus an optional plan of about $34.99 a year. Prices may change before launch.</p>
+        <p class="lp-price" data-lang="fr">Prix prévu&nbsp;: gratuit pour commencer, avec une formule optionnelle d'environ 34,99&nbsp;$ par an. Les prix peuvent changer avant le lancement.</p>
       </div>
     </section>
 
     <section class="section">
-      <div class="cards lp-features"><article class="card reveal"><h3>One-minute weekly check-in</h3><p>Enter a weight, snap a photo, done. Petty reminds you when it is time.</p></article><article class="card reveal"><h3>See the typical range</h3><p>Compare growth with the typical range for the breed and spot the trend over time.</p></article><article class="card reveal"><h3>Look back later</h3><p>Your photos and weights become a timeline of the first year, easy to share with family and your vet.</p></article></div>
-      <p class="lp-note lp-disclaimer">Petty shares general information about typical growth. It is not veterinary advice. Talk to your vet if you are worried about your pet.</p>
+      <div class="cards lp-features"><article class="card reveal"><h3 data-lang="en">One-minute weekly check-in</h3>
+      <h3 data-lang="fr">Un point hebdomadaire d'une minute</h3><p data-lang="en">Enter a weight, snap a photo, done. Petty reminds you when it is time.</p>
+      <p data-lang="fr">Entrez un poids, prenez une photo, c'est fait. Petty vous le rappelle le moment venu.</p></article><article class="card reveal"><h3 data-lang="en">See the typical range</h3>
+      <h3 data-lang="fr">Voir la fourchette habituelle</h3><p data-lang="en">Compare growth with the typical range for the breed and spot the trend over time.</p>
+      <p data-lang="fr">Comparez la croissance avec la fourchette habituelle de la race et repérez la tendance dans le temps.</p></article><article class="card reveal"><h3 data-lang="en">Look back later</h3>
+      <h3 data-lang="fr">Revoir plus tard</h3><p data-lang="en">Your photos and weights become a timeline of the first year, easy to share with family and your vet.</p>
+      <p data-lang="fr">Vos photos et vos pesées deviennent la frise de la première année, facile à partager avec la famille et votre vétérinaire.</p></article></div>
+      <p class="lp-note lp-disclaimer" data-lang="en">Petty shares general information about typical growth. It is not veterinary advice. Talk to your vet if you are worried about your pet.</p>
+      <p class="lp-note lp-disclaimer" data-lang="fr">Petty donne des informations générales sur la croissance habituelle. Ce n'est pas un avis vétérinaire. Parlez-en à votre vétérinaire si votre animal vous inquiète.</p>
     </section>
 
     <section class="section lp-faq reveal">
-      <h2>Good to know</h2>
-      <div class="faq-item"><h3>Which pets does Petty support?</h3><p>Dogs and cats first. Other pets may follow.</p></div><div class="faq-item"><h3>Is it free?</h3><p>There will be a free version. Details and prices will be announced at launch.</p></div><div class="faq-item"><h3>Is Petty veterinary advice?</h3><p>No. It shows general information about typical growth. For any health concern, ask your vet.</p></div>
-      <div class="faq-item"><h3>What happens with my email?</h3><p>We'll email you once when Petty is ready, and you can unsubscribe any time. We never sell or share your address. See the <a href="/privacy-en.html">privacy page</a>.</p></div>
+      <h2 data-lang="en">Good to know</h2>
+      <h2 data-lang="fr">Bon à savoir</h2>
+      <div class="faq-item"><h3 data-lang="en">Which pets does Petty support?</h3>
+      <h3 data-lang="fr">Quels animaux Petty prend-il en charge&nbsp;?</h3><p data-lang="en">Dogs and cats first. Other pets may follow.</p>
+      <p data-lang="fr">Les chiens et les chats d'abord. D'autres animaux suivront peut-être.</p></div><div class="faq-item"><h3 data-lang="en">Is it free?</h3>
+      <h3 data-lang="fr">C'est gratuit&nbsp;?</h3><p data-lang="en">There will be a free version. Details and prices will be announced at launch.</p>
+      <p data-lang="fr">Il y aura une version gratuite. Les détails et les prix seront annoncés au lancement.</p></div><div class="faq-item"><h3 data-lang="en">Is Petty veterinary advice?</h3>
+      <h3 data-lang="fr">Petty donne-t-il des avis vétérinaires&nbsp;?</h3><p data-lang="en">No. It shows general information about typical growth. For any health concern, ask your vet.</p>
+      <p data-lang="fr">Non. Il montre des informations générales sur la croissance habituelle. Pour toute question de santé, demandez à votre vétérinaire.</p></div>
+      <div class="faq-item"><h3 data-lang="en">What happens with my email?</h3>
+      <h3 data-lang="fr">Que devient mon e-mail&nbsp;?</h3><p data-lang="en">We'll email you once when Petty is ready, and you can unsubscribe any time. We never sell or share your address. See the <a href="/privacy-en.html">privacy page</a>.</p>
+      <p data-lang="fr">On vous écrit une fois quand Petty est prêt, et vous pouvez vous désinscrire à tout moment. On ne vend ni ne partage jamais votre adresse. Voir la <a href="/privacy.html">page de confidentialité</a>.</p></div>
     </section>
   </main>
 
@@ -74,7 +104,7 @@
       <img src="/favicon.svg" alt="" width="24" height="24">
       <span>Pomwik</span>
     </div>
-    <p>&copy; <span id="year">2026</span> Pomwik &middot; <a href="/privacy-en.html">Privacy</a></p>
+    <p>&copy; <span id="year">2026</span> Pomwik &middot; <a href="/"><span data-lang="en">Home</span><span data-lang="fr">Accueil</span></a> &middot; <a href="/privacy.html"><span data-lang="en">Privacy</span><span data-lang="fr">Confidentialité</span></a></p>
   </footer>
 
   <script src="/app.js"></script>

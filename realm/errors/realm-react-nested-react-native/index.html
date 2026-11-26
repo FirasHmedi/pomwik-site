@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-show="en" data-default="en" data-title-fr="@realm/react installe un deuxième react-native : Failed to apply plugin com.facebook.react.rootproject · Pomwik">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -8,6 +8,8 @@
   <meta name="theme-color" content="#F7F9FC" media="(prefers-color-scheme: light)">
   <meta name="theme-color" content="#0A1426" media="(prefers-color-scheme: dark)">
   <link rel="canonical" href="https://pomwik.com/realm/errors/realm-react-nested-react-native/">
+  <link rel="alternate" hreflang="en" href="https://pomwik.com/realm/errors/realm-react-nested-react-native/">
+  <link rel="alternate" hreflang="fr" href="https://pomwik.com/realm/errors/realm-react-nested-react-native/?lang=fr">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
   <meta property="og:type" content="article">
   <meta property="og:site_name" content="Pomwik">
@@ -22,89 +24,132 @@
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image" content="https://pomwik.com/realm/og-realm.png">
   <link rel="stylesheet" href="/accueil.css">
+  <script src="/lang.js"></script>
   <script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "@realm/react installs a second react-native: Failed to apply plugin 'com.facebook.react.rootproject'", "description": "With @realm/react 0.20.0, the package manager can install a second react-native and the Android build fails on hermes-engine/version.properties. Why, the resolutions fix, and afterdb.", "url": "https://pomwik.com/realm/errors/realm-react-nested-react-native/", "image": "https://pomwik.com/realm/og-realm.png", "inLanguage": "en-US", "datePublished": "2026-11-09", "dateModified": "2026-11-09", "author": {"@type": "Organization", "name": "Pomwik", "url": "https://pomwik.com/"}, "publisher": {"@type": "Organization", "name": "Pomwik", "url": "https://pomwik.com/"}}</script>
 </head>
 <body>
-  <a class="skip" href="#main">Skip to content</a>
+  <a class="skip" href="#main" data-lang="en">Skip to content</a>
+  <a class="skip" href="#main" data-lang="fr">Aller au contenu</a>
 
   <header class="nav wrap">
     <a class="brand" href="/" aria-label="Pomwik">
       <img src="/favicon.svg" alt="" width="32" height="32">
       <span>Pomwik</span>
     </a>
-    <nav aria-label="Main">
-      <a class="nav-link" href="/realm/errors/">Build errors</a>
-      <a class="nav-link" href="/realm/leaving-realm/">Your options</a>
-      <a class="btn btn-small" href="/realm/#check">Free 15-min check</a>
+    <nav aria-label="Menu">
+      <a class="nav-link" href="/realm/errors/" data-lang="en">Build errors</a>
+      <a class="nav-link" href="/realm/errors/" data-lang="fr">Erreurs de build</a>
+      <a class="nav-link" href="/realm/leaving-realm/" data-lang="en">Your options</a>
+      <a class="nav-link" href="/realm/leaving-realm/" data-lang="fr">Vos options</a>
+      <button class="lang-switch" type="button" data-lang-switch aria-label="Lire cette page en français" lang="fr">FR</button>
+      <a class="btn btn-small" href="/realm/#check" data-lang="en">Free 15-min check</a>
+      <a class="btn btn-small" href="/realm/#check" data-lang="fr">Vérification gratuite</a>
     </nav>
   </header>
 
   <main id="main" class="wrap guide">
     <div class="context">
-      <p><strong>Pomwik takes over and finishes stuck web and mobile apps.</strong> This page covers one case we know well: React Native apps still built on Realm, the mobile database that MongoDB stopped supporting in 2025. <a href="/?lang=en">See everything we do</a></p>
+      <p data-lang="en"><strong>Pomwik takes over and finishes stuck web and mobile apps.</strong> This page covers one case we know well: React Native apps still built on Realm, the mobile database that MongoDB stopped supporting in 2025. <a href="/?lang=en">See everything we do</a></p>
+      <p data-lang="fr"><strong>Pomwik reprend et termine les applications web et mobiles bloquées.</strong> Cette page couvre un cas qu'on connaît bien&nbsp;: les apps React Native qui utilisent encore Realm, la base de données mobile que MongoDB ne maintient plus depuis 2025. <a href="/?lang=fr">Voir tout ce qu'on fait</a></p>
     </div>
     <div class="guide-layout">
       <article class="prose">
-        <p class="crumbs"><a href="/realm/">Help for Realm® apps</a> / <a href="/realm/errors/">Build errors</a></p>
-        <h1><code>@realm/react</code> pulls a second react-native: <code>Failed to apply plugin 'com.facebook.react.rootproject'</code></h1>
-        <p class="lede">Your Android build fails while Gradle configures the project. @realm/react 0.20.0 can pull in its own copy of react-native, and the build picks the wrong one.</p>
-        <p class="updated">Updated 9 November 2026.</p>
+        <p class="crumbs"><a href="/realm/">Help for Realm® apps</a> / <a href="/realm/errors/" data-lang="en">Build errors</a>
+        <a href="/realm/errors/" data-lang="fr">Erreurs de build</a></p>
+        <h1 data-lang="en"><code>@realm/react</code> pulls a second react-native: <code>Failed to apply plugin 'com.facebook.react.rootproject'</code></h1>
+        <h1 data-lang="fr"><code>@realm/react</code> installe un deuxième react-native&nbsp;: <code>Failed to apply plugin 'com.facebook.react.rootproject'</code></h1>
+        <p class="lede" data-lang="en">Your Android build fails while Gradle configures the project. @realm/react 0.20.0 can pull in its own copy of react-native, and the build picks the wrong one.</p>
+        <p class="lede" data-lang="fr">Votre build Android échoue pendant que Gradle configure le projet. @realm/react 0.20.0 peut installer sa propre copie de react-native, et le build prend la mauvaise.</p>
+        <p class="updated" data-lang="en">Updated 9 November 2026.</p>
+        <p class="updated" data-lang="fr">Mis à jour le 9 novembre 2026.</p>
 
-        <h2>The error</h2>
+        <h2 data-lang="en">The error</h2>
+        <h2 data-lang="fr">L'erreur</h2>
         <pre><code>* What went wrong:
 A problem occurred evaluating root project '…'.
 &gt; Failed to apply plugin 'com.facebook.react.rootproject'.
    &gt; A problem occurred configuring project ':app'.
       &gt; Failed to notify project evaluation listener.
          &gt; /…/node_modules/react-native/sdks/hermes-engine/version.properties (No such file or directory)</code></pre>
-        <p><code>yarn why react-native</code> shows a second copy under @realm/react:</p>
+        <p data-lang="en"><code>yarn why react-native</code> shows a second copy under @realm/react:</p>
+        <p data-lang="fr"><code>yarn why react-native</code> montre une deuxième copie sous @realm/react&nbsp;:</p>
         <pre><code>@realm/react@npm:0.20.0 └─ react-native@npm:0.82.0 (via npm:&gt;=0.68)</code></pre>
 
-        <h2>When it happens</h2>
+        <h2 data-lang="en">When it happens</h2>
+        <h2 data-lang="fr">Quand ça arrive</h2>
         <ul>
-          <li>@realm/react 0.20.0, the last release (17 October 2025), in an Android build.</li>
-          <li>Reported in <a href="https://github.com/realm/realm-js/issues/7066">#7066</a> (18 October 2025) with React Native 0.81.4, realm 20.2.0 and Yarn 3.6.4. Another user reported the same.</li>
+          <li data-lang="en">@realm/react 0.20.0, the last release (17 October 2025), in an Android build.</li>
+          <li data-lang="fr">@realm/react 0.20.0, la dernière version (17 octobre 2025), dans un build Android.</li>
+          <li data-lang="en">Reported in <a href="https://github.com/realm/realm-js/issues/7066">#7066</a> (18 October 2025) with React Native 0.81.4, realm 20.2.0 and Yarn 3.6.4. Another user reported the same.</li>
+          <li data-lang="fr">Signalé dans <a href="https://github.com/realm/realm-js/issues/7066">#7066</a> (18 octobre 2025) avec React Native 0.81.4, realm 20.2.0 et Yarn 3.6.4. Un autre utilisateur a signalé la même chose.</li>
         </ul>
 
-        <h2>Why</h2>
-        <p>@realm/react 0.20.0 lists <code>react-native</code> (<code>&gt;=0.68</code>) in its <code>optionalDependencies</code>. Your package manager may then install another react-native version in <code>node_modules/@realm/react/node_modules</code>, and React Native's Gradle plugin uses the wrong copy.</p>
+        <h2 data-lang="en">Why</h2>
+        <h2 data-lang="fr">Pourquoi</h2>
+        <p data-lang="en">@realm/react 0.20.0 lists <code>react-native</code> (<code>&gt;=0.68</code>) in its <code>optionalDependencies</code>. Your package manager may then install another react-native version in <code>node_modules/@realm/react/node_modules</code>, and React Native's Gradle plugin uses the wrong copy.</p>
+        <p data-lang="fr">@realm/react 0.20.0 liste <code>react-native</code> (<code>&gt;=0.68</code>) dans ses <code>optionalDependencies</code>. Votre gestionnaire de paquets peut alors installer une autre version de react-native dans <code>node_modules/@realm/react/node_modules</code>, et le plugin Gradle de React Native utilise la mauvaise copie.</p>
 
-        <h2>Fix with afterdb</h2>
-        <p><code>@pomwik/afterdb-react</code> declares react-native as an optional peer dependency instead, so it never installs its own copy.</p>
-        <p>In <code>package.json</code>, point the two Realm packages to afterdb:</p>
+        <h2 data-lang="en">Fix with afterdb</h2>
+        <h2 data-lang="fr">Corriger avec afterdb</h2>
+        <p data-lang="en"><code>@pomwik/afterdb-react</code> declares react-native as an optional peer dependency instead, so it never installs its own copy.</p>
+        <p data-lang="fr"><code>@pomwik/afterdb-react</code> déclare plutôt react-native comme dépendance pair optionnelle, donc il n'installe jamais sa propre copie.</p>
+        <p data-lang="en">In <code>package.json</code>, point the two Realm packages to afterdb:</p>
+        <p data-lang="fr">Dans <code>package.json</code>, faites pointer les deux paquets Realm vers afterdb&nbsp;:</p>
         <pre><code>"realm": "npm:@pomwik/afterdb@20.3.1",
 "@realm/react": "npm:@pomwik/afterdb-react@0.20.2"</code></pre>
-        <p>Then reinstall, run <code>pod install</code> on iOS, and rebuild. For Expo dev builds, run <code>npx expo prebuild --clean</code>. Your code keeps <code>import Realm from "realm"</code>. If you do not use <code>@realm/react</code>, the first line is enough.</p>
-        <p class="note">afterdb is an independent open-source fork of the realm-js SDK v20 (Apache-2.0) that we maintain (see its <a href="https://github.com/FirasHmedi/afterdb#maintenance-policy">maintenance policy</a>), for apps on realm 20.x without Device Sync. It is not an official Realm release. Code on <a href="https://github.com/FirasHmedi/afterdb">GitHub</a>, package on <a href="https://www.npmjs.com/package/@pomwik/afterdb">npm</a>.</p>
-        <p>You can check the change with <code>npm view @pomwik/afterdb-react peerDependenciesMeta</code>. The Yarn 3.6.4 setup from <a href="https://github.com/realm/realm-js/issues/7066">#7066</a> is not in our test matrix.</p>
+        <p data-lang="en">Then reinstall, run <code>pod install</code> on iOS, and rebuild. For Expo dev builds, run <code>npx expo prebuild --clean</code>. Your code keeps <code>import Realm from "realm"</code>. If you do not use <code>@realm/react</code>, the first line is enough.</p>
+        <p data-lang="fr">Puis réinstallez, lancez <code>pod install</code> sur iOS, et recompilez. Pour les dev builds Expo, lancez <code>npx expo prebuild --clean</code>. Votre code garde <code>import Realm from "realm"</code>. Si vous n'utilisez pas <code>@realm/react</code>, la première ligne suffit.</p>
+        <p class="note" data-lang="en">afterdb is an independent open-source fork of the realm-js SDK v20 (Apache-2.0) that we maintain (see its <a href="https://github.com/FirasHmedi/afterdb#maintenance-policy">maintenance policy</a>), for apps on realm 20.x without Device Sync. It is not an official Realm release. Code on <a href="https://github.com/FirasHmedi/afterdb">GitHub</a>, package on <a href="https://www.npmjs.com/package/@pomwik/afterdb">npm</a>.</p>
+        <p class="note" data-lang="fr">afterdb est un fork open source indépendant du SDK realm-js v20 (Apache-2.0), que nous maintenons (voir sa <a href="https://github.com/FirasHmedi/afterdb#maintenance-policy">politique de maintenance</a>), pour les apps sur realm 20.x sans Device Sync. Ce n'est pas une version officielle de Realm. Code sur <a href="https://github.com/FirasHmedi/afterdb">GitHub</a>, paquet sur <a href="https://www.npmjs.com/package/@pomwik/afterdb">npm</a>.</p>
+        <p data-lang="en">You can check the change with <code>npm view @pomwik/afterdb-react peerDependenciesMeta</code>. The Yarn 3.6.4 setup from <a href="https://github.com/realm/realm-js/issues/7066">#7066</a> is not in our test matrix.</p>
+        <p data-lang="fr">Vous pouvez vérifier le changement avec <code>npm view @pomwik/afterdb-react peerDependenciesMeta</code>. La configuration Yarn 3.6.4 de <a href="https://github.com/realm/realm-js/issues/7066">#7066</a> n'est pas dans notre matrice de tests.</p>
 
-        <h2>Without afterdb</h2>
+        <h2 data-lang="en">Without afterdb</h2>
+        <h2 data-lang="fr">Sans afterdb</h2>
         <ul>
-          <li>Pin react-native to your app's version. With Yarn, in <code>package.json</code>:
+          <li data-lang="en">Pin react-native to your app's version. With Yarn, in <code>package.json</code>:
             <pre><code>"resolutions": {
   "react-native": "your react-native version"
 }</code></pre>
             The author of <a href="https://github.com/realm/realm-js/issues/7066">#7066</a> posted this and confirmed it works.</li>
-          <li>With npm, the same idea uses <code>overrides</code>. We have not tested it.</li>
-          <li><code>yarn dedupe</code> did not help the author.</li>
+          <li data-lang="fr">Fixez react-native à la version de votre app. Avec Yarn, dans <code>package.json</code>&nbsp;:
+            <pre><code>"resolutions": {
+  "react-native": "votre version de react-native"
+}</code></pre>
+            L'auteur de <a href="https://github.com/realm/realm-js/issues/7066">#7066</a> a publié cette solution et confirmé qu'elle marche.</li>
+          <li data-lang="en">With npm, the same idea uses <code>overrides</code>. We have not tested it.</li>
+          <li data-lang="fr">Avec npm, la même idée passe par <code>overrides</code>. On ne l'a pas testé.</li>
+          <li data-lang="en"><code>yarn dedupe</code> did not help the author.</li>
+          <li data-lang="fr"><code>yarn dedupe</code> n'a pas aidé l'auteur.</li>
         </ul>
         <div class="help">
-          <p><strong>Need help?</strong> Send your versions and the full error for a <a href="/realm/#check">free 15-minute check</a>. We reply within 12 hours.</p>
+          <p data-lang="en"><strong>Need help?</strong> Send your versions and the full error for a <a href="/realm/#check">free 15-minute check</a>. We reply within 12 hours.</p>
+          <p data-lang="fr"><strong>Besoin d'aide&nbsp;?</strong> Envoyez vos versions et l'erreur complète pour une <a href="/realm/#check">vérification gratuite de 15 minutes</a>. On vous répond sous 12 heures.</p>
         </div>
       </article>
       <aside class="panel side" aria-labelledby="t-side">
-        <h2 id="t-side">All Realm errors</h2>
+        <h2 id="t-side" data-lang="en">All Realm errors</h2>
+        <h2 data-lang="fr">Toutes les erreurs Realm</h2>
         <ul>
-            <li><a href="/realm/errors/xcode-26-4-is-pod/">Xcode 26.4: &#x27;is_pod&#x27; cannot be specialized</a></li>
-            <li><a href="/realm/errors/ios-link-react-native-0-86/">iOS link errors on React Native 0.86+</a></li>
-            <li><a href="/realm/errors/npm-ci-prebuild-install-timeout/">npm ci hangs on prebuild-install</a></li>
-            <li><a href="/realm/errors/android-openssl-static-realm-io/">Android: OpenSSL download fails</a></li>
-            <li><a href="/realm/errors/google-play-16kb/">Google Play 16 KB page sizes</a></li>
-            <li><a href="/realm/errors/release-r8-sslhelper-crash/">Release crash with R8 (SSLHelper)</a></li>
-            <li><a href="/realm/errors/analytics-postinstall-enoent/">postinstall ENOENT dependencies.yml</a></li>
-            <li><a href="/realm/errors/realm-react-nested-react-native/" aria-current="page">@realm/react pulls a second react-native</a></li>
+            <li data-lang="en"><a href="/realm/errors/xcode-26-4-is-pod/">Xcode 26.4: &#x27;is_pod&#x27; cannot be specialized</a></li>
+            <li data-lang="fr"><a href="/realm/errors/xcode-26-4-is-pod/">Xcode 26.4&nbsp;: &#x27;is_pod&#x27; cannot be specialized</a></li>
+            <li data-lang="en"><a href="/realm/errors/ios-link-react-native-0-86/">iOS link errors on React Native 0.86+</a></li>
+            <li data-lang="fr"><a href="/realm/errors/ios-link-react-native-0-86/">Erreurs d'édition de liens iOS sur React Native 0.86+</a></li>
+            <li data-lang="en"><a href="/realm/errors/npm-ci-prebuild-install-timeout/">npm ci hangs on prebuild-install</a></li>
+            <li data-lang="fr"><a href="/realm/errors/npm-ci-prebuild-install-timeout/">npm ci bloqué sur prebuild-install</a></li>
+            <li data-lang="en"><a href="/realm/errors/android-openssl-static-realm-io/">Android: OpenSSL download fails</a></li>
+            <li data-lang="fr"><a href="/realm/errors/android-openssl-static-realm-io/">Android&nbsp;: échec du téléchargement d'OpenSSL</a></li>
+            <li data-lang="en"><a href="/realm/errors/google-play-16kb/">Google Play 16 KB page sizes</a></li>
+            <li data-lang="fr"><a href="/realm/errors/google-play-16kb/">Google Play et les pages de 16 Ko</a></li>
+            <li data-lang="en"><a href="/realm/errors/release-r8-sslhelper-crash/">Release crash with R8 (SSLHelper)</a></li>
+            <li data-lang="fr"><a href="/realm/errors/release-r8-sslhelper-crash/">Plantage en release avec R8 (SSLHelper)</a></li>
+            <li data-lang="en"><a href="/realm/errors/analytics-postinstall-enoent/">postinstall ENOENT dependencies.yml</a></li>
+            <li data-lang="fr"><a href="/realm/errors/analytics-postinstall-enoent/">postinstall ENOENT dependencies.yml</a></li>
+            <li data-lang="en"><a href="/realm/errors/realm-react-nested-react-native/" aria-current="page">@realm/react pulls a second react-native</a></li>
+            <li data-lang="fr"><a href="/realm/errors/realm-react-nested-react-native/" aria-current="page">@realm/react installe un deuxième react-native</a></li>
         </ul>
-        <p><a href="/realm/leaving-realm/">Leaving Realm in 2026: your options</a></p>
+        <p data-lang="en"><a href="/realm/leaving-realm/">Leaving Realm in 2026: your options</a></p>
+        <p data-lang="fr"><a href="/realm/leaving-realm/">Quitter Realm en 2026&nbsp;: vos options</a></p>
       </aside>
     </div>
   </main>
@@ -114,8 +159,9 @@ A problem occurred evaluating root project '…'.
       <img src="/favicon.svg" alt="" width="24" height="24">
       <span>Pomwik</span>
     </div>
-    <p>&copy; 2026 Pomwik &middot; <a href="/realm/">Help for Realm apps</a> &middot; <a href="/">Home</a> &middot; <a href="/mentions-legales.html">Legal notice</a> &middot; <a href="/privacy-en.html">Privacy</a></p>
-    <p class="tm">Realm® is a trademark of MongoDB, Inc. Pomwik is independent and not affiliated with or endorsed by MongoDB.</p>
+    <p>&copy; 2026 Pomwik &middot; <a href="/realm/"><span data-lang="en">Help for Realm apps</span><span data-lang="fr">Aide pour les apps Realm</span></a> &middot; <a href="/"><span data-lang="en">Home</span><span data-lang="fr">Accueil</span></a> &middot; <a href="/mentions-legales.html"><span data-lang="en">Legal notice</span><span data-lang="fr">Mentions légales</span></a> &middot; <a href="/privacy.html"><span data-lang="en">Privacy</span><span data-lang="fr">Confidentialité</span></a></p>
+    <p class="tm" data-lang="en">Realm® is a trademark of MongoDB, Inc. Pomwik is independent and not affiliated with or endorsed by MongoDB.</p>
+    <p class="tm" data-lang="fr">Realm® est une marque de MongoDB, Inc. Pomwik est indépendant, sans lien avec MongoDB ni soutien de sa part.</p>
   </footer>
 
   <!-- Cloudflare Web Analytics : mesure d'audience sans cookie -->
