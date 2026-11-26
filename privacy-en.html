@@ -5,8 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Privacy — Pomwik</title>
   <meta name="description" content="How Pomwik handles what you send through this site: the contact form and the app waitlists.">
-  <meta name="theme-color" content="#EEF5FF" media="(prefers-color-scheme: light)">
-  <meta name="theme-color" content="#071229" media="(prefers-color-scheme: dark)">
+  <meta name="theme-color" content="#F6F3EE" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#131513" media="(prefers-color-scheme: dark)">
   <link rel="canonical" href="https://pomwik.com/privacy-en.html">
   <link rel="alternate" hreflang="fr" href="https://pomwik.com/privacy.html">
   <link rel="alternate" hreflang="en" href="https://pomwik.com/privacy-en.html">
@@ -19,22 +19,25 @@
   <meta property="og:url" content="https://pomwik.com/privacy-en.html">
   <meta name="twitter:card" content="summary">
   <script>document.documentElement.classList.add("js")</script>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="/accueil.css">
   <script src="/lang.js"></script>
 </head>
 <body>
-  <header class="nav">
-    <a class="brand" href="./" aria-label="Pomwik home">
-      <img src="favicon.svg" alt="" width="32" height="32">
+  <header class="nav wrap">
+    <a class="brand" href="/" aria-label="Pomwik home">
+      <img src="/favicon.svg" alt="" width="30" height="30">
       <span>Pomwik</span>
     </a>
-    <nav aria-label="Primary">
+    <nav aria-label="Menu">
+      <a class="nav-link" href="/#methode">How it works</a>
+      <a class="nav-link nav-keep" href="/tarifs/">Pricing</a>
+      <a class="nav-link" href="/#questions">Questions</a>
       <a class="lang-switch" href="/privacy.html?lang=fr" data-lang-switch lang="fr" hreflang="fr" aria-label="Lire cette page en français">FR</a>
-      <a class="btn btn-small" href="./">Back to site</a>
+      <a class="btn btn-small" href="/contact/">Free app check</a>
     </nav>
   </header>
 
-  <main class="prose">
+  <main class="prose wrap">
     <h1>Privacy</h1>
     <p class="updated">Last updated: 26 November 2026 &middot; <a href="/privacy.html" hreflang="fr" lang="fr">Version française</a></p>
 
@@ -43,7 +46,7 @@
     <h2>Who is responsible</h2>
     <p>The publisher of this site, named in the <a href="/mentions-legales.html" hreflang="fr">legal notice (French)</a>.</p>
 
-    <h2>Contact form and free pre-assessment</h2>
+    <h2>Contact form and free app check</h2>
     <p>The form sends us your name, email address and message and, if you fill them in, the tool the app was built with, a link to its repository or to the app, and what is stuck. It also sends the language and address of the page you sent it from. It goes to our server at Cloudflare, which emails it to our inbox at Google (Gmail). Our server stores none of this.</p>
     <p>You then get one automatic email that confirms we received your message. Its text is fixed and contains nothing you typed. It is sent through Resend or through our Gmail account.</p>
     <p>To limit abuse, our server keeps a log of each message it accepts: the time, a fingerprint of your IP address that changes every day (a hash of the address and the date), and whether our two emails were sent. It uses this log to accept at most 5 messages per hour from one connection. Entries older than 30 days are deleted each time it accepts a new message.</p>
@@ -71,12 +74,28 @@
     <p>If this policy changes in a way that matters, we'll update the date above.</p>
   </main>
 
-  <footer class="footer">
-    <div class="brand">
-      <img src="favicon.svg" alt="" width="24" height="24">
-      <span>Pomwik</span>
+  <footer class="footer wrap">
+    <div>
+      <a class="brand" href="/"><img src="/favicon.svg" alt="" width="26" height="26"><span>Pomwik</span></a>
+      <p>Mobile apps and app store publishing. Based in Nice, France.</p>
     </div>
-    <p>&copy; <span id="year">2026</span> Pomwik</p>
+    <div>
+      <h2>Pages</h2>
+      <ul>
+        <li><a href="/tarifs/">Pricing</a></li>
+        <li><a href="/contact/">Free app check</a></li>
+        <li><a href="/#questions">Questions</a></li>
+      </ul>
+    </div>
+    <div>
+      <h2>Contact</h2>
+      <ul>
+        <li><a href="mailto:hello@pomwik.com">hello@pomwik.com</a></li>
+        <li><a href="/mentions-legales.html">Legal notice</a></li>
+        <li><a href="/privacy-en.html">Privacy</a></li>
+      </ul>
+    </div>
+    <p class="legal">&copy; 2026 Pomwik</p>
   </footer>
   <script src="app.js"></script>
   <!-- Cloudflare Web Analytics : mesure d'audience sans cookie -->

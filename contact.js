@@ -57,10 +57,11 @@ document.querySelectorAll('form.contact-form').forEach((form) => {
     const EN = isEN();
     const T = EN ? T_EN : T_FR;
     const fields = [...form.querySelectorAll('input[name], select[name], textarea[name]')];
-    fields.forEach((f) => { if (f.name !== 'website') f.value = f.value.trim(); });
+    fields.forEach((f) => { if (f.name !== 'website') f.value = f.value.trim(); f.removeAttribute('aria-invalid'); });
     const empty = fields.find((f) => f.name !== 'website' && f.required && !f.value);
     if (empty) {
       say(T.missing(labelOf(empty)), 'error');
+      empty.setAttribute('aria-invalid', 'true');
       empty.focus();
       return;
     }
@@ -68,6 +69,7 @@ document.querySelectorAll('form.contact-form').forEach((form) => {
     const email = form.querySelector('[name="email"]');
     if (email && !EMAIL_RE.test(email.value)) {
       say(T.email, 'error');
+      email.setAttribute('aria-invalid', 'true');
       email.focus();
       return;
     }

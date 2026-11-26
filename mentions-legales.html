@@ -5,8 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Mentions légales — Pomwik</title>
   <meta name="description" content="Mentions légales du site pomwik.com.">
-  <meta name="theme-color" content="#EEF5FF" media="(prefers-color-scheme: light)">
-  <meta name="theme-color" content="#071229" media="(prefers-color-scheme: dark)">
+  <meta name="theme-color" content="#F6F3EE" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#131513" media="(prefers-color-scheme: dark)">
   <link rel="canonical" href="https://pomwik.com/mentions-legales.html">
   <link rel="alternate" hreflang="fr" href="https://pomwik.com/mentions-legales.html">
   <link rel="alternate" hreflang="en" href="https://pomwik.com/mentions-legales.html?lang=en">
@@ -19,36 +19,34 @@
   <meta property="og:url" content="https://pomwik.com/mentions-legales.html">
   <meta name="twitter:card" content="summary">
   <script>document.documentElement.classList.add("js")</script>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="/accueil.css">
   <script src="/lang.js"></script>
-  <style>.prose a { color: var(--accent); }</style>
-</head>
+  </head>
 <body>
-  <header class="nav">
-    <a class="brand" href="./" aria-label="Pomwik">
-      <img src="favicon.svg" alt="" width="32" height="32">
+  <header class="nav wrap">
+    <a class="brand" href="/" aria-label="Pomwik">
+      <img src="/favicon.svg" alt="" width="30" height="30">
       <span>Pomwik</span>
     </a>
     <nav aria-label="Menu">
+      <a class="nav-link" href="/#methode"><span data-lang="fr">Méthode</span><span data-lang="en">How it works</span></a>
+      <a class="nav-link nav-keep" href="/tarifs/"><span data-lang="fr">Tarifs</span><span data-lang="en">Pricing</span></a>
+      <a class="nav-link" href="/#questions"><span data-lang="fr">Questions</span><span data-lang="en">Questions</span></a>
       <button class="lang-switch" type="button" data-lang-switch aria-label="Read this page in English" lang="en">EN</button>
-      <a class="btn btn-small" href="./"><span data-lang="fr">Retour au site</span><span data-lang="en">Back to site</span></a>
+      <a class="btn btn-small" href="/contact/"><span data-lang="fr">Pré-diagnostic<span class="wide">&nbsp;gratuit</span></span><span data-lang="en">Free app check</span></a>
     </nav>
   </header>
 
-  <main class="prose" data-lang="en" lang="en">
+  <main class="prose wrap" data-lang="en" lang="en" id="main-en">
     <h1>Legal notice</h1>
     <p class="updated">Last updated: 26 November 2026</p>
 
     <h2>Site publisher</h2>
-    <p>The site pomwik.com is published by <strong>Firas Hmedi</strong>, on behalf of the company Pomwik (French SASU being registered).</p>
+    <p>The site pomwik.com is published by <strong>Firas Hmedi</strong>, under the trade name Pomwik.</p>
     <p>Email: <a href="mailto:hello@pomwik.com">hello@pomwik.com</a><br>
     Address: 82 rue Barberis, 06300 Nice, France<br>
     Phone: +33 7 77 98 45 50</p>
-    <p>Legal form: French SASU being registered<br>
-    Share capital: to be added after registration<br>
-    SIREN: to be added after registration<br>
-    RCS: to be added after registration<br>
-    EU VAT number: to be added after registration</p>
+    <!-- TODO après le Kbis (ne rien inventer) : Legal form: SASU / Share capital / SIREN / RCS Nice / EU VAT number -->
 
     <h2>Publication director</h2>
     <p>Firas Hmedi</p>
@@ -58,27 +56,23 @@
     <p><strong>Forms and email sending:</strong> Cloudflare, Inc., 101 Townsend Street, San Francisco, CA 94107, United States. Phone: +1 888 993 5273.</p>
 
     <h2>Personal data</h2>
-    <p>How data sent through the site's forms is handled is described in the <a href="privacy-en.html">privacy policy</a>.</p>
+    <p>How data sent through the site’s forms is handled is described in the <a href="privacy-en.html">privacy policy</a>.</p>
 
     <h2>Intellectual property</h2>
     <p>The texts, illustrations and the Pomwik name belong to their publisher. Any reproduction without permission is prohibited.</p>
     <p class="updated">The French version of this notice is the reference.</p>
   </main>
 
-  <main class="prose" data-lang="fr">
+  <main class="prose wrap" data-lang="fr">
     <h1>Mentions légales</h1>
     <p class="updated">Dernière mise à jour : 26 novembre 2026</p>
 
     <h2>Éditeur du site</h2>
-    <p>Le site pomwik.com est édité par <strong>Firas Hmedi</strong>, pour le compte de la société Pomwik (SASU en cours de création).</p>
+    <p>Le site pomwik.com est édité par <strong>Firas Hmedi</strong>, sous le nom commercial Pomwik.</p>
     <p>E-mail : <a href="mailto:hello@pomwik.com">hello@pomwik.com</a><br>
     Adresse : 82 rue Barberis, 06300 Nice<br>
     Téléphone : +33 7 77 98 45 50</p>
-    <p>Forme juridique : SASU en cours de création<br>
-    Capital social : à venir après l'immatriculation<br>
-    SIREN : à venir après l'immatriculation<br>
-    RCS : à venir après l'immatriculation<br>
-    TVA intracommunautaire : à venir après l'immatriculation</p>
+    <!-- TODO après le Kbis (ne rien inventer) : Forme juridique : SASU / Capital social / SIREN / RCS Nice / TVA intracommunautaire -->
 
     <h2>Directeur de la publication</h2>
     <p>Firas Hmedi</p>
@@ -94,15 +88,31 @@
     <p>Les textes, illustrations et le nom Pomwik sont la propriété de leur éditeur. Toute reproduction sans autorisation est interdite.</p>
   </main>
 
-  <footer class="footer">
-    <div class="brand">
-      <img src="favicon.svg" alt="" width="24" height="24">
-      <span>Pomwik</span>
+  <footer class="footer wrap">
+    <div>
+      <a class="brand" href="/"><img src="/favicon.svg" alt="" width="26" height="26"><span>Pomwik</span></a>
+      <p><span data-lang="fr">Apps mobiles et publication sur les stores. Basé à Nice, France.</span><span data-lang="en">Mobile apps and app store publishing. Based in Nice, France.</span></p>
     </div>
-    <p>&copy; <span id="year">2026</span> Pomwik &middot; <a href="mentions-legales.html"><span data-lang="fr">Mentions légales</span><span data-lang="en">Legal notice</span></a> &middot; <a href="privacy.html"><span data-lang="fr">Confidentialité</span><span data-lang="en">Privacy</span></a></p>
+    <div>
+      <h2><span data-lang="fr">Pages</span><span data-lang="en">Pages</span></h2>
+      <ul>
+        <li><a href="/tarifs/"><span data-lang="fr">Tarifs</span><span data-lang="en">Pricing</span></a></li>
+        <li><a href="/contact/"><span data-lang="fr">Pré-diagnostic gratuit</span><span data-lang="en">Free app check</span></a></li>
+        <li><a href="/#questions"><span data-lang="fr">Questions</span><span data-lang="en">Questions</span></a></li>
+      </ul>
+    </div>
+    <div>
+      <h2><span data-lang="fr">Contact</span><span data-lang="en">Contact</span></h2>
+      <ul>
+        <li><a href="mailto:hello@pomwik.com">hello@pomwik.com</a></li>
+        <li><a href="/mentions-legales.html"><span data-lang="fr">Mentions légales</span><span data-lang="en">Legal notice</span></a></li>
+        <li><a href="/privacy.html"><span data-lang="fr">Confidentialité</span><span data-lang="en">Privacy</span></a></li>
+      </ul>
+    </div>
+    <p class="legal">&copy; 2026 Pomwik</p>
   </footer>
   <script src="app.js"></script>
-  <!-- Cloudflare Web Analytics : mesure d'audience sans cookie -->
+  <!-- Cloudflare Web Analytics : mesure d’audience sans cookie -->
   <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "57482883c161487785a4a5d64ed3a96f"}'></script>
 </body>
 </html>
