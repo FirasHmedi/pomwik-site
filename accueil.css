@@ -464,3 +464,23 @@ html[data-show="fr"] [data-lang="en"], html[data-show="en"] [data-lang="fr"] { d
 .tiers .figure { font-size: clamp(2.2rem, 3.6vw, 2.8rem); }
 .prices td.launch.text { font-family: var(--sans); font-size: 1rem; font-weight: 600; white-space: normal; }
 .contact { grid-template-rows: auto 1fr; } @media (max-width: 960px) { .contact { grid-template-rows: none; } }
+
+/* ---------- Offre de lancement (accueil, /tarifs/, /en/, /en/pricing/) ----------
+   Pour retirer l'encadré partout : passer --offre-lancement à none. */
+:root { --offre-lancement: block; }
+.offre-lancement {
+  display: var(--offre-lancement);
+  margin: 24px 0; padding: 14px 16px; max-width: 820px;
+  border: 1px solid var(--accent); border-left-width: 4px; border-radius: 4px;
+  background: var(--accent-soft); color: var(--ink);
+}
+.offre-lancement p { margin: 0; }
+.offre-lancement strong { color: var(--accent); }
+
+/* Phrases sous le tableau des tarifs */
+.sous-tableau { margin-top: 16px; color: var(--muted); }
+.sous-tableau p { margin: 0 0 6px; }
+.sous-tableau a { color: var(--ink); }
+
+/* Heure de la notification (illustration) : jamais coupée */
+.n-app span:last-child { white-space: nowrap; }
