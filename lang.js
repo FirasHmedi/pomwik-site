@@ -34,20 +34,20 @@
     return;
   }
 
-  // Textes qui ne peuvent pas contenir de balise (option de liste, placeholder) : data-en / data-ph-en,
-  // sur les pages en français par défaut seulement.
+  // Textes qui ne peuvent pas contenir de balise (option de liste, placeholder) : data-en / data-fr et
+  // data-ph-en / data-ph-fr, pour la langue qui n'est pas celle de la page ; l'autre est gardée au premier passage.
   function swapAttrs(l) {
-    var els = document.querySelectorAll('[data-en]');
+    var els = document.querySelectorAll('[data-en], [data-fr]');
     for (var i = 0; i < els.length; i++) {
       var el = els[i];
-      if (!el.hasAttribute('data-fr')) el.setAttribute('data-fr', el.textContent);
-      el.textContent = el.getAttribute('data-' + l);
+      if (!el.hasAttribute('data-' + pageDefault)) el.setAttribute('data-' + pageDefault, el.textContent);
+      if (el.hasAttribute('data-' + l)) el.textContent = el.getAttribute('data-' + l);
     }
-    els = document.querySelectorAll('[data-ph-en]');
+    els = document.querySelectorAll('[data-ph-en], [data-ph-fr]');
     for (var j = 0; j < els.length; j++) {
       var f = els[j];
-      if (!f.hasAttribute('data-ph-fr')) f.setAttribute('data-ph-fr', f.placeholder);
-      f.placeholder = f.getAttribute('data-ph-' + l);
+      if (!f.hasAttribute('data-ph-' + pageDefault)) f.setAttribute('data-ph-' + pageDefault, f.placeholder);
+      if (f.hasAttribute('data-ph-' + l)) f.placeholder = f.getAttribute('data-ph-' + l);
     }
   }
 
@@ -66,7 +66,7 @@
       }
       // Message de formulaire déjà affiché : dans l'ancienne langue, on l'efface (sauf confirmation d'envoi).
       if (document.readyState !== 'loading') {
-        var msgs = document.querySelectorAll('form.contact-form:not(.done) .msg');
+        var msgs = document.querySelectorAll('form.contact-form:not(.done) .msg, form.waitlist:not(.done) .msg');
         for (var k = 0; k < msgs.length; k++) msgs[k].textContent = '';
       }
       if (document.readyState !== 'loading') swapAttrs(l);

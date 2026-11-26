@@ -5,10 +5,26 @@ const isLocal = ['127.0.0.1', 'localhost'].includes(location.hostname);
 // On localhost only, ?api=http://127.0.0.1:8787/waitlist lets you test against a local Worker.
 const WAITLIST_URL = (isLocal && new URLSearchParams(location.search).get('api')) || DEFAULT_API;
 
-const ERRORS = {
-  invalid_email: "That email address doesn't look right. Please check it.",
-  invalid_domain: "We couldn't find that email domain. Please check the spelling.",
+// Messages de la liste d'attente, dans la langue affichée (lang.js peut la changer sans recharger).
+const MSG = {
+  en: {
+    invalid_email: "That email address doesn't look right. Please check it.",
+    invalid_domain: "We couldn't find that email domain. Please check the spelling.",
+    enter: 'Please enter a valid email address.',
+    joining: 'Joining…',
+    failed: "Couldn't sign you up just now. Please try again in a moment.",
+    ok: "You're on the list! Check your inbox (and spam folder) for a welcome email.",
+  },
+  fr: {
+    invalid_email: 'Cette adresse e-mail ne semble pas correcte. Vérifiez-la.',
+    invalid_domain: "On ne trouve pas ce domaine d'e-mail. Vérifiez l'orthographe.",
+    enter: 'Entrez une adresse e-mail valide.',
+    joining: 'Inscription…',
+    failed: "L'inscription n'a pas marché. Réessayez dans un instant.",
+    ok: "C'est fait ! Regardez votre boîte de réception (et les spams) : un e-mail de bienvenue arrive.",
+  },
 };
+const t = (k) => MSG[document.documentElement.lang === 'fr' ? 'fr' : 'en'][k];
 
 const yearEl = document.getElementById('year');
 if (yearEl) yearEl.textContent = new Date().getFullYear();
@@ -28,13 +44,13 @@ document.querySelectorAll('form.waitlist').forEach((form) => {
     e.preventDefault();
     const email = input.value.trim();
     if (!email || !input.checkValidity()) {
-      say('Please enter a valid email address.', 'error');
+      say(t('enter'), 'error');
       input.focus();
       return;
     }
 
     button.disabled = true;
-    say('Joining…');
+    say(t('joining'));
     try {
       const res = await fetch(WAITLIST_URL, {
         method: 'POST',
@@ -51,14 +67,14 @@ document.querySelectorAll('form.waitlist').forEach((form) => {
         let code = '';
         try { code = (await res.json()).error; } catch {}
         button.disabled = false;
-        say(ERRORS[code] || "Couldn't sign you up just now. Please try again in a moment.", 'error');
+        say((code && MSG.en[code] && t(code)) || t('failed'), 'error');
         return;
       }
       form.classList.add('done');
-      say("You're on the list! Check your inbox (and spam folder) for a welcome email.", 'ok');
+      say(t('ok'), 'ok');
     } catch (err) {
       button.disabled = false;
-      say("Couldn't sign you up just now. Please try again in a moment.", 'error');
+      say(t('failed'), 'error');
     }
   });
 });
