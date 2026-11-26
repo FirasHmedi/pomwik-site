@@ -36,7 +36,7 @@
       <img src="/favicon.svg" alt="" width="32" height="32">
       <span>Pomwik</span>
     </a>
-    <nav aria-label="Main / Principal">
+    <nav aria-label="Menu">
       <a class="nav-link" href="/realm/errors/" data-lang="en">Build errors</a>
       <a class="nav-link" href="/realm/errors/" data-lang="fr">Erreurs de build</a>
       <a class="nav-link" href="/realm/leaving-realm/" data-lang="en">Your options</a>
@@ -66,7 +66,7 @@
       <h2 data-lang="fr">Où en est Realm</h2>
       <ul>
         <li data-lang="en">MongoDB deprecated the Atlas Device SDKs, Realm included, in September 2024. They reached end of life on 30 September 2025. <a href="https://www.mongodb.com/docs/device-sdks-deprecation/">MongoDB's page</a> says the on-device database continues as an open-source project.</li>
-        <li data-lang="fr">MongoDB a abandonné les Atlas Device SDKs, Realm compris, en septembre 2024. Leur fin de vie date du 30 septembre 2025. <a href="https://www.mongodb.com/docs/device-sdks-deprecation/">La page de MongoDB</a> indique que la base de données embarquée continue comme projet open source.</li>
+        <li data-lang="fr">MongoDB a annoncé l'abandon des Atlas Device SDKs, Realm compris, en septembre 2024. Leur fin de vie date du 30 septembre 2025. <a href="https://www.mongodb.com/docs/device-sdks-deprecation/">La page de MongoDB</a> indique que la base de données embarquée continue comme projet open source.</li>
         <li data-lang="en">In April 2026, a member of the Realm team wrote in <a href="https://github.com/realm/realm-js/issues/7094">#7094</a>: “There is no longer anyone being paid to work on Realm.”</li>
         <li data-lang="fr">En avril 2026, un membre de l'équipe Realm a écrit dans <a href="https://github.com/realm/realm-js/issues/7094">#7094</a> que plus personne n'est payé pour travailler sur Realm.</li>
         <li data-lang="en">The last releases are realm 20.2.0 (August 2025) and @realm/react 0.20.0 (October 2025).</li>
@@ -178,7 +178,7 @@
       <h3 data-lang="en">Keep Realm with afterdb</h3>
 <h3 data-lang="fr">Garder Realm avec afterdb</h3>
       <p data-lang="en">Fits if your app is on realm v20, does not use Device Sync, and you need to keep shipping through React Native, Expo, Xcode and Google Play updates now. You change two lines in <code>package.json</code> and no code:</p>
-      <p data-lang="fr">Convient si votre app est sur realm v20, n'utilise pas Device Sync, et doit continuer à sortir malgré les mises à jour de React Native, Expo, Xcode et Google Play, dès maintenant. Vous changez deux lignes dans <code>package.json</code>, et pas de code&nbsp;:</p>
+      <p data-lang="fr">Convient si votre app est sur realm v20, n'utilise pas Device Sync, et doit continuer à sortir dès maintenant, malgré les mises à jour de React Native, Expo, Xcode et Google Play. Vous changez deux lignes dans <code>package.json</code>, et pas de code&nbsp;:</p>
       <pre><code>"realm": "npm:@pomwik/afterdb@20.3.1",
 "@realm/react": "npm:@pomwik/afterdb-react@0.20.2"</code></pre>
       <p data-lang="en">Your existing files stay where they are. In CI, an app built with realm 20.2.0 writes a plain and an encrypted file. The afterdb build, installed over it, opens both, checks every object and adds more. Then realm 20.2.0 is installed again and reads it all. This passes with Release builds on Android 16 and Android 11 emulators and on the iPhone simulator, with afterdb as published on npm (<a href="https://github.com/FirasHmedi/afterdb/actions/runs/43000910682">CI run</a>). Not tested yet: the switch with Debug builds, and switching from a realm version other than 20.2.0.</p>
@@ -237,7 +237,7 @@
         <li data-lang="en">Translate the schema. Links, lists, embedded objects and backlinks become tables and keys.</li>
         <li data-lang="fr">Traduire le schéma. Liens, listes, objets imbriqués et liens inverses deviennent des tables et des clés.</li>
         <li data-lang="en">Rewrite Realm queries in SQL, and check that they return the same rows. Realm has quirks a naive port changes: <code>[c]</code> folds only ASCII and Latin-1 letters.</li>
-        <li data-lang="fr">Réécrire les requêtes Realm en SQL, et vérifier qu'elles renvoient les mêmes lignes. Realm a des particularités qu'un portage naïf change&nbsp;: <code>[c]</code> ne regroupe que les lettres ASCII et Latin-1.</li>
+        <li data-lang="fr">Réécrire les requêtes Realm en SQL, et vérifier qu'elles renvoient les mêmes lignes. Realm a des particularités qu'un portage naïf change&nbsp;: <code>[c]</code> n'ignore la casse que pour les lettres ASCII et Latin-1.</li>
         <li data-lang="en">Replace live objects, <code>useQuery</code> and <code>useObject</code> with reactive queries.</li>
         <li data-lang="fr">Remplacer les objets en direct, <code>useQuery</code> et <code>useObject</code> par des requêtes réactives.</li>
         <li data-lang="en">Copy the data already on your users' phones during an update. That means one release that ships both Realm and SQLite, and a later one without Realm. If the realm is encrypted, you need the Realm key to read it and a SQLCipher key to write the new database.</li>

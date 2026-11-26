@@ -11,12 +11,15 @@
   var KEY = 'pomwik-lang';
   var root = document.documentElement;
   var pageDefault = root.getAttribute('data-default') || 'fr';
-  var isBot = /bot|crawl|spider|slurp/i.test(navigator.userAgent);
+  var isBot = /googlebot|bingbot|yandex|duckduckbot|baiduspider|applebot|crawler|spider|slurp/i.test(navigator.userAgent);
 
   function stored() { try { return localStorage.getItem(KEY); } catch (e) { return null; } }
   function store(l) { try { localStorage.setItem(KEY, l); } catch (e) { /* navigation privée */ } }
 
   var param = new URLSearchParams(location.search).get('lang');
+  if (param !== 'fr' && param !== 'en') param = null;
+  // Langue demandée dans l'adresse : mémorisée, pour la suite de la visite.
+  if (param) store(param);
   var lang = param;
   if (lang !== 'fr' && lang !== 'en') lang = stored();
   if (lang !== 'fr' && lang !== 'en') {
@@ -27,7 +30,7 @@
   // Pages séparées : la page dans l'autre langue, si ce n'est pas celle-ci.
   var alt = root.getAttribute('data-alt');
   if (alt && lang !== root.lang && !isBot) {
-    location.replace(alt + location.hash);
+    location.replace(alt + '?lang=' + lang + location.hash);
     return;
   }
 
@@ -54,6 +57,18 @@
       root.lang = l;
       var t = root.getAttribute('data-title-' + l);
       if (t) document.title = t;
+      // Adresse de référence de la version affichée (voir les liens hreflang).
+      var canonical = document.querySelector('link[rel="canonical"]');
+      if (canonical) {
+        if (!canonical.hasAttribute('data-base')) canonical.setAttribute('data-base', canonical.href);
+        var base = canonical.getAttribute('data-base');
+        canonical.href = l === pageDefault ? base : base + '?lang=' + l;
+      }
+      // Message de formulaire déjà affiché : dans l'ancienne langue, on l'efface (sauf confirmation d'envoi).
+      if (document.readyState !== 'loading') {
+        var msgs = document.querySelectorAll('form.contact-form:not(.done) .msg');
+        for (var k = 0; k < msgs.length; k++) msgs[k].textContent = '';
+      }
       if (document.readyState !== 'loading') swapAttrs(l);
     }
   }

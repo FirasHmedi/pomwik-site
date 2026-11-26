@@ -7,13 +7,15 @@
     // Langue avant l'affichage : ?lang=, puis choix mémorisé, puis langue du navigateur (français sinon anglais).
     (function () {
       var lang = new URLSearchParams(location.search).get('lang');
-      if (lang !== 'fr' && lang !== 'en') {
+      if (lang === 'fr' || lang === 'en') {
+        try { localStorage.setItem('pomwik-lang', lang); } catch (e) { /* navigation privée */ }
+      } else {
         try { lang = localStorage.getItem('pomwik-lang'); } catch (e) { lang = null; }
       }
       if (lang !== 'fr' && lang !== 'en') {
         // Robots d'indexation : version française sur l'adresse principale (l'anglais est sur ?lang=en).
         var nav = (navigator.languages && navigator.languages[0]) || navigator.language || 'fr';
-        lang = /^fr\b/i.test(nav) || /bot|crawl|spider|slurp/i.test(navigator.userAgent) ? 'fr' : 'en';
+        lang = /^fr\b/i.test(nav) || /googlebot|bingbot|yandex|duckduckbot|baiduspider|applebot|crawler|spider|slurp/i.test(navigator.userAgent) ? 'fr' : 'en';
       }
       var root = document.documentElement;
       // lang reste "fr" tant que le texte est en français : i18n.js le change en traduisant.

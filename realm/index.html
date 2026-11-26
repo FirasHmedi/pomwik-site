@@ -35,7 +35,7 @@
       <img src="/favicon.svg" alt="" width="32" height="32">
       <span>Pomwik</span>
     </a>
-    <nav aria-label="Main / Principal">
+    <nav aria-label="Menu">
       <a class="nav-link" href="#how" data-lang="en">How it works</a>
       <a class="nav-link" href="#how" data-lang="fr">Les options</a>
       <a class="nav-link" href="#proof" data-lang="en">What is tested</a>
@@ -60,7 +60,7 @@
         <h1 data-lang="en">Your app still runs on Realm. Let's keep it shipping.</h1>
         <h1 data-lang="fr">Votre app tourne encore sur Realm. Continuons à la publier.</h1>
         <p class="lede" data-lang="en">MongoDB deprecated Realm in September 2024 and ended support on 30 September 2025. Since then, users have reported build failures on newer React Native and Xcode versions. We help you keep your app building, then move your local data to SQLite. Our converter checks every object on copies of your files.</p>
-        <p class="lede" data-lang="fr">MongoDB a abandonné Realm en septembre 2024 et arrêté son support le 30 septembre 2025. Depuis, des utilisateurs signalent des builds qui échouent avec les nouvelles versions de React Native et de Xcode. On vous aide à garder votre app compilable, puis à passer vos données locales sur SQLite. Notre convertisseur vérifie chaque objet, sur des copies de vos fichiers.</p>
+        <p class="lede" data-lang="fr">MongoDB a annoncé l'abandon de Realm en septembre 2024 et arrêté son support le 30 septembre 2025. Depuis, des utilisateurs signalent des builds qui échouent avec les nouvelles versions de React Native et de Xcode. On vous aide à garder votre app compilable, puis à passer vos données locales sur SQLite. Notre convertisseur vérifie chaque objet, sur des copies de vos fichiers.</p>
         <div class="cta">
           <a class="btn" href="#check" data-lang="en">Get a free 15-minute check</a>
           <a class="btn" href="#check" data-lang="fr">Demander une vérification gratuite de 15 minutes</a>
@@ -139,7 +139,7 @@
             <li data-lang="en">React Native 0.88.1, new architecture: release build for all 4 Android ABIs</li>
             <li data-lang="fr">React Native 0.88.1, nouvelle architecture&nbsp;: build release pour les 4 ABI Android</li>
             <li data-lang="en">Runs on Android 7, 11 and 16 emulators, and Android 16 with 16 KB pages: read, write, live queries, encrypted realm, data kept after a restart</li>
-            <li data-lang="fr">Tourne sur émulateurs Android 7, 11 et 16, et Android 16 avec pages de 16 Ko&nbsp;: lecture, écriture, requêtes en direct, realm chiffré, données gardées après redémarrage</li>
+            <li data-lang="fr">Tourne sur émulateurs Android 7, 11 et 16, et Android 16 avec pages de 16 Ko&nbsp;: lecture, écriture, requêtes en direct, fichier realm chiffré, données gardées après redémarrage</li>
             <li data-lang="en">Also runs with React Native 0.86.3 and 0.87.1, and Expo SDK 56, 57 and 58 (emulator with 16 KB pages)</li>
             <li data-lang="fr">Tourne aussi avec React Native 0.86.3 et 0.87.1, et Expo SDK 56, 57 et 58 (émulateur avec pages de 16 Ko)</li>
             <li data-lang="en">Release builds with R8 turned on work (the Expo SDK 58 default)</li>
@@ -159,7 +159,7 @@
             <li data-lang="en">Runs on the iPhone simulator and keeps its data after a restart</li>
             <li data-lang="fr">Tourne sur le simulateur iPhone et garde ses données après redémarrage</li>
             <li data-lang="en">The build for iPhone devices succeeds (without code signing)</li>
-            <li data-lang="fr">Le build pour iPhone réel réussit (sans signature)</li>
+            <li data-lang="fr">Le build pour appareil iPhone réussit (sans signature)</li>
           </ul>
           <h3 data-lang="en">The fork, in Node</h3>
           <h3 data-lang="fr">Le fork, dans Node</h3>
@@ -227,7 +227,7 @@
           <h4 data-lang="en">Queries compared one by one</h4>
           <h4 data-lang="fr">Requêtes comparées une à une</h4>
           <p data-lang="en">252 handwritten Realm queries run on both sides: 2 differences, both known and explained. Realm has quirks a naive port silently changes, like <code>[c]</code> folding only ASCII and Latin-1 letters.</p>
-          <p data-lang="fr">252 requêtes Realm écrites à la main, lancées des deux côtés&nbsp;: 2 différences, connues et expliquées. Realm a des particularités qu'un portage naïf change sans le dire, comme <code>[c]</code> qui ne regroupe que les lettres ASCII et Latin-1.</p>
+          <p data-lang="fr">252 requêtes Realm écrites à la main, lancées des deux côtés&nbsp;: 2 différences, connues et expliquées. Realm a des particularités qu'un portage naïf change sans le dire, comme <code>[c]</code>, qui n'ignore la casse que pour les lettres ASCII et Latin-1.</p>
         </li>
       </ol>
       <p class="note" data-lang="en">The converter runs under Node 22 or later. It reads a private copy of your file, read-only, and never writes to the original. It refuses files that need a format upgrade, which older realm versions wrote. Details: the <a href="https://github.com/FirasHmedi/afterdb/tree/main/converter">converter README</a>.</p>
@@ -274,13 +274,13 @@
           <p class="note" data-lang="en">Or write to <a href="mailto:hello@pomwik.com">hello@pomwik.com</a>.</p>
           <p class="note" data-lang="fr">Ou écrivez à <a href="mailto:hello@pomwik.com">hello@pomwik.com</a>.</p>
         </div>
-        <form class="contact-form" data-endpoint="https://api.pomwik.com/contact" novalidate>
+        <form class="contact-form" data-success="Merci, votre message a bien été envoyé. On vous répond sous 12 heures." data-endpoint="https://api.pomwik.com/contact" novalidate>
           <label for="nom"><span data-lang="en">Name</span><span data-lang="fr">Nom</span></label>
           <input id="nom" type="text" name="nom" autocomplete="name" required maxlength="100">
           <label for="email"><span data-lang="en">Work email</span><span data-lang="fr">E-mail professionnel</span></label>
           <input id="email" type="text" inputmode="email" name="email" autocomplete="email" autocapitalize="off" spellcheck="false" required maxlength="254">
           <label for="message"><span data-lang="en">Versions and what breaks</span><span data-lang="fr">Versions et ce qui casse</span></label>
-          <textarea id="message" name="message" required maxlength="4000" placeholder="realm 12.13, React Native 0.74, Xcode 26.4 fails with…"></textarea>
+          <textarea id="message" name="message" required maxlength="4000" placeholder="realm 12.13, React Native 0.74, Xcode 26.4…"></textarea>
           <input class="hp" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
           <button class="btn" type="submit"><span data-lang="en">Request the check</span><span data-lang="fr">Demander la vérification</span></button>
           <p class="msg" role="status" aria-live="polite"></p>
