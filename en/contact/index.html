@@ -1,0 +1,145 @@
+<!doctype html>
+
+<html lang="en" data-alt="/contact/">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Free app check · Pomwik</title>
+    <meta name="description" content="Décrivez votre app bloquée : on vous dit sous 12 heures si on peut la reprendre et la publier sur les stores." />
+    <link rel="canonical" href="https://pomwik.com/en/contact/" />
+    <link rel="alternate" hreflang="fr" href="https://pomwik.com/contact/" />
+    <link rel="alternate" hreflang="en" href="https://pomwik.com/en/contact/" />
+    <link rel="alternate" hreflang="x-default" href="https://pomwik.com/contact/" />
+    <meta name="theme-color" content="#F6F3EE" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#131513" media="(prefers-color-scheme: dark)" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Pomwik" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:title" content="Free app check · Pomwik" />
+    <meta property="og:description" content="Décrivez votre app bloquée : on vous dit sous 12 heures si on peut la reprendre et la publier sur les stores." />
+    <meta property="og:url" content="https://pomwik.com/en/contact/" />
+    <meta property="og:image" content="https://pomwik.com/og-app-rescue.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="stylesheet" href="/accueil.css" />
+    <script src="/lang.js"></script>
+  </head>
+  <body>
+    <a class="skip" href="#main">Skip to content</a>
+    <header class="nav wrap">
+      <a class="brand" href="/en/" aria-label="Pomwik">
+        <img src="/favicon.svg" alt="" width="30" height="30" />
+        <span>Pomwik</span>
+      </a>
+      <nav aria-label="Menu">
+        <a class="nav-link" href="/en/#methode">How it works</a>
+        <a class="nav-link nav-keep" href="/en/pricing/">Pricing</a>
+        <a class="nav-link" href="/en/#questions">Questions</a>
+        <a class="lang-switch" href="/contact/?lang=fr" data-lang-switch="" lang="fr" hreflang="fr" aria-label="Lire cette page en français">FR</a>
+        <a class="btn btn-small" href="/en/contact/" aria-current="page">Free app check</a>
+      </nav>
+    </header>
+    <main class="page wrap" id="main">
+      <div class="contact">
+        <div class="contact-intro">
+          <p class="label">Contact</p>
+          <h1>Free app check</h1>
+
+          <p class="lede">Describe your app in a few lines. We tell you within 12 hours whether we can take it on, and how.</p>
+        </div>
+        <div class="contact-aside">
+          <ol class="next">
+            <li>You describe the app and what is stuck.</li>
+            <li>We reply within 12 hours: whether we take it, and why.</li>
+            <li>If yes, we offer a fixed-price assessment. Then you decide.</li>
+          </ol>
+          <div class="about">
+            <p>“I read every message and reply myself. No salesperson, no middleman: you talk to the person who will work on your app.”</p>
+            <p class="sign">Firas Hmedi</p>
+
+            <p>Pomwik, mobile apps and app store publishing. Nice, France.</p>
+          </div>
+
+          <p class="note">You can also write to <a href="mailto:hello@pomwik.com">hello@pomwik.com</a>.</p>
+        </div>
+        <form class="contact-form" data-endpoint="https://api.pomwik.com/contact" novalidate="">
+          <div class="pair">
+            <div>
+              <label for="nom">Name</label>
+              <input id="nom" type="text" name="nom" autocomplete="name" required="" maxlength="100" />
+            </div>
+            <div>
+              <label for="email">Email</label>
+              <input
+                id="email"
+                type="text"
+                inputmode="email"
+                name="email"
+                autocomplete="email"
+                autocapitalize="off"
+                spellcheck="false"
+                required=""
+                maxlength="254"
+              />
+            </div>
+          </div>
+          <label for="outil">Built with <span class="opt">(optional)</span></label>
+          <select id="outil" name="outil">
+            <option value="">Choose…</option>
+            <option value="lovable">Lovable</option>
+            <option value="bolt">Bolt</option>
+            <option value="rork">Rork</option>
+            <option value="flutterflow">FlutterFlow</option>
+            <option value="agence">An agency or a freelancer</option>
+            <option value="autre">Other</option>
+          </select>
+          <label for="lien">Link to the repository or the app <span class="opt">(optional)</span></label>
+          <input id="lien" type="text" inputmode="url" name="lien" autocapitalize="off" spellcheck="false" maxlength="300" />
+          <label for="blocage">What is stuck <span class="opt">(optional)</span></label>
+          <select id="blocage" name="blocage">
+            <option value="">Choose…</option>
+            <option value="refus">Rejected by a store</option>
+            <option value="bug">A bug</option>
+            <option value="abandon">Abandoned project</option>
+            <option value="autre">Other</option>
+          </select>
+          <label for="message">Your app and what is stuck</label>
+          <textarea id="message" name="message" required="" maxlength="4000"></textarea>
+          <input class="hp" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" />
+          <button class="btn arrow" type="submit">Send</button>
+          <p class="msg" role="status" aria-live="polite"></p>
+
+          <p class="fine">Reply within 12 hours. We only use this information to reply to you. <a href="/privacy-en.html">Privacy</a></p>
+        </form>
+      </div>
+    </main>
+    <footer class="footer wrap">
+      <div>
+        <a class="brand" href="/en/"><img src="/favicon.svg" alt="" width="26" height="26" /><span>Pomwik</span></a>
+        <p>Mobile apps and app store publishing. Based in Nice, France.</p>
+      </div>
+      <div>
+        <h2>Pages</h2>
+        <ul>
+          <li><a href="/en/pricing/">Pricing</a></li>
+          <li><a href="/en/contact/">Free app check</a></li>
+          <li><a href="/en/#questions">Questions</a></li>
+        </ul>
+      </div>
+      <div>
+        <h2>Contact</h2>
+        <ul>
+          <li><a href="mailto:hello@pomwik.com">hello@pomwik.com</a></li>
+          <li><a href="/mentions-legales.html">Legal notice</a></li>
+          <li><a href="/privacy-en.html">Privacy</a></li>
+        </ul>
+      </div>
+      <p class="legal">© 2026 Pomwik</p>
+    </footer>
+    <script src="/contact.js"></script>
+    <!-- Cloudflare Web Analytics : mesure d’audience sans cookie -->
+    <script defer="" src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "57482883c161487785a4a5d64ed3a96f"}'></script>
+  </body>
+</html>
