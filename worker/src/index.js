@@ -220,6 +220,10 @@ async function unsubscribe(request, env, url) {
 const CONTACT_MAX = 4000;
 const CONTACT_PER_IP_HOUR = 5;
 const CONTACT_PER_DAY = 100;
+// Optional choices on the contact page: value sent by the form -> label in the owner notice. Anything else is dropped.
+const OUTILS = { lovable: 'Lovable', bolt: 'Bolt', rork: 'Rork', flutterflow: 'FlutterFlow', agence: 'agence ou freelance', autre: 'autre' };
+const BLOCAGES = { refus: "refus d'un store", bug: 'bug', abandon: 'projet abandonné', autre: 'autre' };
+const pick = (list, v) => (typeof v === 'string' && Object.hasOwn(list, v) ? v : '');
 
 async function sha256(text) {
   const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(text));
@@ -251,9 +255,11 @@ async function sendContactNotice(env, c) {
   // The audit subject stays as is (mail filter); a plain message names the page it was sent from.
   msg.setSubject(c.audit ? `Demande d'audit : ${c.agence} (${c.email})` : `Nouveau message de ${c.nom} (${c.email})${c.page ? ` depuis ${c.page}` : ''}`);
   const origin = [`Page : ${c.page || '-'}`, `Langue : ${c.lang === 'en' ? 'anglais' : 'français'}`];
+  // Optional app details from the contact page (fixed lists, plus a link).
+  const app = [`Outil : ${OUTILS[c.outil] || '-'}`, `Lien : ${c.lien || '-'}`, `Blocage : ${BLOCAGES[c.blocage] || '-'}`];
   const lines = c.audit
     ? ["Nouvelle demande d'audit depuis pomwik.com", '', `Nom : ${c.nom}`, `Agence : ${c.agence}`, `E-mail : ${c.email}`, `Site de l'agence : ${c.siteAgence || '-'}`, `Sites maintenus : ${c.nbSites}`, ...origin, `Date : ${c.created_at}`, '', 'Plateformes et remarques :', c.message || '-']
-    : ['Nouveau message depuis le formulaire de contact de pomwik.com', '', `Nom : ${c.nom}`, `E-mail : ${c.email}`, ...origin, `Date : ${c.created_at}`, '', 'Message :', c.message];
+    : ['Nouveau message depuis le formulaire de contact de pomwik.com', '', `Nom : ${c.nom}`, `E-mail : ${c.email}`, ...app, ...origin, `Date : ${c.created_at}`, '', 'Message :', c.message];
   const body = lines.join('\r\n');
   // Accents in the body: send it base64-encoded (mimetext does not encode it by itself), lines of 76 characters.
   msg.addMessage({ contentType: 'text/plain', encoding: 'base64', data: Buffer.from(body, 'utf8').toString('base64').replace(/.{76}/g, '$&\r\n') });
@@ -326,6 +332,9 @@ async function handleContact(request, env, ctx, allowed, mode) {
   // Sent by contact.js: language of the page (fixed list, French by default) and the page itself, for the notice only.
   const lang = data.lang === 'en' ? 'en' : 'fr';
   const page = clean(data.page, 200);
+  const outil = pick(OUTILS, data.outil);
+  const blocage = pick(BLOCAGES, data.blocage);
+  const lien = clean(data.lien, 300);
   if (email.length > 254 || !EMAIL_RE.test(email)) return json({ error: 'invalid_email' }, 400, allowed);
   if (!nom || (audit ? !agence || !nbSites : !message)) return json({ error: 'missing_field' }, 400, allowed);
 
@@ -346,7 +355,7 @@ async function handleContact(request, env, ctx, allowed, mode) {
     .first();
   if (mode === 'panne') return json({ ok: true }, 200, allowed);
 
-  const c = { nom, email, message, created_at, audit, agence, siteAgence, nbSites, lang, page };
+  const c = { nom, email, message, created_at, audit, agence, siteAgence, nbSites, lang, page, outil, blocage, lien };
   ctx.waitUntil(
     (async () => {
       let notified = false;

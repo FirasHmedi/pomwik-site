@@ -2,17 +2,22 @@
 
 Site statique servi par GitHub Pages (racine du dépôt) et Worker Cloudflare `pomwik-waitlist` (`worker/`, api.pomwik.com : formulaires, liste d'attente, boîte de réception des e-mails de test, route `/notify` des e-mails de la surveillance vers les agences, destinataires limités par le secret `NOTIFY_ALLOW`).
 
-**Ce dépôt est public.** Aucune note interne, aucun prix, aucun secret. Les notes de travail sont dans le dépôt privé FirasHmedi/pomwik-memory (`COORDINATION.md` à lire en premier).
+**Ce dépôt est public.** Aucune note interne, aucun secret, aucun prix en dehors de la grille publique (`/tarifs/` et bloc prix de l'accueil). Les notes de travail sont dans le dépôt privé FirasHmedi/pomwik-memory (`COORDINATION.md` à lire en premier).
 
 ## Règles du site
-- Accueil (`index.html`, `accueil.css`, `i18n.js`) : reprise d'applications web et mobiles bloquées (« App Rescue », 26/11/2026). Bilingue : texte français dans la page, anglais dans `i18n.js` (une clé `data-i18n` par texte, à tenir à jour des deux côtés). Langue : `?lang=`, puis choix mémorisé (`localStorage` `pomwik-lang`), puis langue du navigateur (français sinon anglais). L'offre d'audit de sites est dans `audit/` et garde `style.css`. `exemple-rapport.pdf` reste à la racine (liens déjà envoyés).
-- Toutes les autres pages sont bilingues (audit, contact, mentions légales, 404, toutes les pages `realm/`, petty, fieldwrite, settled) : `lang.js` dans `<head>`, `<html data-show="…">`, les deux textes dans la page avec `data-lang="fr"` / `data-lang="en"` (le CSS cache l'autre langue), bouton `data-lang-switch`. Pages Realm : anglais par défaut (`data-default="en"`), c'est ce que voient les robots. `privacy.html` / `privacy-en.html` : deux pages, redirection par `data-alt`. Pages Realm et pages d'apps en attente : anglais par défaut. Textes sans balise (option de liste, placeholder) : attribut `data-fr` / `data-en` et `data-ph-fr` / `data-ph-en` pour la langue qui n'est pas celle de la page. Toute nouvelle page : mêmes règles, les deux langues.
-- Pages Realm : bandeau `.context` en haut, qui dit ce qu'est Pomwik pour qui arrive directement.
+- Offre (brief du 26/11/2026) : reprise d'apps mobiles inachevées (Lovable, Bolt, Rork, abandonnées par une agence…), sécurisation, publication sur l'App Store et Google Play sous les comptes du client, maintenance. La société n'est pas immatriculée : aucun paiement en ligne, aucun compte client, seulement des demandes de devis.
+- Pages : accueil (`index.html`, `i18n.js`), `/tarifs/`, `/contact/` (pré-diagnostic), mentions légales, confidentialité, 404, et les pages d'apps en attente (petty, fieldwrite, settled). `/realm/` et `/audit/` sont retirées : pages courtes `noindex` qui renvoient vers l'accueil (`meta refresh`). Ne plus parler de Realm, d'afterdb ni d'audit de sites.
+- Accueil, `/tarifs/` et `/contact/` utilisent `accueil.css` ; les autres pages gardent `style.css`.
+- Accueil : texte français dans la page, anglais dans `i18n.js` (une clé `data-i18n` par texte, à tenir à jour des deux côtés). Langue : `?lang=`, puis choix mémorisé (`localStorage` `pomwik-lang`), puis langue du navigateur (français sinon anglais).
+- Toutes les autres pages sont bilingues : `lang.js` dans `<head>`, `<html data-show="…">`, les deux textes dans la page avec `data-lang="fr"` / `data-lang="en"` (le CSS cache l'autre langue), bouton `data-lang-switch`. Pages d'apps en attente : anglais par défaut (`data-default="en"`). `privacy.html` / `privacy-en.html` : deux pages, redirection par `data-alt`. Textes sans balise (option de liste, placeholder) : attribut `data-fr` / `data-en` et `data-ph-fr` / `data-ph-en` pour la langue qui n'est pas celle de la page. Toute nouvelle page : mêmes règles, les deux langues, même contenu.
+- Prix affichés seulement sur `/tarifs/` et dans le bloc prix de l'accueil, en € HT (« Prix HT », pas de mention de TVA définitive tant que le régime n'est pas choisi). Changer un prix : les deux langues de `/tarifs/` et l'accueil (`index.html` + `i18n.js`).
+- Ne jamais écrire « acceptation garantie » : écrire « solde payé à l'acceptation ».
 - Pas de logo client, de chiffre ni de témoignage inventés.
-- Textes en français, courts et simples, sans tournures « IA ».
-- Ne présenter comme disponible que ce qui est prouvé ; le reste est « inclus dès l'ouverture ».
-- Aucun montant affiché. Délai de réponse annoncé : 12 heures, partout (site, `contact.js`, e-mails du Worker).
+- Textes en français, courts et simples, pour des clients non techniques, sans tournures « IA ». Lisible à 360 px de large.
+- Ne présenter comme disponible que ce qui est prouvé.
+- Délai de réponse annoncé : 12 heures, partout (site, `contact.js`, e-mails du Worker).
 - Nom de Firas sur la page Contact seulement, pas sur l'accueil.
+- Formulaire de contact : champs facultatifs `outil`, `lien`, `blocage` (listes fixes dans `worker/src/index.js`, à garder alignées avec `contact/index.html`), décrits dans `privacy.html` et `privacy-en.html`.
 - Mesure d'audience : extrait Cloudflare Web Analytics (sans cookie) en bas de chaque page, mentionné dans `privacy.html`. Le copier sur toute nouvelle page.
 
 ## Worker (`worker/`)
