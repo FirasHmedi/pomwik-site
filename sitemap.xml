@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://pomwik.com/</loc></url>
-  <url><loc>https://pomwik.com/tarifs/</loc></url>
-  <url><loc>https://pomwik.com/contact/</loc></url>
-  <url><loc>https://pomwik.com/mentions-legales.html</loc></url>
-  <url><loc>https://pomwik.com/privacy.html</loc></url>
-  <url><loc>https://pomwik.com/privacy-en.html</loc></url>
+  <url><loc>https://pomwik.com/</loc><lastmod>2026-11-26</lastmod></url>
+  <url><loc>https://pomwik.com/tarifs/</loc><lastmod>2026-11-26</lastmod></url>
+  <url><loc>https://pomwik.com/contact/</loc><lastmod>2026-11-26</lastmod></url>
+  <url><loc>https://pomwik.com/mentions-legales.html</loc><lastmod>2026-11-26</lastmod></url>
+  <url><loc>https://pomwik.com/privacy.html</loc><lastmod>2026-11-26</lastmod></url>
+  <url><loc>https://pomwik.com/privacy-en.html</loc><lastmod>2026-11-26</lastmod></url>
 </urlset>
