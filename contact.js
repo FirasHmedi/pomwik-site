@@ -12,25 +12,25 @@ const SUCCESS = {
 };
 
 // Pages en anglais (<html lang="en">, "en-US"…) : mêmes messages, traduits.
-const EN = document.documentElement.lang.startsWith('en');
-const T = EN
-  ? {
-      success: 'Thanks, your message has been sent. We reply within 12 hours.',
-      missing: (label) => `Missing: ${label}.`,
-      email: 'This email address looks incomplete (example: name@company.com).',
-      sending: 'Sending…',
-      rate: 'Too many messages from your connection. Please try again in an hour.',
-      required: 'A required field is missing.',
-      failed: 'Your message could not be sent. Try again in a moment, or write to hello@pomwik.com.',
-    }
-  : {
-      missing: (label) => `Il manque : ${label}.`,
-      email: 'Cette adresse e-mail semble incomplète (exemple : nom@entreprise.fr).',
-      sending: 'Envoi en cours…',
-      rate: 'Trop d’envois depuis votre connexion. Réessayez dans une heure.',
-      required: 'Il manque un champ obligatoire.',
-      failed: 'Votre message n’a pas pu être envoyé. Réessayez dans un instant, ou écrivez à hello@pomwik.com.',
-    };
+// Lu à chaque envoi : l'accueil peut changer de langue sans recharger (i18n.js).
+const isEN = () => document.documentElement.lang.startsWith('en');
+const T_EN = {
+  success: 'Thanks, your message has been sent. We reply within 12 hours.',
+  missing: (label) => `Missing: ${label}.`,
+  email: 'This email address looks incomplete (example: name@company.com).',
+  sending: 'Sending…',
+  rate: 'Too many messages from your connection. Please try again in an hour.',
+  required: 'A required field is missing.',
+  failed: 'Your message could not be sent. Try again in a moment, or write to hello@pomwik.com.',
+};
+const T_FR = {
+  missing: (label) => `Il manque : ${label}.`,
+  email: 'Cette adresse e-mail semble incomplète (exemple : nom@entreprise.fr).',
+  sending: 'Envoi en cours…',
+  rate: 'Trop d’envois depuis votre connexion. Réessayez dans une heure.',
+  required: 'Il manque un champ obligatoire.',
+  failed: 'Votre message n’a pas pu être envoyé. Réessayez dans un instant, ou écrivez à hello@pomwik.com.',
+};
 
 document.querySelectorAll('form.contact-form').forEach((form) => {
   const button = form.querySelector('button');
@@ -52,6 +52,8 @@ document.querySelectorAll('form.contact-form').forEach((form) => {
 
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
+    const EN = isEN();
+    const T = EN ? T_EN : T_FR;
     const fields = [...form.querySelectorAll('input[name], select[name], textarea[name]')];
     fields.forEach((f) => { if (f.name !== 'website') f.value = f.value.trim(); });
     const empty = fields.find((f) => f.name !== 'website' && f.required && !f.value);
@@ -91,7 +93,7 @@ document.querySelectorAll('form.contact-form').forEach((form) => {
         return;
       }
       form.classList.add('done');
-      say(T.success || SUCCESS[type] || SUCCESS.contact, 'ok');
+      say(T.success || form.dataset.success || SUCCESS[type] || SUCCESS.contact, 'ok');
     } catch {
       button.disabled = false;
       say(T.failed, 'error');

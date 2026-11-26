@@ -86,6 +86,17 @@ p { margin: 0; }
 }
 .btn:hover { background: var(--accent-hover); border-color: var(--accent-hover); }
 .btn:disabled { opacity: .6; cursor: default; }
+/* Bouton de langue (FR / EN), choix mémorisé par i18n.js */
+.lang-switch {
+  display: inline-flex; align-items: center; justify-content: center; min-height: 44px; min-width: 44px;
+  padding: 6px 12px; border: 1px solid var(--line); border-radius: 8px; background: transparent;
+  color: var(--ink); font: inherit; font-weight: 600; font-size: .9rem; cursor: pointer;
+  transition: border-color .15s ease, background-color .15s ease;
+}
+.lang-switch:hover { border-color: var(--accent); background: var(--tint); }
+/* Page affichée en anglais : cachée le temps de la traduction (au plus 1,5 s). */
+.i18n-wait body { visibility: hidden; }
+
 .btn-small { min-height: 44px; padding: 8px 16px; font-size: .95rem; margin-left: 8px; }
 .btn-ghost { background: transparent; color: var(--ink); border-color: var(--line); }
 .btn-ghost:hover { background: var(--tint); border-color: var(--accent); color: var(--ink); }
@@ -118,6 +129,7 @@ h1 { font-size: clamp(2.2rem, 5vw, 3.4rem); line-height: 1.08; letter-spacing: -
 .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
 .card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 24px; }
 .card p { color: var(--muted); font-size: .98rem; }
+.grid-2 { grid-template-columns: repeat(2, 1fr); }
 .icon { width: 26px; height: 26px; margin-bottom: 14px; fill: none; stroke: var(--accent); stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; display: block; }
 
 .steps { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; counter-reset: etape; }
@@ -254,6 +266,7 @@ h1 { font-size: clamp(2.2rem, 5vw, 3.4rem); line-height: 1.08; letter-spacing: -
 }
 @media (max-width: 640px) {
   .nav-link { display: none; }
+  .nav nav { gap: 6px; }
   .grid, .steps { grid-template-columns: 1fr; }
   .steps { gap: 24px; }
   .proof { flex-direction: column; align-items: flex-start; padding: 24px; }
@@ -262,6 +275,10 @@ h1 { font-size: clamp(2.2rem, 5vw, 3.4rem); line-height: 1.08; letter-spacing: -
   .errors { grid-template-columns: 1fr; }
   .prose pre { font-size: .76rem; padding: 12px; }
   .guide { padding-block: 24px 48px; }
+}
+
+@media (max-width: 360px) {
+  .nav .brand span { display: none; }
 }
 
 @media (prefers-reduced-motion: reduce) {
