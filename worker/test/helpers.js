@@ -17,6 +17,8 @@ export function makeEnv(overrides = {}) {
     OWNER_EMAIL: 'owner@example.com',
     RESEND_API_KEY: 're_test_key',
     OWNER_MAIL: { send: vi.fn(async () => {}) },
+    // The contact notice goes through Resend only when CONTACT_TO is set: tests opt in (see contact.test.js).
+    CONTACT_TO: undefined,
     ...overrides,
   };
 }
