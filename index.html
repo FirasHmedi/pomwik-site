@@ -11,11 +11,13 @@
         try { lang = localStorage.getItem('pomwik-lang'); } catch (e) { lang = null; }
       }
       if (lang !== 'fr' && lang !== 'en') {
+        // Robots d'indexation : version française sur l'adresse principale (l'anglais est sur ?lang=en).
         var nav = (navigator.languages && navigator.languages[0]) || navigator.language || 'fr';
-        lang = /^fr\b/i.test(nav) ? 'fr' : 'en';
+        lang = /^fr\b/i.test(nav) || /bot|crawl|spider|slurp/i.test(navigator.userAgent) ? 'fr' : 'en';
       }
       var root = document.documentElement;
-      root.lang = lang;
+      // lang reste "fr" tant que le texte est en français : i18n.js le change en traduisant.
+      root.dataset.want = lang;
       if (lang === 'en') {
         root.classList.add('i18n-wait');
         setTimeout(function () { root.classList.remove('i18n-wait'); }, 1500);
@@ -27,6 +29,9 @@
   <meta name="theme-color" content="#F7F9FC" media="(prefers-color-scheme: light)">
   <meta name="theme-color" content="#0A1426" media="(prefers-color-scheme: dark)">
   <link rel="canonical" href="https://pomwik.com/">
+  <link rel="alternate" hreflang="fr" href="https://pomwik.com/">
+  <link rel="alternate" hreflang="en" href="https://pomwik.com/?lang=en">
+  <link rel="alternate" hreflang="x-default" href="https://pomwik.com/">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Pomwik">
@@ -35,10 +40,10 @@
   <meta property="og:title" content="Pomwik · votre application mérite d'être terminée">
   <meta property="og:description" content="On reprend les apps web et mobiles bloquées, on fait un diagnostic et on les termine sur un périmètre fixé à l'avance.">
   <meta property="og:url" content="https://pomwik.com/">
-  <meta property="og:image" content="https://pomwik.com/og-accueil.png">
+  <meta property="og:image" content="https://pomwik.com/og-app-rescue.png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
-  <meta property="og:image:alt" content="Pomwik">
+  <meta property="og:image:alt" content="Pomwik : votre application mérite d'être terminée. Your app deserves to be finished.">
   <meta name="twitter:card" content="summary_large_image">
   <link rel="stylesheet" href="/accueil.css">
 </head>
@@ -146,7 +151,7 @@
         </details>
         <details>
           <summary data-i18n="faq2q">Mon app a été faite entièrement avec l'IA. C'est un problème&nbsp;?</summary>
-          <p data-i18n="faq2a">Non, c'est le cas le plus courant. On sait lire ce code, repérer ce qui est fragile et le reprendre.</p>
+          <p data-i18n="faq2a">Non. On sait lire ce code, repérer ce qui est fragile et le reprendre.</p>
         </details>
         <details>
           <summary data-i18n="faq3q">De quoi avez-vous besoin pour commencer&nbsp;?</summary>
@@ -174,7 +179,7 @@
           <p data-i18n="contactP">Quelques lignes suffisent&nbsp;: ce que fait l'app, avec quoi elle a été faite, ce qui bloque. On vous répond sous 12 heures.</p>
           <p class="note" data-i18n="contactMail">Vous pouvez aussi écrire à <a href="mailto:hello@pomwik.com">hello@pomwik.com</a>.</p>
         </div>
-        <form class="contact-form" data-endpoint="https://api.pomwik.com/contact" novalidate>
+        <form class="contact-form" data-success="Merci, votre message a bien été envoyé. On vous répond sous 12 heures." data-endpoint="https://api.pomwik.com/contact" novalidate>
           <label for="nom" data-i18n="fName">Nom</label>
           <input id="nom" type="text" name="nom" autocomplete="name" required maxlength="100">
           <label for="email" data-i18n="fEmail">E-mail</label>

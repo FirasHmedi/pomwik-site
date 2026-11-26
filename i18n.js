@@ -5,7 +5,7 @@
 const KEY = 'pomwik-lang';
 
 const EN = {
-  title: 'Pomwik · we finish stuck apps',
+  title: 'Pomwik · we finish stuck and broken apps',
   description: 'An app built with Lovable, Bolt or Replit that keeps breaking, or a mobile app rejected by the App Store or Google Play? Pomwik takes over your code, assesses it and finishes the work on a scope agreed upfront.',
   skip: 'Skip to content',
   brandAria: 'Pomwik home',
@@ -28,7 +28,7 @@ const EN = {
   sign5: 'nobody knows the code anymore.',
   whatTitle: 'What we take over',
   what1t: 'AI-built web apps',
-  what1p: 'Lovable, Bolt, Replit, Cursor: we bring order to the code, the Supabase database, user sign-in and Stripe payments.',
+  what1p: 'Lovable, Bolt, Replit, Cursor: we sort out the code, the Supabase database, user sign-in and Stripe payments.',
   what2t: 'Stuck mobile apps',
   what2p: 'React Native and Expo: failing builds, App Store or Google Play rejections, a release left unfinished.',
   what3t: 'Abandoned projects',
@@ -37,7 +37,7 @@ const EN = {
   what4p: 'Hosting, domain, emails, production settings: everything missing between “it works on my machine” and “it’s live”.',
   howTitle: 'How it works',
   how1t: 'An initial assessment',
-  how1p: 'You give us access to the code. We look at what works, what is blocking and what is risky, and you get a clear report.',
+  how1p: 'You give us access to the code. We look at what works, what is stuck and what is risky, and you get a clear report.',
   how2t: 'A fixed scope and price',
   how2p: 'We propose a plan: what to do, in what order, at what price. You decide before any work starts.',
   how3t: 'We finish the work',
@@ -49,21 +49,21 @@ const EN = {
   faq1q: 'How much does it cost?',
   faq1a: 'The assessment has a fixed price, stated before we start. After that, you get a fixed price for the work, before it starts. No hourly billing.',
   faq2q: 'My app was built entirely with AI. Is that a problem?',
-  faq2a: 'No, that’s the most common case. We know how to read that code, spot what is fragile and take it over.',
+  faq2a: 'No. We know how to read that code, spot what is fragile and take it over.',
   faq3q: 'What do you need to get started?',
-  faq3a: 'Access to the code (GitHub, a Lovable or Bolt export…) and a few lines on what is blocking. For a mobile app, access to App Store Connect or the Google Play Console helps a lot.',
+  faq3a: 'Access to the code (GitHub, a Lovable or Bolt export…) and a few lines on what is stuck. For a mobile app, access to App Store Connect or the Google Play Console helps a lot.',
   faq4q: 'Do you guarantee App Store approval?',
   faq4a: 'No, nobody can. We fix what caused the rejection and prepare a solid new submission.',
   faq5q: 'Are there apps you don’t take over?',
-  faq5a: 'Yes. After the assessment, we tell you plainly if an app should rather be rebuilt. We also don’t take health or banking apps, or apps that depend on specific hardware.',
+  faq5a: 'Yes. After the assessment, we tell you plainly if an app would be better rebuilt. We also don’t take health or banking apps, or apps that depend on specific hardware.',
   faq6q: 'What about my code?',
   faq6a: 'It stays yours. We work with access you can revoke at any time.',
   contactTitle: 'Tell us about your app',
-  contactP: 'A few lines are enough: what the app does, what it was built with, what is blocking. We reply within 12 hours.',
+  contactP: 'A few lines are enough: what the app does, what it was built with, what is stuck. We reply within 12 hours.',
   contactMail: 'You can also write to <a href="mailto:hello@pomwik.com">hello@pomwik.com</a>.',
   fName: 'Name',
   fEmail: 'Email',
-  fMessage: 'Your app and what is blocking',
+  fMessage: 'Your app and what is stuck',
   fSend: 'Send',
   fFine: 'We only use this information to reply to you. <a href="/privacy-en.html">Privacy</a>',
   footer: '&copy; 2026 Pomwik &middot; <a href="/realm/">Apps on Realm</a> &middot; <a href="/audit/" hreflang="fr">Website audit (FR)</a> &middot; <a href="/contact/" hreflang="fr">Contact (FR)</a> &middot; <a href="/mentions-legales.html" hreflang="fr">Legal notice (FR)</a> &middot; <a href="/privacy-en.html">Privacy</a>',
@@ -71,6 +71,8 @@ const EN = {
 
 const root = document.documentElement;
 const descMeta = document.querySelector('meta[name="description"]');
+const canonical = document.querySelector('link[rel="canonical"]');
+const SUCCESS_EN = 'Thanks, your message has been sent. We reply within 12 hours.';
 const textEls = [...document.querySelectorAll('[data-i18n]')];
 const ariaEls = [...document.querySelectorAll('[data-i18n-aria]')];
 // Texte français d'origine, pour revenir en arrière sans recharger.
@@ -95,12 +97,18 @@ function apply(lang) {
     button.lang = other;
     button.setAttribute('aria-label', other === 'fr' ? 'Lire cette page en français' : 'Read this page in English');
   }
-  // Message déjà affiché par le formulaire : effacé, il était dans l'autre langue.
-  document.querySelectorAll('form.contact-form .msg').forEach((m) => { if (!m.closest('form').classList.contains('done')) m.textContent = ''; });
+  // Message du formulaire : confirmation réécrite dans la nouvelle langue, erreur effacée.
+  document.querySelectorAll('form.contact-form').forEach((form) => {
+    const m = form.querySelector('.msg');
+    if (!m) return;
+    m.textContent = form.classList.contains('done') ? (lang === 'en' ? SUCCESS_EN : form.dataset.success || m.textContent) : '';
+  });
+  // Adresse de référence de la version affichée (voir les liens hreflang dans <head>).
+  if (canonical) canonical.href = lang === 'en' ? 'https://pomwik.com/?lang=en' : 'https://pomwik.com/';
   root.classList.remove('i18n-wait');
 }
 
-apply(root.lang === 'en' ? 'en' : 'fr');
+apply(root.dataset.want === 'en' ? 'en' : 'fr');
 
 if (button) {
   button.addEventListener('click', () => {

@@ -266,6 +266,7 @@ h1 { font-size: clamp(2.2rem, 5vw, 3.4rem); line-height: 1.08; letter-spacing: -
 }
 @media (max-width: 640px) {
   .nav-link { display: none; }
+  .nav nav { gap: 6px; }
   .grid, .steps { grid-template-columns: 1fr; }
   .steps { gap: 24px; }
   .proof { flex-direction: column; align-items: flex-start; padding: 24px; }
@@ -274,6 +275,10 @@ h1 { font-size: clamp(2.2rem, 5vw, 3.4rem); line-height: 1.08; letter-spacing: -
   .errors { grid-template-columns: 1fr; }
   .prose pre { font-size: .76rem; padding: 12px; }
   .guide { padding-block: 24px 48px; }
+}
+
+@media (max-width: 360px) {
+  .nav .brand span { display: none; }
 }
 
 @media (prefers-reduced-motion: reduce) {

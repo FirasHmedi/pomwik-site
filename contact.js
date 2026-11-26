@@ -93,7 +93,7 @@ document.querySelectorAll('form.contact-form').forEach((form) => {
         return;
       }
       form.classList.add('done');
-      say(T.success || SUCCESS[type] || SUCCESS.contact, 'ok');
+      say(T.success || form.dataset.success || SUCCESS[type] || SUCCESS.contact, 'ok');
     } catch {
       button.disabled = false;
       say(T.failed, 'error');
