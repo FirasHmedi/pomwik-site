@@ -1,157 +1,16 @@
 <!doctype html>
-<html lang="en" data-show="en" data-default="en" data-title-fr="Realm® et l'exigence de Google Play sur les pages de 16 Ko (librealm.so) · Pomwik">
+<html lang="fr">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Realm® and Google Play&#x27;s 16 KB page size requirement (librealm.so) · Pomwik</title>
-  <meta name="description" content="From 1 February 2027, Google Play blocks app updates that do not support 16 KB memory pages. What it means for librealm.so, the realm@community trap, and how afterdb is checked.">
-  <meta name="theme-color" content="#F7F9FC" media="(prefers-color-scheme: light)">
-  <meta name="theme-color" content="#0A1426" media="(prefers-color-scheme: dark)">
-  <link rel="canonical" href="https://pomwik.com/realm/errors/google-play-16kb/">
-  <link rel="alternate" hreflang="en" href="https://pomwik.com/realm/errors/google-play-16kb/">
-  <link rel="alternate" hreflang="fr" href="https://pomwik.com/realm/errors/google-play-16kb/?lang=fr">
+  <title>Pomwik</title>
+  <meta name="robots" content="noindex">
+  <meta http-equiv="refresh" content="0; url=/">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-  <meta property="og:type" content="article">
-  <meta property="og:site_name" content="Pomwik">
-  <meta property="og:locale" content="en_US">
-  <meta property="og:title" content="Realm® and Google Play&#x27;s 16 KB page size requirement">
-  <meta property="og:description" content="From 1 February 2027, Google Play blocks app updates that do not support 16 KB memory pages. What it means for librealm.so, the realm@community trap, and how afterdb is checked.">
-  <meta property="og:url" content="https://pomwik.com/realm/errors/google-play-16kb/">
-  <meta property="og:image" content="https://pomwik.com/realm/og-realm.png">
-  <meta property="og:image:width" content="1200">
-  <meta property="og:image:height" content="630">
-  <meta property="og:image:alt" content="Pomwik. Your React Native app still runs on Realm®. We help you keep it building, then move your data to SQLite. Not affiliated with or endorsed by MongoDB.">
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:image" content="https://pomwik.com/realm/og-realm.png">
-  <link rel="stylesheet" href="/accueil.css">
-  <script src="/lang.js"></script>
-  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "Realm® and Google Play's 16 KB page size requirement", "description": "From 1 February 2027, Google Play blocks app updates that do not support 16 KB memory pages. What it means for librealm.so, the realm@community trap, and how afterdb is checked.", "url": "https://pomwik.com/realm/errors/google-play-16kb/", "image": "https://pomwik.com/realm/og-realm.png", "inLanguage": "en-US", "datePublished": "2026-11-09", "dateModified": "2026-11-11", "author": {"@type": "Organization", "name": "Pomwik", "url": "https://pomwik.com/"}, "publisher": {"@type": "Organization", "name": "Pomwik", "url": "https://pomwik.com/"}}</script>
+  <style>body { font-family: system-ui, sans-serif; margin: 40px 16px; line-height: 1.6; color: #0B1F3F; background: #F7F9FC; } a { color: #1F5BFF; }</style>
 </head>
 <body>
-  <a class="skip" href="#main" data-lang="en">Skip to content</a>
-  <a class="skip" href="#main" data-lang="fr">Aller au contenu</a>
-
-  <header class="nav wrap">
-    <a class="brand" href="/" aria-label="Pomwik">
-      <img src="/favicon.svg" alt="" width="32" height="32">
-      <span>Pomwik</span>
-    </a>
-    <nav aria-label="Menu">
-      <a class="nav-link" href="/realm/errors/" data-lang="en">Build errors</a>
-      <a class="nav-link" href="/realm/errors/" data-lang="fr">Erreurs de build</a>
-      <a class="nav-link" href="/realm/leaving-realm/" data-lang="en">Your options</a>
-      <a class="nav-link" href="/realm/leaving-realm/" data-lang="fr">Vos options</a>
-      <button class="lang-switch" type="button" data-lang-switch aria-label="Lire cette page en français" lang="fr">FR</button>
-      <a class="btn btn-small" href="/realm/#check" data-lang="en">Free 15-min check</a>
-      <a class="btn btn-small" href="/realm/#check" data-lang="fr">Vérification gratuite</a>
-    </nav>
-  </header>
-
-  <main id="main" class="wrap guide">
-    <div class="context">
-      <p data-lang="en"><strong>Pomwik takes over and finishes stuck web and mobile apps.</strong> This page covers one case we know well: React Native apps still built on Realm, the mobile database that MongoDB stopped supporting in 2025. <a href="/?lang=en">See everything we do</a></p>
-      <p data-lang="fr"><strong>Pomwik reprend et termine les applications web et mobiles bloquées.</strong> Cette page couvre un cas qu'on connaît bien&nbsp;: les apps React Native qui utilisent encore Realm, la base de données mobile que MongoDB ne maintient plus depuis 2025. <a href="/?lang=fr">Voir tout ce qu'on fait</a></p>
-    </div>
-    <div class="guide-layout">
-      <article class="prose">
-        <p class="crumbs"><a href="/realm/">Help for Realm® apps</a> / <a href="/realm/errors/" data-lang="en">Build errors</a>
-        <a href="/realm/errors/" data-lang="fr">Erreurs de build</a></p>
-        <h1 data-lang="en">Realm and Google Play's 16 KB page size requirement</h1>
-        <h1 data-lang="fr">Realm et l'exigence de Google Play sur les pages de 16 Ko</h1>
-        <p class="lede" data-lang="en">From 1 February 2027, Google Play will not let you release app updates that do not support 16 KB memory pages. In May 2026, a Realm user reported <code>librealm.so</code> flagged in Play Console.</p>
-        <p class="lede" data-lang="fr">À partir du 1er février 2027, Google Play ne vous laissera plus publier de mises à jour qui ne gèrent pas les pages mémoire de 16 Ko. En mai 2026, un utilisateur de Realm a signalé <code>librealm.so</code> repéré dans la Play Console.</p>
-        <p class="updated" data-lang="en">Updated 11 November 2026.</p>
-        <p class="updated" data-lang="fr">Mis à jour le 11 novembre 2026.</p>
-
-        <h2 data-lang="en">What you see</h2>
-        <h2 data-lang="fr">Ce que vous voyez</h2>
-        <p data-lang="en">In <a href="https://github.com/realm/realm-js/issues/7129">#7129</a> (May 2026, realm ^20.2.0, React Native 0.79.6), Play Console flagged these native libraries as not compatible with 16 KB page sizes:</p>
-        <p data-lang="fr">Dans <a href="https://github.com/realm/realm-js/issues/7129">#7129</a> (mai 2026, realm ^20.2.0, React Native 0.79.6), la Play Console a signalé ces bibliothèques natives comme incompatibles avec les pages de 16 Ko&nbsp;:</p>
-        <pre><code>libdatastore_shared_counter.so
-librealm.so</code></pre>
-
-        <h2 data-lang="en">When it happens</h2>
-        <h2 data-lang="fr">Quand ça arrive</h2>
-        <ul>
-          <li data-lang="en">Android 15 and later can run with 16 KB memory pages. Every native library (<code>.so</code> file) in your app must support them. <a href="https://developer.android.com/guide/practices/page-sizes">Google's guide</a> gives the deadline and the checks.</li>
-          <li data-lang="fr">À partir d'Android 15, le système peut tourner avec des pages mémoire de 16 Ko. Chaque bibliothèque native (fichier <code>.so</code>) de votre app doit les gérer. <a href="https://developer.android.com/guide/practices/page-sizes">Le guide de Google</a> donne l'échéance et les vérifications.</li>
-          <li data-lang="en">realm added 16 KB support in 20.2.0 (<a href="https://github.com/realm/realm-js/blob/community/CHANGELOG.md">changelog</a>, 11 August 2025). Older versions do not have it. The same changelog says to enable legacy packaging if you use Android Gradle Plugin 8.5 or lower.</li>
-          <li data-lang="fr">realm a ajouté la prise en charge des 16 Ko en 20.2.0 (<a href="https://github.com/realm/realm-js/blob/community/CHANGELOG.md">changelog</a>, 11 août 2025). Les versions plus anciennes ne l'ont pas. Le même changelog dit d'activer le legacy packaging si vous utilisez Android Gradle Plugin 8.5 ou moins.</li>
-          <li data-lang="en">Watch out: the npm deprecation message on realm 10, 11 and 12 tells you to install <code>realm@community</code>. On npm, that tag points to 20.1.0, which does not have 16 KB support. The latest release is 20.2.0.</li>
-          <li data-lang="fr">Attention&nbsp;: le message d'abandon npm de realm 10, 11 et 12 vous dit d'installer <code>realm@community</code>. Sur npm, cette étiquette pointe vers la 20.1.0, qui ne gère pas les 16 Ko. La dernière version est la 20.2.0.</li>
-          <li data-lang="en"><a href="https://github.com/realm/realm-js/issues/7129">#7129</a> still reports a warning with 20.2.0. The cause is not known.</li>
-          <li data-lang="fr"><a href="https://github.com/realm/realm-js/issues/7129">#7129</a> signale quand même un avertissement avec la 20.2.0. La cause n'est pas connue.</li>
-        </ul>
-
-        <h2 data-lang="en">Check with afterdb</h2>
-        <h2 data-lang="fr">Vérifier avec afterdb</h2>
-        <p data-lang="en">Since the cause of <a href="https://github.com/realm/realm-js/issues/7129">#7129</a> is not known, we cannot say that afterdb removes that warning. In afterdb, <code>librealm.so</code> is built with your app's NDK, and in our test app the 64-bit native libraries pass the 16 KB check (details below).</p>
-        <p data-lang="fr">Comme la cause de <a href="https://github.com/realm/realm-js/issues/7129">#7129</a> n'est pas connue, on ne peut pas dire qu'afterdb supprime cet avertissement. Dans afterdb, <code>librealm.so</code> est compilé avec le NDK de votre app, et dans notre app de test les bibliothèques natives 64 bits passent la vérification 16 Ko (détails ci-dessous).</p>
-        <p data-lang="en">In <code>package.json</code>, point the two Realm packages to afterdb:</p>
-        <p data-lang="fr">Dans <code>package.json</code>, faites pointer les deux paquets Realm vers afterdb&nbsp;:</p>
-        <pre><code>"realm": "npm:@pomwik/afterdb@20.3.1",
-"@realm/react": "npm:@pomwik/afterdb-react@0.20.2"</code></pre>
-        <p data-lang="en">Then reinstall, run <code>pod install</code> on iOS, and rebuild. For Expo dev builds, run <code>npx expo prebuild --clean</code>. Your code keeps <code>import Realm from "realm"</code>. If you do not use <code>@realm/react</code>, the first line is enough.</p>
-        <p data-lang="fr">Puis réinstallez, lancez <code>pod install</code> sur iOS, et recompilez. Pour les dev builds Expo, lancez <code>npx expo prebuild --clean</code>. Votre code garde <code>import Realm from "realm"</code>. Si vous n'utilisez pas <code>@realm/react</code>, la première ligne suffit.</p>
-        <p class="note" data-lang="en">afterdb is an independent open-source fork of the realm-js SDK v20 (Apache-2.0) that we maintain (see its <a href="https://github.com/FirasHmedi/afterdb#maintenance-policy">maintenance policy</a>), for apps on realm 20.x without Device Sync. It is not an official Realm release. Code on <a href="https://github.com/FirasHmedi/afterdb">GitHub</a>, package on <a href="https://www.npmjs.com/package/@pomwik/afterdb">npm</a>.</p>
-        <p class="note" data-lang="fr">afterdb est un fork open source indépendant du SDK realm-js v20 (Apache-2.0), que nous maintenons (voir sa <a href="https://github.com/FirasHmedi/afterdb#maintenance-policy">politique de maintenance</a>), pour les apps sur realm 20.x sans Device Sync. Ce n'est pas une version officielle de Realm. Code sur <a href="https://github.com/FirasHmedi/afterdb">GitHub</a>, paquet sur <a href="https://www.npmjs.com/package/@pomwik/afterdb">npm</a>.</p>
-        <p data-lang="en">In our test app, all 24 of the 64-bit native libraries are 16 KB aligned and <code>zipalign -P 16</code> passes. The app runs on an Android 16 emulator with 16 KB pages (in CI and locally), and so do React Native 0.86.3 and 0.87.1 and Expo SDK 56, 57 and 58 (locally). A new React Native 0.88.1 app built with the package as published on npm also has 24 of 24 64-bit native libraries aligned, and <code>zipalign -P 16</code> passes (<a href="https://github.com/FirasHmedi/afterdb/actions/runs/42933195324">CI run</a>). Not tested yet: real devices, and that app on the emulator with 16 KB pages.</p>
-        <p data-lang="fr">Dans notre app de test, les 24 bibliothèques natives 64 bits sont alignées sur 16 Ko et <code>zipalign -P 16</code> réussit. L'app tourne sur un émulateur Android 16 avec pages de 16 Ko (en CI et en local), tout comme React Native 0.86.3 et 0.87.1 et Expo SDK 56, 57 et 58 (en local). Une nouvelle app React Native 0.88.1 compilée avec le paquet publié sur npm a aussi 24 bibliothèques natives 64 bits sur 24 alignées, et <code>zipalign -P 16</code> réussit (<a href="https://github.com/FirasHmedi/afterdb/actions/runs/42933195324">exécution CI</a>). Pas encore testé&nbsp;: vrais appareils, et cette app sur l'émulateur avec pages de 16 Ko.</p>
-        <p data-lang="en">To check your own APK or AAB, the <a href="https://github.com/FirasHmedi/afterdb">afterdb repository</a> has a script that checks every 64-bit <code>.so</code> file and runs <code>zipalign -P 16</code> when zipalign is installed:</p>
-        <p data-lang="fr">Pour vérifier votre propre APK ou AAB, le <a href="https://github.com/FirasHmedi/afterdb">dépôt afterdb</a> contient un script qui vérifie chaque fichier <code>.so</code> 64 bits et lance <code>zipalign -P 16</code> si zipalign est installé&nbsp;:</p>
-        <pre><code>node scripts/check-16kb.mjs app-release.apk</code></pre>
-        <p data-lang="en">afterdb only changes the Realm library. Other flagged libraries need a fix from the dependency that ships them.</p>
-        <p data-lang="fr">afterdb ne change que la bibliothèque Realm. Les autres bibliothèques signalées doivent être corrigées par la dépendance qui les livre.</p>
-
-        <h2 data-lang="en">Without afterdb</h2>
-        <h2 data-lang="fr">Sans afterdb</h2>
-        <ul>
-          <li data-lang="en">Use realm 20.2.0, not <code>realm@community</code>, and check your APK with the tools in <a href="https://developer.android.com/guide/practices/page-sizes">Google's guide</a>. <a href="https://github.com/realm/realm-js/issues/7129">#7129</a> still reports a warning on 20.2.0, so check the result.</li>
-          <li data-lang="fr">Utilisez realm 20.2.0, pas <code>realm@community</code>, et vérifiez votre APK avec les outils du <a href="https://developer.android.com/guide/practices/page-sizes">guide de Google</a>. <a href="https://github.com/realm/realm-js/issues/7129">#7129</a> signale encore un avertissement avec la 20.2.0, donc vérifiez le résultat.</li>
-        </ul>
-        <div class="help">
-          <p data-lang="en"><strong>Need help?</strong> Send your versions and the full error for a <a href="/realm/#check">free 15-minute check</a>. We reply within 12 hours.</p>
-          <p data-lang="fr"><strong>Besoin d'aide&nbsp;?</strong> Envoyez vos versions et l'erreur complète pour une <a href="/realm/#check">vérification gratuite de 15 minutes</a>. On vous répond sous 12 heures.</p>
-        </div>
-      </article>
-      <aside class="panel side" aria-labelledby="t-side">
-        <h2 id="t-side" data-lang="en">All Realm errors</h2>
-        <h2 data-lang="fr">Toutes les erreurs Realm</h2>
-        <ul>
-            <li data-lang="en"><a href="/realm/errors/xcode-26-4-is-pod/">Xcode 26.4: &#x27;is_pod&#x27; cannot be specialized</a></li>
-            <li data-lang="fr"><a href="/realm/errors/xcode-26-4-is-pod/">Xcode 26.4&nbsp;: &#x27;is_pod&#x27; cannot be specialized</a></li>
-            <li data-lang="en"><a href="/realm/errors/ios-link-react-native-0-86/">iOS link errors on React Native 0.86+</a></li>
-            <li data-lang="fr"><a href="/realm/errors/ios-link-react-native-0-86/">Erreurs d'édition de liens iOS sur React Native 0.86+</a></li>
-            <li data-lang="en"><a href="/realm/errors/npm-ci-prebuild-install-timeout/">npm ci hangs on prebuild-install</a></li>
-            <li data-lang="fr"><a href="/realm/errors/npm-ci-prebuild-install-timeout/">npm ci bloqué sur prebuild-install</a></li>
-            <li data-lang="en"><a href="/realm/errors/android-openssl-static-realm-io/">Android: OpenSSL download fails</a></li>
-            <li data-lang="fr"><a href="/realm/errors/android-openssl-static-realm-io/">Android&nbsp;: échec du téléchargement d'OpenSSL</a></li>
-            <li data-lang="en"><a href="/realm/errors/google-play-16kb/" aria-current="page">Google Play 16 KB page sizes</a></li>
-            <li data-lang="fr"><a href="/realm/errors/google-play-16kb/" aria-current="page">Google Play et les pages de 16 Ko</a></li>
-            <li data-lang="en"><a href="/realm/errors/release-r8-sslhelper-crash/">Release crash with R8 (SSLHelper)</a></li>
-            <li data-lang="fr"><a href="/realm/errors/release-r8-sslhelper-crash/">Plantage en release avec R8 (SSLHelper)</a></li>
-            <li data-lang="en"><a href="/realm/errors/analytics-postinstall-enoent/">postinstall ENOENT dependencies.yml</a></li>
-            <li data-lang="fr"><a href="/realm/errors/analytics-postinstall-enoent/">postinstall ENOENT dependencies.yml</a></li>
-            <li data-lang="en"><a href="/realm/errors/realm-react-nested-react-native/">@realm/react pulls a second react-native</a></li>
-            <li data-lang="fr"><a href="/realm/errors/realm-react-nested-react-native/">@realm/react installe un deuxième react-native</a></li>
-        </ul>
-        <p data-lang="en"><a href="/realm/leaving-realm/">Leaving Realm in 2026: your options</a></p>
-        <p data-lang="fr"><a href="/realm/leaving-realm/">Quitter Realm en 2026&nbsp;: vos options</a></p>
-      </aside>
-    </div>
-  </main>
-
-  <footer class="footer wrap">
-    <div class="brand">
-      <img src="/favicon.svg" alt="" width="24" height="24">
-      <span>Pomwik</span>
-    </div>
-    <p>&copy; 2026 Pomwik &middot; <a href="/realm/"><span data-lang="en">Help for Realm apps</span><span data-lang="fr">Aide pour les apps Realm</span></a> &middot; <a href="/"><span data-lang="en">Home</span><span data-lang="fr">Accueil</span></a> &middot; <a href="/mentions-legales.html"><span data-lang="en">Legal notice</span><span data-lang="fr">Mentions légales</span></a> &middot; <a href="/privacy.html"><span data-lang="en">Privacy</span><span data-lang="fr">Confidentialité</span></a></p>
-    <p class="tm" data-lang="en">Realm® is a trademark of MongoDB, Inc. Pomwik is independent and not affiliated with or endorsed by MongoDB.</p>
-    <p class="tm" data-lang="fr">Realm® est une marque de MongoDB, Inc. Pomwik est indépendant, sans lien avec MongoDB ni soutien de sa part.</p>
-  </footer>
-
-  <!-- Cloudflare Web Analytics : mesure d'audience sans cookie -->
-  <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "57482883c161487785a4a5d64ed3a96f"}'></script>
+  <p>Cette page n'existe plus. <a href="/">Aller à l'accueil de Pomwik</a>.</p>
+  <p lang="en">This page no longer exists. <a href="/">Go to the Pomwik home page</a>.</p>
 </body>
 </html>

@@ -1,4 +1,4 @@
-// Formulaires de contact et de demande d'essai gratuit : envoi au Worker api.pomwik.com, résultat affiché dans la page.
+// Formulaire de contact : envoi au Worker api.pomwik.com, résultat affiché dans la page.
 (() => {
 'use strict';
 // Dans une fonction : app.js déclare aussi isLocal sur la même page.
@@ -7,7 +7,6 @@ const isLocal = ['127.0.0.1', 'localhost'].includes(location.hostname);
 const EMAIL_RE = /^[^\s@]{1,64}@[^\s@.]+(\.[^\s@.]+)+$/;
 
 const SUCCESS = {
-  audit: 'Merci, votre demande d’essai gratuit a bien été envoyée. On vous répond sous 12 heures.',
   contact: 'Merci, votre message a bien été envoyé. Je vous réponds sous 12 heures.',
 };
 

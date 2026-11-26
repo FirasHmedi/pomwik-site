@@ -1,158 +1,16 @@
 <!doctype html>
-<html lang="en" data-show="en" data-default="en" data-title-fr="App Realm® qui plante au démarrage en release avec R8 : ClassNotFoundException SSLHelper · Pomwik">
+<html lang="fr">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Realm® app crashes at start in release with R8: ClassNotFoundException SSLHelper · Pomwik</title>
-  <meta name="description" content="Android release builds with R8, the Expo SDK 58 default, remove io.realm.react.util.SSLHelper and the app crashes at start. The one-line keep rule, and afterdb, which ships it.">
-  <meta name="theme-color" content="#F7F9FC" media="(prefers-color-scheme: light)">
-  <meta name="theme-color" content="#0A1426" media="(prefers-color-scheme: dark)">
-  <link rel="canonical" href="https://pomwik.com/realm/errors/release-r8-sslhelper-crash/">
-  <link rel="alternate" hreflang="en" href="https://pomwik.com/realm/errors/release-r8-sslhelper-crash/">
-  <link rel="alternate" hreflang="fr" href="https://pomwik.com/realm/errors/release-r8-sslhelper-crash/?lang=fr">
+  <title>Pomwik</title>
+  <meta name="robots" content="noindex">
+  <meta http-equiv="refresh" content="0; url=/">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-  <meta property="og:type" content="article">
-  <meta property="og:site_name" content="Pomwik">
-  <meta property="og:locale" content="en_US">
-  <meta property="og:title" content="Realm® app crashes at start in release builds with R8 (SSLHelper)">
-  <meta property="og:description" content="Android release builds with R8, the Expo SDK 58 default, remove io.realm.react.util.SSLHelper and the app crashes at start. The one-line keep rule, and afterdb, which ships it.">
-  <meta property="og:url" content="https://pomwik.com/realm/errors/release-r8-sslhelper-crash/">
-  <meta property="og:image" content="https://pomwik.com/realm/og-realm.png">
-  <meta property="og:image:width" content="1200">
-  <meta property="og:image:height" content="630">
-  <meta property="og:image:alt" content="Pomwik. Your React Native app still runs on Realm®. We help you keep it building, then move your data to SQLite. Not affiliated with or endorsed by MongoDB.">
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:image" content="https://pomwik.com/realm/og-realm.png">
-  <link rel="stylesheet" href="/accueil.css">
-  <script src="/lang.js"></script>
-  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "Realm® app crashes at start in release builds with R8 (SSLHelper)", "description": "Android release builds with R8, the Expo SDK 58 default, remove io.realm.react.util.SSLHelper and the app crashes at start. The one-line keep rule, and afterdb, which ships it.", "url": "https://pomwik.com/realm/errors/release-r8-sslhelper-crash/", "image": "https://pomwik.com/realm/og-realm.png", "inLanguage": "en-US", "datePublished": "2026-11-09", "dateModified": "2026-11-09", "author": {"@type": "Organization", "name": "Pomwik", "url": "https://pomwik.com/"}, "publisher": {"@type": "Organization", "name": "Pomwik", "url": "https://pomwik.com/"}}</script>
+  <style>body { font-family: system-ui, sans-serif; margin: 40px 16px; line-height: 1.6; color: #0B1F3F; background: #F7F9FC; } a { color: #1F5BFF; }</style>
 </head>
 <body>
-  <a class="skip" href="#main" data-lang="en">Skip to content</a>
-  <a class="skip" href="#main" data-lang="fr">Aller au contenu</a>
-
-  <header class="nav wrap">
-    <a class="brand" href="/" aria-label="Pomwik">
-      <img src="/favicon.svg" alt="" width="32" height="32">
-      <span>Pomwik</span>
-    </a>
-    <nav aria-label="Menu">
-      <a class="nav-link" href="/realm/errors/" data-lang="en">Build errors</a>
-      <a class="nav-link" href="/realm/errors/" data-lang="fr">Erreurs de build</a>
-      <a class="nav-link" href="/realm/leaving-realm/" data-lang="en">Your options</a>
-      <a class="nav-link" href="/realm/leaving-realm/" data-lang="fr">Vos options</a>
-      <button class="lang-switch" type="button" data-lang-switch aria-label="Lire cette page en français" lang="fr">FR</button>
-      <a class="btn btn-small" href="/realm/#check" data-lang="en">Free 15-min check</a>
-      <a class="btn btn-small" href="/realm/#check" data-lang="fr">Vérification gratuite</a>
-    </nav>
-  </header>
-
-  <main id="main" class="wrap guide">
-    <div class="context">
-      <p data-lang="en"><strong>Pomwik takes over and finishes stuck web and mobile apps.</strong> This page covers one case we know well: React Native apps still built on Realm, the mobile database that MongoDB stopped supporting in 2025. <a href="/?lang=en">See everything we do</a></p>
-      <p data-lang="fr"><strong>Pomwik reprend et termine les applications web et mobiles bloquées.</strong> Cette page couvre un cas qu'on connaît bien&nbsp;: les apps React Native qui utilisent encore Realm, la base de données mobile que MongoDB ne maintient plus depuis 2025. <a href="/?lang=fr">Voir tout ce qu'on fait</a></p>
-    </div>
-    <div class="guide-layout">
-      <article class="prose">
-        <p class="crumbs"><a href="/realm/">Help for Realm® apps</a> / <a href="/realm/errors/" data-lang="en">Build errors</a>
-        <a href="/realm/errors/" data-lang="fr">Erreurs de build</a></p>
-        <h1 data-lang="en">Realm release builds with R8 crash at start: <code>SSLHelper</code></h1>
-        <h1 data-lang="fr">Builds release Realm avec R8 qui plantent au démarrage&nbsp;: <code>SSLHelper</code></h1>
-        <p class="lede" data-lang="en">Debug works. The release build of your Android app crashes as soon as it opens. If you use Realm and R8 is on, the cause can be one class that R8 removed.</p>
-        <p class="lede" data-lang="fr">Le debug marche. Le build release de votre app Android plante dès l'ouverture. Si vous utilisez Realm et que R8 est activé, la cause peut être une classe que R8 a supprimée.</p>
-        <p class="updated" data-lang="en">Updated 9 November 2026.</p>
-        <p class="updated" data-lang="fr">Mis à jour le 9 novembre 2026.</p>
-
-        <h2 data-lang="en">The error</h2>
-        <h2 data-lang="fr">L'erreur</h2>
-        <p data-lang="en">In logcat, look for:</p>
-        <p data-lang="fr">Dans logcat, cherchez&nbsp;:</p>
-        <pre><code>ClassNotFoundException: io.realm.react.util.SSLHelper</code></pre>
-        <p data-lang="en">Older reports show the same class in other errors, for example <a href="https://github.com/realm/realm-js/issues/2658">#2658</a> (2019):</p>
-        <p data-lang="fr">Des signalements plus anciens montrent la même classe dans d'autres erreurs, par exemple <a href="https://github.com/realm/realm-js/issues/2658">#2658</a> (2019)&nbsp;:</p>
-        <pre><code>java.lang.UnsatisfiedLinkError: couldn't find DSO to load: librealmreact.so caused by: Didn't find class "io.realm.react.util.SSLHelper" on path: DexPathList</code></pre>
-
-        <h2 data-lang="en">When it happens</h2>
-        <h2 data-lang="fr">Quand ça arrive</h2>
-        <ul>
-          <li data-lang="en">Android release builds with R8 on (<code>minifyEnabled</code>, or <code>enableProguardInReleaseBuilds</code> in React Native apps) and no keep rule for Realm.</li>
-          <li data-lang="fr">Builds release Android avec R8 activé (<code>minifyEnabled</code>, ou <code>enableProguardInReleaseBuilds</code> dans les apps React Native) et sans règle keep pour Realm.</li>
-          <li data-lang="en">Expo SDK 58 turns R8 on by default in release builds (<a href="https://expo.dev/blog/how-to-upgrade-to-sdk-58">Expo's SDK 58 upgrade guide</a>, 21 October 2026). An app that moves to Expo SDK 58 can crash in production while debug builds work.</li>
-          <li data-lang="fr">Expo SDK 58 active R8 par défaut dans les builds release (<a href="https://expo.dev/blog/how-to-upgrade-to-sdk-58">guide de passage à SDK 58 d'Expo</a>, 21 octobre 2026). Une app qui passe à Expo SDK 58 peut planter en production alors que les builds debug marchent.</li>
-          <li data-lang="en">We hit it on 6 November 2026 while testing afterdb with Expo SDK 58. Realm users reported it before, in <a href="https://github.com/realm/realm-js/issues/2658">#2658</a> and <a href="https://github.com/realm/realm-js/issues/6074">#6074</a>.</li>
-          <li data-lang="fr">On l'a rencontré le 6 novembre 2026 en testant afterdb avec Expo SDK 58. Des utilisateurs de Realm l'avaient déjà signalé, dans <a href="https://github.com/realm/realm-js/issues/2658">#2658</a> et <a href="https://github.com/realm/realm-js/issues/6074">#6074</a>.</li>
-        </ul>
-
-        <h2 data-lang="en">Why</h2>
-        <h2 data-lang="fr">Pourquoi</h2>
-        <p data-lang="en">Realm's native code looks up <code>io.realm.react.util.SSLHelper</code> by name when it loads (<code>FindClass</code> in <code>JNI_OnLoad</code>). No Java code uses that class, and the realm Android library ships no keep rule. R8 sees an unused class and removes it, and the app crashes at start.</p>
-        <p data-lang="fr">Le code natif de Realm cherche <code>io.realm.react.util.SSLHelper</code> par son nom au chargement (<code>FindClass</code> dans <code>JNI_OnLoad</code>). Aucun code Java n'utilise cette classe, et la bibliothèque Android de realm ne livre aucune règle keep. R8 voit une classe inutilisée et la supprime, et l'app plante au démarrage.</p>
-
-        <h2 data-lang="en">Fix with afterdb</h2>
-        <h2 data-lang="fr">Corriger avec afterdb</h2>
-        <p data-lang="en">afterdb ships the keep rule in the package (<code>consumer-rules.pro</code>), so you add nothing to your app.</p>
-        <p data-lang="fr">afterdb livre la règle keep dans le paquet (<code>consumer-rules.pro</code>), donc vous n'ajoutez rien à votre app.</p>
-        <p data-lang="en">In <code>package.json</code>, point the two Realm packages to afterdb:</p>
-        <p data-lang="fr">Dans <code>package.json</code>, faites pointer les deux paquets Realm vers afterdb&nbsp;:</p>
-        <pre><code>"realm": "npm:@pomwik/afterdb@20.3.1",
-"@realm/react": "npm:@pomwik/afterdb-react@0.20.2"</code></pre>
-        <p data-lang="en">Then reinstall, run <code>pod install</code> on iOS, and rebuild. For Expo dev builds, run <code>npx expo prebuild --clean</code>. Your code keeps <code>import Realm from "realm"</code>. If you do not use <code>@realm/react</code>, the first line is enough.</p>
-        <p data-lang="fr">Puis réinstallez, lancez <code>pod install</code> sur iOS, et recompilez. Pour les dev builds Expo, lancez <code>npx expo prebuild --clean</code>. Votre code garde <code>import Realm from "realm"</code>. Si vous n'utilisez pas <code>@realm/react</code>, la première ligne suffit.</p>
-        <p class="note" data-lang="en">afterdb is an independent open-source fork of the realm-js SDK v20 (Apache-2.0) that we maintain (see its <a href="https://github.com/FirasHmedi/afterdb#maintenance-policy">maintenance policy</a>), for apps on realm 20.x without Device Sync. It is not an official Realm release. Code on <a href="https://github.com/FirasHmedi/afterdb">GitHub</a>, package on <a href="https://www.npmjs.com/package/@pomwik/afterdb">npm</a>.</p>
-        <p class="note" data-lang="fr">afterdb est un fork open source indépendant du SDK realm-js v20 (Apache-2.0), que nous maintenons (voir sa <a href="https://github.com/FirasHmedi/afterdb#maintenance-policy">politique de maintenance</a>), pour les apps sur realm 20.x sans Device Sync. Ce n'est pas une version officielle de Realm. Code sur <a href="https://github.com/FirasHmedi/afterdb">GitHub</a>, paquet sur <a href="https://www.npmjs.com/package/@pomwik/afterdb">npm</a>.</p>
-        <p data-lang="en">Tested locally: release builds with R8 on, for our bare React Native example and for Expo SDK 58 with no rule in the app. The app runs on Android emulators. Not tested yet: real devices.</p>
-        <p data-lang="fr">Testé en local&nbsp;: builds release avec R8 activé, pour notre exemple React Native sans Expo et pour Expo SDK 58, sans règle dans l'app. L'app tourne sur émulateurs Android. Pas encore testé&nbsp;: vrais appareils.</p>
-
-        <h2 data-lang="en">Without afterdb</h2>
-        <h2 data-lang="fr">Sans afterdb</h2>
-        <p data-lang="en">Add this line to <code>android/app/proguard-rules.pro</code>:</p>
-        <p data-lang="fr">Ajoutez cette ligne à <code>android/app/proguard-rules.pro</code>&nbsp;:</p>
-        <pre><code>-keep class io.realm.react.** { *; }</code></pre>
-        <p data-lang="en">A Realm maintainer suggested a keep rule for <code>io.realm.react.**</code> in <a href="https://github.com/realm/realm-js/issues/6074">#6074</a> (2023), and three users confirmed it worked. With Expo, the <code>android</code> folder is generated, so add the rule through the <code>android.extraProguardRules</code> option of <a href="https://docs.expo.dev/versions/latest/sdk/build-properties/">expo-build-properties</a>, or a config plugin. We have not tested the Expo route.</p>
-        <p data-lang="fr">Un mainteneur de Realm a proposé une règle keep pour <code>io.realm.react.**</code> dans <a href="https://github.com/realm/realm-js/issues/6074">#6074</a> (2023), et trois utilisateurs ont confirmé qu'elle marchait. Avec Expo, le dossier <code>android</code> est généré, donc ajoutez la règle via l'option <code>android.extraProguardRules</code> d'<a href="https://docs.expo.dev/versions/latest/sdk/build-properties/">expo-build-properties</a>, ou un config plugin. On n'a pas testé la voie Expo.</p>
-        <div class="help">
-          <p data-lang="en"><strong>Need help?</strong> Send your versions and the full error for a <a href="/realm/#check">free 15-minute check</a>. We reply within 12 hours.</p>
-          <p data-lang="fr"><strong>Besoin d'aide&nbsp;?</strong> Envoyez vos versions et l'erreur complète pour une <a href="/realm/#check">vérification gratuite de 15 minutes</a>. On vous répond sous 12 heures.</p>
-        </div>
-      </article>
-      <aside class="panel side" aria-labelledby="t-side">
-        <h2 id="t-side" data-lang="en">All Realm errors</h2>
-        <h2 data-lang="fr">Toutes les erreurs Realm</h2>
-        <ul>
-            <li data-lang="en"><a href="/realm/errors/xcode-26-4-is-pod/">Xcode 26.4: &#x27;is_pod&#x27; cannot be specialized</a></li>
-            <li data-lang="fr"><a href="/realm/errors/xcode-26-4-is-pod/">Xcode 26.4&nbsp;: &#x27;is_pod&#x27; cannot be specialized</a></li>
-            <li data-lang="en"><a href="/realm/errors/ios-link-react-native-0-86/">iOS link errors on React Native 0.86+</a></li>
-            <li data-lang="fr"><a href="/realm/errors/ios-link-react-native-0-86/">Erreurs d'édition de liens iOS sur React Native 0.86+</a></li>
-            <li data-lang="en"><a href="/realm/errors/npm-ci-prebuild-install-timeout/">npm ci hangs on prebuild-install</a></li>
-            <li data-lang="fr"><a href="/realm/errors/npm-ci-prebuild-install-timeout/">npm ci bloqué sur prebuild-install</a></li>
-            <li data-lang="en"><a href="/realm/errors/android-openssl-static-realm-io/">Android: OpenSSL download fails</a></li>
-            <li data-lang="fr"><a href="/realm/errors/android-openssl-static-realm-io/">Android&nbsp;: échec du téléchargement d'OpenSSL</a></li>
-            <li data-lang="en"><a href="/realm/errors/google-play-16kb/">Google Play 16 KB page sizes</a></li>
-            <li data-lang="fr"><a href="/realm/errors/google-play-16kb/">Google Play et les pages de 16 Ko</a></li>
-            <li data-lang="en"><a href="/realm/errors/release-r8-sslhelper-crash/" aria-current="page">Release crash with R8 (SSLHelper)</a></li>
-            <li data-lang="fr"><a href="/realm/errors/release-r8-sslhelper-crash/" aria-current="page">Plantage en release avec R8 (SSLHelper)</a></li>
-            <li data-lang="en"><a href="/realm/errors/analytics-postinstall-enoent/">postinstall ENOENT dependencies.yml</a></li>
-            <li data-lang="fr"><a href="/realm/errors/analytics-postinstall-enoent/">postinstall ENOENT dependencies.yml</a></li>
-            <li data-lang="en"><a href="/realm/errors/realm-react-nested-react-native/">@realm/react pulls a second react-native</a></li>
-            <li data-lang="fr"><a href="/realm/errors/realm-react-nested-react-native/">@realm/react installe un deuxième react-native</a></li>
-        </ul>
-        <p data-lang="en"><a href="/realm/leaving-realm/">Leaving Realm in 2026: your options</a></p>
-        <p data-lang="fr"><a href="/realm/leaving-realm/">Quitter Realm en 2026&nbsp;: vos options</a></p>
-      </aside>
-    </div>
-  </main>
-
-  <footer class="footer wrap">
-    <div class="brand">
-      <img src="/favicon.svg" alt="" width="24" height="24">
-      <span>Pomwik</span>
-    </div>
-    <p>&copy; 2026 Pomwik &middot; <a href="/realm/"><span data-lang="en">Help for Realm apps</span><span data-lang="fr">Aide pour les apps Realm</span></a> &middot; <a href="/"><span data-lang="en">Home</span><span data-lang="fr">Accueil</span></a> &middot; <a href="/mentions-legales.html"><span data-lang="en">Legal notice</span><span data-lang="fr">Mentions légales</span></a> &middot; <a href="/privacy.html"><span data-lang="en">Privacy</span><span data-lang="fr">Confidentialité</span></a></p>
-    <p class="tm" data-lang="en">Realm® is a trademark of MongoDB, Inc. Pomwik is independent and not affiliated with or endorsed by MongoDB.</p>
-    <p class="tm" data-lang="fr">Realm® est une marque de MongoDB, Inc. Pomwik est indépendant, sans lien avec MongoDB ni soutien de sa part.</p>
-  </footer>
-
-  <!-- Cloudflare Web Analytics : mesure d'audience sans cookie -->
-  <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "57482883c161487785a4a5d64ed3a96f"}'></script>
+  <p>Cette page n'existe plus. <a href="/">Aller à l'accueil de Pomwik</a>.</p>
+  <p lang="en">This page no longer exists. <a href="/">Go to the Pomwik home page</a>.</p>
 </body>
 </html>

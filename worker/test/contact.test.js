@@ -310,3 +310,42 @@ describe('POST /contact and /contact-panne: rate limiting', () => {
     expect((await contactLog()).map((e) => e.ip_hash)).toContain('recent-visitor');
   });
 });
+
+describe('POST /contact: optional app details', () => {
+  it('lists the tool, the link and the blocker in the owner notice', async () => {
+    const env = makeEnv();
+    await call(env, '/contact', { body: { ...MESSAGE, outil: 'lovable', lien: 'https://github.com/acme/app', blocage: 'refus' } });
+
+    const [mail] = mails(env);
+    expect(mail.text).toContain("Outil : Lovable\r\nLien : https://github.com/acme/app\r\nBlocage : refus d'un store\r\n");
+  });
+
+  it('shows dashes when the details are left empty', async () => {
+    const env = makeEnv();
+    await call(env, '/contact', { body: { ...MESSAGE, outil: '', lien: '', blocage: '' } });
+
+    const [mail] = mails(env);
+    expect(mail.text).toContain('Outil : -\r\nLien : -\r\nBlocage : -\r\n');
+  });
+
+  it('drops values outside the lists, and cannot add a header through the link', async () => {
+    const env = makeEnv();
+    const res = await call(env, '/contact', {
+      body: { ...MESSAGE, outil: 'toString', blocage: ['bug'], lien: `https://x.example\r\nBcc: victim@example.net ${'y'.repeat(400)}` },
+    });
+
+    expect(res.status).toBe(200);
+    const [mail] = mails(env);
+    expect(mail.headers.bcc).toBeUndefined();
+    expect(mail.text).toContain('Outil : -\r\n');
+    expect(mail.text).toContain('Blocage : -\r\n');
+    const lien = mail.text.match(/^Lien : (.*)$/m)[1].replace(/\r$/, '');
+    expect(lien).toHaveLength(300);
+  });
+
+  it('keeps the acknowledgement free of anything the visitor typed', async () => {
+    await call(makeEnv(), '/contact', { body: { ...MESSAGE, lien: 'https://spam.example' } });
+    const [ack] = outbound('resend');
+    expect(JSON.stringify(ack.body)).not.toContain('spam.example');
+  });
+});
