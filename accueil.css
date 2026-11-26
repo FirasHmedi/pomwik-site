@@ -285,3 +285,10 @@ h1 { font-size: clamp(2.2rem, 5vw, 3.4rem); line-height: 1.08; letter-spacing: -
   html { scroll-behavior: auto; }
   * { transition: none !important; }
 }
+
+/* Pages bilingues (lang.js) : seule la langue affichée est visible. */
+html[data-show="fr"] [data-lang="en"], html[data-show="en"] [data-lang="fr"] { display: none !important; }
+
+/* Bandeau de contexte en haut des pages Realm : ce qu'est Pomwik, pour qui arrive directement. */
+.context { margin-top: 8px; padding: 14px 18px; background: var(--tint); border-radius: 10px; font-size: .95rem; color: var(--ink); }
+.context a { font-weight: 600; }

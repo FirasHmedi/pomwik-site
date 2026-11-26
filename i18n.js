@@ -42,9 +42,9 @@ const EN = {
   how2p: 'We propose a plan: what to do, in what order, at what price. You decide before any work starts.',
   how3t: 'We finish the work',
   how3p: 'You follow progress, you test, and the code stays yours from start to finish.',
-  proofTitle: 'Build errors are familiar ground',
-  proofP: 'We maintain afterdb, the continuation of Realm for React Native, and publish fixes for the iOS and Android build errors we run into.',
-  proofCta: 'See solved errors',
+  proofTitle: 'Apps on Realm are familiar ground',
+  proofP: 'Realm, MongoDB’s mobile database, has been unsupported since 2025, and many React Native apps still depend on it. We maintain afterdb, an open-source fork that keeps them building, and we help teams move to SQLite.',
+  proofCta: 'See our Realm help',
   faqTitle: 'Questions',
   faq1q: 'How much does it cost?',
   faq1a: 'The assessment has a fixed price, stated before we start. After that, you get a fixed price for the work, before it starts. No hourly billing.',
@@ -66,7 +66,7 @@ const EN = {
   fMessage: 'Your app and what is stuck',
   fSend: 'Send',
   fFine: 'We only use this information to reply to you. <a href="/privacy-en.html">Privacy</a>',
-  footer: '&copy; 2026 Pomwik &middot; <a href="/realm/">Apps on Realm</a> &middot; <a href="/audit/" hreflang="fr">Website audit (FR)</a> &middot; <a href="/contact/" hreflang="fr">Contact (FR)</a> &middot; <a href="/mentions-legales.html" hreflang="fr">Legal notice (FR)</a> &middot; <a href="/privacy-en.html">Privacy</a>',
+  footer: '&copy; 2026 Pomwik &middot; <a href="/realm/">Apps on Realm</a> &middot; <a href="/audit/">Website audit</a> &middot; <a href="/contact/">Contact</a> &middot; <a href="/mentions-legales.html">Legal notice</a> &middot; <a href="/privacy-en.html">Privacy</a>',
 };
 
 const root = document.documentElement;

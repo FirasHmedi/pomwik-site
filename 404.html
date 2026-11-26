@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="fr">
+<html lang="fr" data-show="fr" data-title-en="Page not found — Pomwik">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -10,23 +10,27 @@
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
   <script>document.documentElement.classList.add("js")</script>
   <link rel="stylesheet" href="/style.css">
+  <script src="/lang.js"></script>
 </head>
 <body>
   <header class="nav">
-    <a class="brand" href="/" aria-label="Accueil Pomwik">
+    <a class="brand" href="/" aria-label="Pomwik">
       <img src="/favicon.svg" alt="" width="32" height="32">
       <span>Pomwik</span>
     </a>
-    <nav aria-label="Principal">
-      <a class="btn btn-small" href="/">Retour au site</a>
+    <nav aria-label="Principal / Main">
+      <button class="lang-switch" type="button" data-lang-switch aria-label="Read this page in English" lang="en">EN</button>
+      <a class="btn btn-small" href="/"><span data-lang="fr">Retour au site</span><span data-lang="en">Back to site</span></a>
     </nav>
   </header>
 
   <main class="prose">
-    <h1>Page introuvable</h1>
-    <p>Cette adresse ne mène à aucune page. Elle a peut-être changé, ou le lien contient une faute de frappe.</p>
-    <p><a class="btn" href="/">Aller à l'accueil</a></p>
-    <p>Vous cherchiez quelque chose en particulier&nbsp;? <a href="/contact/">Écrivez-nous</a>, on vous répond sous 12 heures.</p>
+    <h1><span data-lang="fr">Page introuvable</span><span data-lang="en">Page not found</span></h1>
+    <p data-lang="fr">Cette adresse ne mène à aucune page. Elle a peut-être changé, ou le lien contient une faute de frappe.</p>
+    <p data-lang="en">This address does not lead to any page. It may have changed, or the link has a typo.</p>
+    <p><a class="btn" href="/"><span data-lang="fr">Aller à l'accueil</span><span data-lang="en">Go to the home page</span></a></p>
+    <p data-lang="fr">Vous cherchiez quelque chose en particulier&nbsp;? <a href="/contact/">Écrivez-nous</a>, on vous répond sous 12 heures.</p>
+    <p data-lang="en">Looking for something in particular? <a href="/contact/">Write to us</a>, we reply within 12 hours.</p>
   </main>
 
   <footer class="footer">
@@ -34,7 +38,7 @@
       <img src="/favicon.svg" alt="" width="24" height="24">
       <span>Pomwik</span>
     </div>
-    <p>&copy; 2026 Pomwik &middot; <a href="/mentions-legales.html">Mentions légales</a> &middot; <a href="/privacy.html">Confidentialité</a></p>
+    <p>&copy; 2026 Pomwik &middot; <a href="/mentions-legales.html"><span data-lang="fr">Mentions légales</span><span data-lang="en">Legal notice</span></a> &middot; <a href="/privacy.html"><span data-lang="fr">Confidentialité</span><span data-lang="en">Privacy</span></a></p>
   </footer>
   <!-- Cloudflare Web Analytics : mesure d'audience sans cookie -->
   <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "57482883c161487785a4a5d64ed3a96f"}'></script>
