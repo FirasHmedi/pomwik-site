@@ -1,5 +1,5 @@
 /* Feuille de style du site : accueil, /tarifs/, /contact/, mentions légales, confidentialité, 404.
-   Les pages d'apps en attente (petty, settled) gardent style.css.
+   style.css ne sert plus qu’à la page de test tests/contact-panne.
    Polices hébergées ici (/fonts/, licence SIL OFL) : aucun appel à un service tiers. */
 
 @font-face { font-family: "Source Serif 4"; src: url("/fonts/source-serif-4.woff2") format("woff2"); font-weight: 200 900; font-display: swap; }
@@ -92,6 +92,21 @@ strong { font-weight: 600; }
   font-family: var(--mono); font-weight: 500; font-size: .76rem; line-height: 1.4;
   letter-spacing: .08em; text-transform: uppercase; color: var(--muted);
 }
+
+/* ---------- Bandeau de langue (lang.js) ---------- */
+.lang-banner {
+  display: flex; align-items: center; justify-content: center; gap: 12px;
+  padding: 8px 16px; background: var(--accent-soft); color: var(--ink);
+  border-bottom: 1px solid var(--line); font-size: .92rem; line-height: 1.4;
+}
+.lang-banner p { margin: 0; }
+.lang-banner a { color: var(--accent); font-weight: 600; }
+.lang-banner-close {
+  flex: none; min-width: 44px; min-height: 44px; margin: -8px -12px -8px 0;
+  background: none; border: 0; color: var(--muted); font: inherit; font-size: 1.3rem; cursor: pointer;
+}
+.lang-banner-close:hover { color: var(--ink); }
+.lang-banner-close:focus-visible { outline: 2px solid var(--ring); outline-offset: -4px; }
 
 /* ---------- Navigation ---------- */
 .nav { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding-block: 16px; border-bottom: 1px solid var(--line); }

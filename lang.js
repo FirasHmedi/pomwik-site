@@ -1,11 +1,12 @@
-// Français / anglais sur les pages autres que l'accueil (l'accueil a i18n.js).
+// Français / anglais.
 // Chargé dans <head>, sans defer : la bonne langue est affichée dès le premier rendu.
 // Deux façons de traduire une page :
 //  - les deux textes dans la page : <html data-show="fr"> et des éléments data-lang="fr" / data-lang="en"
 //    (le CSS cache l'autre langue) ;
-//  - deux pages séparées : <html data-alt="/privacy-en.html">, redirection vers la page de la langue voulue.
-// Langue : ?lang=, puis choix mémorisé (pomwik-lang, partagé avec l'accueil), puis navigateur.
-// Robots : langue par défaut de la page (data-default, "fr" sinon), pour ne pas changer ce qui est indexé.
+//  - deux pages séparées : <html data-alt="/en/">. Pas de redirection automatique (Google la déconseille) :
+//    si le visiteur préfère l'autre langue, un bandeau en haut de page propose le lien vers l'autre page.
+// Langue préférée : ?lang=, puis choix mémorisé (pomwik-lang), puis navigateur.
+// Robots : langue par défaut de la page (data-default, "fr" sinon), jamais de bandeau.
 (function () {
   'use strict';
   var KEY = 'pomwik-lang';
@@ -27,11 +28,43 @@
     lang = isBot ? pageDefault : (/^fr\b/i.test(nav) ? 'fr' : 'en');
   }
 
-  // Pages séparées : la page dans l'autre langue, si ce n'est pas celle-ci.
+  // Pages séparées : bandeau qui propose l'autre page si le visiteur préfère l'autre langue.
   var alt = root.getAttribute('data-alt');
-  if (alt && lang !== root.lang && !isBot) {
-    location.replace(alt + '?lang=' + lang + location.hash);
-    return;
+  if (alt) {
+    if (lang !== root.lang && !isBot) {
+      document.addEventListener('DOMContentLoaded', function () { banner(alt, lang); });
+    }
+  }
+
+  function banner(href, l) {
+    var t = l === 'en'
+      ? { text: 'This page is also available in English.', link: 'Read in English', close: 'Stay on the French page' }
+      : { text: 'Cette page existe aussi en français.', link: 'Lire en français', close: 'Rester sur la page en anglais' };
+    var bar = document.createElement('div');
+    bar.className = 'lang-banner';
+    bar.lang = l;
+    bar.setAttribute('role', 'region');
+    bar.setAttribute('aria-label', l === 'en' ? 'Language' : 'Langue');
+    var p = document.createElement('p');
+    p.textContent = t.text + ' ';
+    var a = document.createElement('a');
+    a.href = href + '?lang=' + l + location.hash;
+    a.hreflang = l;
+    a.textContent = t.link;
+    p.appendChild(a);
+    var b = document.createElement('button');
+    b.type = 'button';
+    b.className = 'lang-banner-close';
+    b.setAttribute('aria-label', t.close);
+    b.textContent = '\u00d7';
+    b.addEventListener('click', function () {
+      store(root.lang);
+      bar.parentNode.removeChild(bar);
+    });
+    bar.appendChild(p);
+    bar.appendChild(b);
+    var skip = document.querySelector('body > .skip');
+    document.body.insertBefore(bar, skip ? skip.nextSibling : document.body.firstChild);
   }
 
   // Textes qui ne peuvent pas contenir de balise (option de liste, placeholder) : data-en / data-fr et
