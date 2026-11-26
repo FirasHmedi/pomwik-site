@@ -1,329 +1,362 @@
 <!doctype html>
-<html lang="fr">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <script>
-    // Langue avant l'affichage : ?lang=, puis choix mémorisé, puis langue du navigateur (français sinon anglais).
-    (function () {
-      var lang = new URLSearchParams(location.search).get('lang');
-      if (lang === 'fr' || lang === 'en') {
-        try { localStorage.setItem('pomwik-lang', lang); } catch (e) { /* navigation privée */ }
-      } else {
-        try { lang = localStorage.getItem('pomwik-lang'); } catch (e) { lang = null; }
-      }
-      if (lang !== 'fr' && lang !== 'en') {
-        // Robots d'indexation : version française sur l'adresse principale (l'anglais est sur ?lang=en).
-        var nav = (navigator.languages && navigator.languages[0]) || navigator.language || 'fr';
-        lang = /^fr\b/i.test(nav) || /googlebot|bingbot|yandex|duckduckbot|baiduspider|applebot|crawler|spider|slurp/i.test(navigator.userAgent) ? 'fr' : 'en';
-      }
-      var root = document.documentElement;
-      // lang reste "fr" tant que le texte est en français : i18n.js le change en traduisant.
-      root.dataset.want = lang;
-      if (lang === 'en') {
-        root.classList.add('i18n-wait');
-        setTimeout(function () { root.classList.remove('i18n-wait'); }, 1500);
-      }
-    })();
-  </script>
-  <title>Pomwik · votre app bloquée, publiée sur les stores</title>
-  <meta name="description" content="Votre app faite avec Lovable, Bolt, Rork ou abandonnée par votre prestataire : Pomwik la reprend, la sécurise et la publie sur l’App Store et Google Play. Prix fixes, solde payé à l’acceptation.">
-  <meta name="theme-color" content="#F6F3EE" media="(prefers-color-scheme: light)">
-  <meta name="theme-color" content="#131513" media="(prefers-color-scheme: dark)">
-  <link rel="canonical" href="https://pomwik.com/">
-  <link rel="alternate" hreflang="fr" href="https://pomwik.com/">
-  <link rel="alternate" hreflang="en" href="https://pomwik.com/?lang=en">
-  <link rel="alternate" hreflang="x-default" href="https://pomwik.com/">
-  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-  <meta property="og:type" content="website">
-  <meta property="og:site_name" content="Pomwik">
-  <meta property="og:locale" content="fr_FR">
-  <meta property="og:locale:alternate" content="en_US">
-  <meta property="og:title" content="Pomwik · votre application mérite d’être terminée">
-  <meta property="og:description" content="On reprend votre app bloquée, on la sécurise et on la publie sur l’App Store et Google Play. Prix fixes, solde payé à l’acceptation.">
-  <meta property="og:url" content="https://pomwik.com/">
-  <meta property="og:image" content="https://pomwik.com/og-app-rescue.png">
-  <meta property="og:image:width" content="1200">
-  <meta property="og:image:height" content="630">
-  <meta property="og:image:alt" content="Pomwik : votre application mérite d’être terminée. Your app deserves to be finished.">
-  <meta name="twitter:card" content="summary_large_image">
-  <link rel="preload" href="/fonts/source-serif-4.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="preload" href="/fonts/ibm-plex-sans-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="/accueil.css">
-  <script type="application/ld+json">
-  {"@context": "https://schema.org", "@type": "ProfessionalService", "name": "Pomwik", "url": "https://pomwik.com/", "email": "hello@pomwik.com", "logo": "https://pomwik.com/favicon.svg", "description": "Reprise, sécurisation et publication d'apps mobiles sur l'App Store et Google Play.", "address": {"@type": "PostalAddress", "addressLocality": "Nice", "addressCountry": "FR"}, "areaServed": ["FR", "BE", "CH", "LU", "GB", "IE"], "availableLanguage": ["fr", "en"]}
-  </script>
-</head>
-<body>
-  <a class="skip" href="#main" data-i18n="skip">Aller au contenu</a>
 
-  <header class="nav wrap">
-    <a class="brand" href="/" aria-label="Accueil Pomwik" data-i18n-aria="brandAria">
-      <img src="/favicon.svg" alt="" width="30" height="30">
-      <span>Pomwik</span>
-    </a>
-    <nav aria-label="Principal" data-i18n-aria="navAria">
-      <a class="nav-link" href="#methode" data-i18n="navHow">Méthode</a>
-      <a class="nav-link nav-keep" href="/tarifs/" data-i18n="navPrices">Tarifs</a>
-      <a class="nav-link" href="#questions" data-i18n="navFaq">Questions</a>
-      <button class="lang-switch" type="button" data-lang-switch aria-label="Read this page in English" lang="en">EN</button>
-      <a class="btn btn-small" href="/contact/" data-i18n="navCta">Pré-diagnostic<span class="wide">&nbsp;gratuit</span></a>
-    </nav>
-  </header>
+<html lang="fr" data-alt="/en/">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-  <main id="main">
-    <section class="hero wrap">
-      <div>
-        <p class="label" data-i18n="eyebrow">Apps mobiles et publication sur les stores</p>
-        <h1 data-i18n="h1">Votre application mérite d’être terminée.</h1>
-        <p class="lede" data-i18n="lede">Votre app faite avec Lovable, Bolt, Rork ou abandonnée par votre prestataire&nbsp;: on la reprend, on la sécurise et on la publie sur l’App Store et Google Play. Prix fixes, solde payé à l’acceptation. Basé à Nice.</p>
-        <div class="cta">
-          <a class="btn arrow" href="/contact/" data-i18n="ctaMain">Pré-diagnostic gratuit</a>
-          <a class="link" href="/tarifs/" data-i18n="ctaSecond">Voir les tarifs</a>
+    <title>Pomwik · votre app bloquée, publiée sur les stores</title>
+    <meta
+      name="description"
+      content="Votre app faite avec Lovable, Bolt, Rork ou abandonnée par votre prestataire : Pomwik la reprend, la sécurise et la publie sur l’App Store et Google Play. Prix fixes, solde payé à l’acceptation."
+    />
+    <meta name="theme-color" content="#F6F3EE" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#131513" media="(prefers-color-scheme: dark)" />
+    <link rel="canonical" href="https://pomwik.com/" />
+    <link rel="alternate" hreflang="fr" href="https://pomwik.com/" />
+    <link rel="alternate" hreflang="en" href="https://pomwik.com/en/" />
+    <link rel="alternate" hreflang="x-default" href="https://pomwik.com/" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Pomwik" />
+    <meta property="og:locale" content="fr_FR" />
+    <meta property="og:locale:alternate" content="en_US" />
+    <meta property="og:title" content="Pomwik · votre application mérite d’être terminée" />
+    <meta
+      property="og:description"
+      content="On reprend votre app bloquée, on la sécurise et on la publie sur l’App Store et Google Play. Prix fixes, solde payé à l’acceptation."
+    />
+    <meta property="og:url" content="https://pomwik.com/" />
+    <meta property="og:image" content="https://pomwik.com/og-app-rescue.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Pomwik : votre application mérite d’être terminée. Your app deserves to be finished." />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="preload" href="/fonts/source-serif-4.woff2" as="font" type="font/woff2" crossorigin="" />
+    <link rel="preload" href="/fonts/ibm-plex-sans-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin="" />
+    <link rel="stylesheet" href="/accueil.css" />
+    <script src="/lang.js"></script>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "ProfessionalService",
+        "name": "Pomwik",
+        "url": "https://pomwik.com/",
+        "email": "hello@pomwik.com",
+        "logo": "https://pomwik.com/favicon.svg",
+        "description": "Reprise, sécurisation et publication d'apps mobiles sur l'App Store et Google Play.",
+        "address": { "@type": "PostalAddress", "addressLocality": "Nice", "addressCountry": "FR" },
+        "areaServed": ["FR", "BE", "CH", "LU", "GB", "IE"],
+        "availableLanguage": ["fr", "en"]
+      }
+    </script>
+  </head>
+  <body>
+    <a class="skip" href="#main">Aller au contenu</a>
+    <header class="nav wrap">
+      <a class="brand" href="/" aria-label="Accueil Pomwik">
+        <img src="/favicon.svg" alt="" width="30" height="30" />
+        <span>Pomwik</span>
+      </a>
+      <nav aria-label="Principal">
+        <a class="nav-link" href="#methode">Méthode</a>
+        <a class="nav-link nav-keep" href="/tarifs/">Tarifs</a>
+        <a class="nav-link" href="#questions">Questions</a>
+        <a class="lang-switch" href="/en/?lang=en" data-lang-switch="" lang="en" hreflang="en" aria-label="Read this page in English">EN</a>
+        <a class="btn btn-small" href="/contact/">Pré-diagnostic<span class="wide">&nbsp;gratuit</span></a>
+      </nav>
+    </header>
+    <main id="main">
+      <section class="hero wrap">
+        <div>
+          <p class="label">Apps mobiles et publication sur les stores</p>
+          <h1>Votre application mérite d’être terminée.</h1>
+          <p class="lede">
+            Votre app faite avec Lovable, Bolt, Rork ou abandonnée par votre prestataire&nbsp;: on la reprend, on la sécurise et on la publie sur l’App Store et
+            Google Play. Prix fixes, solde payé à l’acceptation. Basé à Nice.
+          </p>
+          <div class="cta">
+            <a class="btn arrow" href="/contact/">Pré-diagnostic gratuit</a>
+            <a class="link" href="/tarifs/">Voir les tarifs</a>
+          </div>
+          <p class="note">Réponse sous 12 heures. Sans engagement.</p>
         </div>
-        <p class="note" data-i18n="replyNote">Réponse sous 12 heures. Sans engagement.</p>
-      </div>
-
-      <figure class="phone-wrap">
-        <div class="phone" aria-hidden="true">
-          <div class="screen">
-            <p class="date" data-i18n="pDate">jeudi</p>
-            <p class="clock">9:41</p>
-            <div class="notif">
-              <span class="ic ic-a">A</span>
-              <div>
-                <p class="n-app"><span>App Store Connect</span><span data-i18n="nNow1">maintenant</span></p>
-                <p class="n-title" data-i18n="n1t">Votre app est acceptée</p>
-                <p class="n-body" data-i18n="n1b">Elle est prête à être distribuée sur l’App Store.</p>
+        <figure class="phone-wrap">
+          <div class="phone" aria-hidden="true">
+            <div class="screen">
+              <p class="date">jeudi</p>
+              <p class="clock">9:41</p>
+              <div class="notif">
+                <span class="ic ic-a">A</span>
+                <div>
+                  <p class="n-app"><span>App Store Connect</span><span>maintenant</span></p>
+                  <p class="n-title">Votre app est acceptée</p>
+                  <p class="n-body">Elle est prête à être distribuée sur l’App Store.</p>
+                </div>
               </div>
-            </div>
-            <div class="notif">
-              <span class="ic ic-g">G</span>
-              <div>
-                <p class="n-app"><span>Google Play Console</span><span data-i18n="nNow2">il y a 2 h</span></p>
-                <p class="n-title" data-i18n="n2t">Votre app est publiée</p>
-                <p class="n-body" data-i18n="n2b">Elle est disponible sur Google Play.</p>
+              <div class="notif">
+                <span class="ic ic-g">G</span>
+                <div>
+                  <p class="n-app"><span>Google Play Console</span><span>il y a 2 h</span></p>
+                  <p class="n-title">Votre app est publiée</p>
+                  <p class="n-body">Elle est disponible sur Google Play.</p>
+                </div>
               </div>
-            </div>
-            <div class="notif">
-              <span class="ic ic-p"><img src="/favicon.svg" alt="" width="28" height="28"></span>
-              <div>
-                <p class="n-app"><span>Pomwik</span><span data-i18n="nNow3">il y a 2 h</span></p>
-                <p class="n-title" data-i18n="n3t">Publication terminée</p>
-                <p class="n-body" data-i18n="n3b">Vous pouvez maintenant régler le solde.</p>
+              <div class="notif">
+                <span class="ic ic-p"><img src="/favicon.svg" alt="" width="28" height="28" /></span>
+                <div>
+                  <p class="n-app"><span>Pomwik</span><span>il y a 2 h</span></p>
+                  <p class="n-title">Publication terminée</p>
+                  <p class="n-body">Vous pouvez maintenant régler le solde.</p>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-        <figcaption class="label" data-i18n="phoneCaption">Illustration&nbsp;: le jour où l’app est acceptée</figcaption>
-      </figure>
-    </section>
-
-    <section class="section wrap" aria-labelledby="t-signes">
-      <div class="section-head">
-        <div>
-          <p class="label" data-i18n="signsLabel">Pour qui</p>
-          <h2 id="t-signes" data-i18n="signsTitle">Vous vous reconnaissez&nbsp;?</h2>
-        </div>
-        <ul class="rows plain">
-          <li data-i18n="sign1">L’app marche en démo, mais elle n’est toujours pas sur les stores.</li>
-          <li data-i18n="sign2">Apple ou Google a refusé l’app.</li>
-          <li data-i18n="sign3">Chaque correction demandée à l’IA casse autre chose.</li>
-          <li data-i18n="sign4">Les données ou la connexion des utilisateurs posent problème.</li>
-          <li data-i18n="sign5">Votre prestataire a abandonné le projet.</li>
-        </ul>
-      </div>
-    </section>
-
-    <section class="section wrap" id="methode" aria-labelledby="t-methode">
-      <div class="section-head">
-        <div class="sticky">
-          <p class="label" data-i18n="howLabel">Méthode</p>
-          <h2 id="t-methode" data-i18n="howTitle">Comment ça marche</h2>
-          <p class="section-intro" data-i18n="howIntro">À chaque étape, vous savez ce qui se passe et ce que vous allez payer.</p>
-        </div>
-        <ol class="rows">
-          <li><span class="num">01</span><h3 data-i18n="how1t">Pré-diagnostic gratuit</h3><p data-i18n="how1p">Vous décrivez l’app, on vous dit si on la prend.</p></li>
-          <li><span class="num">02</span><h3 data-i18n="how2t">Diagnostic</h3><p data-i18n="how2p">Un rapport clair, la liste des blocages et un prix fixe.</p></li>
-          <li><span class="num">03</span><h3 data-i18n="how3t">Accès</h3><p data-i18n="how3p">Vous nous invitez sur vos comptes (code, App Store, Google Play) avec des droits limités. On ne demande jamais vos mots de passe.</p></li>
-          <li><span class="num">04</span><h3 data-i18n="how4t">Travail sur une copie de test</h3><p data-i18n="how4p">Jamais sur les données de vos vrais utilisateurs.</p></li>
-          <li><span class="num">05</span><h3 data-i18n="how5t">Publication</h3><p data-i18n="how5p">Apple et Google acceptent l’app, puis vous payez le solde.</p></li>
-          <li><span class="num">06</span><h3 data-i18n="how6t">Maintenance, en option</h3><p data-i18n="how6p">Les mises à jour imposées par Apple et Google, et le suivi des plantages.</p></li>
-        </ol>
-      </div>
-    </section>
-
-    <section class="section wrap" id="prix" aria-labelledby="t-prix">
-      <div class="section-head">
-        <div>
-          <p class="label" data-i18n="priceLabel">Tarifs</p>
-          <h2 id="t-prix" data-i18n="priceTitle">Prix fixes, solde payé à l’acceptation</h2>
-          <p class="section-intro" data-i18n="priceP">Le prix est fixé avant de commencer. Pour une publication, vous payez la moitié à la commande et le reste quand Apple et Google acceptent l’app.</p>
-        </div>
-        <div class="ledger">
-          <div class="ledger-head">
-            <div>
-              <p class="label" data-i18n="ledgerLabel">Exemple</p>
-              <h3 data-i18n="ledgerTitle">Publication App Store + Google Play</h3>
-            </div>
-            <p class="ledger-total">199&nbsp;€<small data-i18n="ledgerHT">HT, prix fixe</small></p>
+          <figcaption class="label">Illustration&nbsp;: le jour où l’app est acceptée</figcaption>
+        </figure>
+      </section>
+      <section class="section wrap" aria-labelledby="t-signes">
+        <div class="section-head">
+          <div>
+            <p class="label">Pour qui</p>
+            <h2 id="t-signes">Vous vous reconnaissez&nbsp;?</h2>
           </div>
-          <ol>
-            <li><span class="when" data-i18n="l1">À la commande</span><span class="amount">99,50&nbsp;€</span><span class="detail" data-i18n="l1d">50&nbsp;%</span></li>
-            <li><span class="when" data-i18n="l2">Quand Apple accepte l’app</span><span class="amount">49,75&nbsp;€</span><span class="detail" data-i18n="l2d">25&nbsp;%</span></li>
-            <li><span class="when" data-i18n="l3">Quand Google accepte l’app</span><span class="amount">49,75&nbsp;€</span><span class="detail" data-i18n="l3d">25&nbsp;%</span></li>
+          <ul class="rows plain">
+            <li>L’app marche en démo, mais elle n’est toujours pas sur les stores.</li>
+            <li>Apple ou Google a refusé l’app.</li>
+            <li>Chaque correction demandée à l’IA casse autre chose.</li>
+            <li>Les données ou la connexion des utilisateurs posent problème.</li>
+            <li>Votre prestataire a abandonné le projet.</li>
+          </ul>
+        </div>
+      </section>
+      <section class="section wrap" id="methode" aria-labelledby="t-methode">
+        <div class="section-head">
+          <div class="sticky">
+            <p class="label">Méthode</p>
+            <h2 id="t-methode">Comment ça marche</h2>
+            <p class="section-intro">À chaque étape, vous savez ce qui se passe et ce que vous allez payer.</p>
+          </div>
+          <ol class="rows">
+            <li>
+              <span class="num">01</span>
+              <h3>Pré-diagnostic gratuit</h3>
+              <p>Vous décrivez l’app, on vous dit si on la prend.</p>
+            </li>
+            <li>
+              <span class="num">02</span>
+              <h3>Diagnostic</h3>
+              <p>Un rapport clair, la liste des blocages et un prix fixe.</p>
+            </li>
+            <li>
+              <span class="num">03</span>
+              <h3>Accès</h3>
+              <p>Vous nous invitez sur vos comptes (code, App Store, Google Play) avec des droits limités. On ne demande jamais vos mots de passe.</p>
+            </li>
+            <li>
+              <span class="num">04</span>
+              <h3>Travail sur une copie de test</h3>
+              <p>Jamais sur les données de vos vrais utilisateurs.</p>
+            </li>
+            <li>
+              <span class="num">05</span>
+              <h3>Publication</h3>
+              <p>Apple et Google acceptent l’app, puis vous payez le solde.</p>
+            </li>
+            <li>
+              <span class="num">06</span>
+              <h3>Maintenance, en option</h3>
+              <p>Les mises à jour imposées par Apple et Google, et le suivi des plantages.</p>
+            </li>
           </ol>
-          <p class="ledger-foot" data-i18n="ledgerFoot">Les refus liés au contenu ou au modèle de l’app ne sont pas couverts. On vous dit dès le diagnostic si votre app risque ce type de refus.</p>
         </div>
+      </section>
+      <section class="section wrap" id="prix" aria-labelledby="t-prix">
+        <div class="section-head">
+          <div>
+            <p class="label">Tarifs</p>
+            <h2 id="t-prix">Prix fixes, solde payé à l’acceptation</h2>
+            <p class="section-intro">
+              Le prix est fixé avant de commencer. Pour une publication, vous payez la moitié à la commande et le reste quand Apple et Google acceptent l’app.
+            </p>
+          </div>
+          <div class="ledger">
+            <div class="ledger-head">
+              <div>
+                <p class="label">Exemple</p>
+                <h3>Publication App Store + Google Play</h3>
+              </div>
+              <p class="ledger-total">199&nbsp;€<small>HT, prix fixe</small></p>
+            </div>
+            <ol>
+              <li><span class="when">À la commande</span><span class="amount">99,50&nbsp;€</span><span class="detail">50&nbsp;%</span></li>
+              <li><span class="when">Quand Apple accepte l’app</span><span class="amount">49,75&nbsp;€</span><span class="detail">25&nbsp;%</span></li>
+              <li><span class="when">Quand Google accepte l’app</span><span class="amount">49,75&nbsp;€</span><span class="detail">25&nbsp;%</span></li>
+            </ol>
+            <p class="ledger-foot">
+              Les refus liés au contenu ou au modèle de l’app ne sont pas couverts. On vous dit dès le diagnostic si votre app risque ce type de refus.
+            </p>
+          </div>
+        </div>
+        <div class="figures">
+          <div>
+            <p class="label">Diagnostic écrit</p>
+            <p class="figure">99&nbsp;€</p>
+            <p>La liste des blocages et un prix fixe. Déduit si la mission suit.</p>
+          </div>
+          <div>
+            <p class="label">Publication sur les deux stores</p>
+            <p class="figure">199&nbsp;€</p>
+            <p>Votre app sur l’App Store et Google Play, sous vos comptes. Un seul store&nbsp;: 129&nbsp;€.</p>
+          </div>
+          <div>
+            <p class="label">Reprise</p>
+            <p class="figure">790&nbsp;€</p>
+            <p>Cinq blocages corrigés&nbsp;: bugs, sécurité, données.</p>
+          </div>
+        </div>
+        <div class="figures-foot">
+          <p>Prix HT. Déblocage d’un refus&nbsp;: 149&nbsp;€. Maintenance dès 49&nbsp;€ par mois.</p>
+          <a class="link arrow" href="/tarifs/">Voir tous les tarifs</a>
+        </div>
+      </section>
+      <section class="section wrap" aria-labelledby="t-garanties">
+        <div class="section-head">
+          <div>
+            <p class="label">Nos engagements</p>
+            <h2 id="t-garanties">Votre app reste à vous</h2>
+          </div>
+          <ul class="promises">
+            <li>
+              <h3>Vos comptes, votre code</h3>
+              <p>L’app est publiée sous vos comptes développeur. Le code vous appartient.</p>
+            </li>
+            <li>
+              <h3>Jamais vos mots de passe</h3>
+              <p>Seulement des invitations avec des droits limités, que vous retirez quand vous voulez.</p>
+            </li>
+            <li>
+              <h3>Vos utilisateurs à l’abri</h3>
+              <p>On travaille sur une copie de test, jamais sur vos données réelles.</p>
+            </li>
+            <li>
+              <h3>Un seul interlocuteur</h3>
+              <p>Vous parlez directement à la personne qui travaille sur votre app, du diagnostic à la publication.</p>
+            </li>
+          </ul>
+        </div>
+      </section>
+      <section class="section wrap" id="prend" aria-labelledby="t-prend">
+        <div class="section-head">
+          <div>
+            <p class="label">Périmètre</p>
+            <h2 id="t-prend">Ce qu’on prend, ce qu’on refuse</h2>
+            <p class="section-intro">On préfère vous le dire tout de suite&nbsp;: certaines apps demandent une équipe spécialisée.</p>
+          </div>
+          <div class="split">
+            <div>
+              <span class="tag tag-yes">Oui</span>
+              <h3>On prend</h3>
+              <ul class="marks yes">
+                <li>La publication sur l’App Store et Google Play.</li>
+                <li>La correction d’apps faites avec Lovable ou Bolt&nbsp;: sécurité, données. <small>Y compris avec une base Supabase.</small></li>
+                <li>Les apps mobiles récentes. <small>Expo ou React Native.</small></li>
+                <li>La transformation d’un site en app, sur devis.</li>
+                <li>La réécriture sur une base solide, sur devis. <small>En Expo.</small></li>
+              </ul>
+            </div>
+            <div>
+              <span class="tag tag-no">Non</span>
+              <h3>On refuse</h3>
+              <ul class="marks no">
+                <li>Les apps de santé ou bancaires.</li>
+                <li>Les apps liées à un objet&nbsp;: Bluetooth, réalité augmentée.</li>
+                <li>Les apps construites avec une technologie trop ancienne. <small>Objective-C, Java, Cordova, React Native 0.70 ou plus ancien.</small></li>
+                <li>Les copies d’apps existantes.</li>
+                <li>Les missions qui exigent de travailler directement sur vos données réelles.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="section wrap" id="questions" aria-labelledby="t-questions">
+        <div class="section-head">
+          <div>
+            <p class="label">Questions</p>
+            <h2 id="t-questions">Ce qu’on nous demande souvent</h2>
+          </div>
+          <div class="faq">
+            <details>
+              <summary>Mon app a été faite avec Lovable, c’est possible&nbsp;?</summary>
+              <p>
+                Oui. Lovable fait des apps web&nbsp;: on la publie sur les stores en l’adaptant au téléphone, ou en la réécrivant. On choisit ensemble au
+                diagnostic.
+              </p>
+            </details>
+            <details>
+              <summary>Vous garantissez l’acceptation&nbsp;?</summary>
+              <p>
+                Le solde n’est payé qu’à l’acceptation. Les refus liés au contenu ou au modèle de l’app sont exclus (voir les <a href="/tarifs/">tarifs</a>). On
+                vous dit dès le diagnostic si votre app risque ce type de refus.
+              </p>
+            </details>
+            <details>
+              <summary>Qui possède le code et les comptes&nbsp;?</summary>
+              <p>Vous. L’app est publiée sous vos comptes développeur, et le code vous appartient.</p>
+            </details>
+            <details>
+              <summary>Vous avez besoin de mes mots de passe&nbsp;?</summary>
+              <p>Non. Seulement des invitations avec des droits limités, que vous pouvez retirer à tout moment.</p>
+            </details>
+            <details>
+              <summary>Combien de temps&nbsp;?</summary>
+              <p>Une publication prend 1 à 3 semaines, selon la revue des stores. Une reprise se chiffre au diagnostic.</p>
+            </details>
+            <details>
+              <summary>Vous travaillez hors de France&nbsp;?</summary>
+              <p>Oui&nbsp;: en Belgique, en Suisse, au Luxembourg, et en anglais pour le Royaume-Uni et l’Irlande.</p>
+            </details>
+          </div>
+        </div>
+      </section>
+      <section class="section last wrap" id="contact" aria-labelledby="t-contact">
+        <div class="closing">
+          <div>
+            <h2 id="t-contact">Parlez-nous de votre app</h2>
+            <p>Quelques lignes suffisent&nbsp;: ce que fait l’app, avec quoi elle a été faite, ce qui bloque. On vous répond sous 12 heures.</p>
+          </div>
+          <div class="actions">
+            <a class="btn arrow" href="/contact/">Pré-diagnostic gratuit</a>
+            <p class="note">Ou écrivez à <a href="mailto:hello@pomwik.com">hello@pomwik.com</a></p>
+          </div>
+        </div>
+      </section>
+    </main>
+    <footer class="footer wrap">
+      <div>
+        <a class="brand" href="/"><img src="/favicon.svg" alt="" width="26" height="26" /><span>Pomwik</span></a>
+        <p>Apps mobiles et publication sur les stores. Basé à Nice, France.</p>
       </div>
-
-      <div class="figures">
-        <div>
-          <p class="label" data-i18n="f1l">Diagnostic écrit</p>
-          <p class="figure">99&nbsp;€</p>
-          <p data-i18n="f1p">La liste des blocages et un prix fixe. Déduit si la mission suit.</p>
-        </div>
-        <div>
-          <p class="label" data-i18n="f2l">Publication sur les deux stores</p>
-          <p class="figure">199&nbsp;€</p>
-          <p data-i18n="f2p">Votre app sur l’App Store et Google Play, sous vos comptes. Un seul store&nbsp;: 129&nbsp;€.</p>
-        </div>
-        <div>
-          <p class="label" data-i18n="f3l">Reprise</p>
-          <p class="figure">790&nbsp;€</p>
-          <p data-i18n="f3p">Cinq blocages corrigés&nbsp;: bugs, sécurité, données.</p>
-        </div>
-      </div>
-      <div class="figures-foot">
-        <p data-i18n="figFoot">Prix HT. Déblocage d’un refus&nbsp;: 149&nbsp;€. Maintenance dès 49&nbsp;€ par mois.</p>
-        <a class="link arrow" href="/tarifs/" data-i18n="priceCta">Voir tous les tarifs</a>
-      </div>
-    </section>
-
-    <section class="section wrap" aria-labelledby="t-garanties">
-      <div class="section-head">
-        <div>
-          <p class="label" data-i18n="promLabel">Nos engagements</p>
-          <h2 id="t-garanties" data-i18n="promTitle">Votre app reste à vous</h2>
-        </div>
-        <ul class="promises">
-          <li><h3 data-i18n="p1t">Vos comptes, votre code</h3><p data-i18n="p1p">L’app est publiée sous vos comptes développeur. Le code vous appartient.</p></li>
-          <li><h3 data-i18n="p2t">Jamais vos mots de passe</h3><p data-i18n="p2p">Seulement des invitations avec des droits limités, que vous retirez quand vous voulez.</p></li>
-          <li><h3 data-i18n="p3t">Vos utilisateurs à l’abri</h3><p data-i18n="p3p">On travaille sur une copie de test, jamais sur vos données réelles.</p></li>
-          <li><h3 data-i18n="p4t">Un seul interlocuteur</h3><p data-i18n="p4p">Vous parlez directement à la personne qui travaille sur votre app, du diagnostic à la publication.</p></li>
+      <div>
+        <h2>Pages</h2>
+        <ul>
+          <li><a href="/tarifs/">Tarifs</a></li>
+          <li><a href="/contact/">Pré-diagnostic gratuit</a></li>
+          <li><a href="#questions">Questions</a></li>
         </ul>
       </div>
-    </section>
-
-    <section class="section wrap" id="prend" aria-labelledby="t-prend">
-      <div class="section-head">
-        <div>
-          <p class="label" data-i18n="whatLabel">Périmètre</p>
-          <h2 id="t-prend" data-i18n="whatTitle">Ce qu’on prend, ce qu’on refuse</h2>
-          <p class="section-intro" data-i18n="whatIntro">On préfère vous le dire tout de suite&nbsp;: certaines apps demandent une équipe spécialisée.</p>
-        </div>
-        <div class="split">
-          <div>
-            <span class="tag tag-yes" data-i18n="takeTag">Oui</span>
-            <h3 data-i18n="takeTitle">On prend</h3>
-            <ul class="marks yes">
-              <li data-i18n="take1">La publication sur l’App Store et Google Play.</li>
-              <li data-i18n="take2">La correction d’apps faites avec Lovable ou Bolt&nbsp;: sécurité, données. <small>Y compris avec une base Supabase.</small></li>
-              <li data-i18n="take3">Les apps mobiles récentes. <small>Expo ou React Native.</small></li>
-              <li data-i18n="take4">La transformation d’un site en app, sur devis.</li>
-              <li data-i18n="take5">La réécriture sur une base solide, sur devis. <small>En Expo.</small></li>
-            </ul>
-          </div>
-          <div>
-            <span class="tag tag-no" data-i18n="refuseTag">Non</span>
-            <h3 data-i18n="refuseTitle">On refuse</h3>
-            <ul class="marks no">
-              <li data-i18n="refuse1">Les apps de santé ou bancaires.</li>
-              <li data-i18n="refuse2">Les apps liées à un objet&nbsp;: Bluetooth, réalité augmentée.</li>
-              <li data-i18n="refuse3">Les apps construites avec une technologie trop ancienne. <small>Objective-C, Java, Cordova, React Native 0.70 ou plus ancien.</small></li>
-              <li data-i18n="refuse4">Les copies d’apps existantes.</li>
-              <li data-i18n="refuse5">Les missions qui exigent de travailler directement sur vos données réelles.</li>
-            </ul>
-          </div>
-        </div>
+      <div>
+        <h2>Contact</h2>
+        <ul>
+          <li><a href="mailto:hello@pomwik.com">hello@pomwik.com</a></li>
+          <li><a href="/mentions-legales.html">Mentions légales</a></li>
+          <li><a href="/privacy.html">Confidentialité</a></li>
+        </ul>
       </div>
-    </section>
+      <p class="legal">© 2026 Pomwik</p>
+    </footer>
 
-    <section class="section wrap" id="questions" aria-labelledby="t-questions">
-      <div class="section-head">
-        <div>
-          <p class="label" data-i18n="faqLabel">Questions</p>
-          <h2 id="t-questions" data-i18n="faqTitle">Ce qu’on nous demande souvent</h2>
-        </div>
-        <div class="faq">
-          <details>
-            <summary data-i18n="faq1q">Mon app a été faite avec Lovable, c’est possible&nbsp;?</summary>
-            <p data-i18n="faq1a">Oui. Lovable fait des apps web&nbsp;: on la publie sur les stores en l’adaptant au téléphone, ou en la réécrivant. On choisit ensemble au diagnostic.</p>
-          </details>
-          <details>
-            <summary data-i18n="faq2q">Vous garantissez l’acceptation&nbsp;?</summary>
-            <p data-i18n="faq2a">Le solde n’est payé qu’à l’acceptation. Les refus liés au contenu ou au modèle de l’app sont exclus (voir les <a href="/tarifs/">tarifs</a>). On vous dit dès le diagnostic si votre app risque ce type de refus.</p>
-          </details>
-          <details>
-            <summary data-i18n="faq3q">Qui possède le code et les comptes&nbsp;?</summary>
-            <p data-i18n="faq3a">Vous. L’app est publiée sous vos comptes développeur, et le code vous appartient.</p>
-          </details>
-          <details>
-            <summary data-i18n="faq4q">Vous avez besoin de mes mots de passe&nbsp;?</summary>
-            <p data-i18n="faq4a">Non. Seulement des invitations avec des droits limités, que vous pouvez retirer à tout moment.</p>
-          </details>
-          <details>
-            <summary data-i18n="faq5q">Combien de temps&nbsp;?</summary>
-            <p data-i18n="faq5a">Une publication prend 1 à 3 semaines, selon la revue des stores. Une reprise se chiffre au diagnostic.</p>
-          </details>
-          <details>
-            <summary data-i18n="faq6q">Vous travaillez hors de France&nbsp;?</summary>
-            <p data-i18n="faq6a">Oui&nbsp;: en Belgique, en Suisse, au Luxembourg, et en anglais pour le Royaume-Uni et l’Irlande.</p>
-          </details>
-        </div>
-      </div>
-    </section>
-
-    <section class="section last wrap" id="contact" aria-labelledby="t-contact">
-      <div class="closing">
-        <div>
-          <h2 id="t-contact" data-i18n="contactTitle">Parlez-nous de votre app</h2>
-          <p data-i18n="contactP">Quelques lignes suffisent&nbsp;: ce que fait l’app, avec quoi elle a été faite, ce qui bloque. On vous répond sous 12 heures.</p>
-        </div>
-        <div class="actions">
-          <a class="btn arrow" href="/contact/" data-i18n="contactCta">Pré-diagnostic gratuit</a>
-          <p class="note" data-i18n="contactMail">Ou écrivez à <a href="mailto:hello@pomwik.com">hello@pomwik.com</a></p>
-        </div>
-      </div>
-    </section>
-  </main>
-
-  <footer class="footer wrap">
-    <div>
-      <a class="brand" href="/"><img src="/favicon.svg" alt="" width="26" height="26"><span>Pomwik</span></a>
-      <p data-i18n="footAbout">Apps mobiles et publication sur les stores. Basé à Nice, France.</p>
-    </div>
-    <div>
-      <h2 data-i18n="footPages">Pages</h2>
-      <ul>
-        <li><a href="/tarifs/" data-i18n="footPrices">Tarifs</a></li>
-        <li><a href="/contact/" data-i18n="footContact">Pré-diagnostic gratuit</a></li>
-        <li><a href="#questions" data-i18n="footFaq">Questions</a></li>
-      </ul>
-    </div>
-    <div>
-      <h2 data-i18n="footReach">Contact</h2>
-      <ul>
-        <li><a href="mailto:hello@pomwik.com">hello@pomwik.com</a></li>
-        <li><a href="/mentions-legales.html" data-i18n="footLegal">Mentions légales</a></li>
-        <li><a href="/privacy.html" data-i18n="footPrivacy">Confidentialité</a></li>
-      </ul>
-    </div>
-    <p class="legal">&copy; 2026 Pomwik</p>
-  </footer>
-
-  <script src="/i18n.js"></script>
-  <!-- Cloudflare Web Analytics : mesure d’audience sans cookie -->
-  <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "57482883c161487785a4a5d64ed3a96f"}'></script>
-</body>
+    <!-- Cloudflare Web Analytics : mesure d’audience sans cookie -->
+    <script defer="" src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "57482883c161487785a4a5d64ed3a96f"}'></script>
+  </body>
 </html>

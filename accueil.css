@@ -110,8 +110,6 @@ strong { font-weight: 600; }
   font-family: var(--mono); font-weight: 500; font-size: .8rem; letter-spacing: .06em; cursor: pointer; text-decoration: none;
 }
 .lang-switch:hover { color: var(--ink); }
-/* Accueil affiché en anglais : caché le temps de la traduction (au plus 1,5 s). */
-.i18n-wait body { visibility: hidden; }
 
 /* ---------- Boutons ---------- */
 .btn {
