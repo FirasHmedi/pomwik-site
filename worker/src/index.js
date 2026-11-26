@@ -243,17 +243,12 @@ async function ensureContactTable(env) {
   ).run();
 }
 
-// Notification to the site owner, through Email Routing (the recipient must be a verified destination).
+// Notification to the site owner. With RESEND_API_KEY it goes through Resend to CONTACT_TO (any address,
+// e.g. the Workspace mailbox firas@pomwik.com). Without it, or if Resend fails, it goes through Email Routing
+// to CONTACT_FALLBACK_TO (or OWNER_EMAIL): that recipient must be a verified destination.
 async function sendContactNotice(env, c) {
-  const to = env.CONTACT_TO || env.OWNER_EMAIL;
-  if (!to || !env.OWNER_MAIL) return false;
   const from = env.CONTACT_FROM || env.NOTIFY_FROM;
-  const msg = createMimeMessage();
-  msg.setSender({ name: 'Formulaire pomwik.com', addr: from });
-  msg.setRecipient(to);
-  msg.setHeader('Reply-To', new Mailbox(c.email)); // mimetext only accepts a Mailbox here
-  // The audit subject stays as is (mail filter); a plain message names the page it was sent from.
-  msg.setSubject(c.audit ? `Demande d'audit : ${c.agence} (${c.email})` : `Nouveau message de ${c.nom} (${c.email})${c.page ? ` depuis ${c.page}` : ''}`);
+  const subject = c.audit ? `Demande d'audit : ${c.agence} (${c.email})` : `Nouveau message de ${c.nom} (${c.email})${c.page ? ` depuis ${c.page}` : ''}`;
   const origin = [`Page : ${c.page || '-'}`, `Langue : ${c.lang === 'en' ? 'anglais' : 'français'}`];
   // Optional app details from the contact page (fixed lists, plus a link).
   const app = [`Outil : ${OUTILS[c.outil] || '-'}`, `Lien : ${c.lien || '-'}`, `Blocage : ${BLOCAGES[c.blocage] || '-'}`];
@@ -261,6 +256,24 @@ async function sendContactNotice(env, c) {
     ? ["Nouvelle demande d'audit depuis pomwik.com", '', `Nom : ${c.nom}`, `Agence : ${c.agence}`, `E-mail : ${c.email}`, `Site de l'agence : ${c.siteAgence || '-'}`, `Sites maintenus : ${c.nbSites}`, ...origin, `Date : ${c.created_at}`, '', 'Plateformes et remarques :', c.message || '-']
     : ['Nouveau message depuis le formulaire de contact de pomwik.com', '', `Nom : ${c.nom}`, `E-mail : ${c.email}`, ...app, ...origin, `Date : ${c.created_at}`, '', 'Message :', c.message];
   const body = lines.join('\r\n');
+
+  if (env.RESEND_API_KEY && env.CONTACT_TO) {
+    const r = await fetch('https://api.resend.com/emails', {
+      method: 'POST',
+      headers: { Authorization: `Bearer ${env.RESEND_API_KEY}`, 'Content-Type': 'application/json' },
+      body: JSON.stringify({ from: `Formulaire pomwik.com <${from}>`, to: [env.CONTACT_TO], reply_to: c.email, subject, text: body }),
+    }).catch((e) => e);
+    if (!(r instanceof Error) && r.ok) return true;
+    console.error('resend notice failed', r instanceof Error ? String(r) : r.status);
+  }
+
+  const to = env.CONTACT_FALLBACK_TO || env.OWNER_EMAIL;
+  if (!to || !env.OWNER_MAIL) return false;
+  const msg = createMimeMessage();
+  msg.setSender({ name: 'Formulaire pomwik.com', addr: from });
+  msg.setRecipient(to);
+  msg.setHeader('Reply-To', new Mailbox(c.email)); // mimetext only accepts a Mailbox here
+  msg.setSubject(subject);
   // Accents in the body: send it base64-encoded (mimetext does not encode it by itself), lines of 76 characters.
   msg.addMessage({ contentType: 'text/plain', encoding: 'base64', data: Buffer.from(body, 'utf8').toString('base64').replace(/.{76}/g, '$&\r\n') });
   await env.OWNER_MAIL.send(new EmailMessage(from, to, msg.asRaw()));

@@ -33,10 +33,29 @@ describe('POST /contact', () => {
     expect(mail.text).toContain('Message :\r\nBonjour,\nça marche ?');
   });
 
-  it('sends the notice to OWNER_EMAIL when CONTACT_TO is not set', async () => {
-    const env = makeEnv({ CONTACT_TO: undefined });
+  it('sends the notice to OWNER_EMAIL when CONTACT_FALLBACK_TO is not set', async () => {
+    const env = makeEnv({ CONTACT_FALLBACK_TO: undefined });
     await call(env, '/contact', { body: MESSAGE });
     expect(mails(env)).toMatchObject([{ to: 'owner@example.com' }]);
+  });
+
+  it('sends the notice through Resend to CONTACT_TO, with the visitor as reply-to', async () => {
+    const env = makeEnv({ CONTACT_TO: 'firas@pomwik.com' });
+    const res = await call(env, '/contact', { body: MESSAGE });
+
+    expect(res.status).toBe(200);
+    expect(mails(env)).toEqual([]);
+    const notice = outbound('resend').find((r) => r.body.to[0] === 'firas@pomwik.com');
+    expect(notice.body).toMatchObject({ from: 'Formulaire pomwik.com <contact@pomwik.com>', reply_to: 'elodie@example.fr', subject: 'Nouveau message de Élodie Dupont (elodie@example.fr)' });
+    expect(notice.body.text).toContain('Message :\r\nBonjour,\nça marche ?');
+    expect(await contactLog()).toMatchObject([{ notified: 1, acked: 1 }]);
+  });
+
+  it('falls back to Email Routing when Resend refuses the notice', async () => {
+    net.resend = () => new Response('nope', { status: 500 });
+    const env = makeEnv({ CONTACT_TO: 'firas@pomwik.com' });
+    await call(env, '/contact', { body: MESSAGE });
+    expect(mails(env)).toMatchObject([{ to: 'pomwikapps@gmail.com' }]);
   });
 
   it('sends the visitor a fixed acknowledgement that does not repeat what they typed', async () => {
