@@ -19,7 +19,7 @@ describe('POST /waitlist: valid signup', () => {
     expect(new Date(row.created_at).toISOString()).toBe(row.created_at);
   });
 
-  it.each(['petty', 'fieldwrite', 'settled'])('accepts the %s app', async (app) => {
+  it.each(['petty', 'settled'])('accepts the %s app', async (app) => {
     const res = await join(makeEnv(), { email: 'alice@example.com', app });
     expect(res.status).toBe(200);
     expect(await signups()).toMatchObject([{ app }]);
@@ -32,15 +32,15 @@ describe('POST /waitlist: valid signup', () => {
 
   it('notifies the owner through the send_email binding', async () => {
     const env = makeEnv();
-    await join(env, { email: 'alice@example.com', app: 'fieldwrite', a1: 'Site visits', a2: 'Weekly' });
+    await join(env, { email: 'alice@example.com', app: 'settled', a1: 'Site visits', a2: 'Weekly' });
 
     const [mail, ...others] = mails(env);
     expect(others).toEqual([]);
-    expect(mail).toMatchObject({ from: 'waitlist@pomwik.com', to: 'owner@example.com', subject: '[Fieldwrite] New signup: alice@example.com' });
+    expect(mail).toMatchObject({ from: 'waitlist@pomwik.com', to: 'owner@example.com', subject: '[Settled] New signup: alice@example.com' });
     expect(mail.text).toContain('Email: alice@example.com');
     expect(mail.text).toContain('Answer 1: Site visits');
     expect(mail.text).toContain('Answer 2: Weekly');
-    expect(mail.text).toContain('Total for Fieldwrite: 1');
+    expect(mail.text).toContain('Total for Settled: 1');
     expect(await signups()).toMatchObject([{ owner_notified: 1 }]);
   });
 
@@ -147,7 +147,7 @@ describe('POST /waitlist: invalid input', () => {
     expect(await signups()).toEqual([]);
   });
 
-  it.each([undefined, 'unknown', 'toString', '__proto__'])('rejects the app %j with 400 invalid_app', async (app) => {
+  it.each([undefined, 'unknown', 'fieldwrite', 'toString', '__proto__'])('rejects the app %j with 400 invalid_app', async (app) => {
     const res = await join(makeEnv(), { email: 'alice@example.com', app });
 
     expect(res.status).toBe(400);

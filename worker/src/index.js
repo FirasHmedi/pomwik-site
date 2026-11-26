@@ -8,7 +8,6 @@ const ALLOWED_ORIGINS = new Set(['https://pomwik.com', 'https://www.pomwik.com',
 
 const APPS = {
   petty: { name: 'Petty', tagline: 'watch your puppy or kitten grow' },
-  fieldwrite: { name: 'Fieldwrite', tagline: 'field reports in minutes, from your phone' },
   settled: { name: 'Settled', tagline: 'your first 30 days in a new country, step by step' },
 };
 
@@ -190,7 +189,7 @@ async function retryPending(env) {
   const { results } = await env.DB.prepare(
     `SELECT * FROM signups
       WHERE unsubscribed = 0 AND (welcome_sent = 0 OR owner_notified = 0)
-        AND token IS NOT NULL AND app IN ('petty', 'fieldwrite', 'settled')
+        AND token IS NOT NULL AND app IN ('petty', 'settled')
         AND created_at < ?1 AND created_at > ?2
       ORDER BY id LIMIT 20`
   )
