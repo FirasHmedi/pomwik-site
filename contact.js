@@ -47,7 +47,10 @@ document.querySelectorAll('form.contact-form').forEach((form) => {
   // Nom du champ tel qu'affiché, sans la mention « (facultatif) ».
   const labelOf = (f) => {
     const l = form.querySelector(`label[for="${f.id}"]`);
-    return l ? l.childNodes[0].textContent.trim() : f.name;
+    if (!l) return f.name;
+    // Libellé bilingue (lang.js) : le texte de la langue affichée.
+    const shown = l.querySelector(`[data-lang="${isEN() ? 'en' : 'fr'}"]`);
+    return (shown || l.childNodes[0]).textContent.trim();
   };
 
   form.addEventListener('submit', async (e) => {

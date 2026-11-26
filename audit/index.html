@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="fr">
+<html lang="fr" data-show="fr" data-title-en="Pomwik · we check that your forms really send">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -8,6 +8,8 @@
   <meta name="theme-color" content="#EEF5FF" media="(prefers-color-scheme: light)">
   <meta name="theme-color" content="#071229" media="(prefers-color-scheme: dark)">
   <link rel="canonical" href="https://pomwik.com/audit/">
+  <link rel="alternate" hreflang="fr" href="https://pomwik.com/audit/">
+  <link rel="alternate" hreflang="en" href="https://pomwik.com/audit/?lang=en">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Pomwik">
@@ -22,63 +24,67 @@
   <meta name="twitter:card" content="summary_large_image">
   <script>document.documentElement.classList.add("js")</script>
   <link rel="stylesheet" href="/style.css">
+  <script src="/lang.js"></script>
 </head>
 <body>
-  <a class="skip" href="#main">Aller au contenu</a>
+  <a class="skip" href="#main"><span data-lang="fr">Aller au contenu</span><span data-lang="en">Skip to content</span></a>
 
   <header class="nav">
-    <a class="brand" href="/" aria-label="Accueil Pomwik">
+    <a class="brand" href="/" aria-label="Pomwik">
       <img src="/favicon.svg" alt="" width="32" height="32">
       <span>Pomwik</span>
     </a>
-    <nav aria-label="Principal">
-      <a href="#controles">Ce qu'on teste</a>
-      <a href="/exemple-rapport.pdf">Exemple de rapport</a>
+    <nav aria-label="Menu">
+      <a href="#controles"><span data-lang="fr">Ce qu'on teste</span><span data-lang="en">What we test</span></a>
+      <a href="/exemple-rapport.pdf"><span data-lang="fr">Exemple de rapport</span><span data-lang="en">Sample report (FR)</span></a>
       <a href="#faq">Questions</a>
-      <a class="btn btn-small" href="#audit">Essai gratuit</a>
+      <button class="lang-switch" type="button" data-lang-switch aria-label="Read this page in English" lang="en">EN</button>
+      <a class="btn btn-small" href="#audit"><span data-lang="fr">Essai gratuit</span><span data-lang="en">Free trial</span></a>
     </nav>
   </header>
 
   <main id="main">
     <section class="hero" id="top">
       <div class="hero-copy">
-        <p class="eyebrow">Pour les entreprises et les agences web</p>
-        <h1>On vérifie que votre formulaire <em>envoie vraiment les messages.</em></h1>
-        <p class="lede">Pomwik remplit le formulaire de votre site comme un visiteur, vérifie que l'envoi est accepté et que l'accusé de réception arrive, et teste le panier jusqu'à la page de paiement. Si ça ne marche pas, on vous dit pourquoi et comment le réparer.</p>
+        <p class="eyebrow"><span data-lang="fr">Pour les entreprises et les agences web</span><span data-lang="en">For businesses and web agencies</span></p>
+        <h1><span data-lang="fr">On vérifie que votre formulaire <em>envoie vraiment les messages.</em></span><span data-lang="en">We check that your form <em>really sends the messages.</em></span></h1>
+        <p class="lede" data-lang="fr">Pomwik remplit le formulaire de votre site comme un visiteur, vérifie que l'envoi est accepté et que l'accusé de réception arrive, et teste le panier jusqu'à la page de paiement. Si ça ne marche pas, on vous dit pourquoi et comment le réparer.</p>
+        <p class="lede" data-lang="en">Pomwik fills in your site's form like a visitor, checks that the submission is accepted and that the confirmation email arrives, and tests the cart up to the payment page. If something doesn't work, we tell you why and how to fix it.</p>
         <div class="cta">
-          <a class="btn" href="#audit">Essai gratuit</a>
-          <a class="btn btn-ghost" href="/exemple-rapport.pdf">Voir un exemple de rapport</a>
+          <a class="btn" href="#audit"><span data-lang="fr">Essai gratuit</span><span data-lang="en">Free trial</span></a>
+          <a class="btn btn-ghost" href="/exemple-rapport.pdf"><span data-lang="fr">Voir un exemple de rapport</span><span data-lang="en">See a sample report (FR)</span></a>
         </div>
-        <p class="hero-note">WordPress, Shopify, Wix, Webflow, PrestaShop ou sur-mesure. Rien à installer.</p>
+        <p class="hero-note"><span data-lang="fr">WordPress, Shopify, Wix, Webflow, PrestaShop ou sur-mesure. Rien à installer.</span><span data-lang="en">WordPress, Shopify, Wix, Webflow, PrestaShop or custom. Nothing to install.</span></p>
       </div>
 
-      <div class="report-card" role="figure" aria-label="Exemple de rapport Pomwik (sites fictifs)">
+      <div class="report-card" role="figure" aria-label="Exemple de rapport Pomwik (sites fictifs) / Sample Pomwik report (fictional sites)">
         <div class="rc-head">
-          <span>Rapport d'audit</span>
-          <span class="rc-tag">Exemple</span>
+          <span><span data-lang="fr">Rapport d'audit</span><span data-lang="en">Audit report</span></span>
+          <span class="rc-tag"><span data-lang="fr">Exemple</span><span data-lang="en">Sample</span></span>
         </div>
         <ul class="rc-list">
-          <li><span class="st st-ok">OK</span><span><b>Formulaire de contact</b><small>plomberie-dupont.exemple · confirmation lue · 06:12</small></span></li>
-          <li><span class="st st-ok">OK</span><span><b>Accusé de réception reçu</b><small>envoyé par le site au visiteur · 2 s</small></span></li>
-          <li><span class="st st-ok">OK</span><span><b>Données du formulaire</b><small>plomberie-dupont.exemple · rien envoyé à des tiers</small></span></li>
-          <li><span class="st st-ko">Échec</span><span><b>Envoi refusé par le serveur</b><small>cabinet-avocats.exemple · le site affiche «&nbsp;merci&nbsp;»</small></span></li>
-          <li><span class="st st-warn">À corriger</span><span><b>Réglages e-mail du domaine</b><small>cabinet-avocats.exemple · DMARC manquant</small></span></li>
+          <li><span class="st st-ok">OK</span><span><b><span data-lang="fr">Formulaire de contact</span><span data-lang="en">Contact form</span></b><small>plomberie-dupont.exemple · <span data-lang="fr">confirmation lue</span><span data-lang="en">confirmation read</span> · 06:12</small></span></li>
+          <li><span class="st st-ok">OK</span><span><b><span data-lang="fr">Accusé de réception reçu</span><span data-lang="en">Confirmation email received</span></b><small><span data-lang="fr">envoyé par le site au visiteur</span><span data-lang="en">sent by the site to the visitor</span> · 2 s</small></span></li>
+          <li><span class="st st-ok">OK</span><span><b><span data-lang="fr">Données du formulaire</span><span data-lang="en">Form data</span></b><small>plomberie-dupont.exemple · <span data-lang="fr">rien envoyé à des tiers</span><span data-lang="en">nothing sent to third parties</span></small></span></li>
+          <li><span class="st st-ko"><span data-lang="fr">Échec</span><span data-lang="en">Failed</span></span><span><b><span data-lang="fr">Envoi refusé par le serveur</span><span data-lang="en">Submission rejected by the server</span></b><small>cabinet-avocats.exemple · <span data-lang="fr">le site affiche «&nbsp;merci&nbsp;»</span><span data-lang="en">the site still says “thank you”</span></small></span></li>
+          <li><span class="st st-warn"><span data-lang="fr">À corriger</span><span data-lang="en">To fix</span></span><span><b><span data-lang="fr">Réglages e-mail du domaine</span><span data-lang="en">Domain email settings</span></b><small>cabinet-avocats.exemple · <span data-lang="fr">DMARC manquant</span><span data-lang="en">DMARC missing</span></small></span></li>
         </ul>
-        <p class="rc-foot">Une capture datée à chaque étape.</p>
+        <p class="rc-foot"><span data-lang="fr">Une capture datée à chaque étape.</span><span data-lang="en">A dated screenshot at every step.</span></p>
       </div>
     </section>
 
     <section class="section">
       <div class="text-block reveal">
-        <h2>Un formulaire peut se casser sans prévenir</h2>
-        <p>Après une mise à jour ou un changement de DNS, il peut continuer d'afficher «&nbsp;Merci&nbsp;» sans plus rien envoyer. En général, on s'en aperçoit des semaines plus tard, quand les demandes de devis ont disparu.</p>
+        <h2><span data-lang="fr">Un formulaire peut se casser sans prévenir</span><span data-lang="en">A form can break without warning</span></h2>
+        <p data-lang="fr">Après une mise à jour ou un changement de DNS, il peut continuer d'afficher «&nbsp;Merci&nbsp;» sans plus rien envoyer. En général, on s'en aperçoit des semaines plus tard, quand les demandes de devis ont disparu.</p>
+        <p data-lang="en">After an update or a DNS change, it can keep showing “Thank you” while sending nothing. Usually, people notice weeks later, when quote requests have dried up.</p>
       </div>
     </section>
 
     <section class="section" id="controles">
       <div class="text-block reveal">
-        <h2>Ce qu'on teste</h2>
-        <ul class="plain-list">
+        <h2><span data-lang="fr">Ce qu'on teste</span><span data-lang="en">What we test</span></h2>
+        <ul class="plain-list" data-lang="fr">
           <li>Le formulaire est rempli avec des données marquées [TEST], puis envoyé.</li>
           <li>On vérifie que le serveur accepte l'envoi et, quand le site envoie un accusé de réception, qu'il arrive, en combien de temps, et s'il finit en spam.</li>
           <li>Sur une boutique, le test va jusqu'à la page de paiement, sans rien payer.</li>
@@ -89,14 +95,27 @@
           <li>Les liens cassés, chaque semaine.</li>
           <li>Aussi inclus : l'inscription à la newsletter, le mot de passe oublié, la création de compte et la réservation en ligne, sans jamais réserver.</li>
         </ul>
+        <ul class="plain-list" data-lang="en">
+          <li>The form is filled in with data marked [TEST], then submitted.</li>
+          <li>We check that the server accepts the submission and, when the site sends a confirmation email, that it arrives, how long it takes, and whether it lands in spam.</li>
+          <li>On a shop, the test goes up to the payment page, without paying anything.</li>
+          <li>We look at the domain's email settings (MX, SPF, DMARC).</li>
+          <li>Cookies: we click “Reject” and check that nothing goes to Google or Meta anymore. We also look at cookie lifetimes and the reject button.</li>
+          <li>Accessibility: automatically detected issues, mapped to the French RGAA criteria, on the home page and about ten pages.</li>
+          <li>Security, seen from outside: redirect to another site, injected spam, defaced page, new script on the payment page. We detect it and alert you.</li>
+          <li>Broken links, every week.</li>
+          <li>Also included: newsletter sign-up, forgotten password, account creation and online booking, without ever booking.</li>
+        </ul>
       </div>
     </section>
 
     <section class="section" id="solution">
       <div class="text-block reveal">
-        <h2>Quand quelque chose ne marche pas</h2>
-        <p>Le rapport montre chaque étape en capture d'écran et dit ce qu'il faut corriger. Si vous voulez, on vous aide à le faire, puis on refait le test pour vérifier. Ensuite, on vérifie vos sites chaque jour et on vous prévient seulement si quelque chose casse. Pour les agences, le rapport à votre logo est inclus.</p>
-        <p>En octobre 2026, l'outil a retrouvé les 23 formulaires présents sur 30 vrais sites, sans rien y installer. 12 de ces domaines avaient un réglage e-mail manquant. <a href="/exemple-rapport.pdf">Voir un exemple de rapport (PDF)</a></p>
+        <h2><span data-lang="fr">Quand quelque chose ne marche pas</span><span data-lang="en">When something doesn't work</span></h2>
+        <p data-lang="fr">Le rapport montre chaque étape en capture d'écran et dit ce qu'il faut corriger. Si vous voulez, on vous aide à le faire, puis on refait le test pour vérifier. Ensuite, on vérifie vos sites chaque jour et on vous prévient seulement si quelque chose casse. Pour les agences, le rapport à votre logo est inclus.</p>
+        <p data-lang="en">The report shows every step as a screenshot and says what to fix. If you want, we help you do it, then run the test again to check. After that, we check your sites every day and only alert you when something breaks. For agencies, the report with your logo is included.</p>
+        <p data-lang="fr">En octobre 2026, l'outil a retrouvé les 23 formulaires présents sur 30 vrais sites, sans rien y installer. 12 de ces domaines avaient un réglage e-mail manquant. <a href="/exemple-rapport.pdf">Voir un exemple de rapport (PDF)</a></p>
+        <p data-lang="en">In October 2026, the tool found all 23 forms present on 30 real sites, without installing anything. 12 of those domains had a missing email setting. <a href="/exemple-rapport.pdf">See a sample report (PDF, in French)</a></p>
       </div>
     </section>
 
@@ -105,24 +124,29 @@
         <h2 class="reveal">Questions</h2>
         <div class="faq">
           <details class="reveal">
-            <summary>Faut-il installer quelque chose&nbsp;?</summary>
-            <p>Non. Pomwik visite le site de l'extérieur, comme n'importe quel visiteur. Pas de plugin, pas d'accès à vos serveurs.</p>
+            <summary><span data-lang="fr">Faut-il installer quelque chose&nbsp;?</span><span data-lang="en">Do I need to install anything?</span></summary>
+            <p data-lang="fr">Non. Pomwik visite le site de l'extérieur, comme n'importe quel visiteur. Pas de plugin, pas d'accès à vos serveurs.</p>
+            <p data-lang="en">No. Pomwik visits the site from outside, like any visitor. No plugin, no access to your servers.</p>
           </details>
           <details class="reveal">
-            <summary>Vais-je recevoir des messages de test&nbsp;?</summary>
-            <p>Oui, un par passage. Ils commencent par [TEST] et contiennent «&nbsp;Réf. pomwik&nbsp;», ils sont donc faciles à filtrer.</p>
+            <summary><span data-lang="fr">Vais-je recevoir des messages de test&nbsp;?</span><span data-lang="en">Will I receive test messages?</span></summary>
+            <p data-lang="fr">Oui, un par passage. Ils commencent par [TEST] et contiennent «&nbsp;Réf. pomwik&nbsp;», ils sont donc faciles à filtrer.</p>
+            <p data-lang="en">Yes, one per run. They start with [TEST] and contain “Réf. pomwik”, so they are easy to filter.</p>
           </details>
           <details class="reveal">
-            <summary>Est-ce sans risque pour le site&nbsp;?</summary>
-            <p>On teste seulement avec votre accord écrit. On ne paie jamais et on ne contourne jamais un CAPTCHA. Les mesures publicitaires sont bloquées pendant le test, donc aucune fausse conversion.</p>
+            <summary><span data-lang="fr">Est-ce sans risque pour le site&nbsp;?</span><span data-lang="en">Is it safe for the site?</span></summary>
+            <p data-lang="fr">On teste seulement avec votre accord écrit. On ne paie jamais et on ne contourne jamais un CAPTCHA. Les mesures publicitaires sont bloquées pendant le test, donc aucune fausse conversion.</p>
+            <p data-lang="en">We only test with your written consent. We never pay and never bypass a CAPTCHA. Ad tracking is blocked during the test, so there are no fake conversions.</p>
           </details>
           <details class="reveal">
-            <summary>Et mes données&nbsp;?</summary>
-            <p>Les tests utilisent des données fictives et Pomwik ne collecte rien sur vos visiteurs. Le détail est dans la <a href="/privacy.html">politique de confidentialité</a>.</p>
+            <summary><span data-lang="fr">Et mes données&nbsp;?</span><span data-lang="en">What about my data?</span></summary>
+            <p data-lang="fr">Les tests utilisent des données fictives et Pomwik ne collecte rien sur vos visiteurs. Le détail est dans la <a href="/privacy.html">politique de confidentialité</a>.</p>
+            <p data-lang="en">Tests use fictional data and Pomwik collects nothing about your visitors. Details are in the <a href="/privacy-en.html">privacy policy</a>.</p>
           </details>
           <details class="reveal">
-            <summary>Combien ça coûte&nbsp;?</summary>
-            <p>L'audit est gratuit, jusqu'à 5 sites. Le prix par site et par mois sera fixé avec les agences fondatrices.</p>
+            <summary><span data-lang="fr">Combien ça coûte&nbsp;?</span><span data-lang="en">How much does it cost?</span></summary>
+            <p data-lang="fr">L'audit est gratuit, jusqu'à 5 sites. Le prix par site et par mois sera fixé avec les agences fondatrices.</p>
+            <p data-lang="en">The audit is free, for up to 5 sites. The price per site per month will be set with the founding agencies.</p>
           </details>
         </div>
       </div>
@@ -131,45 +155,47 @@
     <section class="section" id="audit">
       <div class="audit-wrap">
         <div class="audit-intro reveal">
-          <h2>Essai gratuit</h2>
-          <p>Jusqu'à 5 sites, le vôtre ou ceux de vos clients. On vous répond sous 12 heures avec le formulaire d'accord.</p>
-          <p class="audit-mail">Vous pouvez aussi écrire à <a href="mailto:hello@pomwik.com">hello@pomwik.com</a>.</p>
+          <h2><span data-lang="fr">Essai gratuit</span><span data-lang="en">Free trial</span></h2>
+          <p data-lang="fr">Jusqu'à 5 sites, le vôtre ou ceux de vos clients. On vous répond sous 12 heures avec le formulaire d'accord.</p>
+        <p data-lang="en">Up to 5 sites, yours or your clients'. We reply within 12 hours with the consent form.</p>
+          <p class="audit-mail"><span data-lang="fr">Vous pouvez aussi écrire à</span><span data-lang="en">You can also write to</span> <a href="mailto:hello@pomwik.com">hello@pomwik.com</a>.</p>
         </div>
         <form class="contact-form audit-form reveal" data-endpoint="https://api.pomwik.com/contact" data-type="audit" novalidate>
           <div class="row2">
             <div>
-              <label for="nom">Nom</label>
+              <label for="nom"><span data-lang="fr">Nom</span><span data-lang="en">Name</span></label>
               <input id="nom" type="text" name="nom" autocomplete="name" required maxlength="100">
             </div>
             <div>
-              <label for="agence">Entreprise ou agence</label>
+              <label for="agence"><span data-lang="fr">Entreprise ou agence</span><span data-lang="en">Company or agency</span></label>
               <input id="agence" type="text" name="agence" autocomplete="organization" required maxlength="100">
             </div>
           </div>
-          <label for="email">E-mail professionnel</label>
+          <label for="email"><span data-lang="fr">E-mail professionnel</span><span data-lang="en">Work email</span></label>
           <input id="email" type="text" inputmode="email" name="email" autocomplete="email" autocapitalize="off" spellcheck="false" required maxlength="254">
           <div class="row2">
             <div>
-              <label for="site_agence">Votre site</label>
-              <input id="site_agence" type="text" inputmode="url" name="site_agence" autocomplete="url" autocapitalize="off" spellcheck="false" placeholder="monsite.fr" maxlength="200">
+              <label for="site_agence"><span data-lang="fr">Votre site</span><span data-lang="en">Your website</span></label>
+              <input id="site_agence" type="text" inputmode="url" name="site_agence" autocomplete="url" autocapitalize="off" spellcheck="false" placeholder="monsite.fr" data-ph-en="mysite.com" maxlength="200">
             </div>
             <div>
-              <label for="nb_sites">Nombre de sites</label>
+              <label for="nb_sites"><span data-lang="fr">Nombre de sites</span><span data-lang="en">Number of sites</span></label>
               <select id="nb_sites" name="nb_sites" required>
-                <option value="">Choisir</option>
-                <option>1 à 10</option>
-                <option>11 à 30</option>
-                <option>31 à 100</option>
-                <option>Plus de 100</option>
+                <option value="" data-en="Choose">Choisir</option>
+                <option value="1 à 10" data-en="1 to 10">1 à 10</option>
+                <option value="11 à 30" data-en="11 to 30">11 à 30</option>
+                <option value="31 à 100" data-en="31 to 100">31 à 100</option>
+                <option value="Plus de 100" data-en="More than 100">Plus de 100</option>
               </select>
             </div>
           </div>
-          <label for="message">Un mot sur vos sites <span class="opt">(facultatif)</span></label>
-          <textarea id="message" name="message" maxlength="4000" placeholder="Par exemple : un site WordPress et une boutique Shopify"></textarea>
+          <label for="message"><span data-lang="fr">Un mot sur vos sites</span><span data-lang="en">A word about your sites</span> <span class="opt"><span data-lang="fr">(facultatif)</span><span data-lang="en">(optional)</span></span></label>
+          <textarea id="message" name="message" maxlength="4000" placeholder="Par exemple : un site WordPress et une boutique Shopify" data-ph-en="For example: a WordPress site and a Shopify store"></textarea>
           <input class="hp" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
-          <button class="btn" type="submit">Demander l'essai gratuit</button>
+          <button class="btn" type="submit"><span data-lang="fr">Demander l'essai gratuit</span><span data-lang="en">Request the free trial</span></button>
           <p class="msg" role="status" aria-live="polite"></p>
-          <p class="fine">On utilise ces informations seulement pour vous répondre. <a href="/privacy.html">Confidentialité</a></p>
+          <p class="fine" data-lang="fr">On utilise ces informations seulement pour vous répondre. <a href="/privacy.html">Confidentialité</a></p>
+          <p class="fine" data-lang="en">We only use this information to reply to you. <a href="/privacy-en.html">Privacy</a></p>
         </form>
       </div>
     </section>
@@ -180,7 +206,7 @@
       <img src="/favicon.svg" alt="" width="24" height="24">
       <span>Pomwik</span>
     </div>
-    <p>&copy; <span id="year">2026</span> Pomwik &middot; <a href="/contact/">Contact</a> &middot; <a href="/mentions-legales.html">Mentions légales</a> &middot; <a href="/privacy.html">Confidentialité</a></p>
+    <p>&copy; <span id="year">2026</span> Pomwik &middot; <a href="/contact/">Contact</a> &middot; <a href="/mentions-legales.html"><span data-lang="fr">Mentions légales</span><span data-lang="en">Legal notice</span></a> &middot; <a href="/privacy.html"><span data-lang="fr">Confidentialité</span><span data-lang="en">Privacy</span></a></p>
   </footer>
 
   <script src="/app.js"></script>

@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-show="en" data-default="en" data-title-fr="Pomwik · apps React Native sur Realm® : continuer à publier, puis passer à SQLite">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -8,6 +8,8 @@
   <meta name="theme-color" content="#F7F9FC" media="(prefers-color-scheme: light)">
   <meta name="theme-color" content="#0A1426" media="(prefers-color-scheme: dark)">
   <link rel="canonical" href="https://pomwik.com/realm/">
+  <link rel="alternate" hreflang="en" href="https://pomwik.com/realm/">
+  <link rel="alternate" hreflang="fr" href="https://pomwik.com/realm/?lang=fr">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Pomwik">
@@ -22,162 +24,242 @@
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image" content="https://pomwik.com/realm/og-realm.png">
   <link rel="stylesheet" href="/accueil.css">
+  <script src="/lang.js"></script>
 </head>
 <body>
-  <a class="skip" href="#main">Skip to content</a>
+  <a class="skip" href="#main" data-lang="en">Skip to content</a>
+  <a class="skip" href="#main" data-lang="fr">Aller au contenu</a>
 
   <header class="nav wrap">
-    <a class="brand" href="/" aria-label="Pomwik home (French)">
+    <a class="brand" href="/" aria-label="Pomwik">
       <img src="/favicon.svg" alt="" width="32" height="32">
       <span>Pomwik</span>
     </a>
-    <nav aria-label="Main">
-      <a class="nav-link" href="#how">How it works</a>
-      <a class="nav-link" href="#proof">What is tested</a>
-      <a class="nav-link" href="#faq">FAQ</a>
-      <a class="btn btn-small" href="#check">Free 15-min check</a>
+    <nav aria-label="Menu">
+      <a class="nav-link" href="#how" data-lang="en">How it works</a>
+      <a class="nav-link" href="#how" data-lang="fr">Les options</a>
+      <a class="nav-link" href="#proof" data-lang="en">What is tested</a>
+      <a class="nav-link" href="#proof" data-lang="fr">Ce qui est testé</a>
+      <a class="nav-link" href="#faq" data-lang="en">FAQ</a>
+      <a class="nav-link" href="#faq" data-lang="fr">Questions</a>
+      <button class="lang-switch" type="button" data-lang-switch aria-label="Lire cette page en français" lang="fr">FR</button>
+      <a class="btn btn-small" href="#check" data-lang="en">Free 15-min check</a>
+      <a class="btn btn-small" href="#check" data-lang="fr">Vérification gratuite</a>
     </nav>
   </header>
 
   <main id="main">
+    <div class="context wrap">
+      <p data-lang="en"><strong>Pomwik takes over and finishes stuck web and mobile apps.</strong> This page covers one case we know well: React Native apps still built on Realm, the mobile database that MongoDB stopped supporting in 2025. <a href="/?lang=en">See everything we do</a></p>
+      <p data-lang="fr"><strong>Pomwik reprend et termine les applications web et mobiles bloquées.</strong> Cette page couvre un cas qu'on connaît bien&nbsp;: les apps React Native qui utilisent encore Realm, la base de données mobile que MongoDB ne maintient plus depuis 2025. <a href="/?lang=fr">Voir tout ce qu'on fait</a></p>
+    </div>
     <section class="hero wrap">
       <div>
-        <p class="eyebrow">For teams with a React Native app on Realm®</p>
-        <h1>Your app still runs on Realm. Let's keep it shipping.</h1>
-        <p class="lede">MongoDB deprecated Realm in September 2024 and ended support on 30 September 2025. Since then, users have reported build failures on newer React Native and Xcode versions. We help you keep your app building, then move your local data to SQLite. Our converter checks every object on copies of your files.</p>
+        <p class="eyebrow" data-lang="en">For teams with a React Native app on Realm®</p>
+        <p class="eyebrow" data-lang="fr">Pour les équipes avec une app React Native sur Realm®</p>
+        <h1 data-lang="en">Your app still runs on Realm. Let's keep it shipping.</h1>
+        <h1 data-lang="fr">Votre app tourne encore sur Realm. Continuons à la publier.</h1>
+        <p class="lede" data-lang="en">MongoDB deprecated Realm in September 2024 and ended support on 30 September 2025. Since then, users have reported build failures on newer React Native and Xcode versions. We help you keep your app building, then move your local data to SQLite. Our converter checks every object on copies of your files.</p>
+        <p class="lede" data-lang="fr">MongoDB a annoncé l'abandon de Realm en septembre 2024 et arrêté son support le 30 septembre 2025. Depuis, des utilisateurs signalent des builds qui échouent avec les nouvelles versions de React Native et de Xcode. On vous aide à garder votre app compilable, puis à passer vos données locales sur SQLite. Notre convertisseur vérifie chaque objet, sur des copies de vos fichiers.</p>
         <div class="cta">
-          <a class="btn" href="#check">Get a free 15-minute check</a>
-          <a class="btn btn-ghost" href="#how">See the options</a>
+          <a class="btn" href="#check" data-lang="en">Get a free 15-minute check</a>
+          <a class="btn" href="#check" data-lang="fr">Demander une vérification gratuite de 15 minutes</a>
+          <a class="btn btn-ghost" href="#how" data-lang="en">See the options</a>
+          <a class="btn btn-ghost" href="#how" data-lang="fr">Voir les options</a>
         </div>
-        <p class="note">Reply within 12 hours. Fixed price after the check.</p>
+        <p class="note" data-lang="en">Reply within 12 hours. Fixed price after the check.</p>
+        <p class="note" data-lang="fr">Réponse sous 12 heures. Prix fixe après la vérification.</p>
       </div>
       <aside class="panel" aria-labelledby="breaks">
-        <h2 id="breaks">What Realm users report</h2>
+        <h2 id="breaks" data-lang="en">What Realm users report</h2>
+        <h2 data-lang="fr">Ce que signalent les utilisateurs de Realm</h2>
         <ul class="checks dots">
-          <li>iOS link errors on React Native 0.86 and later (<a href="https://github.com/realm/realm-js/pull/7157">#7157</a>)</li>
-          <li>Xcode 26.4 build error on <code>is_pod</code> (<a href="https://github.com/realm/realm-js/issues/7115">#7115</a>)</li>
-          <li><code>npm ci</code> timing out on install-time downloads (<a href="https://github.com/realm/realm-js/issues/7119">#7119</a>)</li>
-          <li>Android builds blocked when static.realm.io is down (<a href="https://github.com/realm/realm-js/issues/7044">#7044</a>)</li>
-          <li>Google Play warnings about 16 KB page sizes (<a href="https://github.com/realm/realm-js/issues/7129">#7129</a>). From 1 February 2027, Google Play refuses app updates that do not support 16 KB pages (<a href="https://developer.android.com/guide/practices/page-sizes">Android Developers</a>)</li>
+          <li data-lang="en">iOS link errors on React Native 0.86 and later (<a href="https://github.com/realm/realm-js/pull/7157">#7157</a>)</li>
+          <li data-lang="fr">Erreurs d'édition de liens iOS à partir de React Native 0.86 (<a href="https://github.com/realm/realm-js/pull/7157">#7157</a>)</li>
+          <li data-lang="en">Xcode 26.4 build error on <code>is_pod</code> (<a href="https://github.com/realm/realm-js/issues/7115">#7115</a>)</li>
+          <li data-lang="fr">Erreur de build Xcode 26.4 sur <code>is_pod</code> (<a href="https://github.com/realm/realm-js/issues/7115">#7115</a>)</li>
+          <li data-lang="en"><code>npm ci</code> timing out on install-time downloads (<a href="https://github.com/realm/realm-js/issues/7119">#7119</a>)</li>
+          <li data-lang="fr"><code>npm ci</code> bloqué par des téléchargements pendant l'installation (<a href="https://github.com/realm/realm-js/issues/7119">#7119</a>)</li>
+          <li data-lang="en">Android builds blocked when static.realm.io is down (<a href="https://github.com/realm/realm-js/issues/7044">#7044</a>)</li>
+          <li data-lang="fr">Builds Android bloqués quand static.realm.io est en panne (<a href="https://github.com/realm/realm-js/issues/7044">#7044</a>)</li>
+          <li data-lang="en">Google Play warnings about 16 KB page sizes (<a href="https://github.com/realm/realm-js/issues/7129">#7129</a>). From 1 February 2027, Google Play refuses app updates that do not support 16 KB pages (<a href="https://developer.android.com/guide/practices/page-sizes">Android Developers</a>)</li>
+          <li data-lang="fr">Avertissements de Google Play sur les pages mémoire de 16 Ko (<a href="https://github.com/realm/realm-js/issues/7129">#7129</a>). À partir du 1er février 2027, Google Play refuse les mises à jour d'apps qui ne gèrent pas les pages de 16 Ko (<a href="https://developer.android.com/guide/practices/page-sizes">Android Developers</a>)</li>
         </ul>
-        <p class="note">Issues and pull requests on realm/realm-js, written by Realm users. Cause and fix for each: <a href="/realm/errors/">Realm build errors in 2026</a>.</p>
+        <p class="note" data-lang="en">Issues and pull requests on realm/realm-js, written by Realm users. Cause and fix for each: <a href="/realm/errors/">Realm build errors in 2026</a>.</p>
+        <p class="note" data-lang="fr">Tickets et pull requests sur realm/realm-js, écrits par des utilisateurs de Realm. Cause et solution pour chacun (en anglais)&nbsp;: <a href="/realm/errors/">Realm build errors in 2026</a>.</p>
       </aside>
     </section>
 
     <section class="section wrap" id="how" aria-labelledby="t-how">
-      <h2 id="t-how">Three ways we can help</h2>
+      <h2 id="t-how" data-lang="en">Three ways we can help</h2>
+      <h2 data-lang="fr">Trois façons de vous aider</h2>
       <div class="grid">
         <article class="card">
           <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg>
-          <h3>Know your risk</h3>
-          <p>A short fixed-price diagnostic: what is likely to break next, and the cheapest way out (keep, patch or migrate).</p>
+          <h3 data-lang="en">Know your risk</h3>
+          <h3 data-lang="fr">Connaître votre risque</h3>
+          <p data-lang="en">A short fixed-price diagnostic: what is likely to break next, and the cheapest way out (keep, patch or migrate).</p>
+          <p data-lang="fr">Un court diagnostic à prix fixe&nbsp;: ce qui risque de casser ensuite, et la sortie la moins chère (garder, corriger ou migrer).</p>
         </article>
         <article class="card">
           <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M14.7 6.3a4 4 0 0 0-5.4 5.4L3 18l3 3 6.3-6.3a4 4 0 0 0 5.4-5.4l-2.5 2.5-2.5-.5-.5-2.5z"/></svg>
-          <h3>Keep your app building</h3>
-          <p><a href="https://github.com/FirasHmedi/afterdb">afterdb</a> is an independent open-source fork of the realm-js SDK (v20) that we maintain (see its <a href="https://github.com/FirasHmedi/afterdb#maintenance-policy">maintenance policy</a>). It builds and runs on Android emulators (React Native 0.86 to 0.88, Expo SDK 56 to 58) and on the iPhone simulator (React Native 0.86 to 0.88 with Xcode 26.6, React Native 0.88.1 with Xcode 26.4.1), with nothing downloaded at install. Your code keeps <code>import Realm from "realm"</code>.</p>
+          <h3 data-lang="en">Keep your app building</h3>
+          <h3 data-lang="fr">Garder votre app compilable</h3>
+          <p data-lang="en"><a href="https://github.com/FirasHmedi/afterdb">afterdb</a> is an independent open-source fork of the realm-js SDK (v20) that we maintain (see its <a href="https://github.com/FirasHmedi/afterdb#maintenance-policy">maintenance policy</a>). It builds and runs on Android emulators (React Native 0.86 to 0.88, Expo SDK 56 to 58) and on the iPhone simulator (React Native 0.86 to 0.88 with Xcode 26.6, React Native 0.88.1 with Xcode 26.4.1), with nothing downloaded at install. Your code keeps <code>import Realm from "realm"</code>.</p>
+          <p data-lang="fr"><a href="https://github.com/FirasHmedi/afterdb">afterdb</a> est un fork open source indépendant du SDK realm-js (v20), que nous maintenons (voir sa <a href="https://github.com/FirasHmedi/afterdb#maintenance-policy">politique de maintenance</a>). Il compile et tourne sur émulateurs Android (React Native 0.86 à 0.88, Expo SDK 56 à 58) et sur le simulateur iPhone (React Native 0.86 à 0.88 avec Xcode 26.6, React Native 0.88.1 avec Xcode 26.4.1), sans rien télécharger à l'installation. Votre code garde <code>import Realm from "realm"</code>.</p>
         </article>
         <article class="card">
           <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v14c0 1.7 3.6 3 8 3s8-1.3 8-3V5"/><path d="M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/></svg>
-          <h3>Move to SQLite</h3>
-          <p>We plan and build the move with you. Our open-source converter runs on a computer and checks every object, on copies of your <code>.realm</code> files, encrypted ones included.</p>
+          <h3 data-lang="en">Move to SQLite</h3>
+          <h3 data-lang="fr">Passer à SQLite</h3>
+          <p data-lang="en">We plan and build the move with you. Our open-source converter runs on a computer and checks every object, on copies of your <code>.realm</code> files, encrypted ones included.</p>
+          <p data-lang="fr">On prépare et on réalise la migration avec vous. Notre convertisseur open source tourne sur un ordinateur et vérifie chaque objet, sur des copies de vos fichiers <code>.realm</code>, chiffrés compris.</p>
         </article>
       </div>
       <div class="panel install">
-        <h3>Use afterdb in your app</h3>
-        <p>Change two lines in <code>package.json</code>, then reinstall and rebuild (<code>pod install</code> on iOS):</p>
+        <h3 data-lang="en">Use afterdb in your app</h3>
+        <h3 data-lang="fr">Utiliser afterdb dans votre app</h3>
+        <p data-lang="en">Change two lines in <code>package.json</code>, then reinstall and rebuild (<code>pod install</code> on iOS):</p>
+        <p data-lang="fr">Changez deux lignes dans <code>package.json</code>, puis réinstallez et recompilez (<code>pod install</code> sur iOS)&nbsp;:</p>
         <pre><code>"realm": "npm:@pomwik/afterdb@20.3.1",
 "@realm/react": "npm:@pomwik/afterdb-react@0.20.2"</code></pre>
-        <p class="note">Code on <a href="https://github.com/FirasHmedi/afterdb">GitHub</a> (Apache-2.0). Packages on npm: <a href="https://www.npmjs.com/package/@pomwik/afterdb">@pomwik/afterdb</a> and <a href="https://www.npmjs.com/package/@pomwik/afterdb-react">@pomwik/afterdb-react</a>.</p>
+        <p class="note" data-lang="en">Code on <a href="https://github.com/FirasHmedi/afterdb">GitHub</a> (Apache-2.0). Packages on npm: <a href="https://www.npmjs.com/package/@pomwik/afterdb">@pomwik/afterdb</a> and <a href="https://www.npmjs.com/package/@pomwik/afterdb-react">@pomwik/afterdb-react</a>.</p>
+        <p class="note" data-lang="fr">Code sur <a href="https://github.com/FirasHmedi/afterdb">GitHub</a> (Apache-2.0). Paquets npm&nbsp;: <a href="https://www.npmjs.com/package/@pomwik/afterdb">@pomwik/afterdb</a> et <a href="https://www.npmjs.com/package/@pomwik/afterdb-react">@pomwik/afterdb-react</a>.</p>
       </div>
     </section>
 
     <section class="section wrap" id="proof" aria-labelledby="t-proof">
-      <h2 id="t-proof">What is tested so far</h2>
+      <h2 id="t-proof" data-lang="en">What is tested so far</h2>
+      <h2 data-lang="fr">Ce qui est testé à ce jour</h2>
       <div class="status">
         <div class="panel">
-          <h3>The fork, on Android</h3>
+          <h3 data-lang="en">The fork, on Android</h3>
+          <h3 data-lang="fr">Le fork, sur Android</h3>
           <ul class="checks">
-            <li>React Native 0.88.1, new architecture: release build for all 4 Android ABIs</li>
-            <li>Runs on Android 7, 11 and 16 emulators, and Android 16 with 16 KB pages: read, write, live queries, encrypted realm, data kept after a restart</li>
-            <li>Also runs with React Native 0.86.3 and 0.87.1, and Expo SDK 56, 57 and 58 (emulator with 16 KB pages)</li>
-            <li>Release builds with R8 turned on work (the Expo SDK 58 default)</li>
-            <li>All 64-bit native libraries of our test app are 16 KB aligned (24 of 24)</li>
-            <li>OpenSSL 3.5.9 LTS included: nothing is downloaded at install or build time</li>
+            <li data-lang="en">React Native 0.88.1, new architecture: release build for all 4 Android ABIs</li>
+            <li data-lang="fr">React Native 0.88.1, nouvelle architecture&nbsp;: build release pour les 4 ABI Android</li>
+            <li data-lang="en">Runs on Android 7, 11 and 16 emulators, and Android 16 with 16 KB pages: read, write, live queries, encrypted realm, data kept after a restart</li>
+            <li data-lang="fr">Tourne sur émulateurs Android 7, 11 et 16, et Android 16 avec pages de 16 Ko&nbsp;: lecture, écriture, requêtes en direct, fichier realm chiffré, données gardées après redémarrage</li>
+            <li data-lang="en">Also runs with React Native 0.86.3 and 0.87.1, and Expo SDK 56, 57 and 58 (emulator with 16 KB pages)</li>
+            <li data-lang="fr">Tourne aussi avec React Native 0.86.3 et 0.87.1, et Expo SDK 56, 57 et 58 (émulateur avec pages de 16 Ko)</li>
+            <li data-lang="en">Release builds with R8 turned on work (the Expo SDK 58 default)</li>
+            <li data-lang="fr">Les builds release avec R8 activé fonctionnent (le réglage par défaut d'Expo SDK 58)</li>
+            <li data-lang="en">All 64-bit native libraries of our test app are 16 KB aligned (24 of 24)</li>
+            <li data-lang="fr">Toutes les bibliothèques natives 64 bits de notre app de test sont alignées sur 16 Ko (24 sur 24)</li>
+            <li data-lang="en">OpenSSL 3.5.9 LTS included: nothing is downloaded at install or build time</li>
+            <li data-lang="fr">OpenSSL 3.5.9 LTS inclus&nbsp;: rien n'est téléchargé à l'installation ni au build</li>
           </ul>
-          <h3>The fork, on iOS</h3>
+          <h3 data-lang="en">The fork, on iOS</h3>
+          <h3 data-lang="fr">Le fork, sur iOS</h3>
           <ul class="checks">
-            <li>React Native 0.88.1: Debug and Release builds with Xcode 26.6 (with and without frameworks) and Xcode 26.4.1 (without frameworks)</li>
-            <li>New apps from the React Native 0.86.3 and 0.87.1 templates, Xcode 26.6, dynamic and static frameworks: Release build (<a href="https://github.com/FirasHmedi/afterdb/actions/runs/42716333335">CI run</a>)</li>
-            <li>Runs on the iPhone simulator and keeps its data after a restart</li>
-            <li>The build for iPhone devices succeeds (without code signing)</li>
+            <li data-lang="en">React Native 0.88.1: Debug and Release builds with Xcode 26.6 (with and without frameworks) and Xcode 26.4.1 (without frameworks)</li>
+            <li data-lang="fr">React Native 0.88.1&nbsp;: builds Debug et Release avec Xcode 26.6 (avec et sans frameworks) et Xcode 26.4.1 (sans frameworks)</li>
+            <li data-lang="en">New apps from the React Native 0.86.3 and 0.87.1 templates, Xcode 26.6, dynamic and static frameworks: Release build (<a href="https://github.com/FirasHmedi/afterdb/actions/runs/42716333335">CI run</a>)</li>
+            <li data-lang="fr">Nouvelles apps créées avec les modèles React Native 0.86.3 et 0.87.1, Xcode 26.6, frameworks dynamiques et statiques&nbsp;: build Release (<a href="https://github.com/FirasHmedi/afterdb/actions/runs/42716333335">exécution CI</a>)</li>
+            <li data-lang="en">Runs on the iPhone simulator and keeps its data after a restart</li>
+            <li data-lang="fr">Tourne sur le simulateur iPhone et garde ses données après redémarrage</li>
+            <li data-lang="en">The build for iPhone devices succeeds (without code signing)</li>
+            <li data-lang="fr">Le build pour appareil iPhone réussit (sans signature)</li>
           </ul>
-          <h3>The fork, in Node</h3>
+          <h3 data-lang="en">The fork, in Node</h3>
+          <h3 data-lang="fr">Le fork, dans Node</h3>
           <ul class="checks">
-            <li>Installs offline</li>
-            <li>Passes realm-js's own Node integration tests, with the same results as realm 20.2.0. Its Node engine binary is upstream's, unchanged.</li>
+            <li data-lang="en">Installs offline</li>
+            <li data-lang="fr">S'installe hors ligne</li>
+            <li data-lang="en">Passes realm-js's own Node integration tests, with the same results as realm 20.2.0. Its Node engine binary is upstream's, unchanged.</li>
+            <li data-lang="fr">Passe les tests d'intégration Node de realm-js, avec les mêmes résultats que realm 20.2.0. Son moteur Node est celui d'origine, inchangé.</li>
           </ul>
-          <h3>Switching an app from realm 20.2.0</h3>
+          <h3 data-lang="en">Switching an app from realm 20.2.0</h3>
+          <h3 data-lang="fr">Passer une app de realm 20.2.0 à afterdb</h3>
           <ul class="checks">
-            <li>An app built with realm 20.2.0 writes a plain and an encrypted file. The same app built with afterdb is installed over it, opens both files, checks every object and adds more. Then the realm 20.2.0 build is installed again and reads it all (<a href="https://github.com/FirasHmedi/afterdb/actions/runs/43000910682">CI run</a>)</li>
-            <li>Passes on Android 16 (x86_64) and Android 11 (x86) emulators, and on the iPhone simulator (React Native 0.88.1, Xcode 26.6, no frameworks)</li>
-            <li>Also passes with the armeabi-v7a build of afterdb, through the ARM translation of an Android 11 emulator. There, the files come from the x86_64 build of realm 20.2.0, because its armeabi-v7a build does not start under that translation</li>
-            <li>Tested with afterdb built from the source and as published on npm</li>
+            <li data-lang="en">An app built with realm 20.2.0 writes a plain and an encrypted file. The same app built with afterdb is installed over it, opens both files, checks every object and adds more. Then the realm 20.2.0 build is installed again and reads it all (<a href="https://github.com/FirasHmedi/afterdb/actions/runs/43000910682">CI run</a>)</li>
+            <li data-lang="fr">Une app compilée avec realm 20.2.0 écrit un fichier normal et un fichier chiffré. La même app compilée avec afterdb est installée par-dessus, ouvre les deux fichiers, vérifie chaque objet et en ajoute. Puis la version realm 20.2.0 est réinstallée et relit tout (<a href="https://github.com/FirasHmedi/afterdb/actions/runs/43000910682">exécution CI</a>)</li>
+            <li data-lang="en">Passes on Android 16 (x86_64) and Android 11 (x86) emulators, and on the iPhone simulator (React Native 0.88.1, Xcode 26.6, no frameworks)</li>
+            <li data-lang="fr">Réussit sur émulateurs Android 16 (x86_64) et Android 11 (x86), et sur le simulateur iPhone (React Native 0.88.1, Xcode 26.6, sans frameworks)</li>
+            <li data-lang="en">Also passes with the armeabi-v7a build of afterdb, through the ARM translation of an Android 11 emulator. There, the files come from the x86_64 build of realm 20.2.0, because its armeabi-v7a build does not start under that translation</li>
+            <li data-lang="fr">Réussit aussi avec le build armeabi-v7a d'afterdb, via la traduction ARM d'un émulateur Android 11. Là, les fichiers viennent du build x86_64 de realm 20.2.0, car son build armeabi-v7a ne démarre pas sous cette traduction</li>
+            <li data-lang="en">Tested with afterdb built from the source and as published on npm</li>
+            <li data-lang="fr">Testé avec afterdb compilé depuis les sources et tel que publié sur npm</li>
           </ul>
-          <h3>The package as published on npm</h3>
+          <h3 data-lang="en">The package as published on npm</h3>
+          <h3 data-lang="fr">Le paquet tel que publié sur npm</h3>
           <ul class="checks">
-            <li>A new React Native 0.88.1 app with the two lines above, installed from npmjs.com: release build for all 4 Android ABIs with OpenSSL 3.5.9, and 24 of 24 64-bit native libraries 16 KB aligned (<a href="https://github.com/FirasHmedi/afterdb/actions/runs/42933195324">CI run</a>)</li>
-            <li>The app runs on an Android 16 emulator and on the iPhone simulator, and keeps its data after a restart</li>
+            <li data-lang="en">A new React Native 0.88.1 app with the two lines above, installed from npmjs.com: release build for all 4 Android ABIs with OpenSSL 3.5.9, and 24 of 24 64-bit native libraries 16 KB aligned (<a href="https://github.com/FirasHmedi/afterdb/actions/runs/42933195324">CI run</a>)</li>
+            <li data-lang="fr">Une nouvelle app React Native 0.88.1 avec les deux lignes ci-dessus, installée depuis npmjs.com&nbsp;: build release pour les 4 ABI Android avec OpenSSL 3.5.9, et 24 bibliothèques natives 64 bits sur 24 alignées sur 16 Ko (<a href="https://github.com/FirasHmedi/afterdb/actions/runs/42933195324">exécution CI</a>)</li>
+            <li data-lang="en">The app runs on an Android 16 emulator and on the iPhone simulator, and keeps its data after a restart</li>
+            <li data-lang="fr">L'app tourne sur un émulateur Android 16 et sur le simulateur iPhone, et garde ses données après redémarrage</li>
           </ul>
         </div>
         <div class="panel">
-          <h3>Not tested yet</h3>
+          <h3 data-lang="en">Not tested yet</h3>
+          <h3 data-lang="fr">Pas encore testé</h3>
           <ul class="checks dots">
-            <li>Real phones: so far only emulators and the iPhone simulator</li>
-            <li>Running the arm64-v8a build in CI, and the armeabi-v7a build on an ARM processor (it ran only through ARM translation)</li>
-            <li>iOS with Expo</li>
-            <li>Switching from a realm version other than 20.2.0, and the switch with Debug builds</li>
+            <li data-lang="en">Real phones: so far only emulators and the iPhone simulator</li>
+            <li data-lang="fr">Vrais téléphones&nbsp;: pour l'instant, seulement des émulateurs et le simulateur iPhone</li>
+            <li data-lang="en">Running the arm64-v8a build in CI, and the armeabi-v7a build on an ARM processor (it ran only through ARM translation)</li>
+            <li data-lang="fr">Le build arm64-v8a en CI, et le build armeabi-v7a sur un vrai processeur ARM (il n'a tourné que via la traduction ARM)</li>
+            <li data-lang="en">iOS with Expo</li>
+            <li data-lang="fr">iOS avec Expo</li>
+            <li data-lang="en">Switching from a realm version other than 20.2.0, and the switch with Debug builds</li>
+            <li data-lang="fr">Le passage depuis une autre version de realm que 20.2.0, et le passage avec des builds Debug</li>
           </ul>
-          <p class="note">Details and logs: the <a href="https://github.com/FirasHmedi/afterdb#compatibility-matrix">compatibility matrix</a> on GitHub.</p>
+          <p class="note" data-lang="en">Details and logs: the <a href="https://github.com/FirasHmedi/afterdb#compatibility-matrix">compatibility matrix</a> on GitHub.</p>
+          <p class="note" data-lang="fr">Détails et journaux&nbsp;: la <a href="https://github.com/FirasHmedi/afterdb#compatibility-matrix">matrice de compatibilité</a> sur GitHub.</p>
         </div>
       </div>
 
-      <h3 class="sub">The conversion tool</h3>
+      <h3 class="sub" data-lang="en">The conversion tool</h3>
+      <h3 class="sub" data-lang="fr">L'outil de conversion</h3>
       <ol class="steps">
         <li>
-          <h4>Every object checked</h4>
-          <p>A SHA-256 hash per object and per table, foreign keys and a field-by-field sample. On our test file covering every supported type: zero differences.</p>
+          <h4 data-lang="en">Every object checked</h4>
+          <h4 data-lang="fr">Chaque objet vérifié</h4>
+          <p data-lang="en">A SHA-256 hash per object and per table, foreign keys and a field-by-field sample. On our test file covering every supported type: zero differences.</p>
+          <p data-lang="fr">Une empreinte SHA-256 par objet et par table, les clés étrangères et un échantillon champ par champ. Sur notre fichier de test qui couvre tous les types gérés&nbsp;: zéro différence.</p>
         </li>
         <li>
-          <h4>Values SQLite would lose</h4>
-          <p>NaN, -0, dates before 1970 and non-ASCII text are kept and checked. SQLite alone turns NaN into NULL and -0 into 0, without any warning.</p>
+          <h4 data-lang="en">Values SQLite would lose</h4>
+          <h4 data-lang="fr">Les valeurs que SQLite perdrait</h4>
+          <p data-lang="en">NaN, -0, dates before 1970 and non-ASCII text are kept and checked. SQLite alone turns NaN into NULL and -0 into 0, without any warning.</p>
+          <p data-lang="fr">NaN, -0, les dates avant 1970 et le texte non ASCII sont gardés et vérifiés. SQLite seul transforme NaN en NULL et -0 en 0, sans prévenir.</p>
         </li>
         <li>
-          <h4>Queries compared one by one</h4>
-          <p>252 handwritten Realm queries run on both sides: 2 differences, both known and explained. Realm has quirks a naive port silently changes, like <code>[c]</code> folding only ASCII and Latin-1 letters.</p>
+          <h4 data-lang="en">Queries compared one by one</h4>
+          <h4 data-lang="fr">Requêtes comparées une à une</h4>
+          <p data-lang="en">252 handwritten Realm queries run on both sides: 2 differences, both known and explained. Realm has quirks a naive port silently changes, like <code>[c]</code> folding only ASCII and Latin-1 letters.</p>
+          <p data-lang="fr">252 requêtes Realm écrites à la main, lancées des deux côtés&nbsp;: 2 différences, connues et expliquées. Realm a des particularités qu'un portage naïf change sans le dire, comme <code>[c]</code>, qui n'ignore la casse que pour les lettres ASCII et Latin-1.</p>
         </li>
       </ol>
-      <p class="note">The converter runs under Node 22 or later. It reads a private copy of your file, read-only, and never writes to the original. It refuses files that need a format upgrade, which older realm versions wrote. Details: the <a href="https://github.com/FirasHmedi/afterdb/tree/main/converter">converter README</a>.</p>
+      <p class="note" data-lang="en">The converter runs under Node 22 or later. It reads a private copy of your file, read-only, and never writes to the original. It refuses files that need a format upgrade, which older realm versions wrote. Details: the <a href="https://github.com/FirasHmedi/afterdb/tree/main/converter">converter README</a>.</p>
+      <p class="note" data-lang="fr">Le convertisseur tourne sous Node 22 ou plus. Il lit une copie privée de votre fichier, en lecture seule, et n'écrit jamais dans l'original. Il refuse les fichiers qui demandent une mise à niveau de format, écrits par d'anciennes versions de realm. Détails&nbsp;: le <a href="https://github.com/FirasHmedi/afterdb/tree/main/converter">README du convertisseur</a>.</p>
     </section>
 
     <section class="section wrap" id="faq" aria-labelledby="t-faq">
       <h2 id="t-faq">Questions</h2>
       <div class="faq">
         <details>
-          <summary>It still works. Why act now?</summary>
-          <p>It works until the next upgrade. The check looks at your versions and tells you which React Native, Xcode or Google Play change is likely to break your app.</p>
+          <summary data-lang="en">It still works. Why act now?</summary>
+          <summary data-lang="fr">Ça marche encore. Pourquoi agir maintenant&nbsp;?</summary>
+          <p data-lang="en">It works until the next upgrade. The check looks at your versions and tells you which React Native, Xcode or Google Play change is likely to break your app.</p>
+          <p data-lang="fr">Ça marche jusqu'à la prochaine mise à jour. La vérification regarde vos versions et vous dit quel changement de React Native, de Xcode ou de Google Play risque de casser votre app.</p>
         </details>
         <details>
-          <summary>We plan to move to a sync service.</summary>
-          <p>If you need sync, that can be the right choice. Your local data and query behavior still have to move: we can plan and build that part with you. We compare the options in <a href="/realm/leaving-realm/">Leaving Realm in 2026</a>.</p>
+          <summary data-lang="en">We plan to move to a sync service.</summary>
+          <summary data-lang="fr">On prévoit de passer à un service de synchronisation.</summary>
+          <p data-lang="en">If you need sync, that can be the right choice. Your local data and query behavior still have to move: we can plan and build that part with you. We compare the options in <a href="/realm/leaving-realm/">Leaving Realm in 2026</a>.</p>
+          <p data-lang="fr">Si vous avez besoin de synchronisation, ça peut être le bon choix. Vos données locales et le comportement de vos requêtes doivent quand même migrer&nbsp;: on peut préparer et réaliser cette partie avec vous. On compare les options dans <a href="/realm/leaving-realm/">Quitter Realm en 2026</a>.</p>
         </details>
         <details>
-          <summary>What is not covered?</summary>
-          <p>Device Sync, the old React Native architecture, bugs inside the Realm engine itself (we use the upstream engine unchanged), and Realm Swift, Kotlin and Flutter. SwiftPM is not supported yet. We say so before any work starts.</p>
+          <summary data-lang="en">What is not covered?</summary>
+          <summary data-lang="fr">Qu'est-ce qui n'est pas couvert&nbsp;?</summary>
+          <p data-lang="en">Device Sync, the old React Native architecture, bugs inside the Realm engine itself (we use the upstream engine unchanged), and Realm Swift, Kotlin and Flutter. SwiftPM is not supported yet. We say so before any work starts.</p>
+          <p data-lang="fr">Device Sync, l'ancienne architecture de React Native, les bugs du moteur Realm lui-même (on utilise le moteur d'origine inchangé), et Realm Swift, Kotlin et Flutter. SwiftPM n'est pas encore géré. On vous le dit avant tout travail.</p>
         </details>
         <details>
-          <summary>What about our users' data?</summary>
-          <p>In a shipped app, the migration runs inside your app, on your users' phones. We plan and write that part with you. We check the conversion on copies of your files with our desktop tool, which never writes to your file. For the free check, we only need your versions and the error.</p>
+          <summary data-lang="en">What about our users' data?</summary>
+          <summary data-lang="fr">Et les données de nos utilisateurs&nbsp;?</summary>
+          <p data-lang="en">In a shipped app, the migration runs inside your app, on your users' phones. We plan and write that part with you. We check the conversion on copies of your files with our desktop tool, which never writes to your file. For the free check, we only need your versions and the error.</p>
+          <p data-lang="fr">Dans une app publiée, la migration tourne dans votre app, sur les téléphones de vos utilisateurs. On prépare et on écrit cette partie avec vous. On vérifie la conversion sur des copies de vos fichiers avec notre outil sur ordinateur, qui n'écrit jamais dans votre fichier. Pour la vérification gratuite, il nous faut seulement vos versions et l'erreur.</p>
         </details>
       </div>
     </section>
@@ -185,21 +267,25 @@
     <section class="section wrap" id="check" aria-labelledby="t-check">
       <div class="contact">
         <div>
-          <h2 id="t-check">Free 15-minute check</h2>
-          <p>Send your Realm and React Native versions, or a link to your repository, and what breaks today. We reply within 12 hours.</p>
-          <p class="note">Or write to <a href="mailto:hello@pomwik.com">hello@pomwik.com</a>.</p>
+          <h2 id="t-check" data-lang="en">Free 15-minute check</h2>
+          <h2 data-lang="fr">Vérification gratuite de 15 minutes</h2>
+          <p data-lang="en">Send your Realm and React Native versions, or a link to your repository, and what breaks today. We reply within 12 hours.</p>
+          <p data-lang="fr">Envoyez vos versions de Realm et de React Native, ou un lien vers votre dépôt, et ce qui casse aujourd'hui. On vous répond sous 12 heures.</p>
+          <p class="note" data-lang="en">Or write to <a href="mailto:hello@pomwik.com">hello@pomwik.com</a>.</p>
+          <p class="note" data-lang="fr">Ou écrivez à <a href="mailto:hello@pomwik.com">hello@pomwik.com</a>.</p>
         </div>
-        <form class="contact-form" data-endpoint="https://api.pomwik.com/contact" novalidate>
-          <label for="nom">Name</label>
+        <form class="contact-form" data-success="Merci, votre message a bien été envoyé. On vous répond sous 12 heures." data-endpoint="https://api.pomwik.com/contact" novalidate>
+          <label for="nom"><span data-lang="en">Name</span><span data-lang="fr">Nom</span></label>
           <input id="nom" type="text" name="nom" autocomplete="name" required maxlength="100">
-          <label for="email">Work email</label>
+          <label for="email"><span data-lang="en">Work email</span><span data-lang="fr">E-mail professionnel</span></label>
           <input id="email" type="text" inputmode="email" name="email" autocomplete="email" autocapitalize="off" spellcheck="false" required maxlength="254">
-          <label for="message">Versions and what breaks</label>
-          <textarea id="message" name="message" required maxlength="4000" placeholder="realm 12.13, React Native 0.74, Xcode 26.4 fails with…"></textarea>
+          <label for="message"><span data-lang="en">Versions and what breaks</span><span data-lang="fr">Versions et ce qui casse</span></label>
+          <textarea id="message" name="message" required maxlength="4000" placeholder="realm 12.13, React Native 0.74, Xcode 26.4…"></textarea>
           <input class="hp" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
-          <button class="btn" type="submit">Request the check</button>
+          <button class="btn" type="submit"><span data-lang="en">Request the check</span><span data-lang="fr">Demander la vérification</span></button>
           <p class="msg" role="status" aria-live="polite"></p>
-          <p class="fine">We only use this to reply to you. <a href="/privacy-en.html">Privacy</a></p>
+          <p class="fine" data-lang="en">We only use this to reply to you. <a href="/privacy-en.html">Privacy</a></p>
+          <p class="fine" data-lang="fr">On utilise ces informations seulement pour vous répondre. <a href="/privacy.html">Confidentialité</a></p>
         </form>
       </div>
     </section>
@@ -210,8 +296,9 @@
       <img src="/favicon.svg" alt="" width="24" height="24">
       <span>Pomwik</span>
     </div>
-    <p>&copy; 2026 Pomwik &middot; <a href="/" hreflang="fr">Home (French)</a> &middot; <a href="/mentions-legales.html" hreflang="fr">Legal (French)</a> &middot; <a href="/privacy-en.html">Privacy</a></p>
-    <p class="tm">Realm® is a trademark of MongoDB, Inc. Pomwik is independent and not affiliated with or endorsed by MongoDB.</p>
+    <p>&copy; 2026 Pomwik &middot; <a href="/"><span data-lang="en">Home</span><span data-lang="fr">Accueil</span></a> &middot; <a href="/mentions-legales.html"><span data-lang="en">Legal notice</span><span data-lang="fr">Mentions légales</span></a> &middot; <a href="/privacy.html"><span data-lang="en">Privacy</span><span data-lang="fr">Confidentialité</span></a></p>
+    <p class="tm" data-lang="en">Realm® is a trademark of MongoDB, Inc. Pomwik is independent and not affiliated with or endorsed by MongoDB.</p>
+    <p class="tm" data-lang="fr">Realm® est une marque de MongoDB, Inc. Pomwik est indépendant, sans lien avec MongoDB ni soutien de sa part.</p>
   </footer>
 
   <script src="/contact.js"></script>

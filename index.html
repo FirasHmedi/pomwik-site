@@ -7,13 +7,15 @@
     // Langue avant l'affichage : ?lang=, puis choix mémorisé, puis langue du navigateur (français sinon anglais).
     (function () {
       var lang = new URLSearchParams(location.search).get('lang');
-      if (lang !== 'fr' && lang !== 'en') {
+      if (lang === 'fr' || lang === 'en') {
+        try { localStorage.setItem('pomwik-lang', lang); } catch (e) { /* navigation privée */ }
+      } else {
         try { lang = localStorage.getItem('pomwik-lang'); } catch (e) { lang = null; }
       }
       if (lang !== 'fr' && lang !== 'en') {
         // Robots d'indexation : version française sur l'adresse principale (l'anglais est sur ?lang=en).
         var nav = (navigator.languages && navigator.languages[0]) || navigator.language || 'fr';
-        lang = /^fr\b/i.test(nav) || /bot|crawl|spider|slurp/i.test(navigator.userAgent) ? 'fr' : 'en';
+        lang = /^fr\b/i.test(nav) || /googlebot|bingbot|yandex|duckduckbot|baiduspider|applebot|crawler|spider|slurp/i.test(navigator.userAgent) ? 'fr' : 'en';
       }
       var root = document.documentElement;
       // lang reste "fr" tant que le texte est en français : i18n.js le change en traduisant.
@@ -135,10 +137,10 @@
     <section class="section wrap" aria-labelledby="t-preuve">
       <div class="proof">
         <div>
-          <h2 id="t-preuve" data-i18n="proofTitle">Les erreurs de build, on connaît</h2>
-          <p data-i18n="proofP">On maintient afterdb, la suite de Realm pour React Native, et on publie les solutions aux erreurs de build iOS et Android qu'on rencontre.</p>
+          <h2 id="t-preuve" data-i18n="proofTitle">Les apps sur Realm, on connaît</h2>
+          <p data-i18n="proofP">Realm, la base de données mobile de MongoDB, n'est plus maintenue depuis 2025, et beaucoup d'apps React Native en dépendent encore. On maintient afterdb, un fork open source qui les garde compilables, et on aide à passer à SQLite.</p>
         </div>
-        <a class="btn btn-ghost" href="/realm/errors/" hreflang="en" data-i18n="proofCta">Voir les erreurs résolues</a>
+        <a class="btn btn-ghost" href="/realm/" data-i18n="proofCta">Voir notre aide pour Realm</a>
       </div>
     </section>
 
@@ -200,7 +202,7 @@
       <img src="/favicon.svg" alt="" width="24" height="24">
       <span>Pomwik</span>
     </div>
-    <p data-i18n="footer">&copy; 2026 Pomwik &middot; <a href="/realm/" hreflang="en">Apps sur Realm</a> &middot; <a href="/audit/">Audit de sites</a> &middot; <a href="/contact/">Contact</a> &middot; <a href="/mentions-legales.html">Mentions légales</a> &middot; <a href="/privacy.html">Confidentialité</a></p>
+    <p data-i18n="footer">&copy; 2026 Pomwik &middot; <a href="/realm/">Apps sur Realm</a> &middot; <a href="/audit/">Audit de sites</a> &middot; <a href="/contact/">Contact</a> &middot; <a href="/mentions-legales.html">Mentions légales</a> &middot; <a href="/privacy.html">Confidentialité</a></p>
   </footer>
 
   <script src="/i18n.js"></script>

@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="fr">
+<html lang="fr" data-show="fr" data-title-en="Legal notice — Pomwik">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -8,6 +8,8 @@
   <meta name="theme-color" content="#EEF5FF" media="(prefers-color-scheme: light)">
   <meta name="theme-color" content="#071229" media="(prefers-color-scheme: dark)">
   <link rel="canonical" href="https://pomwik.com/mentions-legales.html">
+  <link rel="alternate" hreflang="fr" href="https://pomwik.com/mentions-legales.html">
+  <link rel="alternate" hreflang="en" href="https://pomwik.com/mentions-legales.html?lang=en">
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Pomwik">
@@ -18,20 +20,48 @@
   <meta name="twitter:card" content="summary">
   <script>document.documentElement.classList.add("js")</script>
   <link rel="stylesheet" href="style.css">
+  <script src="/lang.js"></script>
   <style>.prose a { color: var(--accent); }</style>
 </head>
 <body>
   <header class="nav">
-    <a class="brand" href="./" aria-label="Accueil Pomwik">
+    <a class="brand" href="./" aria-label="Pomwik">
       <img src="favicon.svg" alt="" width="32" height="32">
       <span>Pomwik</span>
     </a>
-    <nav aria-label="Principal">
-      <a class="btn btn-small" href="./">Retour au site</a>
+    <nav aria-label="Menu">
+      <button class="lang-switch" type="button" data-lang-switch aria-label="Read this page in English" lang="en">EN</button>
+      <a class="btn btn-small" href="./"><span data-lang="fr">Retour au site</span><span data-lang="en">Back to site</span></a>
     </nav>
   </header>
 
-  <main class="prose">
+  <main class="prose" data-lang="en" lang="en">
+    <h1>Legal notice</h1>
+    <p class="updated">Last updated: 21 October 2026</p>
+
+    <h2>Site publisher</h2>
+    <p>The site pomwik.com is published by <strong>Firas Hmedi</strong>, on behalf of the company Pomwik (French SASU being registered).</p>
+    <p>Email: <a href="mailto:hello@pomwik.com">hello@pomwik.com</a><br>
+    Address: 82 rue Barberis, 06300 Nice, France<br>
+    Phone: +33 7 77 98 45 50</p>
+    <p>Once the company is registered, this page will state its legal form, share capital, RCS number and EU VAT number.</p>
+
+    <h2>Publication director</h2>
+    <p>Firas Hmedi</p>
+
+    <h2>Hosting</h2>
+    <p><strong>Site:</strong> GitHub Pages, a service of GitHub, Inc., 88 Colin P. Kelly Jr. Street, San Francisco, CA 94107, United States. Phone: +1 877 448 4820.</p>
+    <p><strong>Forms and email sending:</strong> Cloudflare, Inc., 101 Townsend Street, San Francisco, CA 94107, United States. Phone: +1 888 993 5273.</p>
+
+    <h2>Personal data</h2>
+    <p>How data sent through the site's forms is handled is described in the <a href="privacy-en.html">privacy policy</a>.</p>
+
+    <h2>Intellectual property</h2>
+    <p>The texts, illustrations and the Pomwik name belong to their publisher. Any reproduction without permission is prohibited.</p>
+    <p class="updated">The French version of this notice is the reference.</p>
+  </main>
+
+  <main class="prose" data-lang="fr">
     <h1>Mentions légales</h1>
     <p class="updated">Dernière mise à jour : 21 octobre 2026</p>
 
@@ -61,7 +91,7 @@
       <img src="favicon.svg" alt="" width="24" height="24">
       <span>Pomwik</span>
     </div>
-    <p>&copy; <span id="year">2026</span> Pomwik &middot; <a href="mentions-legales.html">Mentions légales</a> &middot; <a href="privacy.html">Confidentialité</a></p>
+    <p>&copy; <span id="year">2026</span> Pomwik &middot; <a href="mentions-legales.html"><span data-lang="fr">Mentions légales</span><span data-lang="en">Legal notice</span></a> &middot; <a href="privacy.html"><span data-lang="fr">Confidentialité</span><span data-lang="en">Privacy</span></a></p>
   </footer>
   <script src="app.js"></script>
   <!-- Cloudflare Web Analytics : mesure d'audience sans cookie -->

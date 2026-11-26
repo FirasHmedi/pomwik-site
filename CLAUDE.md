@@ -6,6 +6,8 @@ Site statique servi par GitHub Pages (racine du dépôt) et Worker Cloudflare `p
 
 ## Règles du site
 - Accueil (`index.html`, `accueil.css`, `i18n.js`) : reprise d'applications web et mobiles bloquées (« App Rescue », 26/11/2026). Bilingue : texte français dans la page, anglais dans `i18n.js` (une clé `data-i18n` par texte, à tenir à jour des deux côtés). Langue : `?lang=`, puis choix mémorisé (`localStorage` `pomwik-lang`), puis langue du navigateur (français sinon anglais). L'offre d'audit de sites est dans `audit/` et garde `style.css`. `exemple-rapport.pdf` reste à la racine (liens déjà envoyés).
+- Autres pages bilingues (audit, contact, mentions légales, 404, `realm/`, `realm/errors/`, `realm/leaving-realm/`) : `lang.js` dans `<head>`, `<html data-show="…">`, les deux textes dans la page avec `data-lang="fr"` / `data-lang="en"` (le CSS cache l'autre langue), bouton `data-lang-switch`. Pages Realm : anglais par défaut (`data-default="en"`), c'est ce que voient les robots. `privacy.html` / `privacy-en.html` : deux pages, redirection par `data-alt`. Les pages d'erreurs Realm (`realm/errors/*/`) et les pages d'apps en attente restent en anglais.
+- Pages Realm : bandeau `.context` en haut, qui dit ce qu'est Pomwik pour qui arrive directement.
 - Pas de logo client, de chiffre ni de témoignage inventés.
 - Textes en français, courts et simples, sans tournures « IA ».
 - Ne présenter comme disponible que ce qui est prouvé ; le reste est « inclus dès l'ouverture ».

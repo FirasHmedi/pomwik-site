@@ -1,11 +1,13 @@
 <!doctype html>
-<html lang="fr">
+<html lang="fr" data-show="fr" data-title-en="Contact — Pomwik">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Contact — Pomwik</title>
   <meta name="description" content="Écrivez à Pomwik : une question, un projet, une remarque.">
   <link rel="canonical" href="https://pomwik.com/contact/">
+  <link rel="alternate" hreflang="fr" href="https://pomwik.com/contact/">
+  <link rel="alternate" hreflang="en" href="https://pomwik.com/contact/?lang=en">
   <meta name="theme-color" content="#EEF5FF" media="(prefers-color-scheme: light)">
   <meta name="theme-color" content="#071229" media="(prefers-color-scheme: dark)">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
@@ -18,6 +20,7 @@
   <meta name="twitter:card" content="summary">
   <script>document.documentElement.classList.add("js")</script>
   <link rel="stylesheet" href="/style.css">
+  <script src="/lang.js"></script>
   <style>
     .contact-page { max-width: 620px; margin: 0 auto; padding: 32px 16px 64px; }
     .contact-page h1 { font-size: clamp(1.8rem, 4vw, 2.4rem); letter-spacing: -0.03em; margin: 0 0 8px; }
@@ -40,31 +43,35 @@
 </head>
 <body>
   <header class="nav">
-    <a class="brand" href="/" aria-label="Accueil Pomwik">
+    <a class="brand" href="/" aria-label="Pomwik">
       <img src="/favicon.svg" alt="" width="32" height="32">
       <span>Pomwik</span>
     </a>
-    <nav aria-label="Principal">
-      <a class="btn btn-small" href="/">Retour au site</a>
+    <nav aria-label="Menu">
+      <button class="lang-switch" type="button" data-lang-switch aria-label="Read this page in English" lang="en">EN</button>
+      <a class="btn btn-small" href="/"><span data-lang="fr">Retour au site</span><span data-lang="en">Back to site</span></a>
     </nav>
   </header>
 
   <main class="contact-page" id="main">
     <h1>Contact</h1>
-    <p class="lede">Une question ou un projet&nbsp;? Écrivez-moi, je réponds sous 12 heures.</p>
-    <p class="about">Pomwik, c'est Firas Hmedi, développeur web. Je lis chaque message et je vous réponds moi-même.</p>
+    <p class="lede" data-lang="fr">Une question ou un projet&nbsp;? Écrivez-moi, je réponds sous 12 heures.</p>
+    <p class="lede" data-lang="en">A question or a project? Write to me, I reply within 12 hours.</p>
+    <p class="about" data-lang="fr">Pomwik, c'est Firas Hmedi, développeur web. Je lis chaque message et je vous réponds moi-même.</p>
+    <p class="about" data-lang="en">Pomwik is Firas Hmedi, web developer. I read every message and reply myself.</p>
     <form class="contact-form" data-endpoint="https://api.pomwik.com/contact" novalidate>
-      <label for="nom">Nom</label>
+      <label for="nom"><span data-lang="fr">Nom</span><span data-lang="en">Name</span></label>
       <input id="nom" type="text" name="nom" autocomplete="name" required maxlength="100">
-      <label for="email">E-mail</label>
+      <label for="email"><span data-lang="fr">E-mail</span><span data-lang="en">Email</span></label>
       <input id="email" type="text" inputmode="email" name="email" autocomplete="email" autocapitalize="off" spellcheck="false" required maxlength="254">
       <label for="message">Message</label>
       <textarea id="message" name="message" required maxlength="4000"></textarea>
       <input class="hp" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
-      <button class="btn" type="submit">Envoyer</button>
+      <button class="btn" type="submit"><span data-lang="fr">Envoyer</span><span data-lang="en">Send</span></button>
       <p class="msg" role="status" aria-live="polite"></p>
     </form>
-    <p class="fine">On utilise ces informations seulement pour vous répondre. <a href="/privacy.html">Confidentialité</a></p>
+    <p class="fine" data-lang="fr">On utilise ces informations seulement pour vous répondre. <a href="/privacy.html">Confidentialité</a></p>
+    <p class="fine" data-lang="en">We only use this information to reply to you. <a href="/privacy-en.html">Privacy</a></p>
   </main>
 
   <footer class="footer">
@@ -72,7 +79,7 @@
       <img src="/favicon.svg" alt="" width="24" height="24">
       <span>Pomwik</span>
     </div>
-    <p>&copy; 2026 Pomwik &middot; <a href="/mentions-legales.html">Mentions légales</a> &middot; <a href="/privacy.html">Confidentialité</a></p>
+    <p>&copy; 2026 Pomwik &middot; <a href="/mentions-legales.html"><span data-lang="fr">Mentions légales</span><span data-lang="en">Legal notice</span></a> &middot; <a href="/privacy.html"><span data-lang="fr">Confidentialité</span><span data-lang="en">Privacy</span></a></p>
   </footer>
 
   <script src="/contact.js"></script>
