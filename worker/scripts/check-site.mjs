@@ -74,6 +74,22 @@ for (const page of PAGES) {
   }
 }
 
+// English visitors stay on English pages: links to the home, pricing or contact page must point to the
+// English version (EN pages), or carry data-href-en (pages with both languages, swapped by lang.js).
+// The FR/EN switch (hreflang="fr") is the only exception.
+const FR_ONLY = /^\/(tarifs\/|contact\/|privacy\.html)?(#[a-z-]+)?$/;
+for (const page of PAGES) {
+  const html = read(page);
+  const english = html.match(/<html[^>]*\blang="en"/) !== null;
+  const bilingual = /<html[^>]*\bdata-show=/.test(html);
+  if (!english && !bilingual) continue;
+  for (const [tag, href] of html.matchAll(/<a [^>]*href="([^"]*)"[^>]*>/g)) {
+    if (!FR_ONLY.test(href) || /hreflang="fr"/.test(tag)) continue;
+    if (english) errors.push(`${page}: English page links to the French page ${href}`);
+    else if (!/data-href-en="/.test(tag)) errors.push(`${page}: link ${href} needs data-href-en (English address)`);
+  }
+}
+
 const prices = (page) => JSON.stringify([...read(page).matchAll(/"price": *"([0-9.]+)"/g)].map((m) => m[1]));
 if (prices('tarifs/index.html') !== prices('en/pricing/index.html')) errors.push('tarifs/ and en/pricing/: JSON-LD prices differ');
 

@@ -76,6 +76,14 @@
       if (!el.hasAttribute('data-' + pageDefault)) el.setAttribute('data-' + pageDefault, el.textContent);
       if (el.hasAttribute('data-' + l)) el.textContent = el.getAttribute('data-' + l);
     }
+    // Liens vers les pages qui existent dans les deux langues : data-href-en (adresse anglaise),
+    // l'adresse d'origine est gardée dans data-href-fr au premier passage.
+    els = document.querySelectorAll('a[data-href-en]');
+    for (var h = 0; h < els.length; h++) {
+      var a = els[h];
+      if (!a.hasAttribute('data-href-fr')) a.setAttribute('data-href-fr', a.getAttribute('href'));
+      a.setAttribute('href', a.getAttribute('data-href-' + l));
+    }
     els = document.querySelectorAll('[data-ph-en], [data-ph-fr]');
     for (var j = 0; j < els.length; j++) {
       var f = els[j];
