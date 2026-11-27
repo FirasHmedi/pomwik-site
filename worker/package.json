@@ -5,7 +5,8 @@
   "scripts": {
     "test": "vitest run",
     "build:pages": "node scripts/build-pages.mjs",
-    "check:pages": "node scripts/build-pages.mjs --check"
+    "check:pages": "node scripts/build-pages.mjs --check",
+    "check:site": "node scripts/check-site.mjs"
   },
   "dependencies": {
     "mimetext": "^3.0.27",

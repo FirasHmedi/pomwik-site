@@ -43,6 +43,20 @@ document.querySelectorAll('form.contact-form').forEach((form) => {
     msg.dataset.kind = kind || '';
   };
 
+  // Brouillon du message : gardé le temps de l'onglet (sessionStorage), pour ne pas le perdre
+  // si le visiteur va voir les tarifs puis revient. Effacé après l'envoi.
+  const DRAFT = 'pomwik-contact-draft';
+  const draft = form.querySelector('textarea[name="message"]');
+  if (draft) {
+    try {
+      const saved = sessionStorage.getItem(DRAFT);
+      if (saved && !draft.value) draft.value = saved;
+    } catch { /* stockage indisponible */ }
+    draft.addEventListener('input', () => {
+      try { sessionStorage.setItem(DRAFT, draft.value); } catch { /* stockage indisponible */ }
+    });
+  }
+
   // Nom du champ tel qu'affiché, sans la mention « (facultatif) ».
   const labelOf = (f) => {
     const l = form.querySelector(`label[for="${f.id}"]`);
@@ -97,6 +111,7 @@ document.querySelectorAll('form.contact-form').forEach((form) => {
         return;
       }
       form.classList.add('done');
+      try { sessionStorage.removeItem(DRAFT); } catch { /* stockage indisponible */ }
       say(T.success || form.dataset.success || SUCCESS[type] || SUCCESS.contact, 'ok');
     } catch {
       button.disabled = false;
