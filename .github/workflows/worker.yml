@@ -25,6 +25,7 @@ jobs:
           cache-dependency-path: worker/package-lock.json
       - run: npm ci
       - run: npm run check:pages
+      - run: npm run check:site
       - run: npm test
 
   # Déploiement après chaque push sur main, une fois les tests verts.

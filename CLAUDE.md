@@ -17,6 +17,7 @@ Site statique servi par GitHub Pages (racine du dépôt) et Worker Cloudflare `p
 - Offre de lancement (5 premiers clients) : encadré `.offre-lancement` sur l'accueil, `/tarifs/`, `/en/`, `/en/pricing/`. Pour le retirer partout : `--offre-lancement: none` dans `accueil.css`. Texte : 1 mois de maintenance Suivi offert (27/11/2026) (le diagnostic reste payant, 99 € : ne jamais écrire « diagnostic offert »). Pas de compteur de places.
 - Sous le tableau des tarifs (FR et EN) : « Tarifs en vigueur au [date de mise en ligne]. » Les prix augmenteront au fil des clients : mettre la date à jour à chaque changement de prix.
 - Publication 199 € (129 € un seul store) seulement pour une app déjà native (Expo, React Native, Flutter). App web (Lovable, Bolt, PWA) à transformer : « sur devis après diagnostic ». Mise à jour d'une app existante (versions Android et iOS imposées) : « sur diagnostic » (27/11/2026).
+- FAQ de l'accueil : données structurées `FAQPage` dans `<head>` de `index.html` et `en/index.html`, à garder identiques à la FAQ visible (`npm run check:site` dans `worker/`, lancé par le CI, échoue sinon).
 - Pas de comparaison non prouvée avec la concurrence (« les prix les plus bas… »).
 - Ne jamais écrire « acceptation garantie » : écrire « solde payé à l'acceptation ».
 - Pas de logo client, de chiffre ni de témoignage inventés. L'illustration du téléphone sur l'accueil est marquée « Illustration ».
@@ -30,6 +31,7 @@ Site statique servi par GitHub Pages (racine du dépôt) et Worker Cloudflare `p
 - Mesure d'audience : extrait Cloudflare Web Analytics (sans cookie) en bas de chaque page, mentionné dans `privacy.html`. Le copier sur toute nouvelle page.
 
 ## Worker (`worker/`)
+- `npm run check:site` : JSON-LD valide, FAQ visible = `FAQPage`, mêmes prix dans `/tarifs/` et `/en/pricing/`.
 - `npm test` : Vitest dans le runtime Workers, D1 local, aucun réseau. Ajouter les tests dans `worker/test/` avec les helpers de `test/helpers.js`.
 - `src/pages.js` est généré : ne jamais l'éditer à la main. Après un changement de `contact/index.html`, `tests/contact-panne/index.html` ou `contact.js` : `npm run build:pages`. `npm run check:pages` doit passer.
 - Le CI (`.github/workflows/worker.yml`) lance les deux sur chaque PR et chaque push.
