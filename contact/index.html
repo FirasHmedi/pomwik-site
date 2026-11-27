@@ -23,8 +23,10 @@
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta name="twitter:card" content="summary_large_image" />
+    <link rel="preload" href="/fonts/source-serif-4.woff2" as="font" type="font/woff2" crossorigin="" />
+    <link rel="preload" href="/fonts/ibm-plex-sans-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin="" />
     <link rel="stylesheet" href="/accueil.css" />
-    <script src="/lang.js"></script>
+    <script src="/lang.js" defer></script>
   </head>
   <body>
     <a class="skip" href="#main">Aller au contenu</a>
@@ -37,7 +39,7 @@
         <a class="nav-link" href="/#methode">Méthode</a>
         <a class="nav-link nav-keep" href="/tarifs/">Tarifs</a>
         <a class="nav-link" href="/#questions">Questions</a>
-        <a class="lang-switch" href="/en/contact/?lang=en" data-lang-switch="" lang="en" hreflang="en" aria-label="Read this page in English">EN</a>
+        <a class="lang-switch" href="/en/contact/?lang=en" data-lang-switch="" lang="en" hreflang="en" aria-label="EN, read this page in English">EN</a>
         <a class="btn btn-small" href="/contact/" aria-current="page">Pré-diagnostic<span class="wide">&nbsp;gratuit</span></a>
       </nav>
     </header>
@@ -107,7 +109,7 @@
             <option value="autre">Autre</option>
           </select>
           <label for="message">Votre app et ce qui bloque</label>
-          <textarea id="message" name="message" required="" maxlength="4000"></textarea>
+          <textarea id="message" name="message" required="" maxlength="4000" placeholder="Exemple : app de réservation faite avec Rork, refusée par Apple. Je veux la publier sur l’App Store et Google Play."></textarea>
           <input class="hp" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" />
           <button class="btn arrow" type="submit">Envoyer</button>
           <p class="msg" role="status" aria-live="polite"></p>
