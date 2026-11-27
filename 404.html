@@ -8,6 +8,7 @@
   <meta name="theme-color" content="#F6F3EE" media="(prefers-color-scheme: light)">
   <meta name="theme-color" content="#131513" media="(prefers-color-scheme: dark)">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
   <script>document.documentElement.classList.add("js")</script>
   <link rel="preload" href="/fonts/source-serif-4.woff2" as="font" type="font/woff2" crossorigin="" />
   <link rel="preload" href="/fonts/ibm-plex-sans-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin="" />
@@ -15,6 +16,7 @@
   <script src="/lang.js"></script>
 </head>
 <body>
+  <a class="skip" href="#main"><span data-lang="fr">Aller au contenu</span><span data-lang="en">Skip to content</span></a>
   <header class="nav wrap">
     <a class="brand" href="/" aria-label="Pomwik">
       <img src="/favicon.svg" alt="" width="30" height="30">
@@ -29,7 +31,7 @@
     </nav>
   </header>
 
-  <main class="prose wrap">
+  <main class="prose wrap" id="main">
     <h1><span data-lang="fr">Page introuvable</span><span data-lang="en">Page not found</span></h1>
     <p data-lang="fr">Cette adresse ne mène à aucune page. Elle a peut-être changé, ou le lien contient une faute de frappe.</p>
     <p data-lang="en">This address does not lead to any page. It may have changed, or the link has a typo.</p>
