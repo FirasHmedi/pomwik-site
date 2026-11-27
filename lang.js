@@ -1,5 +1,6 @@
 // Français / anglais.
-// Chargé dans <head>, sans defer : la bonne langue est affichée dès le premier rendu.
+// Chargé dans <head>. Pages bilingues (data-show) : sans defer, la bonne langue est affichée dès le premier rendu.
+// Pages séparées (data-alt) : avec defer, le script ne bloque pas l’affichage (il n'ajoute qu'un bandeau).
 // Deux façons de traduire une page :
 //  - les deux textes dans la page : <html data-show="fr"> et des éléments data-lang="fr" / data-lang="en"
 //    (le CSS cache l'autre langue) ;
@@ -122,7 +123,7 @@
         if (b.tagName === 'A') continue; // lien vers l'autre page : texte fixe
         b.textContent = other.toUpperCase();
         b.lang = other;
-        b.setAttribute('aria-label', other === 'fr' ? 'Lire cette page en français' : 'Read this page in English');
+        b.setAttribute('aria-label', other === 'fr' ? 'FR, lire cette page en français' : 'EN, read this page in English');
       }
     }
     label();
