@@ -1,7 +1,8 @@
 // Site checks run by the CI (no network, no dependency):
 //  - every JSON-LD block of the public pages parses;
 //  - the FAQPage JSON-LD of the home pages matches the visible FAQ (<details> in <div class="faq">);
-//  - /tarifs/ and /en/pricing/ declare the same prices in their JSON-LD.
+//  - /tarifs/ and /en/pricing/ declare the same prices in their JSON-LD;
+//  - internal links and assets exist, hreflang alternates link back.
 // Usage: node scripts/check-site.mjs
 import { readFileSync } from 'node:fs';
 
@@ -39,6 +40,37 @@ for (const page of ['index.html', 'en/index.html']) {
   const declared = ld.mainEntity.map((q) => [q.name, q.acceptedAnswer.text]);
   if (JSON.stringify(visible) !== JSON.stringify(declared)) {
     errors.push(`${page}: FAQPage JSON-LD differs from the visible FAQ. Update the JSON-LD in <head> with the same questions and answers.`);
+  }
+}
+
+// Internal links and assets: each /path (or relative path, or https://pomwik.com/path) must exist in the repo.
+const exists = (path) => {
+  let p = decodeURI(path.split('#')[0].split('?')[0]).replace(/^\//, '');
+  if (p === '' || p.endsWith('/')) p += 'index.html';
+  try { readFileSync(new URL(p, root)); return true; } catch { return false; }
+};
+for (const page of PAGES) {
+  const dir = page.includes('/') ? '/' + page.slice(0, page.lastIndexOf('/') + 1) : '/';
+  for (const [, url] of read(page).matchAll(/(?:href|src)="([^"]+)"/g)) {
+    if (/^(mailto:|#|data:)/.test(url)) continue;
+    if (/^https?:/.test(url)) {
+      if (url.startsWith('https://pomwik.com/') && !exists(url.slice('https://pomwik.com'.length))) errors.push(`${page}: broken link ${url}`);
+      continue;
+    }
+    if (!exists(url.startsWith('/') ? url : dir + url)) errors.push(`${page}: broken link ${url}`);
+  }
+}
+
+// hreflang: each alternate page links back to the page that declares it.
+for (const page of PAGES) {
+  const self = read(page).match(/<link rel="canonical" href="([^"]+)"/)?.[1];
+  for (const [, lang, href] of read(page).matchAll(/<link rel="alternate" hreflang="([^"]+)" href="([^"]+)"/g)) {
+    if (!href.startsWith('https://pomwik.com/') || href === self) continue;
+    let target = href.slice('https://pomwik.com/'.length);
+    if (target === '' || target.endsWith('/')) target += 'index.html';
+    const back = PAGES.includes(target) &&
+      [...read(target).matchAll(/<link rel="alternate" hreflang="[^"]+" href="([^"]+)"/g)].some(([, h]) => h === self);
+    if (!back) errors.push(`${page}: hreflang ${lang} -> ${href} does not link back to ${self}`);
   }
 }
 

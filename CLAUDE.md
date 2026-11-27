@@ -31,7 +31,7 @@ Site statique servi par GitHub Pages (racine du dépôt) et Worker Cloudflare `p
 - Mesure d'audience : extrait Cloudflare Web Analytics (sans cookie) en bas de chaque page, mentionné dans `privacy.html`. Le copier sur toute nouvelle page.
 
 ## Worker (`worker/`)
-- `npm run check:site` : JSON-LD valide, FAQ visible = `FAQPage`, mêmes prix dans `/tarifs/` et `/en/pricing/`.
+- `npm run check:site` : JSON-LD valide, FAQ visible = `FAQPage`, mêmes prix dans `/tarifs/` et `/en/pricing/`, liens internes et fichiers existants, `hreflang` réciproques. Nouvelle page publique : l'ajouter à `PAGES` dans `scripts/check-site.mjs`.
 - `npm test` : Vitest dans le runtime Workers, D1 local, aucun réseau. Ajouter les tests dans `worker/test/` avec les helpers de `test/helpers.js`.
 - `src/pages.js` est généré : ne jamais l'éditer à la main. Après un changement de `contact/index.html`, `tests/contact-panne/index.html` ou `contact.js` : `npm run build:pages`. `npm run check:pages` doit passer.
 - Le CI (`.github/workflows/worker.yml`) lance les deux sur chaque PR et chaque push.
